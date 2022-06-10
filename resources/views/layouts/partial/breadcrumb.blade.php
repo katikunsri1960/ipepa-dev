@@ -6,7 +6,7 @@
                 <a href="index.html">Home</a>
             </li>
             <li class="active">
-                <strong>Layouts</strong>
+                <strong>Dashboard</strong>
             </li>
         </ol>
     </div>

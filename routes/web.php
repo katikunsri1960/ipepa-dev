@@ -20,3 +20,46 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => 'auth'], function () {
+
+    // Semua Routing Administrator masuk ke sini
+    Route::group([
+        'prefix' => 'admin',
+        'middleware' => 'admin',
+        'as' => 'admin.',
+    ], function() {
+        Route::get('dashboard-admin', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard-admin');
+    });
+
+
+    // Semua Routing Admin Universitas masuk ke sini
+    Route::group([
+        'prefix' => 'admin-univ',
+        'middleware' => 'admin_univ',
+        'as' => 'admin-univ.',
+    ], function() {
+
+
+        Route::get('dashboard-admin-univ', [App\Http\Controllers\AdminUniv\DashboardController::class, 'index'])->name('dashboard-admin-univ');
+    });
+
+
+    // Semua Routing Admin Fakultas masuk ke sini
+    Route::group([
+        'prefix' => 'admin-fakultas',
+        'middleware' => 'admin_fak',
+        'as' => 'admin-fakultas.',], function() {
+
+            Route::get('dashboard-admin-fakultas', [App\Http\Controllers\AdminFakultas\DashboardController::class, 'index'])->name('dashboard-admin-fakultas');
+        });
+
+    // Semua Routing Admin Prodi masuk ke sini
+    Route::group([
+        'prefix' => 'admin-prodi',
+        'middleware' => 'admin-prodi',
+        'as' => 'admin-prodi.',], function() {
+
+            Route::get('dashboard-admin-prodi', [App\Http\Controllers\AdminProdi\DashboardController::class, 'index'])->name('dashboard-admin-prodi');
+        });
+});
