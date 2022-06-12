@@ -20,23 +20,22 @@
                     IN+
                 </div>
             </li>
-            <li class="active">
+            <li class="{{request()->routeIs('admin.dashboard-admin') ? 'active' : ''}}">
                 <a href="{{route('admin.dashboard-admin')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
-            <li>
+            {{-- <li>
                 <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
-            </li>
-            <li>
-                <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span><span class="fa arrow"></span></a>
+            </li> --}}
+            <li class="{{request()->routeIs('admin.settings.users.*') ||
+                        request()->routeIs('admin.settings.api-configs.*') ? 'active' : ''}}">
+                <a href="#"><i class="fa fa-gear"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="graph_flot.html">Flot Charts</a></li>
-                    <li><a href="graph_morris.html">Morris.js Charts</a></li>
-                    <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
-                    <li><a href="graph_chartjs.html">Chart.js</a></li>
-                    <li><a href="graph_chartist.html">Chartist</a></li>
-                    <li><a href="c3.html">c3 charts</a></li>
-                    <li><a href="graph_peity.html">Peity Charts</a></li>
-                    <li><a href="graph_sparkline.html">Sparkline Charts</a></li>
+                    <li class="{{request()->routeIs('admin.settings.users.*') ? 'active' : ''}}">
+                        <a href="{{route('admin.settings.users.index')}}"><i class="fa fa-user"></i>Users</a>
+                    </li>
+                    <li class="{{request()->routeIs('admin.settings.api-configs.*') ? 'active' : ''}}">
+                        <a href="{{route('admin.settings.api-configs.index')}}">API Configs</a>
+                    </li>
                 </ul>
             </li>
             <li>

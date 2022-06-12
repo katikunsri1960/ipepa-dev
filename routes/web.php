@@ -29,7 +29,19 @@ Route::group(['middleware' => 'auth'], function () {
         'middleware' => 'admin',
         'as' => 'admin.',
     ], function() {
+
         Route::get('dashboard-admin', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard-admin');
+
+        Route::group(
+            [
+                'prefix' => 'settings',
+                'as' => 'settings.',
+            ], function() {
+                Route::resource('/users', App\Http\Controllers\Admin\Setting\UserController::class)->except(['show']);
+                Route::resource('/api-configs', App\Http\Controllers\Admin\Setting\ApiController::class)->except(['show']);
+            }
+        );
+
     });
 
 
