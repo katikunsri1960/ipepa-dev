@@ -49,9 +49,11 @@ class ApiController extends Controller
         $this->authorize('admin');
 
         $data = $request->all();
-        
+
         $this->validate($request, [
             'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
+            'password' => 'required|string|max:255',
             'api_url' => 'required|string|max:255',
             'api_key' => 'required|string',
         ]);
@@ -84,12 +86,30 @@ class ApiController extends Controller
     {
         $this->authorize('admin');
         $data = $request->all();
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'api_url' => 'required|string|max:255',
-            'api_key' => 'required|string',]);
 
         $api_config = ApiConfig::findOrFail($id);
+
+        if ($data['password'] == '') {
+            $this->validate($request, [
+                'name' => 'required|string|max:255',
+                'username' => 'required|string|max:255',
+                'api_url' => 'required|string|max:255',
+                'api_key' => 'required|string',
+            ]);
+            
+            $data['password'] = $api_config->password;
+        } else {
+            $this->validate($request, [
+                'name' => 'required|string|max:255',
+                'username' => 'required|string|max:255',
+                'password' => 'required|string|max:255',
+                'api_url' => 'required|string|max:255',
+                'api_key' => 'required|string',
+            ]);
+            $data['password'] = bcrypt($data['password']);
+        }
+
+
         $api_config->update($data);
 
         return redirect()->route('admin.settings.api-configs.index')->with('success', 'Api Config updated successfully.');

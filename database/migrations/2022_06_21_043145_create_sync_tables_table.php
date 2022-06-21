@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('api_configs', function (Blueprint $table) {
+        Schema::create('sync_tables', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('username');
-            $table->string('password');
-            $table->string('api_url');
-            $table->text('api_key');
+            $table->string('table_name');
+            $table->string('api_path');
+            $table->datetime('last_sync')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('api_configs');
+        Schema::dropIfExists('sync_tables');
     }
 };

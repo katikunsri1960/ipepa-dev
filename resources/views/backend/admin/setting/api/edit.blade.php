@@ -35,6 +35,33 @@
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
+                        <div class="form-group"><label class="col-sm-2 control-label">Username / E-mail</label>
+                            <div class="col-sm-10">
+                                <input id="username" type="email" class="form-control @error('username') is-invalid @enderror"
+                                    name="username" value="{{ $data->username }}" required autocomplete="username" autofocus
+                                    placeholder="Name">
+
+                                @error('username')
+                                <span class="invalid-feedback text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group"><label class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-10">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                                    name="password" value="{{ old('password') }}" autocomplete="password" autofocus
+                                    placeholder="Blank if not Change">
+                                @error('password')
+                                <span class="invalid-feedback text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
                         <div class="form-group"><label class="col-sm-2 control-label">E-Mail</label>
                             <div class="col-sm-10">
                                 <input id="api_url" type="text" class="form-control @error('api_url') is-invalid @enderror"

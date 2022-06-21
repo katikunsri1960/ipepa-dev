@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('api_configs', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('username');
-            $table->string('password');
-            $table->string('api_url');
-            $table->text('api_key');
-            $table->timestamps();
+        Schema::create('pd_negara', function (Blueprint $table) {
+            $table->string('id_negara')->unique();
+            $table->primary('id_negara');
+            $table->string('nama_negara');
         });
     }
 
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('api_configs');
+        Schema::dropIfExists('pd_negara');
     }
 };

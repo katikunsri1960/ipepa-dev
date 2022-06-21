@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ApiConfig extends Model
+class SyncTable extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name', 'username', 'password','api_url', 'api_key',
+        'name',
+        'table_name',
+        'api_path',
+        'last_sync',
     ];
-
-    protected $hidden = [
-        'password',
-    ];
+    
 }

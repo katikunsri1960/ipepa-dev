@@ -23,6 +23,7 @@ class UserController extends Controller
             $users = (User::leftJoin('roles', 'users.role_id', 'roles.id')
                         ->select('users.id as id','users.name as name', 'email', 'role_id', 'username', 'roles.name as role')
                         ->get())->toJson();
+
             return $users;
 
         }
@@ -53,6 +54,7 @@ class UserController extends Controller
         $this->authorize('admin');
 
         $data = $request->all();
+        
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -72,17 +74,6 @@ class UserController extends Controller
         return redirect()->route('admin.settings.users.index')->with('success', 'User has been created');
 
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
