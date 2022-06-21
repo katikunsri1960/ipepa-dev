@@ -5,7 +5,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Add Data</h5>
+                    <h5>Edit Data</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -16,12 +16,13 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <form method="POST" class="form-horizontal" action="{{route('admin.sync.store')}}">
+                    <form method="POST" class="form-horizontal" action="{{route('admin.sync.update', $data->id)}}">
                         @csrf
+                        @method('PUT')
                         <div class="form-group"><label class="col-sm-2 control-label">Name</label>
                             <div class="col-sm-10">
                                 <input id="name" type="name" class="form-control @error('name') is-invalid @enderror"
-                                    name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
+                                    name="name" value="{{ $data->name}}" required autocomplete="name" autofocus
                                     placeholder="Name">
 
                                 @error('name')
@@ -36,7 +37,7 @@
                             <div class="col-sm-10">
                                 <input id="table_name" type="text"
                                     class="form-control @error('table_name') is-invalid @enderror" name="table_name"
-                                    value="{{ old('table_name') }}" required autocomplete="table_name" autofocus
+                                    value="{{ $data->table_name }}" required autocomplete="table_name" autofocus
                                     placeholder="table_name">
 
                                 @error('table_name')
@@ -52,7 +53,7 @@
                             <div class="col-sm-10">
                                 <input id="api_path" type="text"
                                     class="form-control @error('api_path') is-invalid @enderror" name="api_path"
-                                    value="{{ old('api_path') }}" required autocomplete="api_path" autofocus
+                                    value="{{ $data->api_path }}" required autocomplete="api_path" autofocus
                                     placeholder="api_path">
 
                                 @error('api_path')

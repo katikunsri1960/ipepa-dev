@@ -31,11 +31,9 @@ Route::group(['middleware' => 'auth'], function () {
     ], function() {
 
         Route::get('dashboard-admin', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard-admin');
-        Route::get('sync-page', [App\Http\Controllers\Admin\SyncController::class, 'index'])->name('sync-page');
-        Route::get('sync', [App\Http\Controllers\Admin\SyncController::class, 'sync'])->name('sync-data');
-        Route::get('sync-create', [App\Http\Controllers\Admin\SyncController::class, 'create'])->name('sync-create');
+        Route::get('sync-data', [App\Http\Controllers\Admin\AjaxSyncController::class, 'sync'])->name('sync-data');
 
-        Route::post('sync-store', [App\Http\Controllers\Admin\SyncController::class, 'store'])->name('sync-store');
+        Route::resource('/sync', App\Http\Controllers\Admin\SyncController::class)->except(['show']);
 
         Route::group(
             [
