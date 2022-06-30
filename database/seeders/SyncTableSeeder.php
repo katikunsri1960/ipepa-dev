@@ -60,6 +60,26 @@ class SyncTableSeeder extends Seeder
                 'name' => 'Feeder Kebutuhan Khusus',
                 'table_name' => 'pd_feeder_kebutuhan_khusus',
                 'api_path' => '/feeder/kebutuhan-khusus'
+            ],
+            [
+                'nmae' => 'Feeder Pembiayaan',
+                'table_name' => 'pd_feeder_pembiayaan',
+                'api_path' => '/feeder/pembiayaan'
+            ],
+            [
+                'nmae' => 'Feeder Jenis Daftar',
+                'table_name' => 'pd_feeder_jenis_daftar',
+                'api_path' => '/feeder/jenis-daftar'
+            ],
+            [
+                'name' => 'Feeder Jalur Masuk',
+                'table_name' => 'pd_feeder_jalur_masuk',
+                'api_path' => '/feeder/jalur-masuk'
+            ],
+            [
+                'name' => 'Feeder Program Studi',
+                'table_name' => 'pd_feeder_program_studi',
+                'api_path' => '/feeder/program-studi'
             ]
         ];
 
