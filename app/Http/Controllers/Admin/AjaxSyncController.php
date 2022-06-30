@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Sync\SyncTableRequest;
 use App\Models\SyncTable;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Schema;
 
 class AjaxSyncController extends Controller
 {
@@ -34,10 +35,26 @@ class AjaxSyncController extends Controller
                 $databases = DB::table($db['table_name']);
 
                 if ($databases->first() && $page == 0) {
+
+                    Schema::disableForeignKeyConstraints();
                     $databases->truncate();
+                    Schema::enableForeignKeyConstraints();
+
                 }
 
-                $databases->insert($response['data']);
+                if(count($response['data']) > 1000){
+                    $data = array_chunk($response['data'], 1000);
+                    
+                    foreach ($data as $dataChunk) {
+                        $databases->insert($dataChunk);
+                    }
+
+                } else {
+
+                    $databases->insert($response['data']);
+
+                }
+
 
                 $db->where('id', $db['id'])->update(['last_sync' => Carbon::now()]);
 

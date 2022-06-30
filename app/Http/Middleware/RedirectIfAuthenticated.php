@@ -6,6 +6,7 @@ use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Role;
 
 class RedirectIfAuthenticated
 {
@@ -22,8 +23,26 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
+
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+
+                if(auth()->user()->role_id == 1)
+                {
+                    return redirect(RouteServiceProvider::DASHBOARD_ADMIN);
+                }
+                else if(auth()->user()->role_id == Role::ADMIN_UNIVERSITAS)
+                {
+                    return redirect(RouteServiceProvider::DASHBOARD_UNIVERSITAS);
+                }
+                else if(auth()->user()->role_id == Role::ADMIN_FAKULTAS)
+                {
+                    return redirect(RouteServiceProvider::DASHBOARD_FAKULTAS);
+                }
+                else if(auth()->user()->role_id == 4)
+                {
+                    return redirect(RouteServiceProvider::DASHBOARD_PRODI);
+                }
+                // return redirect(RouteServiceProvider::HOME);
             }
         }
 

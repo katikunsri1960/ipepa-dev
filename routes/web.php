@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
 
@@ -71,7 +71,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Semua Routing Admin Prodi masuk ke sini
     Route::group([
         'prefix' => 'admin-prodi',
-        'middleware' => 'admin-prodi',
+        'middleware' => 'admin_prodi',
         'as' => 'admin-prodi.',], function() {
 
             Route::get('dashboard-admin-prodi', [App\Http\Controllers\AdminProdi\DashboardController::class, 'index'])->name('dashboard-admin-prodi');

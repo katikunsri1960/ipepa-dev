@@ -50,6 +50,16 @@ class SyncTableSeeder extends Seeder
                 'name' => 'Feeder Penghasilan',
                 'table_name' => 'pd_feeder_penghasilan',
                 'api_path' => '/feeder/penghasilan'
+            ],
+            [
+                'name' => 'Feeder Wilayah',
+                'table_name' => 'pd_feeder_wilayah',
+                'api_path' => '/feeder/wilayah'
+            ],
+            [
+                'name' => 'Feeder Kebutuhan Khusus',
+                'table_name' => 'pd_feeder_kebutuhan_khusus',
+                'api_path' => '/feeder/kebutuhan-khusus'
             ]
         ];
 

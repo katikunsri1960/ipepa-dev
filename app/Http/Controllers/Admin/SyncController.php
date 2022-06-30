@@ -98,5 +98,5 @@ class SyncController extends Controller
 
         return redirect()->route('admin.sync.index')->with('success', 'Data has been deleted');
     }
-    
+
 }
