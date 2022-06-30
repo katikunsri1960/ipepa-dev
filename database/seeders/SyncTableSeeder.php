@@ -80,6 +80,16 @@ class SyncTableSeeder extends Seeder
                 'name' => 'Feeder Program Studi',
                 'table_name' => 'pd_feeder_program_studi',
                 'api_path' => '/feeder/program-studi'
+            ],
+            [
+                'name' => 'Feeder Perguruan Tinggi',
+                'table_name' => 'pd_feeder_perguruan_tinggi',
+                'api_path' => '/feeder/perguruan-tinggi'
+            ],
+            [
+                'name' => 'Feeder Biodata Mahasiswa',
+                'table_name' => 'pd_feeder_biodata_mahasiswa',
+                'api_path' => '/feeder/biodata-mahasiswa'
             ]
         ];
 

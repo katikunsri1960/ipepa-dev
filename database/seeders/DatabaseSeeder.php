@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             SyncTableSeeder::class,
+            JenisMataKuliahSeeder::class,
+            KelompokMataKuliah::class,
         ]);
 
         // \App\Models\User::factory()->create([
