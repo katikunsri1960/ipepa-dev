@@ -23,31 +23,42 @@
         </div>
         @endif
         <button class="btn btn-primary" id="sync">Syncronize data</button>
+
         <div class="text-right mb-12">
             <a class="btn btn-success" href="{{route('admin.sync.create')}}">Add Data</a>
         </div>
 
-        <table class="table table-bordered table-hover" id="table-data">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Table Name</th>
-                    <th>API Path</th>
-                    <th>Last Sync</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-        </table>
+        <form id="form-table-data" action="{{route('admin.sync-data-selected')}}">
+            <button class="btn btn-danger" id="sync-selected" type="submit">Sync Selected Data</button>
+            <table class="table table-bordered table-hover" id="table-data">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Table Name</th>
+                        <th>API Path</th>
+                        <th>Last Sync</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+            </table>
+        </form>
+
     </div>
 </div>
 @endsection
 
+@push('css')
+<link href="{{asset('assets/css/plugins/dataTables/dataTables.checkboxes.min.css')}}" rel="stylesheet">
+@endpush
+
 @push('scripts')
+<script src="{{asset('assets/js/plugins/dataTables/dataTables.checkboxes.min.js')}}"></script>
 <script type="text/javascript">
 
-</script>
-<script type="text/javascript">
+
+
     $(document).ready(function() {
 
         function callProgress(id) {
@@ -73,13 +84,74 @@
             });
         }
 
+        $('#form-table-data').on('submit', function(e){
+            e.preventDefault();
+
+            var form = this;
+
+            var rows_selected = table.column(0).checkboxes.selected();
+
+            // Iterate over all selected checkboxes
+            $.each(rows_selected, function(index, rowId){
+                // Create a hidden element
+                $(form).append(
+                    $('<input>')
+                        .attr('type', 'hidden')
+                        .attr('name', 'id[]')
+                        .val(rowId)
+                );
+            });
+
+            // data = JSON.stringify(rows_selected.join(','));
+            data = $(form).serialize();
+            // Output form data to a console
+            // console.log(data);
+
+            $.ajax({
+                url: "{{ route('admin.sync-data-selected') }}" + "?id=" + data,
+                method: 'GET',
+                dataSrc: 'data',
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                },
+                success: function(data) {
+                    $("#status-message").removeClass('hidden');
+                    // console.log(data);
+                    callProgress(data.id);
+                }
+            });
+
+            // // Output form data to a console
+            // console.log($(form).serialize());
+
+            // Remove added elements
+            $('input[name="id\[\]"]', form).remove();
+
+            // Prevent actual form submission
+
+        });
+
+
+
+
+        //datatable jquery
         var table = $('#table-data').DataTable({
             processing: true,
+            pageLength: 50,
+            scrollY: 400,
+            deferRender: true,
+            scroller: true,
             ajax: {
                 url: "{{ route('admin.sync.index') }}",
                 dataSrc: "",
             },
             columns: [
+                {
+                    data: 'id',
+                    // render: function(data, type, row, meta) {
+                    //     return '<input id="checkItem" type="checkbox" class="checkbox" name="id[]" value="' + data.id + '">';
+                    // }
+                },
                 {data: null, orderable: false, sortable: false,searchable: false, render: function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }},
@@ -93,7 +165,23 @@
                     ;
                 }},
             ],
+            columnDefs: [{
+                targets: [0],
+                searchable: false,
+                sortable: false,
+                checkboxes: {
+                    selectRow: true,
+                },
+            }],
+            select: {
+                style: 'multi',
+            },
+            order: [
+                [1, 'asc']
+            ],
+
         });
+
 
 
         $("#sync").click(function(e){
@@ -118,17 +206,9 @@
                             console.log(xhr.responseText);
                         },
                         success: function(data) {
-                            console.log(data);
                             callProgress(data.id);
-
                            }
                         });
-
-
-                    $("#status-message-text").text(data);
-
-                    console.log(data);
-                    table.ajax.reload();
                 }
             });
         });

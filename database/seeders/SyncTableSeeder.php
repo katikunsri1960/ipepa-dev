@@ -90,6 +90,41 @@ class SyncTableSeeder extends Seeder
                 'name' => 'Feeder Biodata Mahasiswa',
                 'table_name' => 'pd_feeder_biodata_mahasiswa',
                 'api_path' => '/feeder/biodata-mahasiswa'
+            ],
+            [
+                'name' => 'Feeder Status Mahasiswa',
+                'table_name' => 'pd_feeder_status_mahasiswa',
+                'api_path' => '/feeder/status-mahasiswa',
+            ],
+            [
+                'name' => 'Feeder Tahun Ajaran',
+                'table_name' => 'pd_feeder_tahun_ajaran',
+                'api_path' => '/feeder/tahun-ajaran',
+            ],
+            [
+                'name' => 'Feeder Semester',
+                'table_name' => 'pd_feeder_semester',
+                'api_path' => '/feeder/semester',
+            ],
+            [
+                'name' => 'Feeder Jenis Keluar',
+                'table_name' => 'pd_feeder_jenis_keluar',
+                'api_path' => '/feeder/jenis-keluar',
+            ],
+            [
+                'name' => 'Feeder Bentuk Pendidikan',
+                'table_name' => 'pd_feeder_bentuk_pendidikan',
+                'api_path' => '/feeder/bentuk-pendidikan',
+            ],
+            [
+                'name' => 'Feeder All Prodi',
+                'table_name' => 'pd_feeder_all_prodi',
+                'api_path' => '/feeder/all-prodi',
+            ],
+            [
+                'name' => 'Feeder Profil PT',
+                'table_name' => 'pd_feeder_profil_pt',
+                'api_path' => '/feeder/profil-pt',
             ]
         ];
 

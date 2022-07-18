@@ -32,8 +32,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('dashboard-admin', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard-admin');
         Route::get('sync-data', [App\Http\Controllers\Admin\AjaxSyncController::class, 'sync'])->name('sync-data');
+        Route::get('sync-selected-data', [App\Http\Controllers\Admin\AjaxSyncController::class, 'syncSelected'])->name('sync-data-selected');
         Route::get('sync-data-process', [App\Http\Controllers\Admin\AjaxSyncController::class, 'syncProcess'])->name('sync-data-process');
-        
+
         Route::resource('/sync', App\Http\Controllers\Admin\SyncController::class)->except(['show']);
 
         Route::group(
@@ -43,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
             ], function() {
                 Route::resource('/users', App\Http\Controllers\Admin\Setting\UserController::class)->except(['show']);
                 Route::resource('/api-configs', App\Http\Controllers\Admin\Setting\ApiController::class)->except(['show']);
+                Route::resource('/frontend-configs', App\Http\Controllers\Admin\Setting\FrontendController::class)->except(['show']);
             }
         );
 

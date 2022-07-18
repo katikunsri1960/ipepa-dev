@@ -30,42 +30,127 @@ class AjaxSyncController extends Controller
 
             $batch = Bus::batch([])->dispatch();
 
-            // foreach ($dbs as $db) {
-
-            //     $batch->add(new FetchProcess($db));
-
-            // }
-
             foreach ($dbs as $db) {
 
-                $act = $db['api_path'];
-                // $act = '/feeder/biodata-mahasiswa';
-                $page = 1;
-                $service = new ApiService($act, $page);
-                $response = $service->runWs();
+                // if ($db['api_path'] == '/feeder/biodata-mahasiswa') {
 
-                // return $response;
+                // } else {
+                //     $act = $db['api_path'];
+                //     $page = 1;
+                //     $service = new ApiService($act, $page);
+                //     $response = $service->runWs();
 
-                if (Arr::exists($response, 'meta') && $response['meta']['last_page'] > 1) {
+                //     if (Arr::exists($response, 'meta') && $response['meta']['last_page'] > 1) {
 
-                    $lastpage = $response['meta']['last_page'];
+                //         $lastpage = $response['meta']['last_page'];
 
-                    for ($i=1; $i < $lastpage; $i++) {
+                //         for ($i=1; $i < $lastpage; $i++) {
+                //             $page = $i;
+                //             $batch->add(new FetchProcess($db, $page));
+                //         }
+                //     } else {
+                //         $batch->add(new FetchProcess($db, $page));
+                //     }
+                // }
 
-                        $page = $i;
-                        $batch->add(new FetchProcess($db, $page));
-                    }
+                if ($db['api_path'] == '/feeder/riwayat-pendidikan-mahasiswa') {
+                        $act = $db['api_path'];
+                        $page = 1;
+                        $service = new ApiService($act, $page);
+                        $response = $service->runWs();
 
-                } else {
+                        if (Arr::exists($response, 'meta') && $response['meta']['last_page'] > 1) {
 
-                    $batch->add(new FetchProcess($db, $page));
+                            $lastpage = $response['meta']['last_page'];
 
+                            for ($i=1; $i <= $lastpage; $i++) {
+                                $page = $i;
+                                $batch->add(new FetchProcess($db, $page));
+                            }
+                        }
                 }
+
 
             }
 
+
             return $batch;
 
+        }
+    }
+
+    public function syncSelected(Request $req)
+    {
+        $this->authorize('admin');
+
+        if ($req->ajax()) {
+
+            $selected = request('id');
+
+            $dbs = SyncTable::select(
+                'id',
+                'api_path',
+                'table_name',
+                'last_sync'
+            )->whereIn('id', $selected)->get();
+
+            $batch = Bus::batch([])->dispatch();
+
+            foreach ($dbs as $db) {
+
+                    $act = $db['api_path'];
+                    $page = 1;
+                    $service = new ApiService($act, $page);
+                    $response = $service->runWs();
+
+                    if (Arr::exists($response, 'meta') && $response['meta']['last_page'] > 1) {
+
+                        $lastpage = $response['meta']['last_page'];
+
+                        for ($i=1; $i <= $lastpage; $i++) {
+                            $page = $i;
+                            $batch->add(new FetchProcess($db, $page));
+                        }
+                    } else {
+                        $batch->add(new FetchProcess($db, $page));
+                    }
+            }
+
+            // foreach ($dbs as $db) {
+
+            //     $act = $db['api_path'];
+            //     $page = 1;
+            //     $service = new ApiService($act, $page);
+            //     $response = $service->runWs();
+
+            //     if($response){
+            //         if (Arr::exists($response, 'meta') && $response['meta']['last_page'] > 1) {
+
+            //             $lastpage = $response['meta']['last_page'];
+
+            //             for ($i=1; $i < $lastpage; $i++) {
+            //                 $page = $i;
+            //                 $batch->add(new FetchProcess($db, $page));
+            //             }
+            //         } else {
+            //             $batch->add(new FetchProcess($db, $page));
+            //         }
+            //     }
+
+            //     // if (Arr::exists($response, 'meta') && $response['meta']['last_page'] > 1) {
+
+            //     //     $lastpage = $response['meta']['last_page'];
+
+            //     //     for ($i=1; $i < $lastpage; $i++) {
+            //     //         $page = $i;
+            //     //         $batch->add(new FetchProcess($db, $page));
+            //     //     }
+            //     // } else {
+            //     //     $batch->add(new FetchProcess($db, $page));
+            //     // }
+            // }
+
+            return $batch;
         }
     }
 
