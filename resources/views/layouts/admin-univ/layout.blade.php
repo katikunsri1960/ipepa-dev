@@ -11,6 +11,8 @@
 
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
+
+    {{-- <link rel="stylesheet" href="{{asset('assets/fontawesome6/css/fontawesome.min.css')}}"> --}}
     <link href="{{asset('assets/css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"> --}}
     <!-- Toastr style -->
@@ -80,6 +82,7 @@
 
     <!-- Mainly scripts -->
     <script src="{{asset('assets/js/jquery-3.1.1.min.js')}}"></script>
+    {{-- <script src="{{asset('assets/fontawesome6/js/fontawesome.min.js')}}"></script> --}}
     {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> --}}
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>

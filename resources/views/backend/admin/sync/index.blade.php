@@ -102,10 +102,7 @@
                 );
             });
 
-            // data = JSON.stringify(rows_selected.join(','));
             data = $(form).serialize();
-            // Output form data to a console
-            // console.log(data);
 
             $.ajax({
                 url: "{{ route('admin.sync-data-selected') }}" + "?id=" + data,
@@ -121,17 +118,10 @@
                 }
             });
 
-            // // Output form data to a console
-            // console.log($(form).serialize());
-
             // Remove added elements
             $('input[name="id\[\]"]', form).remove();
 
-            // Prevent actual form submission
-
         });
-
-
 
 
         //datatable jquery
@@ -143,6 +133,7 @@
             scroller: true,
             ajax: {
                 url: "{{ route('admin.sync.index') }}",
+                method: 'GET',
                 dataSrc: "",
             },
             columns: [

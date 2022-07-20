@@ -18,9 +18,7 @@ class AjaxSyncController extends Controller
     {
         $this->authorize('admin');
 
-        //Fix dibawah
         if ($req->ajax()) {
-
             $dbs = SyncTable::select(
                 'id',
                 'api_path',
@@ -31,51 +29,28 @@ class AjaxSyncController extends Controller
             $batch = Bus::batch([])->dispatch();
 
             foreach ($dbs as $db) {
+                $act = $db['api_path'];
+                $page = 1;
+                $service = new ApiService($act, $page);
+                $response = $service->runWs();
 
-                // if ($db['api_path'] == '/feeder/biodata-mahasiswa') {
+                //cek apakah ada pagination
+                if (
+                    Arr::exists($response, 'meta') &&
+                    $response['meta']['last_page'] > 1
+                ) {
+                    $lastpage = $response['meta']['last_page'];
 
-                // } else {
-                //     $act = $db['api_path'];
-                //     $page = 1;
-                //     $service = new ApiService($act, $page);
-                //     $response = $service->runWs();
-
-                //     if (Arr::exists($response, 'meta') && $response['meta']['last_page'] > 1) {
-
-                //         $lastpage = $response['meta']['last_page'];
-
-                //         for ($i=1; $i < $lastpage; $i++) {
-                //             $page = $i;
-                //             $batch->add(new FetchProcess($db, $page));
-                //         }
-                //     } else {
-                //         $batch->add(new FetchProcess($db, $page));
-                //     }
-                // }
-
-                if ($db['api_path'] == '/feeder/riwayat-pendidikan-mahasiswa') {
-                        $act = $db['api_path'];
-                        $page = 1;
-                        $service = new ApiService($act, $page);
-                        $response = $service->runWs();
-
-                        if (Arr::exists($response, 'meta') && $response['meta']['last_page'] > 1) {
-
-                            $lastpage = $response['meta']['last_page'];
-
-                            for ($i=1; $i <= $lastpage; $i++) {
-                                $page = $i;
-                                $batch->add(new FetchProcess($db, $page));
-                            }
-                        }
+                    for ($i = 1; $i <= $lastpage; $i++) {
+                        $page = $i;
+                        $batch->add(new FetchProcess($db, $page));
+                    }
+                } else {
+                    $batch->add(new FetchProcess($db, $page));
                 }
-
-
             }
 
-
             return $batch;
-
         }
     }
 
@@ -84,7 +59,6 @@ class AjaxSyncController extends Controller
         $this->authorize('admin');
 
         if ($req->ajax()) {
-
             $selected = request('id');
 
             $dbs = SyncTable::select(
@@ -92,64 +66,32 @@ class AjaxSyncController extends Controller
                 'api_path',
                 'table_name',
                 'last_sync'
-            )->whereIn('id', $selected)->get();
+            )
+                ->whereIn('id', $selected)
+                ->get();
 
             $batch = Bus::batch([])->dispatch();
 
             foreach ($dbs as $db) {
+                $act = $db['api_path'];
+                $page = 1;
+                $service = new ApiService($act, $page);
+                $response = $service->runWs();
 
-                    $act = $db['api_path'];
-                    $page = 1;
-                    $service = new ApiService($act, $page);
-                    $response = $service->runWs();
+                if (
+                    Arr::exists($response, 'meta') &&
+                    $response['meta']['last_page'] > 1
+                ) {
+                    $lastpage = $response['meta']['last_page'];
 
-                    if (Arr::exists($response, 'meta') && $response['meta']['last_page'] > 1) {
-
-                        $lastpage = $response['meta']['last_page'];
-
-                        for ($i=1; $i <= $lastpage; $i++) {
-                            $page = $i;
-                            $batch->add(new FetchProcess($db, $page));
-                        }
-                    } else {
+                    for ($i = 1; $i <= $lastpage; $i++) {
+                        $page = $i;
                         $batch->add(new FetchProcess($db, $page));
                     }
+                } else {
+                    $batch->add(new FetchProcess($db, $page));
+                }
             }
-
-            // foreach ($dbs as $db) {
-
-            //     $act = $db['api_path'];
-            //     $page = 1;
-            //     $service = new ApiService($act, $page);
-            //     $response = $service->runWs();
-
-            //     if($response){
-            //         if (Arr::exists($response, 'meta') && $response['meta']['last_page'] > 1) {
-
-            //             $lastpage = $response['meta']['last_page'];
-
-            //             for ($i=1; $i < $lastpage; $i++) {
-            //                 $page = $i;
-            //                 $batch->add(new FetchProcess($db, $page));
-            //             }
-            //         } else {
-            //             $batch->add(new FetchProcess($db, $page));
-            //         }
-            //     }
-
-            //     // if (Arr::exists($response, 'meta') && $response['meta']['last_page'] > 1) {
-
-            //     //     $lastpage = $response['meta']['last_page'];
-
-            //     //     for ($i=1; $i < $lastpage; $i++) {
-            //     //         $page = $i;
-            //     //         $batch->add(new FetchProcess($db, $page));
-            //     //     }
-            //     // } else {
-            //     //     $batch->add(new FetchProcess($db, $page));
-            //     // }
-            // }
-
             return $batch;
         }
     }

@@ -59,6 +59,8 @@ Route::group(['middleware' => 'auth'], function () {
     ], function() {
 
         Route::get('dashboard-admin-univ', [App\Http\Controllers\AdminUniv\DashboardController::class, 'index'])->name('dashboard-admin-univ');
+        Route::get('daftar-mahasiswa', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'index'])->name('daftar-mahasiswa');
+        
     });
 
 
