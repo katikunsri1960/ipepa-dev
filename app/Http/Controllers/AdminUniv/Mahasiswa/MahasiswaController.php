@@ -6,12 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PDUnsri\Feeder\ListMahasiswa;
 use Illuminate\Support\Facades\DB;
+use App\Models\PDUnsri\Feeder\Mahasiswa\AktivitasKuliahMahasiswa as AKM;
 
 class MahasiswaController extends Controller
 {
     public function index(Request $req)
     {
         $this->authorize('admin-univ');
+
+        $mahasiswa = 
 
         $mahasiswa = ListMahasiswa::when($req->has('keyword'), function($q) use($req){
 

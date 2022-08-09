@@ -79,7 +79,7 @@ class AjaxSyncController extends Controller
                 $response = $service->runWs();
 
                 if (
-                    Arr::exists($response, 'meta') &&
+                    array_key_exists("meta", $response) &&
                     $response['meta']['last_page'] > 1
                 ) {
                     $lastpage = $response['meta']['last_page'];

@@ -33,6 +33,7 @@ class ApiService
                 'page' => $this->page,
             ],
             'http_errors' => false,
+            'verify' => false,
         ]);
 
         if ($req->getStatusCode() == 401) {
@@ -62,7 +63,8 @@ class ApiService
                 'query' => [
                     'email' => $db['username'],
                     'password' => $db['password'],
-                ]
+                ],
+                'verify' => false,
                 // 'http_errors' => false,
             ]);
 

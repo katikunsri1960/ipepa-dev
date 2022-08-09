@@ -37,14 +37,7 @@
                     <tr>
                         <td>{{$m->nama_mahasiswa}}</td>
                         <td>{{$m->nim}}</td>
-                        <td>
-                            @if($m->jenis_kelamin == 'L')
-                            Laki-laki
-                            @elseif ($m->jenis_kelamin == 'P')
-                            Perempuan
-                            @else
-                            -
-                            @endif
+                        <td>{{$m->jenis_kelamin}}
                         </td>
                         <td>{{$m->nama_agama}}</td>
                         <td class="text-center">{{$m->total_sks}}</td>
