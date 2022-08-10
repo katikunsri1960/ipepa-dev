@@ -91,6 +91,8 @@ class AjaxSyncController extends Controller
                 } else {
                     $batch->add(new FetchProcess($db, $page));
                 }
+
+                SyncTable::where('id', $db['id'])->update(['batch_id' => $batch->id]);
             }
             return $batch;
         }

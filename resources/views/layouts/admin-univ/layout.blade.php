@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Universitas Sriwijaya') }}</title>
 
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
@@ -63,11 +63,11 @@
                 <div class="row">
                     <div class="col-lg-12">
                         @yield('content')
-                        {{-- <div class="ibox float-e-margins">
+                        <!-- <div class="ibox float-e-margins">
                             <div class="ibox-content text-center p-md">
-
+                                <h1>TEST TEXT</h1>
                             </div>
-                        </div> --}}
+                        </div> -->
                     </div>
                 </div>
 

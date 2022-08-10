@@ -14,6 +14,7 @@ class SyncTable extends Model
         'table_name',
         'api_path',
         'last_sync',
+        'batch_id',
     ];
     
 }
