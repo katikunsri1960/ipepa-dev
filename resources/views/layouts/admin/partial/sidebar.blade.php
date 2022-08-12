@@ -24,7 +24,7 @@
                 <a href="{{route('admin.dashboard-admin')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
             <li class="{{request()->routeIs('admin.sync') ? 'active' : ''}}">
-                <a href="{{ route('admin.sync.index') }}"><i class="fa fa-th-large"></i> <span class="nav-label">Syncronize Page</span></a>
+                <a href="{{ route('admin.sync.index') }}"><i class="fa fa-refresh"></i> <span class="nav-label">Syncronize Page</span></a>
             </li>
             {{-- <li>
                 <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>

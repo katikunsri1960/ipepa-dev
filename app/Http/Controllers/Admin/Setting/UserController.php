@@ -26,7 +26,9 @@ class UserController extends Controller
         if ($request->ajax()) {
 
             $users = (User::leftJoin('roles', 'users.role_id', 'roles.id')->leftJoin('roles_users as ru', 'users.id', 'ru.user_id')
-                        ->select('users.id as id','users.name as name', 'email', 'role_id', 'username', 'roles.name as role')
+                        ->leftJoin('pd_feeder_program_studi as ps', 'ru.fak_prod_id', 'ps.id_prodi')
+                        ->select('users.id as id','users.name as name', 'email', 'users.role_id as role_id', 'username', 'roles.name as role', 
+                                'ps.nama_jenjang_pendidikan as jenjang', 'ps.nama_program_studi as prodi')
                         ->get())->toJson();
 
             return $users;

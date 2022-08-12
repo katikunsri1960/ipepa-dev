@@ -12,11 +12,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">FEEDER UNSRI</a>
+                <!-- <img src="/unsri_icon.png" alt="icon"> -->
+                <a class="navbar-brand" href="index.html"> <span><img src="/unsri_icon.png" width="20 pt">   </span>FEEDER UNSRI</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a class="page-scroll" href="#page-top">Home</a></li>
+                    <li><a class="page-scroll" href="#page-top">Beranda</a></li>
                     <li><a class="page-scroll" href="#features">Fakultas</a></li>
                     <li><a class="page-scroll" href="#team">Program Studi</a></li>
                     <!-- <li><a class="page-scroll" href="#testimonials">Testimonials</a></li>
@@ -51,8 +52,8 @@
                 </div>
             </div>
             <!-- Set background for slide in css -->
-            <div class="header-back two"></div>
-            <img alt="image1"  class="img-fluid" src="carousel_1.jpg" >
+            <div class="header-back one"></div>
+            <!-- <img alt="image1"  class="img-fluid" src="carousel_1.jpg" > -->
         </div>
 
         <div class="item">
@@ -68,7 +69,7 @@
             <!-- Set background for slide in css -->
 
             <div class="header-back two"></div>
-            <img alt="image2"  class="img-responsive" src="carousel_2.jpg" >
+            <!-- <img alt="image2"  class="img-responsive" src="carousel_2.jpg" > -->
         </div>
     </div>
 

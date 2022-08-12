@@ -21,10 +21,11 @@ class ProfilPTController extends Controller
 
         $data_prodi = ProgramStudi::select('*')->orderBy('kode_program_studi', 'ASC')->get();
 
-        foreach($data_prodi as $prodi){
-            $mahasiswa = ListMahasiswa::select('id_mahasiswa')->where('id_prodi',$prodi->id_prodi)->where('id_periode','20211')->get();
+        foreach(json_decode($data_prodi, true) as $prodi){
+            $mahasiswa[] = DB::table('pd_feeder_list_mahasiswa')->select(DB::raw('count(id_mahasiswa) as jumlah_mahasiswa'))->where('id_prodi',$prodi['id_prodi'])->where('id_periode','20211')->get();
         }
-        dd($mahasiswa);
+        // dd($mahasiswa);
+
 
         return view('backend.univ.profil_pt.index', compact('profil_pt','data_prodi','mahasiswa'));
     }

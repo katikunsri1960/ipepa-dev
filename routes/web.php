@@ -82,5 +82,6 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'admin-prodi.',], function() {
 
             Route::get('dashboard-admin-prodi', [App\Http\Controllers\AdminProdi\DashboardController::class, 'index'])->name('dashboard-admin-prodi');
+            Route::get('daftar-mahasiswa', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'index'])->name('daftar-mahasiswa');
         });
 });

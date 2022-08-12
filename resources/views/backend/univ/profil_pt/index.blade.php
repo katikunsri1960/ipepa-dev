@@ -198,7 +198,8 @@
                                                                 <td>{{$prodi->nama_program_studi}}</td>
                                                                 <td>{{$prodi->status}}</td>
                                                                 <td>{{$prodi->nama_jenjang_pendidikan}}</td>
-                                                                <td></td>
+                                                                @foreach ($mahasiswa as $mhs)
+                                                                <td>{{$mhs[0]->jumlah_mahasiswa}}</td>
                                                                 <td></td>
                                                             </tr>
                                                             @endforeach

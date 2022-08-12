@@ -1,4 +1,4 @@
-@extends('layouts.admin-fak.layout')
+@extends('layouts.admin-prodi.layout')
 @section('content')
 TEslasdjk;falj;
 @endsection

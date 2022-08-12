@@ -27,15 +27,4 @@ class ListMahasiswa extends Model
         );
     }
 
-    public function scopeSearch($keyword)
-    {
-        return $this->where(function($query) use($keyword){
-            $query->where('nama_mahasiswa', 'like', '%'.$keyword.'%')
-                ->orWhere('nim', 'like', '%'.$keyword.'%')
-                ->orWhere('nama_program_studi', 'like', '%'.$keyword.'%');
-        });
-    }
-
-
-
 }

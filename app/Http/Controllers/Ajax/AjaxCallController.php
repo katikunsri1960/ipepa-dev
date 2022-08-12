@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class AjaxCallController extends Controller
 {
-    //
+    public function prodi(Request $req)
+    {
+        # code...
+    }
 }
