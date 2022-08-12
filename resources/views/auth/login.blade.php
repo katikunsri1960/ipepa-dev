@@ -3,19 +3,16 @@
 @section('content')
 
 <div class="middle-box text-center loginscreen animated fadeInDown">
-    <div>
-        <div class="m-t-5">
-
+    <div class="p-h-xl">
+        <div class="m-t-xl">
             <!-- <h1 class="logo-name" src="/unsri-logo-50.png">UNSRI</h1> -->
-            <img src="/unsri-logo-50.png" alt=""><br/><br/>           
+            <img src="/unsri_icon.png" alt=""><br/><br/>
         </div>
         <h3>Welcome to Dashboard Feeder<br/>
-Universitas Sriwijaya
-
-</h3>
+            Universitas Sriwijaya</h3>
         <p>Login in. To see it in action.</p>
-        
-        
+
+
         <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-group">

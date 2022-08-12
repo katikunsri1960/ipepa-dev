@@ -5,33 +5,39 @@
                         <div class="col-lg-12">
                             <div class="widget lazur-bg p-xl">
                                 <h2>Profil Perguruan Tinggi</h2><br>
-                                <h2><strong>{{$profil_pt[0]['nama_perguruan_tinggi']}}</strong></h2>
-                                <ul class="list-unstyled m-t-md">
-                                    <li>
-                                        <span><i class="fa fa-id-card"></i></span>
-                                        <label><h3>Kode PT : {{$profil_pt[0]['kode_perguruan_tinggi']}}</h3></label>
-                                    </li>
-                                    <li>
-                                        <span><i class="fa fa-user"></i></span>
-                                        <label><h3>Nama PT : {{$profil_pt[0]['nama_perguruan_tinggi']}}</h3></label>
-                                    </li>
-                                    <li>
-                                        <span><i class="fa fa-phone"></i></span>
-                                        <label><h3>Telephone : {{$profil_pt[0]['telepon']}}</h3></label>
-                                    </li>
-                                    <li>
-                                        <span><i class="fa fa-fax"></i></span>
-                                        <label><h3>Faximile : {{$profil_pt[0]['faximile']}}</h3></label>
-                                    </li>
-                                    <li>
-                                        <span><i class="fa fa-envelope"></i></span>
-                                        <label><h3>Email : {{$profil_pt[0]['email']}}</h3></label>
-                                    </li>
-                                    <li>
-                                        <span><i class="fa fa-link"></i></span>
-                                        <label><h3>Website : {{$profil_pt[0]['website']}}</h3></label>
-                                    </li>
-                                </ul>
+                                <h2><strong>{{$profil_pt[0]['nama_perguruan_tinggi']}}</strong></h2><br>
+                                <table class="table">
+                                    <tr>
+                                        <td class="col-md-2"><span><h3><i class="fa fa-id-card"></i> Kode PT</h3></span><td>
+                                        <td><h3> : </h3></td>
+                                        <td class="col-md-10"><h3>{{$profil_pt[0]['kode_perguruan_tinggi']}}</h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2"><span><h3><i class="fa fa-user"></i> Nama PT</h3></span><td>
+                                        <td><h3> : </h3></td>
+                                        <td class="col-md-10"><h3>{{$profil_pt[0]['nama_perguruan_tinggi']}}</h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2"><span><h3><i class="fa fa-phone"></i> Telephone</h3></span><td>
+                                        <td><h3> : </h3></td>
+                                        <td class="col-md-10"><h3>{{$profil_pt[0]['telepon']}}</h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2"><span><h3><i class="fa fa-fax"></i> Faximile</h3></span><td>
+                                        <td><h3> : </h3></td>
+                                        <td class="col-md-10"><h3>{{$profil_pt[0]['faximile']}}</h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2"><span><h3><i class="fa fa-envelope"></i> Email</h3></span><td>
+                                        <td><h3> : </h3></td>
+                                        <td class="col-md-10"><h3>{{$profil_pt[0]['email']}}</h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-2"><span><h3><i class="fa fa-link"></i> Website</h3></span><td>
+                                        <td><h3> : </h3></td>
+                                        <td class="col-md-10"><h3>{{$profil_pt[0]['website']}}</h3></td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -184,9 +190,18 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            @php $no = 1; @endphp
+                                                            @foreach ($data_prodi as $prodi)
                                                             <tr>
+                                                                <td>{{$no++}}</td>
+                                                                <td>{{$prodi->kode_program_studi}}</td>
+                                                                <td>{{$prodi->nama_program_studi}}</td>
+                                                                <td>{{$prodi->status}}</td>
+                                                                <td>{{$prodi->nama_jenjang_pendidikan}}</td>
+                                                                <td></td>
                                                                 <td></td>
                                                             </tr>
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>

@@ -38,6 +38,7 @@
     <div class="carousel-inner" role="listbox">
         <div class="item active">
             <div class="container">
+                <!-- <img alt="image"  class="img-responsive" src="carousel_1.jpg"> -->
                 <div class="carousel-caption">
                     <h1>Selamat Datang<br />
                         Di Universitas Sriwijaya<br />
@@ -45,17 +46,15 @@
                     <p>Lorem Ipsum is simply dummy text of the printing.</p>
                     <p>
                         <a class="btn btn-lg btn-primary" href="#" role="button">READ MORE</a>
-                        <a class="caption-link" href="#" role="button">Inspinia Theme</a>
+                        <!-- <a class="caption-link" href="#" role="button">Inspinia Theme</a> -->
                     </p>
-                </div>
-                <div class="carousel-image wow zoomIn">
-                    <img src="assets/data.png" alt="" />
                 </div>
             </div>
             <!-- Set background for slide in css -->
-            <div class="header-back one"></div>
-
+            <div class="header-back two"></div>
+            <img alt="image1"  class="img-fluid" src="carousel_1.jpg" >
         </div>
+
         <div class="item">
             <div class="container">
                 <div class="carousel-caption blank">
@@ -63,14 +62,16 @@
                         Di Universitas Sriwijaya<br />
                         Data Feeder<br />
                     <p>Lorem Ipsum is simply dummy text of the printing.</p>
-                    <p>
                     <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
                 </div>
             </div>
             <!-- Set background for slide in css -->
+
             <div class="header-back two"></div>
+            <img alt="image2"  class="img-responsive" src="carousel_2.jpg" >
         </div>
     </div>
+
     <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>

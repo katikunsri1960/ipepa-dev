@@ -3,6 +3,7 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
@@ -29,6 +30,7 @@ class StoreUserRequest extends FormRequest
             'username' => 'required|string|max:255|unique:users',
             'password' => 'required|confirmed|string|min:6',
             'role_id' => 'required|integer',
+            'fak_prodi' => [Rule::requiredIf($this->role_id == 4), 'nullable','string', 'max:255'],
         ];
     }
 }
