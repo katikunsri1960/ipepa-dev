@@ -34,7 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('sync-data', [App\Http\Controllers\Admin\AjaxSyncController::class, 'sync'])->name('sync-data');
         Route::get('sync-selected-data', [App\Http\Controllers\Admin\AjaxSyncController::class, 'syncSelected'])->name('sync-data-selected');
         Route::get('sync-data-process', [App\Http\Controllers\Admin\AjaxSyncController::class, 'syncProcess'])->name('sync-data-process');
-
+        //get model prodi by ajax
+        Route::get('fak-prodi', [App\Http\Controllers\Admin\AjaxSyncController::class, 'prodiId'])->name('get-fak-prodi');
         Route::resource('/sync', App\Http\Controllers\Admin\SyncController::class)->except(['show']);
 
         Route::group(

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Bus;
 use App\Jobs\FetchProcess;
 use App\Services\ApiService;
 use Illuminate\Support\Arr;
+use App\Models\PDUnsri\Feeder\ProgramStudi;
 
 class AjaxSyncController extends Controller
 {
@@ -103,6 +104,14 @@ class AjaxSyncController extends Controller
         if ($req->ajax()) {
             $batchId = request('id');
             return Bus::findBatch($batchId);
+        }
+    }
+
+    public function prodiId(Request $req)
+    {
+        if($req->ajax()){
+            $data = ProgramStudi::all();
+            return $data;
         }
     }
 }

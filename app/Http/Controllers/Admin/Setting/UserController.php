@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\User\StoreUserRequest;
+
 
 class UserController extends Controller
 {
@@ -49,30 +52,13 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         $this->authorize('admin');
 
-        $data = $request->all();
-        
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'username' => 'required|string|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'role_id' => 'required|integer',
-        ]);
-
-        $user = new User;
-        $user->name = $data['name'];
-        $user->email = $data['email'];
-        $user->username = $data['username'];
-        $user->password = bcrypt($data['password']);
-        $user->role_id = $data['role_id'];
-        $user->save();
+        User::create($request->validated());
 
         return redirect()->route('admin.settings.users.index')->with('success', 'User has been created');
-
 
     }
 
@@ -113,7 +99,9 @@ class UserController extends Controller
                 'role_id' => 'required|integer',
             ]);
             $data['password'] = $user->password;
+
         } else {
+
             $this->validate($request, [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255',
@@ -121,7 +109,9 @@ class UserController extends Controller
                 'password' => 'required|string|min:6|confirmed',
                 'role_id' => 'required|integer',
             ]);
-            $data['password'] = bcrypt($data['password']);
+
+            $data['password'] = $data['password'];
+
         }
 
         $user->update($data);

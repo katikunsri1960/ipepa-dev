@@ -16,7 +16,7 @@
                 <a href="{{route('admin-univ.dashboard-admin-univ')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
             <li class="{{request()->routeIs('admin-univ.profil-pt') ? 'active' : ''}}">
-                <a href="{{route('admin-univ.profil-pt')}}"><i class="fa fa-university"></i> <span class="nav-label">Profil Universitas</span></a>
+                <a href="{{route('admin-univ.profil-pt')}}"><i class="fa fa-user-circle"></i> <span class="nav-label">Profil</span></a>
             </li>
             <li  class="{{request()->routeIs('admin-univ.daftar-mahasiswa') ? 'active' : ''}}">
                 <a href=""><i class="fa fa-graduation-cap"></i> <span class="nav-label">Mahasiswa</span><span class="fa arrow"></span></a>

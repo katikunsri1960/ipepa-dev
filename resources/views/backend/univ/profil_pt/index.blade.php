@@ -1,320 +1,248 @@
-@extends('layouts.admin-univ.layout')
+@extends('layouts.admin-univ.layout_profilpt')
 @section('content')
-<div class="wrapper wrapper-content animated fadeIn">
-
-                <div class="p-w-md m-t-sm">
-                    <div class="row">
-
-                        <div class="col-sm-4">
-                            <h1 class="m-b-xs">
-                                26,900
-                            </h1>
-                            <small>
-                                Sales in current month
-                            </small>
-                            <div id="sparkline1" class="m-b-sm"></div>
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <small class="stats-label">Pages / Visit</small>
-                                    <h4>236 321.80</h4>
-                                </div>
-
-                                <div class="col-xs-4">
-                                    <small class="stats-label">% New Visits</small>
-                                    <h4>46.11%</h4>
-                                </div>
-                                <div class="col-xs-4">
-                                    <small class="stats-label">Last week</small>
-                                    <h4>432.021</h4>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-sm-4">
-                            <h1 class="m-b-xs">
-                                98,100
-                            </h1>
-                            <small>
-                                Sales in last 24h
-                            </small>
-                            <div id="sparkline2" class="m-b-sm"></div>
-                            <div class="row">
-                                <div class="col-xs-4">
-                                    <small class="stats-label">Pages / Visit</small>
-                                    <h4>166 781.80</h4>
-                                </div>
-
-                                <div class="col-xs-4">
-                                    <small class="stats-label">% New Visits</small>
-                                    <h4>22.45%</h4>
-                                </div>
-                                <div class="col-xs-4">
-                                    <small class="stats-label">Last week</small>
-                                    <h4>862.044</h4>
-                                </div>
-                            </div>
-
-
-                        </div>
-                        <div class="col-sm-4">
-
-                            <div class="row m-t-xs">
-                                <div class="col-xs-6">
-                                    <h5 class="m-b-xs">Income last month</h5>
-                                    <h1 class="no-margins">160,000</h1>
-                                    <div class="font-bold text-navy">98% <i class="fa fa-bolt"></i></div>
-                                </div>
-                                <div class="col-xs-6">
-                                    <h5 class="m-b-xs">Sals current year</h5>
-                                    <h1 class="no-margins">42,120</h1>
-                                    <div class="font-bold text-navy">98% <i class="fa fa-bolt"></i></div>
-                                </div>
-                            </div>
-
-
-                            <table class="table small m-t-sm">
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <strong>142</strong> Projects
-
-                                    </td>
-                                    <td>
-                                        <strong>22</strong> Messages
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>61</strong> Comments
-                                    </td>
-                                    <td>
-                                        <strong>54</strong> Articles
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>154</strong> Companies
-                                    </td>
-                                    <td>
-                                        <strong>32</strong> Clients
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-
-
-
-                        </div>
-
-                    </div>
-
+            <div class="wrapper wrapper-content">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="small pull-left col-md-3 m-l-lg m-t-md">
-                                <strong>Sales char</strong> have evolved over the years sometimes.
-                            </div>
-                            <div class="small pull-right col-md-3 m-t-md text-right">
-                                <strong>There are many</strong> variations of passages of Lorem Ipsum available, but the majority have suffered.
-                            </div>
-                            <div class="flot-chart m-b-xl">
-                                <div class="flot-chart-content" id="flot-dashboard5-chart"></div>
+                            <div class="widget lazur-bg p-xl">
+                                <h2>Profil Perguruan Tinggi</h2><br>
+                                <h2><strong>{{$profil_pt[0]['nama_perguruan_tinggi']}}</strong></h2>
+                                <ul class="list-unstyled m-t-md">
+                                    <li>
+                                        <span><i class="fa fa-id-card"></i></span>
+                                        <label><h3>Kode PT : {{$profil_pt[0]['kode_perguruan_tinggi']}}</h3></label>
+                                    </li>
+                                    <li>
+                                        <span><i class="fa fa-user"></i></span>
+                                        <label><h3>Nama PT : {{$profil_pt[0]['nama_perguruan_tinggi']}}</h3></label>
+                                    </li>
+                                    <li>
+                                        <span><i class="fa fa-phone"></i></span>
+                                        <label><h3>Telephone : {{$profil_pt[0]['telepon']}}</h3></label>
+                                    </li>
+                                    <li>
+                                        <span><i class="fa fa-fax"></i></span>
+                                        <label><h3>Faximile : {{$profil_pt[0]['faximile']}}</h3></label>
+                                    </li>
+                                    <li>
+                                        <span><i class="fa fa-envelope"></i></span>
+                                        <label><h3>Email : {{$profil_pt[0]['email']}}</h3></label>
+                                    </li>
+                                    <li>
+                                        <span><i class="fa fa-link"></i></span>
+                                        <label><h3>Website : {{$profil_pt[0]['website']}}</h3></label>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
-
-
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="ibox">
-
-
-
                                 <div class="ibox-content">
-
                                     <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="control-label" for="product_name">Project Name</label>
-                                                <input type="text" id="product_name" name="product_name" value="" placeholder="Project Name" class="form-control">
+                                    <div class="tabs-container">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a data-toggle="tab" href="#tab-1"> Alamat</a></li>
+                                            <li class=""><a data-toggle="tab" href="#tab-2">Informasi PT</a></li>
+                                            <li class=""><a data-toggle="tab" href="#tab-3">Akta Pendirian</a></li>
+                                            <li class=""><a data-toggle="tab" href="#tab-4">Program Studi</a></li>
+                                            <li class=""><a data-toggle="tab" href="#tab-5">Perubahan Perguruan Tinggi</a></li>
+                                            <li class=""><a data-toggle="tab" href="#tab-6">Perubahan Program Studi</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div id="tab-1" class="tab-pane active">
+                                                <div class="panel-body">
+                                                    <table class="table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="col-md-2">Jalan</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['jalan']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Dusun</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['dusun']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Kelurahan</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['kelurahan']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Kecamatan</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['nama_wilayah']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Lintang Bujur</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['lintang_bujur']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">RT / RW</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['rt_rw']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Kode Pos</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['kode_pos']}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group">
-                                                <label class="control-label" for="price">Name</label>
-                                                <input type="text" id="price" name="price" value="" placeholder="Name" class="form-control">
+                                            <div id="tab-2" class="tab-pane">
+                                                <div class="panel-body">
+                                                    <table class="table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="col-md-2">Bank</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['bank']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Unit Cabang</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['unit_cabang']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Nomor Rekening</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['nomor_rekening']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">MBS</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['mbs']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Luas Tanah Milik</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['luas_tanah_milik']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Luas Tanah Bukan Milik</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['luas_tanah_bukan_milik']}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="form-group">
-                                                <label class="control-label" for="quantity">Company</label>
-                                                <input type="text" id="quantity" name="quantity" value="" placeholder="Company" class="form-control">
+                                            <div id="tab-3" class="tab-pane">
+                                                <div class="panel-body">
+                                                    <table class="table">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="col-md-2">No SK Pendirian</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['sk_pendirian']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Tanggal SK Pendirian</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['tanggal_sk_pendirian']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Status Kepemilikan</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['nama_status_milik']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Status Perguruan Tinggi</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['status_perguruan_tinggi']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">SK Izin Operasional</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['sk_izin_operasional']}}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="col-md-2">Tanggal Izin Operasional</td>
+                                                                <td> : </td>
+                                                                <td class="col-md-10">{{$profil_pt[0]['tanggal_izin_operasional']}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="control-label" for="status">Status</label>
-                                                <select name="status" id="status" class="form-control">
-                                                    <option value="1" selected="">Completed</option>
-                                                    <option value="0">Pending</option>
-                                                </select>
+                                            <div id="tab-4" class="tab-pane">
+                                                <div class="panel-body">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>No</td>
+                                                                <td>Kode Prodi</td>
+                                                                <td>Nama Program Studi</td>
+                                                                <td>Status</td>
+                                                                <td>Jenjang</td>
+                                                                <td>Jumlah Mahasiswa</td>
+                                                                <td>Jumlah Dosen</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div id="tab-5" class="tab-pane">
+                                                <div class="panel-body">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>Lembaga Lama</td>
+                                                                <td>Singkatan Lama</td>
+                                                                <td>Wilayah Lama</td>
+                                                                <td>Lintang Lama</td>
+                                                                <td>Lembaga Baru</td>
+                                                                <td>Singkatan Baru</td>
+                                                                <td>Wilayah Baru</td>
+                                                                <td>Lintang Baru</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-center" colspan="8">Data Tidak Tersedia</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div id="tab-6" class="tab-pane">
+                                                <div class="panel-body">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>Prodi Lama</td>
+                                                                <td>Singkatan Lama</td>
+                                                                <td>Wilayah Lama</td>
+                                                                <td>Lintang Lama</td>
+                                                                <td>Prodi Baru</td>
+                                                                <td>Singkatan Baru</td>
+                                                                <td>Wilayah Baru</td>
+                                                                <td>Lintang Baru</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-center" colspan="8">Data Tidak Tersedia</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-
-                                            <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Master project</td>
-                                                <td>Patrick Smith</td>
-                                                <td>$892,074</td>
-                                                <td>Inceptos Hymenaeos Ltd</td>
-                                                <td><strong>20%</strong></td>
-                                                <td>Jul 14, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Alpha project</td>
-                                                <td>Alice Jackson</td>
-                                                <td>$963,486</td>
-                                                <td>Nec Euismod In Company</td>
-                                                <td><strong>40%</strong></td>
-                                                <td>Jul 16, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Betha project</td>
-                                                <td>John Smith</td>
-                                                <td>$996,824</td>
-                                                <td>Erat Volutpat</td>
-                                                <td><strong>75%</strong></td>
-                                                <td>Jul 18, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Gamma project</td>
-                                                <td>Anna Jordan</td>
-                                                <td>$105,192</td>
-                                                <td>Tellus Ltd</td>
-                                                <td><strong>18%</strong></td>
-                                                <td>Jul 22, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Alpha project</td>
-                                                <td>Alice Jackson</td>
-                                                <td>$674,803</td>
-                                                <td>Nec Euismod In Company</td>
-                                                <td><strong>40%</strong></td>
-                                                <td>Jul 16, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Master project</td>
-                                                <td>Patrick Smith</td>
-                                                <td>$174,729</td>
-                                                <td>Inceptos Hymenaeos Ltd</td>
-                                                <td><strong>20%</strong></td>
-                                                <td>Jul 14, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Gamma project</td>
-                                                <td>Anna Jordan</td>
-                                                <td>$823,198</td>
-                                                <td>Tellus Ltd</td>
-                                                <td><strong>18%</strong></td>
-                                                <td>Jul 22, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Project <small>This is example of project</small></td>
-                                                <td>Patrick Smith</td>
-                                                <td>$778,696</td>
-                                                <td>Inceptos Hymenaeos Ltd</td>
-                                                <td><strong>20%</strong></td>
-                                                <td>Jul 14, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Alpha project</td>
-                                                <td>Alice Jackson</td>
-                                                <td>$861,063</td>
-                                                <td>Nec Euismod In Company</td>
-                                                <td><strong>40%</strong></td>
-                                                <td>Jul 16, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Betha project</td>
-                                                <td>John Smith</td>
-                                                <td>$109,125</td>
-                                                <td>Erat Volutpat</td>
-                                                <td><strong>75%</strong></td>
-                                                <td>Jul 18, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Gamma project</td>
-                                                <td>Anna Jordan</td>
-                                                <td>$600,978</td>
-                                                <td>Tellus Ltd</td>
-                                                <td><strong>18%</strong></td>
-                                                <td>Jul 22, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Alpha project</td>
-                                                <td>Alice Jackson</td>
-                                                <td>$150,161</td>
-                                                <td>Nec Euismod In Company</td>
-                                                <td><strong>40%</strong></td>
-                                                <td>Jul 16, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Project <small>This is example of project</small></td>
-                                                <td>Patrick Smith</td>
-                                                <td>$160,586</td>
-                                                <td>Inceptos Hymenaeos Ltd</td>
-                                                <td><strong>20%</strong></td>
-                                                <td>Jul 14, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Gamma project</td>
-                                                <td>Anna Jordan</td>
-                                                <td>$110,612</td>
-                                                <td>Tellus Ltd</td>
-                                                <td><strong>18%</strong></td>
-                                                <td>Jul 22, 2015</td>
-                                                <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-</div>
+            </div>
 @endsection
