@@ -127,11 +127,6 @@ class SyncTableSeeder extends Seeder
                 'api_path' => '/feeder/profil-pt',
             ],
             [
-                'name' => 'Feeder Riwayat Pendidikan Mahasiswa',
-                'table_name' => 'pd_feeder_riwayat_pendidikan_mahasiswa',
-                'api_path' => '/feeder/riwayat-pendidikan-mahasiswa',
-            ],
-            [
                 'name' => 'Feeder List Mahasiswa',
                 'table_name' => 'pd_feeder_list_mahasiswa',
                 'api_path' => '/feeder/list-mahasiswa',
@@ -165,6 +160,11 @@ class SyncTableSeeder extends Seeder
                 'name' => 'Feeder Detail Penugasan Dosen',
                 'table_name' => 'pd_feeder_detail_penugasan_dosen',
                 'api_path' => '/feeder/detail-penugasan-dosen',
+            ],
+            [
+                'name' => 'Feeder List Riwayat Pendidikan Mahasiswa',
+                'table_name' => 'pd_feeder_list_riwayat_pendidikan_mahasiswa',
+                'api_path' => '/feeder/list-riwayat-pendidikan-mahasiswa',
             ]
         ];
 
