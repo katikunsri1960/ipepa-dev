@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('pd_feeder_list_mahasiswa', function (Blueprint $table) {
             $table->string("id_mahasiswa")->nullable();
+            $table->index('id_mahasiswa', 'idx_id_mahasiswa');
             $table->string("nama_mahasiswa")->nullable();
             $table->string("jenis_kelamin")->nullable();
             $table->date("tanggal_lahir")->nullable();

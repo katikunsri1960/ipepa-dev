@@ -19,8 +19,8 @@ class UserSeeder extends Seeder
             'name' => 'Admininstrator',
             'username' => 'admin',
             'role_id' => 1,
-            'email' => 'chandraes@unsri.ac.id',
-            'password' => bcrypt('segitiga')
+            'email' => 'admin@unsri.ac.id',
+            'password' => bcrypt('admin123')
         ]);
 
         User::create([

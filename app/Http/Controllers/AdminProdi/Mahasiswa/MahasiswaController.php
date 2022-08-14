@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PDUnsri\Feeder\ListMahasiswa;
 use App\Models\PDUnsri\Feeder\BiodataMahasiswa;
-use App\Models\PDUnsri\Feeder\Mahasiswa\AktivitasKuliahMahasiswa;
+use App\Models\PDUnsri\Feeder\Mahasiswa\AktivitasKuliahMahasiswa as AKM;
+use App\Models\PDUnsri\Feeder\Mahasiswa\ListRiwayatPendidikanMahasiswa as ListRPM;
 use App\Models\RolesUser;
 
 class MahasiswaController extends Controller
@@ -46,6 +47,29 @@ class MahasiswaController extends Controller
 
         // $aktivitas = AktivitasKuliahMahasiswa::where('id_mahasiswa', $id)->get();
         return view('backend.prodi.mahasiswa.detail-mahasiswa', compact('mahasiswa'));
+    }
+
+    public function histori($id)
+    {
+        $this->authorize('admin-prodi');
+
+        $mahasiswa = BiodataMahasiswa::where('id_mahasiswa', $id)
+                    ->select('id_mahasiswa','nama_mahasiswa', 'tempat_lahir', 'jenis_kelamin', 'tanggal_lahir', 'nama_agama')->first();
+
+        $riwayat = ListRPM::where('id_mahasiswa', $id)
+                ->select('nim', 'nama_jenis_daftar', 'nama_periode_masuk', 'tanggal_daftar', 'nama_program_studi', 'nama_perguruan_tinggi')->get();
+        // dd($riwayat);
+
+        return view('backend.prodi.mahasiswa.histori-pendidikan', compact('mahasiswa', 'riwayat'));
+    }
+
+    public function aktivitas($id)
+    {
+        $this->authorize('admin-prodi');
+        $mahasiswa = ListMahasiswa::where('id_mahasiswa', $id)->select('id_mahasiswa', 'nama_mahasiswa', 'nim', 'nama_program_studi', 'id_periode as angkatan')->first();
+        $aktivitas = AKM::where('id_mahasiswa', $id)->select('nama_semester', 'nama_status_mahasiswa', 'ips', 'ipk', 'sks_semester', 'sks_total')->get();
+
+        return view('backend.prodi.mahasiswa.aktivitas-perkuliahan', compact('mahasiswa', 'aktivitas'));
     }
 
 }
