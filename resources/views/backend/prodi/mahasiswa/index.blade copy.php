@@ -41,14 +41,7 @@
                         <td class="text-center">{{$data->nim}}</td>
                         <td class="text-center">{{$data->jenis_kelamin}}</td>
                         <td class="text-center">{{$data->nama_agama}}</td>
-                        <td class="text-center">
-                            @if (!empty($data->total))
-                                {{$data->total}}
-                            @else
-                            0
-                            @endif
-
-                        </td>
+                        <td class="text-center">{{$data->total_sks}}</td>
                         <td class="text-center">{{$data->tanggal_lahir}}</td>
                         <td class="text-center">{{$data->nama_program_studi}}</td>
                         <td class="text-center">{{$data->nama_status_mahasiswa}}</td>

@@ -86,7 +86,7 @@
                         <div class="form-group"><label class="col-sm-2 control-label">Role</label>
 
                             <div class="col-sm-10">
-                                <select class="form-control m-b" name="role_id">
+                                <select id="role" class="form-control m-b" name="role_id" onChange="getFakProdi()">
                                     <option value="">Select Role</option>
                                     @foreach ($roles as $role)
                                     <option value="{{$role->id}}" {{$user->role_id == $role->id ? 'selected' : ''}}>{{$role->name}}</option>
@@ -101,6 +101,22 @@
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
+
+                        <div id="selectProdi" class="form-group" style="visibility: hidden">
+                            <label class="col-sm-2 control-label">Pilih Fakultas/Prodi</label>
+                            <div class="col-sm-10">
+                                <select id="fak_prodi" class="form-control m-b" name="fak_prodi">
+                                    <option value="">Select Role</option>
+                                </select>
+
+                                @error('fak_prodi')
+                                <span class="invalid-feedback text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div></div>
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
                                 <button class="btn btn-primary" type="submit">Save Changes</button>
@@ -115,3 +131,43 @@
 </div>
 
 @endsection
+@push('css')
+<link href="{{asset('assets/css/plugins/select2/select2.min.css')}}" rel="stylesheet">
+@endpush
+@push('scripts')
+<script src="{{asset('assets/js/plugins/select2/select2.full.min.js')}}" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $('#fak_prodi').select2();
+        $('#role').select2();
+    });
+
+    function getFakProdi() {
+
+        var roleId = $('#role').val();
+
+        if(roleId != 4){
+            if($("#selectProdi").is(":hidden")){
+            } else {
+                document.getElementById("selectProdi").style.visibility = "hidden";
+            }
+        } else if(roleId == 4) {
+            $.ajax({
+                url: "{{route('admin.get-fak-prodi')}}",
+                method: "GET",
+                dataSrc: "data",
+                success: function(data){
+                    document.getElementById("selectProdi").style.visibility = "";
+                    for (let i = 0; i < data.length; i++) {
+                        $('#fak_prodi').append($('<option>', {
+                            value: data[i]['id_prodi'],
+                            text: data[i]['nama_jenjang_pendidikan'] + " - " + data[i]['nama_program_studi']
+                        }, '</option>'));
+                    }
+                },
+            });
+        }
+    }
+
+</script>
+@endpush

@@ -8,6 +8,11 @@ use App\Models\PDUnsri\Feeder\ListMahasiswa;
 use App\Models\PDUnsri\Feeder\BiodataMahasiswa;
 use App\Models\PDUnsri\Feeder\Mahasiswa\AktivitasKuliahMahasiswa as AKM;
 use App\Models\PDUnsri\Feeder\Mahasiswa\ListRiwayatPendidikanMahasiswa as ListRPM;
+use App\Models\PDUnsri\Feeder\Mahasiswa\TranskripMahasiswa as TM;
+use App\Models\PDUnsri\Feeder\Mahasiswa\KrsMahasiswa as KM;
+use App\Models\PDUnsri\Feeder\Semester;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 use App\Models\RolesUser;
 
 class MahasiswaController extends Controller
@@ -18,17 +23,24 @@ class MahasiswaController extends Controller
         $prodiId = RolesUser::where('user_id', auth()->user()->id)->value('fak_prod_id');
 
         $data = ListMahasiswa::where('id_prodi', $prodiId);
+                // ->leftJoin('pd_feeder_transkrip_mahasiswa as tm', 'pd_feeder_list_mahasiswa.id_registrasi_mahasiswa', 'tm.id_registrasi_mahasiswa');
+
+
         $mahasiswa = $data
             ->when($req->has('keyword'), function($q) use($req){
                 if ($req->keyword != '') {
-                    $q->where('nama_mahasiswa', 'like', '%'.$req->keyword.'%')
-                    ->orWhere('nim', 'like', '%'.$req->keyword.'%')
-                    ->orWhere('nama_program_studi', 'like', '%'.$req->keyword.'%');
+                    $q->where('pd_feeder_list_mahasiswa.nama_mahasiswa', 'like', '%'.$req->keyword.'%')
+                    ->orWhere('pd_feeder_list_mahasiswa.nim', 'like', '%'.$req->keyword.'%')
+                    ->orWhere('pd_feeder_list_mahasiswa.nama_program_studi', 'like', '%'.$req->keyword.'%');
                 }
             })
-            ->select('id_mahasiswa','nama_mahasiswa', 'nim', 'jenis_kelamin',
-                'nama_agama', 'total_sks', 'tanggal_lahir', 'nama_program_studi',
-                'nama_status_mahasiswa', 'id_periode')->paginate(20);
+            ->select('pd_feeder_list_mahasiswa.id_registrasi_mahasiswa as id_registrasi_mahasiswa','pd_feeder_list_mahasiswa.id_mahasiswa as id_mahasiswa',
+             'pd_feeder_list_mahasiswa.nama_mahasiswa as nama_mahasiswa', 'pd_feeder_list_mahasiswa.nim as nim', 'pd_feeder_list_mahasiswa.jenis_kelamin as jenis_kelamin',
+                'pd_feeder_list_mahasiswa.nama_agama as nama_agama', 'pd_feeder_list_mahasiswa.total_sks as total_sks', 'pd_feeder_list_mahasiswa.tanggal_lahir as tanggal_lahir',
+                'pd_feeder_list_mahasiswa.nama_program_studi as nama_program_studi',
+                'pd_feeder_list_mahasiswa.nama_status_mahasiswa as nama_status_mahasiswa', 'pd_feeder_list_mahasiswa.id_periode as id_periode')
+            ->addSelect(DB::raw('(SELECT SUM(sks_mata_kuliah) from pd_feeder_transkrip_mahasiswa where id_registrasi_mahasiswa = pd_feeder_list_mahasiswa.id_registrasi_mahasiswa) as total'))
+            ->paginate(20);
 
         // dd($mahasiswa);
 
@@ -70,6 +82,35 @@ class MahasiswaController extends Controller
         $aktivitas = AKM::where('id_mahasiswa', $id)->select('nama_semester', 'nama_status_mahasiswa', 'ips', 'ipk', 'sks_semester', 'sks_total')->get();
 
         return view('backend.prodi.mahasiswa.aktivitas-perkuliahan', compact('mahasiswa', 'aktivitas'));
+    }
+
+    public function transkrip($id)
+    {
+        $this->authorize('admin-prodi');
+        $mahasiswa = ListMahasiswa::where('id_mahasiswa', $id)->select('id_mahasiswa', 'id_registrasi_mahasiswa','nama_mahasiswa', 'nim', 'nama_program_studi', 'id_periode as angkatan')->first();
+        $transkrip = TM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+                    ->select('kode_mata_kuliah', 'nama_mata_kuliah', 'sks_mata_kuliah', 'nilai_angka', 'nilai_huruf', 'nilai_indeks')
+                    ->get();
+
+        return view('backend.prodi.mahasiswa.transkrip-mahasiswa', compact('mahasiswa', 'transkrip'));
+    }
+
+    public function krs($id)
+    {
+        $this->authorize('admin-prodi');
+
+        $mahasiswa = ListMahasiswa::where('id_mahasiswa', $id)->select('id_mahasiswa', 'id_registrasi_mahasiswa','nama_mahasiswa', 'nim', 'nama_program_studi', 'id_periode as angkatan')->first();
+
+        $krs = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+                    ->where('id_periode', '20201')
+                    ->select('kode_mata_kuliah', 'nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah')
+                    ->get();
+
+        $tahun = range(Carbon::now()->year, Carbon::now()->year-10);
+
+        $periode = Semester::whereIn('id_tahun_ajaran', $tahun)->select('id_semester', 'nama_semester')->orderBy('id_semester', 'desc')->get();
+
+        return view('backend.prodi.mahasiswa.krs-mahasiswa', compact('mahasiswa', 'krs', 'periode'));
     }
 
 }

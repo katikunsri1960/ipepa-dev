@@ -8,6 +8,7 @@ use App\Models\PDUnsri\Feeder\ProfilPt;
 use App\Models\PDUnsri\Feeder\ProgramStudi;
 use App\Models\PDUnsri\Feeder\ListMahasiswa;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProfilPTController extends Controller
 {
@@ -23,6 +24,10 @@ class ProfilPTController extends Controller
 
         foreach(json_decode($data_prodi, true) as $prodi){
             $mahasiswa[] = DB::table('pd_feeder_list_mahasiswa')->select(DB::raw('count(id_mahasiswa) as jumlah_mahasiswa'))->where('id_prodi',$prodi['id_prodi'])->where('id_periode','20211')->get();
+            // $mahasiswa = ListMahasiswa::withCount('id_mahasiswa' => function (Builder $q) {
+            //     // $q->where('id_prodi', $prodi['id_prodi']);
+            //     $q->where('id_periode', '20211');
+            // })->get();
         }
         // dd($mahasiswa);
 

@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 
 class AjaxCallController extends Controller
 {
-    public function prodi(Request $req)
+    public function callAkm(Request $req)
     {
-        # code...
+        $this->authorize('admin_prodi');
+
+        if ($req->ajax()) {
+            // query
+
+            // return hasil query
+        }
     }
 }

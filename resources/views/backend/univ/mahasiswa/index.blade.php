@@ -39,6 +39,7 @@
                         <td>{{$m->nim}}</td>
                         <td>{{$m->jenis_kelamin}}
                         </td>
+                        
                         <td>{{$m->nama_agama}}</td>
                         <td class="text-center">{{$m->total_sks}}</td>
                         <td>{{$m->tanggal_lahir}}</td>

@@ -27,7 +27,7 @@ class AjaxSyncController extends Controller
                 'last_sync'
             )->get();
 
-            $batch = Bus::batch([])->dispatch();
+            $batch = Bus::batch([])->allowFailures()->dispatch();
 
             foreach ($dbs as $db) {
                 $act = $db['api_path'];
@@ -71,7 +71,7 @@ class AjaxSyncController extends Controller
                 ->whereIn('id', $selected)
                 ->get();
 
-            $batch = Bus::batch([])->dispatch();
+            $batch = Bus::batch([])->allowFailures()->dispatch();
 
             foreach ($dbs as $db) {
                 $act = $db['api_path'];

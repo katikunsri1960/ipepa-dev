@@ -10,7 +10,9 @@ class ListMahasiswa extends Model
 {
     use HasFactory;
     protected $table = 'pd_feeder_list_mahasiswa';
-
+    public $timeStamps = false;
+    public $incrementing = false;
+    
     public function JenisKelamin(): Attribute
     {
         return new Attribute(
