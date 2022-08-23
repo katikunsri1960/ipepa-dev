@@ -73,6 +73,11 @@ Route::group(['middleware' => 'auth'], function () {
         //Profil PT
         Route::get('profil-pt', [App\Http\Controllers\AdminUniv\Profil_pt\ProfilPTController::class, 'index'])->name('profil-pt');
 
+        //Daftar Dosen
+        Route::get('daftar-dosen', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'index'])->name('daftar-dosen');
+        Route::get('detail-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'detail'])->name('detail-dosen');
+        Route::get('penugasan-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'penugasan'])->name('penugasan-dosen');
+
     });
 
 
@@ -101,6 +106,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('aktivitas-perkuliahan/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'aktivitas'])->name('aktivitas-perkuliahan');
             Route::get('transkrip-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'transkrip'])->name('transkrip-mahasiswa');
             Route::get('krs-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'krs'])->name('krs-mahasiswa');
+            Route::get('krs-ajax', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'krs_ajax'])->name('krs-ajax');
+            Route::get('histori-nilai/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'histori_nilai'])->name('histori-nilai');
+            Route::get('prestasi-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'prestasi'])->name('prestasi-mahasiswa');
 
             //Dosen
             Route::get('daftar-dosen', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'index'])->name('daftar-dosen');

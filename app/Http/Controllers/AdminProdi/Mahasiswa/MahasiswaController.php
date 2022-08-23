@@ -10,6 +10,8 @@ use App\Models\PDUnsri\Feeder\Mahasiswa\AktivitasKuliahMahasiswa as AKM;
 use App\Models\PDUnsri\Feeder\Mahasiswa\ListRiwayatPendidikanMahasiswa as ListRPM;
 use App\Models\PDUnsri\Feeder\Mahasiswa\TranskripMahasiswa as TM;
 use App\Models\PDUnsri\Feeder\Mahasiswa\KrsMahasiswa as KM;
+use App\Models\PDUnsri\Feeder\Mahasiswa\RiwayatNilaiMahasiswa as RNM;
+use App\Models\PDUnsri\Feeder\Mahasiswa\ListPrestasiMahasiswa as LPM;
 use App\Models\PDUnsri\Feeder\Semester;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -69,7 +71,10 @@ class MahasiswaController extends Controller
                     ->select('id_mahasiswa','nama_mahasiswa', 'tempat_lahir', 'jenis_kelamin', 'tanggal_lahir', 'nama_agama')->first();
 
         $riwayat = ListRPM::where('id_mahasiswa', $id)
-                ->select('nim', 'nama_jenis_daftar', 'nama_periode_masuk', 'tanggal_daftar', 'nama_program_studi', 'nama_perguruan_tinggi')->get();
+                ->select('nim', 'nama_jenis_daftar', 'nama_periode_masuk', 'tanggal_daftar', 'nama_program_studi', 'nama_perguruan_tinggi', 'nama_pembiayaan_awal', 'biaya_masuk',
+                        'nama_perguruan_tinggi', 'nm_bidang_minat as nama_bidang_minat')
+                ->addSelect(DB::raw('(SELECT nama_jalur_masuk from pd_feeder_jalur_masuk AS jm WHERE pd_feeder_list_riwayat_pendidikan_mahasiswa.id_jalur_daftar = id_jalur_masuk) as jalur_masuk'))
+                ->get();
         // dd($riwayat);
 
         return view('backend.prodi.mahasiswa.histori-pendidikan', compact('mahasiswa', 'riwayat'));
@@ -95,27 +100,98 @@ class MahasiswaController extends Controller
         return view('backend.prodi.mahasiswa.transkrip-mahasiswa', compact('mahasiswa', 'transkrip'));
     }
 
-    public function krs($id)
+    public function krs(Request $req, $id)
     {
         $this->authorize('admin-prodi');
 
         $mahasiswa = ListMahasiswa::where('id_mahasiswa', $id)->select('id_mahasiswa', 'id_registrasi_mahasiswa','nama_mahasiswa', 'nim', 'nama_program_studi', 'id_periode as angkatan')->first();
 
-        $krs = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
-                    ->where('id_periode', '20201')
+
+        $periode = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+                    ->select('id_periode')->distinct()
+                    ->addSelect(DB::raw('(SELECT nama_semester FROM pd_feeder_semester WHERE id_semester=pd_feeder_krs_mahasiswa.id_periode) as nama_periode'))
+                    ->get();
+
+        $periodeNow = $periode->toArray();
+
+        $periodeAkt = NULL;
+
+        if ($req->has('periode')) {
+
+            $krs = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+                    ->where('id_periode', $req->periode)
                     ->select('kode_mata_kuliah', 'nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah')
                     ->get();
 
-        $tahun = range(Carbon::now()->year, Carbon::now()->year-10);
+            $periodeAkt = $req->periode;
 
-        $periode = Semester::whereIn('id_tahun_ajaran', $tahun)->select('id_semester', 'nama_semester')->orderBy('id_semester', 'desc')->get();
+        } else {
 
-        return view('backend.prodi.mahasiswa.krs-mahasiswa', compact('mahasiswa', 'krs', 'periode'));
+            $krs = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+                    ->where('id_periode', $periodeNow[0])
+                    ->select('kode_mata_kuliah', 'nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah')
+                    ->get();
+
+            $periodeAkt = $periodeNow[0]['id_periode'];
+        }
+
+        return view('backend.prodi.mahasiswa.krs-mahasiswa', compact('mahasiswa', 'krs', 'periodeNow', 'periodeAkt'));
     }
 
-    public function histori_nilai($id)
+
+    public function histori_nilai(Request $req, $id)
     {
-        return view('backend.prodi.mahasiswa.histori-nilai');
+        $this->authorize('admin-prodi');
+
+        $mahasiswa = ListMahasiswa::where('id_mahasiswa', $id)->select('id_mahasiswa', 'nama_mahasiswa', 'nim', 'nama_program_studi', 'id_periode as angkatan', 'id_registrasi_mahasiswa')->first();
+
+        $periode = RNM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+                    ->select('id_periode')->distinct()
+                    ->addSelect(DB::raw('(SELECT nama_semester FROM pd_feeder_semester WHERE id_semester=pd_feeder_riwayat_nilai_mahasiswa.id_periode) as nama_periode'))
+                    ->get();
+
+        $periodeNow = $periode->toArray();
+
+        $periodeAkt = NULL;
+
+        if ($req->has('periode')) {
+
+            $histori = RNM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+                    ->where('id_periode', $req->periode)
+                    ->select('id_matkul', 'nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah', 'nilai_angka', 'nilai_huruf', 'nilai_indeks')
+                    ->addSelect(DB::raw('(SELECT kode_mata_kuliah from pd_feeder_mata_kuliah where pd_feeder_riwayat_nilai_mahasiswa.id_matkul = id_matkul) as kode_mata_kuliah'))
+                    ->get();
+            $periodeAkt = $req->periode;
+
+        } else {
+
+            $histori = RNM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+                    ->where('id_periode', $periodeNow[0])
+                    ->select('id_matkul', 'nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah', 'nilai_angka', 'nilai_huruf', 'nilai_indeks')
+                    ->addSelect(DB::raw('(SELECT kode_mata_kuliah from pd_feeder_mata_kuliah where pd_feeder_riwayat_nilai_mahasiswa.id_matkul = id_matkul) as kode_mata_kuliah'))
+                    ->get();
+
+            $periodeAkt = $periodeNow[0]['id_periode'];
+
+        }
+
+        // dd($histori);
+        return view('backend.prodi.mahasiswa.histori-nilai', compact('mahasiswa', 'periodeNow','histori', 'periodeAkt'));
+    }
+
+    public function prestasi($id)
+    {
+        $this->authorize('admin-prodi');
+
+        $mahasiswa = BiodataMahasiswa::where('id_mahasiswa', $id)
+                    ->select('id_mahasiswa','nama_mahasiswa', 'tempat_lahir', 'jenis_kelamin', 'tanggal_lahir', 'nama_agama')->first();
+
+        $prestasi = LPM::where('id_mahasiswa', $id)
+                    ->select('nama_jenis_prestasi', 'nama_tingkat_prestasi', 'nama_prestasi', 'tahun_prestasi', 'penyelenggara', 'peringkat')
+                    ->get();
+
+        return view('backend.prodi.mahasiswa.prestasi-mahasiswa', compact('mahasiswa', 'prestasi'));
+
     }
 
 }

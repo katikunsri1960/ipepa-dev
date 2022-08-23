@@ -30,7 +30,7 @@
                 <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Dosen</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{request()->routeIs('admin-univ.dosen') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.daftar-mahasiswa')}}">Dosen</a>
+                        <a href="{{route('admin-univ.daftar-dosen')}}">Dosen</a>
                     </li>
                     <li class="{{request()->routeIs('admin-univ.penugasan-dosen') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.daftar-mahasiswa')}}">Penugasan Dosen</a>

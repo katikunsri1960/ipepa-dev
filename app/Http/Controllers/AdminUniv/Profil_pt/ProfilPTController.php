@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PDUnsri\Feeder\ProfilPt;
 use App\Models\PDUnsri\Feeder\ProgramStudi;
-use App\Models\PDUnsri\Feeder\ListMahasiswa;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 

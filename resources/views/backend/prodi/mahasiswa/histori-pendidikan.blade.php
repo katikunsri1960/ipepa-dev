@@ -123,19 +123,47 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>Jalur Pendaftaran</label>
-                                        <input type="text" class="form-control" disabled value="{{ $riwayat[0]->id_jalur_daftar }}">
+                                        <input type="text" class="form-control" disabled value="{{ $riwayat[0]->jalur_masuk }}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6"></div>
-                                <div class="col-lg-6"></div>
-                                <div class="col-lg-6"></div>
-                                <div class="col-lg-6"></div>
-                                <div class="col-lg-6"></div>
-                                <div class="col-lg-6"></div>
-                                <div class="col-lg-6"></div>
-                                <div class="col-lg-6"></div>
-                                <div class="col-lg-6"></div>
-                                <div class="col-lg-6"></div>
+                                <div class="col-lg-6"><div class="form-group">
+                                    <label>Periode Pendaftaran</label>
+                                    <input type="text" class="form-control" disabled value="{{ $riwayat[0]->nama_periode_masuk }}">
+                                </div></div>
+                                <div class="col-lg-6"><div class="form-group">
+                                    <label>Tanggal Masuk</label>
+                                    <input type="text" class="form-control" disabled value="{{ $riwayat[0]->tanggal_daftar }}">
+                                </div></div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Pembiayaan Awal</label>
+                                        <input type="text" class="form-control" disabled value="{{ $riwayat[0]->nama_pembiayaan_awal }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Biaya Masuk</label>
+                                        <input type="text" class="form-control" disabled value="{{ $riwayat[0]->biaya_masuk }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Perguruan Tinggi</label>
+                                        <input type="text" class="form-control" disabled value="{{ $riwayat[0]->nama_perguruan_tinggi }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Fakultas / Program Studi</label>
+                                        <input type="text" class="form-control" disabled value="{{ $riwayat[0]->nama_program_studi }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Peminatan</label>
+                                        <input type="text" class="form-control" disabled value="{{ $riwayat[0]->nama_bidang_minat }}">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
