@@ -21,6 +21,7 @@
             <table class="table table-bordered table-hover table-responsive" id="table-mahasiswa">
                 <thead>
                     <tr>
+                        <th class="text-center">No</th>
                         <th class="text-center">Nama</th>
                         <th class="text-center">NIM</th>
                         <th class="text-center">Jenis Kelamin</th>
@@ -33,19 +34,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($mahasiswa as $m)
+                    @foreach($mahasiswa as $m => $data)
                     <tr>
-                        <td>{{$m->nama_mahasiswa}}</td>
-                        <td>{{$m->nim}}</td>
-                        <td>{{$m->jenis_kelamin}}
+                        <td class="text-center">{{$mahasiswa->firstItem() + $m}}</td>
+                        <td><a href="{{route('admin-univ.detail-mahasiswa', ['id' => $data->id_mahasiswa])}}">{{$data->nama_mahasiswa}}</a> </td>
+                        <td class="text-center">{{$data->nim}}</td>
+                        <td class="text-center">{{$data->jenis_kelamin}}</td>
+                        <td class="text-center">{{$data->nama_agama}}</td>
+                        <td class="text-center">
+                            @if (!empty($data->total))
+                                {{$data->total}}
+                            @else
+                            0
+                            @endif
                         </td>
-                        
-                        <td>{{$m->nama_agama}}</td>
-                        <td class="text-center">{{$m->total_sks}}</td>
-                        <td>{{$m->tanggal_lahir}}</td>
-                        <td>{{$m->nama_program_studi}}</td>
-                        <td>{{$m->nama_status_mahasiswa}}</td>
-                        <td class="text-center">{{$m->id_periode}}</td>
+                        <td class="text-center">{{$data->tanggal_lahir}}</td>
+                        <td class="text-center">{{$data->nama_program_studi}}</td>
+                        <td class="text-center">{{$data->nama_status_mahasiswa}}</td>
+                        <td class="text-center">
+                            @if(strlen($data->id_periode) > 4)
+                            {{substr($data->id_periode, 0, 4)}}
+                            @else
+                            {{$data->id_periode}}
+                            @endif
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

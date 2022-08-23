@@ -180,28 +180,28 @@
                                                     <table class="table">
                                                         <thead>
                                                             <tr>
-                                                                <td>No</td>
-                                                                <td>Kode Prodi</td>
-                                                                <td>Nama Program Studi</td>
-                                                                <td>Status</td>
-                                                                <td>Jenjang</td>
-                                                                <td>Jumlah Mahasiswa</td>
-                                                                <td>Jumlah Dosen</td>
+                                                                <th class="text-center">No</th>
+                                                                <th class="text-center">Kode Prodi</th>
+                                                                <th class="text-center">Nama Program Studi</th>
+                                                                <th class="text-center">Status</th>
+                                                                <th class="text-center">Jenjang</th>
+                                                                <th class="text-center">Jumlah Mahasiswa</th>
+                                                                <th class="text-center">Jumlah Dosen</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             @php $no = 1; @endphp
                                                             @foreach ($data_prodi as $prodi)
                                                             <tr>
-                                                                <td>{{$no++}}</td>
-                                                                <td>{{$prodi->kode_program_studi}}</td>
-                                                                <td>{{$prodi->nama_program_studi}}</td>
-                                                                <td>{{$prodi->status}}</td>
-                                                                <td>{{$prodi->nama_jenjang_pendidikan}}</td>
-                                                                <td>{{$mahasiswa[0][0]['jumlah_mahasiswa']}}</td>
-                                                                <td></td>
+                                                                <td class="text-center">{{$no++}}</td>
+                                                                <td class="text-center">{{$prodi->kode_program_studi}}</td>
+                                                                <td class="">{{$prodi->nama_program_studi}}</td>
+                                                                <td class="text-center">{{$prodi->status}}</td>
+                                                                <td class="text-center">{{$prodi->nama_jenjang_pendidikan}}</td>
+                                                                <td class="text-center">{{$prodi->jumlah_mahasiswa}}</td>
+                                                                <td class="text-center">{{$prodi->jumlah_dosen}}</td>
                                                             </tr>
-
+                                                            @endforeach
                                                         </tbody>
                                                     </table>
                                                 </div>

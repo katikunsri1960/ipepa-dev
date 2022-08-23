@@ -61,7 +61,16 @@ Route::group(['middleware' => 'auth'], function () {
     ], function() {
 
         Route::get('dashboard-admin-univ', [App\Http\Controllers\AdminUniv\DashboardController::class, 'index'])->name('dashboard-admin-univ');
+
+        //Daftar Mahasiswa
         Route::get('daftar-mahasiswa', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'index'])->name('daftar-mahasiswa');
+        Route::get('detail-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'detail'])->name('detail-mahasiswa');
+        Route::get('histori-pendidikan/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'histori'])->name('histori-pendidikan');
+        Route::get('aktivitas-perkuliahan/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'aktivitas'])->name('aktivitas-perkuliahan');
+        Route::get('transkrip-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'transkrip'])->name('transkrip-mahasiswa');
+        Route::get('krs-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'krs'])->name('krs-mahasiswa');
+
+        //Profil PT
         Route::get('profil-pt', [App\Http\Controllers\AdminUniv\Profil_pt\ProfilPTController::class, 'index'])->name('profil-pt');
 
     });
@@ -83,13 +92,17 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'admin-prodi.',], function() {
 
             Route::get('call-akm', [App\Http\Controllers\Ajax\AjaxCallController::class, 'callAkm'])->name('call-akm');
-
             Route::get('dashboard-admin-prodi', [App\Http\Controllers\AdminProdi\DashboardController::class, 'index'])->name('dashboard-admin-prodi');
+
+            //Mahasiswa
             Route::get('daftar-mahasiswa', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'index'])->name('daftar-mahasiswa');
             Route::get('detail-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'detail'])->name('detail-mahasiswa');
             Route::get('histori-pendidikan/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'histori'])->name('histori-pendidikan');
             Route::get('aktivitas-perkuliahan/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'aktivitas'])->name('aktivitas-perkuliahan');
             Route::get('transkrip-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'transkrip'])->name('transkrip-mahasiswa');
             Route::get('krs-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'krs'])->name('krs-mahasiswa');
+
+            //Dosen
+            Route::get('daftar-dosen', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'index'])->name('daftar-dosen');
         });
 });

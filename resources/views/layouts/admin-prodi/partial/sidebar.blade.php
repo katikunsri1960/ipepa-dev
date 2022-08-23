@@ -21,7 +21,7 @@
                 </div>
             </li>
             <li class="{{request()->routeIs('admin-prodi.dashboard-admin-prodi') ? 'active' : ''}}">
-                <a href="{{route('admin-prodi.dashboard-admin-prodi')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
+                <a href="{{route('admin-prodi.dashboard-admin-prodi')}}"><i class="fa-solid fa-table-cells"></i> <span class="nav-label">Dashboards</span></a>
             </li>
             <li  class="{{request()->routeIs('admin-prodi.daftar-mahasiswa') ? 'active' : ''}}">
                 <a href=""><i class="fa fa-graduation-cap"></i> <span class="nav-label">Mahasiswa</span><span class="fa arrow"></span></a>
@@ -31,8 +31,16 @@
                     </li>
                 </ul>
             </li>
-           
- 
+            <li  class="{{request()->routeIs('admin-prodi.daftar-dosen') ? 'active' : ''}}">
+                <a href=""><i class="fa-solid fa-user-group"></i> <span class="nav-label">Dosen</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="{{request()->routeIs('admin-prodi.daftar-dosen') ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.daftar-dosen')}}">Daftar Dosen</a>
+                    </li>
+                </ul>
+            </li>
+
+
         </ul>
 
     </div>

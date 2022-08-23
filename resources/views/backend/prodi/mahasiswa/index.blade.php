@@ -47,7 +47,6 @@
                             @else
                             0
                             @endif
-
                         </td>
                         <td class="text-center">{{$data->tanggal_lahir}}</td>
                         <td class="text-center">{{$data->nama_program_studi}}</td>

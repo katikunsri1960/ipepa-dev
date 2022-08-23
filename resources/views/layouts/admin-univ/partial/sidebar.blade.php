@@ -2,7 +2,7 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
-                <div class="dropdown profile-element"> 
+                <div class="dropdown profile-element">
                     <a href=""><i class="fa fa-user"></i> | <span class="nav-label"><strong class="font-bold">{{auth()->user()->name}}</strong></span></a>
                     <!-- <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{auth()->user()->name}}</strong></span>
@@ -18,10 +18,10 @@
             <li class="{{request()->routeIs('admin-univ.profil-pt') ? 'active' : ''}}">
                 <a href="{{route('admin-univ.profil-pt')}}"><i class="fa fa-user-circle"></i> <span class="nav-label">Profil</span></a>
             </li>
-            <li  class="{{request()->routeIs('admin-univ.daftar-mahasiswa') ? 'active' : ''}}">
+            <li  class="{{request()->routeIs('admin-univ.daftar-mahasiswa') || request()->routeIs('admin-univ.detail-mahasiswa') ? 'active' : ''}}">
                 <a href=""><i class="fa fa-graduation-cap"></i> <span class="nav-label">Mahasiswa</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="{{request()->routeIs('admin-univ.daftar-mahasiswa') ? 'active' : ''}}">
+                    <li class="{{request()->routeIs('admin-univ.daftar-mahasiswa') || request()->routeIs('admin-univ.detail-mahasiswa') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.daftar-mahasiswa')}}">Daftar Mahasiswa</a>
                     </li>
                 </ul>

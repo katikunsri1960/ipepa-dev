@@ -27,11 +27,11 @@ class MahasiswaController extends Controller
 
 
         $mahasiswa = $data
-            ->when($req->has('keyword'), function($q) use($req){
+            ->when($req->has('keyword'), function($q) use($req, $prodiId) {
                 if ($req->keyword != '') {
-                    $q->where('pd_feeder_list_mahasiswa.nama_mahasiswa', 'like', '%'.$req->keyword.'%')
-                    ->orWhere('pd_feeder_list_mahasiswa.nim', 'like', '%'.$req->keyword.'%')
-                    ->orWhere('pd_feeder_list_mahasiswa.nama_program_studi', 'like', '%'.$req->keyword.'%');
+                    $q->where('pd_feeder_list_mahasiswa.nama_mahasiswa', 'like', '%'.$req->keyword.'%')->where('id_prodi', $prodiId)
+                    ->orWhere('pd_feeder_list_mahasiswa.nim', 'like', '%'.$req->keyword.'%')->where('id_prodi', $prodiId)
+                    ->orWhere('pd_feeder_list_mahasiswa.nama_program_studi', 'like', '%'.$req->keyword.'%')->where('id_prodi', $prodiId);
                 }
             })
             ->select('pd_feeder_list_mahasiswa.id_registrasi_mahasiswa as id_registrasi_mahasiswa','pd_feeder_list_mahasiswa.id_mahasiswa as id_mahasiswa',
@@ -111,6 +111,11 @@ class MahasiswaController extends Controller
         $periode = Semester::whereIn('id_tahun_ajaran', $tahun)->select('id_semester', 'nama_semester')->orderBy('id_semester', 'desc')->get();
 
         return view('backend.prodi.mahasiswa.krs-mahasiswa', compact('mahasiswa', 'krs', 'periode'));
+    }
+
+    public function histori_nilai($id)
+    {
+        return view('backend.prodi.mahasiswa.histori-nilai');
     }
 
 }

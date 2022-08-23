@@ -20,18 +20,13 @@ class ProfilPTController extends Controller
                 'faximile', 'email', 'website', 'jalan', 'dusun', 'rt_rw','kelurahan','nama_wilayah','kode_pos','lintang_bujur','bank','unit_cabang'
                 ,'nomor_rekening','mbs','luas_tanah_milik','luas_tanah_bukan_milik','sk_pendirian','tanggal_sk_pendirian','nama_status_milik','status_perguruan_tinggi','sk_izin_operasional','tanggal_izin_operasional')->get();
 
-        $data_prodi = ProgramStudi::select('*')->orderBy('kode_program_studi', 'ASC')->get();
+        $data_prodi = ProgramStudi::select('*')
+                    ->addSelect(DB::raw('(SELECT COUNT(id_dosen) FROM pd_feeder_detail_penugasan_dosen WHERE id_prodi = pd_feeder_program_studi.id_prodi AND id_tahun_ajaran = "2022") AS jumlah_dosen'))
+                    ->addSelect(DB::raw('(SELECT COUNT(id_mahasiswa) from pd_feeder_list_mahasiswa WHERE id_prodi = pd_feeder_program_studi.id_prodi) AS jumlah_mahasiswa'))
+                    ->orderBy('kode_program_studi', 'ASC')
+                    ->get();
+        // dd($data_prodi);
 
-        foreach(json_decode($data_prodi, true) as $prodi){
-            $mahasiswa[] = DB::table('pd_feeder_list_mahasiswa')->select(DB::raw('count(id_mahasiswa) as jumlah_mahasiswa'))->where('id_prodi',$prodi['id_prodi'])->where('id_periode','20211')->get();
-            // $mahasiswa = ListMahasiswa::withCount('id_mahasiswa' => function (Builder $q) {
-            //     // $q->where('id_prodi', $prodi['id_prodi']);
-            //     $q->where('id_periode', '20211');
-            // })->get();
-        }
-        // dd($mahasiswa);
-
-
-        return view('backend.univ.profil_pt.index', compact('profil_pt','data_prodi','mahasiswa'));
+        return view('backend.univ.profil_pt.index', compact('profil_pt','data_prodi'));
     }
 }

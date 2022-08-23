@@ -91,17 +91,56 @@
                 <tbody>
                     @foreach ($riwayat as $dataR)
                         <tr>
-                            <td class="text-center"></td>
-                            <td class="text-center">{{$dataR->nim}}</td>
-                            <td class="text-center">{{$dataR->nama_jenis_daftar}}</td>
-                            <td class="text-center">{{$dataR->nama_periode_masuk}}</td>
-                            <td class="text-center">{{$dataR->tanggal_daftar}}</td>
-                            <td class="text-center">{{$dataR->nama_perguruan_tinggi}}</td>
-                            <td class="text-center">{{$dataR->nama_program_studi}}</td>
+                            <td class="text-center"><button class="btn btn-info btn-circle" type="button"
+                                    data-toggle="modal" data-target="#modal-form"><i class="fa fa-file"></i></button></td>
+                            <td class="text-center">{{ $dataR->nim }}</td>
+                            <td class="text-center">{{ $dataR->nama_jenis_daftar }}</td>
+                            <td class="text-center">{{ $dataR->nama_periode_masuk }}</td>
+                            <td class="text-center">{{ $dataR->tanggal_daftar }}</td>
+                            <td class="text-center">{{ $dataR->nama_perguruan_tinggi }}</td>
+                            <td class="text-center">{{ $dataR->nama_program_studi }}</td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            <div id="modal-form" class="modal fade" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>NIM</label>
+                                        <input type="text" class="form-control" disabled value="{{ $riwayat[0]->nim }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Jenis Pendaftaran</label>
+                                        <input type="text" class="form-control" disabled value="{{ $riwayat[0]->nama_jenis_daftar }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label>Jalur Pendaftaran</label>
+                                        <input type="text" class="form-control" disabled value="{{ $riwayat[0]->id_jalur_daftar }}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6"></div>
+                                <div class="col-lg-6"></div>
+                                <div class="col-lg-6"></div>
+                                <div class="col-lg-6"></div>
+                                <div class="col-lg-6"></div>
+                                <div class="col-lg-6"></div>
+                                <div class="col-lg-6"></div>
+                                <div class="col-lg-6"></div>
+                                <div class="col-lg-6"></div>
+                                <div class="col-lg-6"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
