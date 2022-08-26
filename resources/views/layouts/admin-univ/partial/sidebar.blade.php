@@ -26,22 +26,22 @@
                     </li>
                 </ul>
             </li>
-            <li  class="{{request()->routeIs('admin-univ.dosen') ? 'active' : ''}}">
+            <li  class="{{request()->routeIs('admin-univ.dosen') || request()->routeIs('admin-univ.detail-dosen') || request()->routeIs('admin-univ.penugasan-dosen') || request()->routeIs('admin-univ.aktivitas-mengajar-dosen') || request()->routeIs('admin-univ.riwayat-fungsional-dosen') || request()->routeIs('admin-univ.riwayat-pendidikan-dosen') || request()->routeIs('admin-univ.riwayat-sertifikasi-dosen') || request()->routeIs('admin-univ.riwayat-penelitian-dosen') || request()->routeIs('admin-univ.riwayat-kepangkatan-dosen') || request()->routeIs('admin-univ.daftar-penugasan-dosen') || request()->routeIs('admin-univ.detail-daftar-penugasan-dosen') ? 'active' : ''}}">
                 <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Dosen</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="{{request()->routeIs('admin-univ.dosen') ? 'active' : ''}}">
+                    <li class="{{request()->routeIs('admin-univ.dosen') || request()->routeIs('admin-univ.detail-dosen') || request()->routeIs('admin-univ.penugasan-dosen') || request()->routeIs('admin-univ.aktivitas-mengajar-dosen') || request()->routeIs('admin-univ.riwayat-fungsional-dosen') || request()->routeIs('admin-univ.riwayat-pendidikan-dosen') || request()->routeIs('admin-univ.riwayat-sertifikasi-dosen') || request()->routeIs('admin-univ.riwayat-penelitian-dosen') || request()->routeIs('admin-univ.riwayat-kepangkatan-dosen') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.daftar-dosen')}}">Dosen</a>
                     </li>
-                    <li class="{{request()->routeIs('admin-univ.penugasan-dosen') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.daftar-mahasiswa')}}">Penugasan Dosen</a>
+                    <li class="{{request()->routeIs('admin-univ.daftar-penugasan-dosen') || request()->routeIs('admin-univ.detail-daftar-penugasan-dosen')  ? 'active' : ''}}">
+                        <a href="{{route('admin-univ.daftar-penugasan-dosen')}}">Penugasan Dosen</a>
                     </li>
                 </ul>
             </li>
             <li  class="{{request()->routeIs('admin-univ.perkuliahan') ? 'active' : ''}}">
                 <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Perkuliahan</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="{{request()->routeIs('admin-univ.mata-kuliah') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.daftar-mahasiswa')}}">Mata Kuliah</a>
+                    <li class="{{request()->routeIs('admin-univ.daftar-mata-kuliah') || request()->routeIs('admin-univ.daftar-mata-kuliah') ? 'active' : ''}}">
+                        <a href="{{route('admin-univ.daftar-mata-kuliah')}}">Mata Kuliah</a>
                     </li>
                     <li class="{{request()->routeIs('admin-univ.substansi-kuliah') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.daftar-mahasiswa')}}">Substansi Kuliah</a>
