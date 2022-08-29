@@ -39,6 +39,17 @@
                     </li>
                 </ul>
             </li>
+            <li  class="{{request()->routeIs('admin-prodi.mata-kuliah') || request()->routeIs('admin-prodi.substansi-kuliah') ? 'active' : ''}}">
+                <a href=""><i class="fa-solid fa-book-open"></i> <span class="nav-label">Perkuliahan</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="{{request()->routeIs('admin-prodi.mata-kuliah') ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.mata-kuliah')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Mata Kuliah</span></a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-prodi.substansi-kuliah') ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.substansi-kuliah')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Substansi Kuliah</span></a>
+                    </li>
+                </ul>
+            </li>
 
 
         </ul>

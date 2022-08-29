@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\PDUnsri\Feeder\Dosen\AktivitasMengajarDosen;
 use App\Models\PDUnsri\Feeder\Dosen\DetailBiodataDosen;
 use App\Models\PDUnsri\Feeder\Dosen\DetailPenugasanDosen;
+use App\Models\PDUnsri\Feeder\Dosen\ListBimbingMahasiswa;
 use App\Models\PDUnsri\Feeder\Dosen\ListDosen;
+use App\Models\PDUnsri\Feeder\Dosen\ListUjiMahasiswa;
 use App\Models\PDUnsri\Feeder\Dosen\RiwayatFungsionalDosen;
 use App\Models\PDUnsri\Feeder\Dosen\RiwayatPangkatDosen;
 use App\Models\PDUnsri\Feeder\Dosen\RiwayatPendidikanDosen;
@@ -142,5 +144,31 @@ class DosenController extends Controller
         $riwayat_penelitian = RiwayatPenelitianDosen::where('id_dosen', $id)->select('*')->get();
 
         return view('backend.univ.dosen.riwayat-penelitian-dosen', compact('dosen','riwayat_penelitian'));
+    }
+
+    public function pembimbing_mahasiswa($id)
+    {
+        $this->authorize('admin-univ');
+
+        $dosen = DetailBiodataDosen::where('id_dosen',$id)->select('*')
+                ->addSelect(DB::raw('(SELECT nama_wilayah FROM pd_feeder_wilayah WHERE id_wilayah = pd_feeder_detail_biodata_dosen.id_wilayah LIMIT 1) AS kecamatan'))
+                ->addSelect(DB::raw('(SELECT id_ikatan_kerja FROM pd_feeder_list_penugasan_dosen WHERE id_dosen = pd_feeder_detail_biodata_dosen.id_dosen AND id_tahun_ajaran=2022 LIMIT 1) AS ikatan_kerja'))->first();
+
+        $pembimbing_mahasiswa = ListBimbingMahasiswa::join('pd_feeder_list_anggota_aktivitas_mahasiswa','pd_feeder_list_bimbing_mahasiswa.id_aktivitas','pd_feeder_list_anggota_aktivitas_mahasiswa.id_aktivitas')->join('pd_feeder_list_aktivitas_mahasiswa','pd_feeder_list_bimbing_mahasiswa.id_aktivitas','pd_feeder_list_aktivitas_mahasiswa.id_aktivitas')->where('id_dosen', $id)->whereIn('id_kategori_kegiatan',array('110601','110401','110402','110403','110404','110405','110406','110407','110408'))->select('pd_feeder_list_anggota_aktivitas_mahasiswa.nim','pd_feeder_list_anggota_aktivitas_mahasiswa.nama_mahasiswa','pd_feeder_list_aktivitas_mahasiswa.nama_jenis_aktivitas','pd_feeder_list_anggota_aktivitas_mahasiswa.judul','pd_feeder_list_aktivitas_mahasiswa.tanggal_sk_tugas','pd_feeder_list_bimbing_mahasiswa.pembimbing_ke')->get();
+
+        return view('backend.univ.dosen.pembimbing-aktivitas-mahasiswa', compact('dosen','pembimbing_mahasiswa'));
+    }
+
+    public function penguji_mahasiswa($id)
+    {
+        $this->authorize('admin-univ');
+
+        $dosen = DetailBiodataDosen::where('id_dosen',$id)->select('*')
+                ->addSelect(DB::raw('(SELECT nama_wilayah FROM pd_feeder_wilayah WHERE id_wilayah = pd_feeder_detail_biodata_dosen.id_wilayah LIMIT 1) AS kecamatan'))
+                ->addSelect(DB::raw('(SELECT id_ikatan_kerja FROM pd_feeder_list_penugasan_dosen WHERE id_dosen = pd_feeder_detail_biodata_dosen.id_dosen AND id_tahun_ajaran=2022 LIMIT 1) AS ikatan_kerja'))->first();
+
+        $penguji_mahasiswa = ListUjiMahasiswa::join('pd_feeder_list_anggota_aktivitas_mahasiswa','pd_feeder_list_uji_mahasiswa.id_aktivitas','pd_feeder_list_anggota_aktivitas_mahasiswa.id_aktivitas')->join('pd_feeder_list_aktivitas_mahasiswa','pd_feeder_list_uji_mahasiswa.id_aktivitas','pd_feeder_list_aktivitas_mahasiswa.id_aktivitas')->where('id_dosen', $id)->whereIn('id_kategori_kegiatan',array('110500','110501','110502'))->select('pd_feeder_list_anggota_aktivitas_mahasiswa.nim','pd_feeder_list_anggota_aktivitas_mahasiswa.nama_mahasiswa','pd_feeder_list_aktivitas_mahasiswa.nama_jenis_aktivitas','pd_feeder_list_anggota_aktivitas_mahasiswa.judul','pd_feeder_list_aktivitas_mahasiswa.tanggal_sk_tugas','pd_feeder_list_uji_mahasiswa.penguji_ke')->get();
+
+        return view('backend.univ.dosen.penguji-aktivitas-mahasiswa', compact('dosen','penguji_mahasiswa'));
     }
 }

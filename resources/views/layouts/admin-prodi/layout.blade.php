@@ -16,10 +16,10 @@
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"> --}}
     <!-- Toastr style -->
     <link href="{{asset('assets/css/plugins/toastr/toastr.min.css')}}" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/3.0.7/metisMenu.css">
     <!-- Gritter -->
     <link href="{{asset('assets/js/plugins/gritter/jquery.gritter.css')}}" rel="stylesheet">
-
+    <script src="{{asset('assets/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
     <link href="{{asset('assets/css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
 
@@ -79,8 +79,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('assets/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
-    <script src="{{asset('assets/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{asset('assets/js/plugins/metisMenu/jquery.metisMenu.js')}}" ></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/metisMenu/3.0.7/metisMenu.min.js"></script> --}}
+
     {{-- <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> --}}
     <script src="{{asset('assets/js/plugins/dataTables/datatables.min.js')}}"></script>
     {{-- <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> --}}

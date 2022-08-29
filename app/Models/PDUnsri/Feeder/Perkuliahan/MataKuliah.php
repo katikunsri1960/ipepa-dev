@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Models\PDUnsri\Feeder\Dosen;
+namespace App\Models\PDUnsri\Feeder\Perkuliahan;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ListBimbingMahasiswa extends Model
+class MataKuliah extends Model
 {
     use HasFactory;
-    protected $table = 'pd_feeder_list_bimbing_mahasiswa';
 
+    protected $table = 'pd_feeder_mata_kuliah';
     public $timestamps = false;
     public $incrementing = false;
 }
