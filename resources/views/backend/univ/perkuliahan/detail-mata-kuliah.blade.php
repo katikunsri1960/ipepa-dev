@@ -7,29 +7,11 @@
         <div class="ibox-content p-md">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="widget yellow-bg no-padding">
-                        <div class="p-m">
-                            <h3 class="font-bold no-margins">
-                                Catatan :
-                            </h3>
+                    <div class="widget yellow-bg no-padding text-vertical-midle">
+                        <div class="p-md">
                             <h5>Menampilkan dan Mengelola Mata Kuliah</h5>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8"></div>
-                <div class="col-md-4 col-12">
-                    <form method="GET" role="search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="keyword"
-                                placeholder="Search by NIDN or Nama" value="{{request()->get('keyword','')}}"> <span class="input-group-btn">
-                                <button class="btn btn-default">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>

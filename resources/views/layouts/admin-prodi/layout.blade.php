@@ -23,6 +23,8 @@
     <link href="{{asset('assets/css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
 
+    @stack('css')
+
 </head>
 
 <body>
@@ -92,6 +94,8 @@
     <script src="{{asset('assets/js/plugins/pace/pace.min.js')}}"></script>
 
     <script src="{{asset('assets/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+
+
 
 
 </body>
