@@ -12,16 +12,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">WEBAPPLAYERS</a>
+                <!-- <img src="/unsri_icon.png" alt="icon"> -->
+                <a class="navbar-brand" href="index.html"> <span><img src="/unsri_icon.png" width="20 pt">   </span>FEEDER UNSRI</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a class="page-scroll" href="#page-top">Home</a></li>
-                    <li><a class="page-scroll" href="#features">Features</a></li>
-                    <li><a class="page-scroll" href="#team">Team</a></li>
-                    <li><a class="page-scroll" href="#testimonials">Testimonials</a></li>
+                    <li><a class="page-scroll" href="#page-top">Beranda</a></li>
+                    <li><a class="page-scroll" href="#features">Fakultas</a></li>
+                    <li><a class="page-scroll" href="#team">Program Studi</a></li>
+                    <!-- <li><a class="page-scroll" href="#testimonials">Testimonials</a></li>
                     <li><a class="page-scroll" href="#pricing">Pricing</a></li>
-                    <li><a class="page-scroll" href="#contact">Contact</a></li>
+                    <li><a class="page-scroll" href="#contact">Contact</a></li> -->
                     <li>
                         <a class="page-scroll" href="{{route('login')}}">Login</a>
                     </li>
@@ -38,37 +39,40 @@
     <div class="carousel-inner" role="listbox">
         <div class="item active">
             <div class="container">
+                <!-- <img alt="image"  class="img-responsive" src="carousel_1.jpg"> -->
                 <div class="carousel-caption">
-                    <h1>We craft<br />
-                        brands, web apps,<br />
-                        and user interfaces<br />
-                        we are IN+ studio</h1>
+                    <h1>Selamat Datang<br />
+                        Di Universitas Sriwijaya<br />
+                        Data Feeder<br />
                     <p>Lorem Ipsum is simply dummy text of the printing.</p>
                     <p>
                         <a class="btn btn-lg btn-primary" href="#" role="button">READ MORE</a>
-                        <a class="caption-link" href="#" role="button">Inspinia Theme</a>
+                        <!-- <a class="caption-link" href="#" role="button">Inspinia Theme</a> -->
                     </p>
-                </div>
-                <div class="carousel-image wow zoomIn">
-                    <img src="img/landing/laptop.png" alt="laptop" />
                 </div>
             </div>
             <!-- Set background for slide in css -->
             <div class="header-back one"></div>
-
+            <!-- <img alt="image1"  class="img-fluid" src="carousel_1.jpg" > -->
         </div>
+
         <div class="item">
             <div class="container">
                 <div class="carousel-caption blank">
-                    <h1>We create meaningful <br /> interfaces that inspire.</h1>
-                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+                <h1>Selamat Datang<br />
+                        Di Universitas Sriwijaya<br />
+                        Data Feeder<br />
+                    <p>Lorem Ipsum is simply dummy text of the printing.</p>
                     <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
                 </div>
             </div>
             <!-- Set background for slide in css -->
+
             <div class="header-back two"></div>
+            <!-- <img alt="image2"  class="img-responsive" src="carousel_2.jpg" > -->
         </div>
     </div>
+
     <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>

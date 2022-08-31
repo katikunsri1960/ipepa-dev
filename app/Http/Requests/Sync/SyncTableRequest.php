@@ -28,6 +28,7 @@ class SyncTableRequest extends FormRequest
             'table_name' => 'required|string|max:255',
             'api_path' => 'required|string|max:255',
             'last_sync' => 'nullable',
+            'batch_id' => 'nullable',
         ];
     }
 }

@@ -19,8 +19,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 Route::group(['middleware' => 'auth'], function () {
 
     // Semua Routing Administrator masuk ke sini
@@ -34,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('sync-data', [App\Http\Controllers\Admin\AjaxSyncController::class, 'sync'])->name('sync-data');
         Route::get('sync-selected-data', [App\Http\Controllers\Admin\AjaxSyncController::class, 'syncSelected'])->name('sync-data-selected');
         Route::get('sync-data-process', [App\Http\Controllers\Admin\AjaxSyncController::class, 'syncProcess'])->name('sync-data-process');
+        //get model prodi by ajax
+        Route::get('fak-prodi', [App\Http\Controllers\Admin\AjaxSyncController::class, 'prodiId'])->name('get-fak-prodi');
 
         Route::resource('/sync', App\Http\Controllers\Admin\SyncController::class)->except(['show']);
 
@@ -59,8 +59,51 @@ Route::group(['middleware' => 'auth'], function () {
     ], function() {
 
         Route::get('dashboard-admin-univ', [App\Http\Controllers\AdminUniv\DashboardController::class, 'index'])->name('dashboard-admin-univ');
+
+        //Daftar Mahasiswa
         Route::get('daftar-mahasiswa', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'index'])->name('daftar-mahasiswa');
-        
+        Route::get('detail-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'detail'])->name('detail-mahasiswa');
+        Route::get('histori-pendidikan/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'histori'])->name('histori-pendidikan');
+        Route::get('aktivitas-perkuliahan/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'aktivitas'])->name('aktivitas-perkuliahan');
+        Route::get('transkrip-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'transkrip'])->name('transkrip-mahasiswa');
+        Route::get('krs-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'krs'])->name('krs-mahasiswa');
+
+        //Profil PT
+        Route::get('profil-pt', [App\Http\Controllers\AdminUniv\Profil_pt\ProfilPTController::class, 'index'])->name('profil-pt');
+
+        //Daftar Dosen
+        Route::get('daftar-dosen', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'index'])->name('daftar-dosen');
+        Route::get('detail-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'detail'])->name('detail-dosen');
+        Route::get('penugasan-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'penugasan'])->name('penugasan-dosen');
+        Route::get('aktivitas-mengajar-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'aktivitas_mengajar'])->name('aktivitas-mengajar-dosen');
+        Route::get('riwayat-fungsional-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'riwayat_fungsional'])->name('riwayat-fungsional-dosen');
+        Route::get('riwayat-kepangkatan-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'riwayat_kepangkatan'])->name('riwayat-kepangkatan-dosen');
+        Route::get('riwayat-pendidikan-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'riwayat_pendidikan'])->name('riwayat-pendidikan-dosen');
+        Route::get('riwayat-sertifikasi-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'riwayat_sertifikasi'])->name('riwayat-sertifikasi-dosen');
+        Route::get('riwayat-penelitian-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'riwayat_penelitian'])->name('riwayat-penelitian-dosen');
+        Route::get('pembimbing-aktivitas-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'pembimbing_mahasiswa'])->name('pembimbing-aktivitas-mahasiswa');
+        Route::get('penguji-aktivitas-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'penguji_mahasiswa'])->name('penguji-aktivitas-mahasiswa');
+
+        //Penugasan Dosen
+        Route::get('daftar-penugasan-dosen', [App\Http\Controllers\AdminUniv\Dosen\PenugasanDosenController::class, 'index'])->name('daftar-penugasan-dosen');
+        Route::get('detail-daftar-penugasan-dosen/{id}/{tahun}/{prodi}', [App\Http\Controllers\AdminUniv\Dosen\PenugasanDosenController::class, 'detail'])->name('detail-daftar-penugasan-dosen');
+
+        //Daftar Perkuliahan
+        Route::get('daftar-mata-kuliah', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'index'])->name('daftar-mata-kuliah');
+        Route::get('detail-mata-kuliah/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'detail_matkul'])->name('detail-mata-kuliah');
+        Route::get('substansi-kuliah', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'substansi_kuliah'])->name('substansi-kuliah');
+        Route::get('kurikulum', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'kurikulum'])->name('kurikulum');
+        Route::get('kelas-perkuliahan', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'kelas_perkuliahan'])->name('kelas-perkuliahan');
+        Route::get('nilai-perkuliahan', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'nilai_perkuliahan'])->name('nilai-perkuliahan');
+        Route::get('aktivitas-kuliah-mahasiswa', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'aktivitas_kuliah_mahasiswa'])->name('aktivitas-kuliah-mahasiswa');
+        Route::get('aktivitas-mahasiswa', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'aktivitas_mahasiswa'])->name('aktivitas-mahasiswa');
+        Route::get('kampus-merdeka', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'kampus_merdeka'])->name('kampus-merdeka');
+        Route::get('mahasiswa-lulus-do', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'daftar_mahasiswa_lulus_do'])->name('mahasiswa-lulus-do');
+        Route::get('transkrip-mahasiswa', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'transkrip_mahasiswa'])->name('transkrip-mahasiswa');
+
+        //Daftar Pelengkap
+        Route::get('skala-nilai', [App\Http\Controllers\AdminUniv\Pelengkap\PelengkapController::class, 'skala_nilai'])->name('skala-nilai');
+        Route::get('periode-perkuliahan', [App\Http\Controllers\AdminUniv\Pelengkap\PelengkapController::class, 'periode_perkuliahan'])->name('periode-perkuliahan');
     });
 
 
@@ -79,6 +122,40 @@ Route::group(['middleware' => 'auth'], function () {
         'middleware' => 'admin_prodi',
         'as' => 'admin-prodi.',], function() {
 
+            Route::get('call-akm', [App\Http\Controllers\Ajax\AjaxCallController::class, 'callAkm'])->name('call-akm');
             Route::get('dashboard-admin-prodi', [App\Http\Controllers\AdminProdi\DashboardController::class, 'index'])->name('dashboard-admin-prodi');
+
+            //Mahasiswa
+            Route::get('daftar-mahasiswa', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'index'])->name('daftar-mahasiswa');
+            Route::get('detail-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'detail'])->name('detail-mahasiswa');
+            Route::get('histori-pendidikan/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'histori'])->name('histori-pendidikan');
+            Route::get('aktivitas-perkuliahan/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'aktivitas'])->name('aktivitas-perkuliahan');
+            Route::get('transkrip-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'transkrip'])->name('transkrip-mahasiswa');
+            Route::get('krs-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'krs'])->name('krs-mahasiswa');
+            Route::get('krs-ajax', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'krs_ajax'])->name('krs-ajax');
+            Route::get('histori-nilai/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'histori_nilai'])->name('histori-nilai');
+            Route::get('prestasi-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Mahasiswa\MahasiswaController::class, 'prestasi'])->name('prestasi-mahasiswa');
+
+            //Dosen
+            Route::get('daftar-dosen', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'index'])->name('daftar-dosen');
+            Route::get('detail-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'detail'])->name('detail-dosen');
+            Route::get('penugasan-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'penugasan'])->name('penugasan-dosen');
+            Route::get('aktivitas-mengajar-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'aktivitas_mengajar'])->name('aktivitas-mengajar-dosen');
+            Route::get('riwayat-fungsional-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'riwayat_fungsional'])->name('riwayat-fungsional-dosen');
+            Route::get('riwayat-kepangkatan-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'riwayat_kepangkatan'])->name('riwayat-kepangkatan-dosen');
+            Route::get('riwayat-pendidikan-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'riwayat_pendidikan'])->name('riwayat-pendidikan-dosen');
+            Route::get('riwayat-sertifikasi-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'riwayat_sertifikasi'])->name('riwayat-sertifikasi-dosen');
+            Route::get('riwayat-penelitian-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'riwayat_penelitian'])->name('riwayat-penelitian-dosen');
+            Route::get('pembimbing-aktivitas-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'pembimbing_mahasiswa'])->name('pembimbing-aktivitas-mahasiswa');
+            Route::get('penguji-aktivitas-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'penguji_mahasiswa'])->name('penguji-aktivitas-mahasiswa');
+
+            //Penugasan Dosen
+            Route::get('daftar-penugasan-dosen', [App\Http\Controllers\AdminProdi\Dosen\PenugasanDosenController::class, 'index'])->name('daftar-penugasan-dosen');
+            Route::get('detail-daftar-penugasan-dosen/{id}/{tahun}/{prodi}', [App\Http\Controllers\AdminProdi\Dosen\PenugasanDosenController::class, 'detail'])->name('detail-daftar-penugasan-dosen');
+
+            //Perkuliahan
+            Route::get('mata-kuliah', [App\Http\Controllers\AdminProdi\Perkuliahan\MataKuliahController::class, 'index'])->name('mata-kuliah');
+            Route::get('detail-mata-kuliah/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\MataKuliahController::class, 'detail'])->name('detail-mata-kuliah');
+            Route::get('substansi-kuliah', [App\Http\Controllers\AdminProdi\Perkuliahan\SubstansiKuliahController::class, 'index'])->name('substansi-kuliah');
         });
 });

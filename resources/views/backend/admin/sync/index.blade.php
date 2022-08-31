@@ -197,6 +197,7 @@
                             console.log(xhr.responseText);
                         },
                         success: function(data) {
+                            $("#status-message").removeClass('hidden');
                             callProgress(data.id);
                            }
                         });

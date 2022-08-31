@@ -125,6 +125,46 @@ class SyncTableSeeder extends Seeder
                 'name' => 'Feeder Profil PT',
                 'table_name' => 'pd_feeder_profil_pt',
                 'api_path' => '/feeder/profil-pt',
+            ],
+            [
+                'name' => 'Feeder List Mahasiswa',
+                'table_name' => 'pd_feeder_list_mahasiswa',
+                'api_path' => '/feeder/list-mahasiswa',
+            ],
+            [
+                'name' => 'Feeder Aktivitas Kuliah Mahasiswa',
+                'table_name' => 'pd_feeder_aktivitas_kuliah_mahasiswa',
+                'api_path' => '/feeder/aktivitas-kuliah-mahasiswa',
+            ],
+            [
+                'name' => 'Feeder Pangkat Golongan',
+                'table_name' => 'pd_feeder_pangkat_golongan',
+                'api_path' => '/feeder/pangkat-golongan',
+            ],
+            [
+                'name' => 'Feeder Detail Biodata Dosen',
+                'table_name' => 'pd_feeder_detail_biodata_dosen',
+                'api_path' => '/feeder/biodata-dosen',
+            ],
+            [
+                'name' => 'Feeder List Dosen',
+                'table_name' => 'pd_feeder_list_dosen',
+                'api_path' => '/feeder/list-dosen',
+            ],
+            [
+                'name' => 'Feeder List Penugasan Dosen',
+                'table_name' => 'pd_feeder_list_penugasan_dosen',
+                'api_path' => '/feeder/list-penugasan-dosen',
+            ],
+            [
+                'name' => 'Feeder Detail Penugasan Dosen',
+                'table_name' => 'pd_feeder_detail_penugasan_dosen',
+                'api_path' => '/feeder/detail-penugasan-dosen',
+            ],
+            [
+                'name' => 'Feeder List Riwayat Pendidikan Mahasiswa',
+                'table_name' => 'pd_feeder_list_riwayat_pendidikan_mahasiswa',
+                'api_path' => '/feeder/list-riwayat-pendidikan-mahasiswa',
             ]
         ];
 

@@ -29,7 +29,10 @@
     </div>
 </div>
 @endsection
+
+
 @push('scripts')
+
 <script type="text/javascript">
     $(document).ready(function() {
         var table = $('#user-data').DataTable({
@@ -45,7 +48,14 @@
                 { data: 'username' },
                 { data: 'name'},
                 { data: 'email'},
-                { data: 'role'},
+                { data: 'role', render: function (data, type, row) {
+                    if (row.jenjang) {
+                        return data + ' (' + row.jenjang + ' - ' + row.prodi + ')';
+                    } else {
+                        return data;
+                    }
+                    
+                }},
                 { data: 'id', searchable: false ,render: function(data, type, row) {
                     return '<a href="{{ route('admin.settings.users.edit', ':id') }}'.replace(':id', data) + '" class="btn btn-primary btn-sm">Edit</a> '
                     + '<form id="delete-user" action="{{ route('admin.settings.users.destroy', ':id') }}'.replace(':id', data) + '" method="POST" style="display: inline-block;">@csrf @method("DELETE")<button type="submit" class="btn btn-danger btn-sm">Delete</button></form>';
@@ -62,7 +72,8 @@
                     classNmae: 'text-center',
                     orderable: false,
                     sortable: false,
-                }
+                },
+                
             ],
         });
 

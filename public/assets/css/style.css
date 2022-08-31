@@ -114,7 +114,7 @@ h5 {
 .dropdown-menu > .active > a:hover {
   color: #fff;
   text-decoration: none;
-  background-color: #1ab394;
+  background-color: #00542a;
   outline: 0;
 }
 .dropdown-menu > li > a.font-bold {
@@ -7001,6 +7001,7 @@ body.landing-page {
   height: 470px;
   width: 100%;
 }
+
 .landing-page .header-back.one {
   background: url('../img/landing/header_one.jpg') 50% 0 no-repeat;
 }
@@ -7008,7 +7009,7 @@ body.landing-page {
   background: url('../img/landing/header_two.jpg') 50% 0 no-repeat;
 }
 .landing-page .header-back.three {
-  background: url('https://utbk.unsri.ac.id/inspinia/img/unsri_kpa.jpg') 50% 0 no-repeat;
+  background: url('https://images.pexels.com/photos/4245826/pexels-photo-4245826.jpeg') 50% 0 no-repeat;
 }
 .landing-page .carousel {
   /* height: 470px; */

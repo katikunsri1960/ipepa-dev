@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Models\RolesUser;
+use Illuminate\Support\Facades\DB;
+
 
 class UserController extends Controller
 {
@@ -20,8 +25,10 @@ class UserController extends Controller
 
         if ($request->ajax()) {
 
-            $users = (User::leftJoin('roles', 'users.role_id', 'roles.id')
-                        ->select('users.id as id','users.name as name', 'email', 'role_id', 'username', 'roles.name as role')
+            $users = (User::leftJoin('roles', 'users.role_id', 'roles.id')->leftJoin('roles_users as ru', 'users.id', 'ru.user_id')
+                        ->leftJoin('pd_feeder_program_studi as ps', 'ru.fak_prod_id', 'ps.id_prodi')
+                        ->select('users.id as id','users.name as name', 'email', 'users.role_id as role_id', 'username', 'roles.name as role', 
+                                'ps.nama_jenjang_pendidikan as jenjang', 'ps.nama_program_studi as prodi')
                         ->get())->toJson();
 
             return $users;
@@ -49,30 +56,33 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         $this->authorize('admin');
+        $data = $request->validated();
+        // dd($data);
+        DB::transaction(function () use ($data) {
+           
+            $user = User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'username' => $data['username'],
+                'password' => $data['password'],
+                'role_id' => $data['role_id'],
+            ]);
 
-        $data = $request->all();
-        
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'username' => 'required|string|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-            'role_id' => 'required|integer',
-        ]);
+            if ($data['role_id'] == 4) {
+                RolesUser::create([
+                    'user_id' => $user->id,
+                    'role_id' => $data['role_id'],
+                    'fak_prod_id' => $data['fak_prodi'],
+                ]);
+            }
+        });
 
-        $user = new User;
-        $user->name = $data['name'];
-        $user->email = $data['email'];
-        $user->username = $data['username'];
-        $user->password = bcrypt($data['password']);
-        $user->role_id = $data['role_id'];
-        $user->save();
+        // User::create($request->validated());
 
         return redirect()->route('admin.settings.users.index')->with('success', 'User has been created');
-
 
     }
 
@@ -105,6 +115,9 @@ class UserController extends Controller
 
         $data = $request->all();
         $user = User::findOrFail($id);
+
+        $roleUser = RolesUser::where('user_id',$id)->first();
+
         if ($data['password'] == '') {
             $this->validate($request, [
                 'name' => 'required|string|max:255',
@@ -113,7 +126,9 @@ class UserController extends Controller
                 'role_id' => 'required|integer',
             ]);
             $data['password'] = $user->password;
+
         } else {
+
             $this->validate($request, [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255',
@@ -121,11 +136,23 @@ class UserController extends Controller
                 'password' => 'required|string|min:6|confirmed',
                 'role_id' => 'required|integer',
             ]);
-            $data['password'] = bcrypt($data['password']);
+
+            $data['password'] = $data['password'];
         }
+
 
         $user->update($data);
 
+        if ($data['role_id'] == 4) {
+            $roleUser->updateOrCreate([
+                'user_id' => $user->id,
+                'role_id' => $data['role_id'],
+                'fak_prod_id' => $data['fak_prodi'],
+            ]);
+        } else if($roleUser != null) {
+            $roleUser->delete();
+        }
+     
         return redirect()->route('admin.settings.users.index')->with('success', 'User has been updated');
 
     }
@@ -140,10 +167,16 @@ class UserController extends Controller
     {
         $this->authorize('admin');
 
-        $user = User::findOrFail($id);
-
-        $user->delete();
-
+        DB::transaction(function () use ($id) {
+            
+            $user = User::findOrFail($id);
+            $roleUser = RolesUser::where('user_id',$id)->first();
+            if ($roleUser) {
+                $roleUser->delete();
+            }
+            $user->delete();
+        });
+        
         return redirect()->route('admin.settings.users.index')->with('success', 'User has been deleted');
 
     }
