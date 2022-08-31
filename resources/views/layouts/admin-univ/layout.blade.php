@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Universitas Sriwijaya') }}</title>
+    <title>{{ config('title', 'Universitas Sriwijaya') }}</title>
 
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
@@ -57,7 +57,7 @@
                 </nav>
             </div>
 
-            @include('layouts.admin-univ.partial.breadcrumb')
+            {{-- @include('layouts.admin-univ.partial.breadcrumb') --}}
 
             <div class="wrapper wrapper-content animated fadeInRight">
                 <div class="row">

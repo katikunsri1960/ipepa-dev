@@ -1,6 +1,9 @@
 @extends('layouts.admin-univ.layout')
 @section('content')
 <div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h2>Daftar Mahasiswa</h2>
+    </div>
     <div class="ibox-content p-md">
         <div class="row">
             <div class="col-md-8"></div>

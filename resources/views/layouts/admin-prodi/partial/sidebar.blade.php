@@ -31,11 +31,14 @@
                     </li>
                 </ul>
             </li>
-            <li  class="{{request()->routeIs('admin-prodi.daftar-dosen') ? 'active' : ''}}">
-                <a href=""><i class="fa-solid fa-user-group"></i> <span class="nav-label">Dosen</span><span class="fa arrow"></span></a>
+            <li  class="{{request()->routeIs('admin-prodi.daftar-dosen') || request()->routeIs('admin-univ.prodi-dosen') || request()->routeIs('admin-prodi.penugasan-dosen') || request()->routeIs('admin-univ.aktivitas-mengajar-dosen') || request()->routeIs('admin-prodi.riwayat-fungsional-dosen') || request()->routeIs('admin-prodi.riwayat-pendidikan-dosen') || request()->routeIs('admin-prodi.riwayat-sertifikasi-dosen') || request()->routeIs('admin-prodi.riwayat-penelitian-dosen') || request()->routeIs('admin-prodi.riwayat-kepangkatan-dosen') || request()->routeIs('admin-prodi.daftar-penugasan-dosen') || request()->routeIs('admin-prodi.detail-daftar-penugasan-dosen') || request()->routeIs('admin-prodi.pembimbing-aktivitas-mahasiswa') || request()->routeIs('admin-prodi.penguji-aktivitas-mahasiswa') ? 'active' : ''}}">
+                <a href="#"><i class="fa fa-users"></i> <span class="nav-label">Dosen</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="{{request()->routeIs('admin-prodi.daftar-dosen') ? 'active' : ''}}">
-                        <a href="{{route('admin-prodi.daftar-dosen')}}">Daftar Dosen</a>
+                    <li class="{{request()->routeIs('admin-prodi.daftar-dosen') || request()->routeIs('admin-prodi.detail-dosen') || request()->routeIs('admin-prodi.penugasan-dosen') || request()->routeIs('admin-prodi.aktivitas-mengajar-dosen') || request()->routeIs('admin-prodi.riwayat-fungsional-dosen') || request()->routeIs('admin-prodi.riwayat-pendidikan-dosen') || request()->routeIs('admin-prodi.riwayat-sertifikasi-dosen') || request()->routeIs('admin-prodi.riwayat-penelitian-dosen') || request()->routeIs('admin-prodi.riwayat-kepangkatan-dosen') || request()->routeIs('admin-prodi.pembimbing-aktivitas-mahasiswa') || request()->routeIs('admin-prodi.penguji-aktivitas-mahasiswa') ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.daftar-dosen')}}">Dosen</a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-prodi.daftar-penugasan-dosen') || request()->routeIs('admin-prodi.detail-daftar-penugasan-dosen')  ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.daftar-penugasan-dosen')}}">Penugasan Dosen</a>
                     </li>
                 </ul>
             </li>

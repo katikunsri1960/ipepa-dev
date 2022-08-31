@@ -26,7 +26,11 @@ class MahasiswaController extends Controller
 
         $data = ListMahasiswa::where('id_prodi', $prodiId);
                 // ->leftJoin('pd_feeder_transkrip_mahasiswa as tm', 'pd_feeder_list_mahasiswa.id_registrasi_mahasiswa', 'tm.id_registrasi_mahasiswa');
-
+        $prodi = $data->select('id_prodi', 'nama_program_studi')->distinct()->get();
+        $status = $data->select('nama_status_mahasiswa')->distinct()->get();
+        $agama = $data->select('id_agama','nama_agama')->distinct()->get();
+        $angkatan = $data->select('id_periode')->distinct()->orderBy('id_periode', 'desc')->get();
+        $jk = $data->select('jenis_kelamin')->distinct()->get();
 
         $mahasiswa = $data
             ->when($req->has('keyword'), function($q) use($req, $prodiId) {
@@ -44,9 +48,9 @@ class MahasiswaController extends Controller
             ->addSelect(DB::raw('(SELECT SUM(sks_mata_kuliah) from pd_feeder_transkrip_mahasiswa where id_registrasi_mahasiswa = pd_feeder_list_mahasiswa.id_registrasi_mahasiswa) as total'))
             ->paginate(20);
 
-        // dd($mahasiswa);
 
-        return view('backend.prodi.mahasiswa.index', compact('mahasiswa'));
+
+        return view('backend.prodi.mahasiswa.index', compact('mahasiswa', 'status', 'agama', 'angkatan', 'jk', 'prodi'));
     }
 
     public function detail($id)

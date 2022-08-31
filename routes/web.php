@@ -138,6 +138,20 @@ Route::group(['middleware' => 'auth'], function () {
 
             //Dosen
             Route::get('daftar-dosen', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'index'])->name('daftar-dosen');
+            Route::get('detail-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'detail'])->name('detail-dosen');
+            Route::get('penugasan-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'penugasan'])->name('penugasan-dosen');
+            Route::get('aktivitas-mengajar-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'aktivitas_mengajar'])->name('aktivitas-mengajar-dosen');
+            Route::get('riwayat-fungsional-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'riwayat_fungsional'])->name('riwayat-fungsional-dosen');
+            Route::get('riwayat-kepangkatan-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'riwayat_kepangkatan'])->name('riwayat-kepangkatan-dosen');
+            Route::get('riwayat-pendidikan-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'riwayat_pendidikan'])->name('riwayat-pendidikan-dosen');
+            Route::get('riwayat-sertifikasi-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'riwayat_sertifikasi'])->name('riwayat-sertifikasi-dosen');
+            Route::get('riwayat-penelitian-dosen/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'riwayat_penelitian'])->name('riwayat-penelitian-dosen');
+            Route::get('pembimbing-aktivitas-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'pembimbing_mahasiswa'])->name('pembimbing-aktivitas-mahasiswa');
+            Route::get('penguji-aktivitas-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Dosen\DosenController::class, 'penguji_mahasiswa'])->name('penguji-aktivitas-mahasiswa');
+
+            //Penugasan Dosen
+            Route::get('daftar-penugasan-dosen', [App\Http\Controllers\AdminProdi\Dosen\PenugasanDosenController::class, 'index'])->name('daftar-penugasan-dosen');
+            Route::get('detail-daftar-penugasan-dosen/{id}/{tahun}/{prodi}', [App\Http\Controllers\AdminProdi\Dosen\PenugasanDosenController::class, 'detail'])->name('detail-daftar-penugasan-dosen');
 
             //Perkuliahan
             Route::get('mata-kuliah', [App\Http\Controllers\AdminProdi\Perkuliahan\MataKuliahController::class, 'index'])->name('mata-kuliah');
