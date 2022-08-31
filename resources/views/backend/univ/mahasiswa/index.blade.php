@@ -6,7 +6,99 @@
     </div>
     <div class="ibox-content p-md">
         <div class="row">
-            <div class="col-md-8"></div>
+            <div class="col-md-8">
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-filter"><i
+                        class="fa-solid fa-filter"></i><span style="margin-left: 6px; margin-right: 6px">Filter</span>
+                </button>
+
+                <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <div class="row">
+                                    <form method="GET">
+                                        <div class="form-group">
+                                            <label>Program Studi</label>
+                                            <select name="prodi[]" id="prodi" data-placeholder="Pilih Program Studi..."
+                                            class="form-control chosen-select" multiple style="width:350px;"
+                                            tabindex="4">
+                                                <option value=""></option>
+                                                @foreach ($prodi as $p)
+                                                    <option value="{{ $p->id_prodi }}"  @if ($val->prodi && in_array($p->id_prodi, $val->prodi))
+                                                        selected
+                                                    @endif>{{ $p->nama_program_studi }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pilih Angkatan</label>
+                                            <select name="angkatan[]" id="angkatan" data-placeholder="Pilih Angkatan..."
+                                                class="form-control chosen-select" multiple style="width:350px;"
+                                                tabindex="4">
+                                                <option value=""></option>
+                                                @foreach ($angkatan as $ang)
+                                                    <option value="{{ $ang->id_periode }}" @if ($val->angkatan && in_array($ang->id_periode, $val->angkatan))
+                                                        selected
+                                                    @endif>
+                                                        @if (strlen($ang->id_periode) > 4)
+                                                            {{ substr($ang->id_periode, 0, 4) }}
+                                                        @else
+                                                            {{ $ang->id_periode }}
+                                                        @endif
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pilih Status Mahasiswa</label>
+                                            <select name="status[]" id="status" data-placeholder="Pilih Status Mahasiswa..."
+                                            class="form-control chosen-select" multiple style="width:350px;"
+                                            tabindex="4">
+                                                <option value=""></option>
+                                                @foreach ($status as $s)
+                                                    <option value="{{ $s->nama_status_mahasiswa }}"  @if ($val->status && in_array($s->nama_status_mahasiswa, $val->status))
+                                                        selected
+                                                    @endif>
+                                                        {{ $s->nama_status_mahasiswa }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pilih Jenis Kelamin</label>
+                                            <select name="jk[]" id="jk" data-placeholder="Pilih Jenis Kelamin..."
+                                            class="form-control chosen-select" multiple style="width:350px;"
+                                            tabindex="4">
+                                                <option value=""></option>
+                                                @foreach ($jk as $j)
+                                                    <option value="{{ $j->jenis_kelamin }}"  @if ($val->jk && in_array($j->jenis_kelamin, $val->jk))
+                                                        selected
+                                                    @endif>{{ $j->jenis_kelamin }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Pilih Agama</label>
+                                            <select name="agama[]" id="agama" data-placeholder="Pilih Agama..."
+                                            class="form-control chosen-select" multiple style="width:350px;"
+                                            tabindex="4">
+                                                <option value=""></option>
+                                                @foreach ($agama as $a)
+                                                    <option value="{{ $a->id_agama }}" @if ($val->agama && in_array($a->id_agama, $val->agama))
+                                                        selected
+                                                    @endif>{{ $a->nama_agama }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <button class="btn btn-warning" type="submit">Apply Filter</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-4 col-12">
                 <form method="GET" role="search">
                     <div class="input-group">
