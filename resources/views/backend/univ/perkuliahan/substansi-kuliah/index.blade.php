@@ -26,6 +26,24 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($substansi as $sub => $data)
+                    <tr>
+                        <td class="text-center">{{$substansi->firstItem() + $sub}}</td>
+
+
+                        <td  class="text-center"> <a href="{{route('admin-univ.substansi-kuliah', ['id' => $data->id_substansi])}}">
+                        {{$data->nama_substansi}}</td>
+                        <td class="text-center">{{$data->sks_mata_kuliah}}</td>
+                        <td class="text-center">{{$data->sks_tatap_muka}}</td>
+                        <td class="text-center">{{$data->sks_praktek}}</td>
+                        if ($data->sks_praktek_lapangan == null) {
+                            <td class="text-center">{{$data->sks_praktek_lapangan}}</td>
+                        }
+
+                        <td class="text-center">{{$data->sks_simulasi}}</td>
+
+                    </tr>
+                    @endforeach
 
                 </tbody>
             </table>

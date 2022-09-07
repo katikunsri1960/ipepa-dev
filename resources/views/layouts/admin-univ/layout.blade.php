@@ -10,8 +10,8 @@
     <title>{{ config('title', 'Universitas Sriwijaya') }}</title>
 
     <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
-
+    {{-- <link href="{{asset('assets/font-awesome/css/font-awesome.css')}}" rel="stylesheet"> --}}
+    <link href="{{asset('assets/fontawesome6/css/all.min.css')}}" rel="stylesheet">
     {{-- <link rel="stylesheet" href="{{asset('assets/fontawesome6/css/fontawesome.min.css')}}"> --}}
     <link href="{{asset('assets/css/plugins/dataTables/datatables.min.css')}}" rel="stylesheet">
     {{-- <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"> --}}
@@ -23,6 +23,8 @@
 
     <link href="{{asset('assets/css/animate.css')}}" rel="stylesheet">
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+
+    @stack('css')
 
 </head>
 

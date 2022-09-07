@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\AdminUniv\Dosen;
 
 use App\Http\Controllers\Controller;
+use App\Models\PDUnsri\Feeder\Agama;
 use App\Models\PDUnsri\Feeder\Dosen\AktivitasMengajarDosen;
 use App\Models\PDUnsri\Feeder\Dosen\DetailBiodataDosen;
 use App\Models\PDUnsri\Feeder\Dosen\DetailPenugasanDosen;
@@ -23,22 +24,37 @@ class DosenController extends Controller
     {
         $this->authorize('admin-univ');
 
-        $dosen =
+        $data = new (ListDosen::class);
 
-        $dosen = ListDosen::when($req->has('keyword'), function($q) use($req){
+        $agama = Agama::select('id_agama','nama_agama')->get();
+        $status_pegawai = $data->select('id_status_aktif', 'nama_status_aktif')->distinct()->get();
+        $jk = $data->select('jenis_kelamin')->distinct()->get();
+
+        $dosen = $data->when($req->has('keyword') || $req->has('status_pegawai') || $req->has('jk') || $req->has('agama'), function($q) use($req){
             if ($req->keyword != '') {
                 $q->where('pd_feeder_list_dosen.nama_dosen', 'like', '%'.$req->keyword.'%')
                 ->orWhere('pd_feeder_list_dosen.nidn', 'like', '%'.$req->keyword.'%')
                 ->orWhere('pd_feeder_list_dosen.nip', 'like', '%'.$req->keyword.'%');
+            }
+            if ($req->status_pegawai!='') {
+                $q->whereIn('id_status_aktif', $req->status_pegawai);
+            }
+            if ($req->jk!='') {
+                $q->whereIn('jenis_kelamin', $req->jk);
+            }
+            if ($req->agama!='') {
+                $q->whereIn('id_agama', $req->agama);
             }
         })
         ->select('pd_feeder_list_dosen.id_dosen as id_dosen',
          'pd_feeder_list_dosen.nama_dosen as nama_dosen', 'pd_feeder_list_dosen.nidn as nidn', 'pd_feeder_list_dosen.jenis_kelamin as jenis_kelamin',
             'pd_feeder_list_dosen.nama_agama as nama_agama', 'pd_feeder_list_dosen.tanggal_lahir as tanggal_lahir', 'pd_feeder_list_dosen.nama_status_aktif as nama_status_aktif')->paginate(20);
 
+        $val = $req;
+
         // dd($mahasiswa);
 
-        return view('backend.univ.dosen.index', compact('dosen'));
+        return view('backend.univ.dosen.index', compact('dosen','status_pegawai','agama','jk','val'));
     }
 
     public function detail($id)

@@ -23,10 +23,10 @@
             <li class="{{request()->routeIs('admin-prodi.dashboard-admin-prodi') ? 'active' : ''}}">
                 <a href="{{route('admin-prodi.dashboard-admin-prodi')}}"><i class="fa-solid fa-table-cells"></i> <span class="nav-label">Dashboards</span></a>
             </li>
-            <li  class="{{request()->routeIs('admin-prodi.daftar-mahasiswa') ? 'active' : ''}}">
+            <li  class="{{request()->routeIs('admin-prodi.daftar-mahasiswa') || request()->routeIs('admin-univ.detail-mahasiswa') || request()->routeIs('admin-univ.histori-pendidikan') || request()->routeIs('admin-univ.krs-mahasiswa') || request()->routeIs('admin-univ.histori-nilai') || request()->routeIs('admin-univ.aktivitas-perkuliahan') || request()->routeIs('admin-univ.prestasi-mahasiswa') || request()->routeIs('admin-univ.detail-transkrip-mahasiswa') ? 'active' : ''}}">
                 <a href=""><i class="fa fa-graduation-cap"></i> <span class="nav-label">Mahasiswa</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="{{request()->routeIs('admin-prodi.daftar-mahasiswa') ? 'active' : ''}}">
+                    <li class="{{request()->routeIs('admin-prodi.daftar-mahasiswa') || request()->routeIs('admin-univ.detail-mahasiswa') || request()->routeIs('admin-univ.histori-pendidikan') || request()->routeIs('admin-univ.krs-mahasiswa') || request()->routeIs('admin-univ.histori-nilai') || request()->routeIs('admin-univ.aktivitas-perkuliahan') || request()->routeIs('admin-univ.prestasi-mahasiswa') || request()->routeIs('admin-univ.detail-transkrip-mahasiswa') ? 'active' : ''}}">
                         <a href="{{route('admin-prodi.daftar-mahasiswa')}}">Daftar Mahasiswa</a>
                     </li>
                 </ul>

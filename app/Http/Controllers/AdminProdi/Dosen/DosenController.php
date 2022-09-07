@@ -22,23 +22,36 @@ class DosenController extends Controller
     public function index(Request $req)
     {
         $this->authorize('admin-prodi');
+        $db = new (ListDosen::class);
 
-        $dosen =
+        $status = $db->select('id_status_aktif', 'nama_status_aktif')->distinct()->get();
+        $jk = $db->select('jenis_kelamin')->distinct()->get();
+        $agama = $db->select('id_agama', 'nama_agama')->distinct()->get();
 
-        $dosen = ListDosen::when($req->has('keyword'), function($q) use($req){
+        $dosen = $db->when($req->has('keyword') || $req->has('status') || $req->has('jk') || $req->has('agama'), function($q) use($req){
             if ($req->keyword != '') {
                 $q->where('pd_feeder_list_dosen.nama_dosen', 'like', '%'.$req->keyword.'%')
                 ->orWhere('pd_feeder_list_dosen.nidn', 'like', '%'.$req->keyword.'%')
                 ->orWhere('pd_feeder_list_dosen.nip', 'like', '%'.$req->keyword.'%');
             }
+            if ($req->status) {
+                $q->whereIn('id_status_aktif', $req->status);
+            }
+            if ($req->jk) {
+                $q->whereIn('jenis_kelamin', $req->jk);
+            }
+            if ($req->agama!='') {
+                $q->whereIn('id_agama', $req->agama);
+            }
         })
         ->select('pd_feeder_list_dosen.id_dosen as id_dosen',
-         'pd_feeder_list_dosen.nama_dosen as nama_dosen', 'pd_feeder_list_dosen.nidn as nidn', 'pd_feeder_list_dosen.jenis_kelamin as jenis_kelamin',
-            'pd_feeder_list_dosen.nama_agama as nama_agama', 'pd_feeder_list_dosen.tanggal_lahir as tanggal_lahir', 'pd_feeder_list_dosen.nama_status_aktif as nama_status_aktif')->paginate(20);
+            'pd_feeder_list_dosen.nama_dosen as nama_dosen', 'pd_feeder_list_dosen.nidn as nidn', 'pd_feeder_list_dosen.jenis_kelamin as jenis_kelamin',
+            'pd_feeder_list_dosen.nama_agama as nama_agama', 'pd_feeder_list_dosen.tanggal_lahir as tanggal_lahir', 'pd_feeder_list_dosen.nama_status_aktif as nama_status_aktif')
+        ->paginate(20);
 
-        // dd($mahasiswa);
+        $val = $req;
 
-        return view('backend.prodi.dosen.index', compact('dosen'));
+        return view('backend.prodi.dosen.index', compact('dosen', 'status', 'val', 'jk', 'agama'));
     }
 
     public function detail($id)

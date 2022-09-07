@@ -25,12 +25,15 @@ class MahasiswaController extends Controller
 
         $prodiId = RolesUser::where('user_id', auth()->user()->id)->value('fak_prod_id');
 
-        $data = ListMahasiswa::where('id_prodi', $prodiId);
+        $data = ListMahasiswa::join('pd_feeder_semester as semester', 'pd_feeder_list_mahasiswa.id_periode', 'semester.id_semester')->where('id_prodi', $prodiId);
 
         $prodi = $data->select('id_prodi', 'nama_program_studi')->distinct()->get();
         $status = $data->select('nama_status_mahasiswa')->distinct()->get();
         $agama = $data->select('id_agama','nama_agama')->distinct()->get();
-        $angkatan = $data->select('id_periode')->distinct()->orderBy('id_periode', 'desc')->get();
+
+        $angkatan = $data->select('id_periode')->addSelect(DB::raw(DB::raw('(SELECT id_tahun_ajaran from pd_feeder_semester as semester where semester.id_semester = pd_feeder_list_mahasiswa.id_periode) as angkatan')))
+                        ->distinct()->get();
+        // dd($angkatan);
         $jk = $data->select('jenis_kelamin')->distinct()->get();
 
         $mahasiswa = $data
@@ -41,7 +44,7 @@ class MahasiswaController extends Controller
                     ->orWhere('pd_feeder_list_mahasiswa.nama_program_studi', 'like', '%'.$req->keyword.'%')->where('id_prodi', $prodiId);
                 }
                 if ($req->angkatan!='') {
-                    $q->whereIn('id_periode', $req->angkatan);
+                    $q->whereIn('semester.id_tahun_ajaran', $req->angkatan);
                 }
                 if ($req->prodi!='') {
                     $q->whereIn('id_prodi', $req->prodi);
@@ -60,7 +63,8 @@ class MahasiswaController extends Controller
              'pd_feeder_list_mahasiswa.nama_mahasiswa as nama_mahasiswa', 'pd_feeder_list_mahasiswa.nim as nim', 'pd_feeder_list_mahasiswa.jenis_kelamin as jenis_kelamin',
                 'pd_feeder_list_mahasiswa.nama_agama as nama_agama', 'pd_feeder_list_mahasiswa.total_sks as total_sks', 'pd_feeder_list_mahasiswa.tanggal_lahir as tanggal_lahir',
                 'pd_feeder_list_mahasiswa.nama_program_studi as nama_program_studi',
-                'pd_feeder_list_mahasiswa.nama_status_mahasiswa as nama_status_mahasiswa', 'pd_feeder_list_mahasiswa.id_periode as id_periode')
+                'pd_feeder_list_mahasiswa.nama_status_mahasiswa as nama_status_mahasiswa', 'semester.id_tahun_ajaran as angkatan')
+            // ->addSelect(DB::raw('(SELECT id_tahun_ajaran from pd_feeder_semester as semester where semester.id_semester = pd_feeder_list_mahasiswa.id_periode) as angkatan'))
             ->addSelect(DB::raw('(SELECT SUM(sks_mata_kuliah) from pd_feeder_transkrip_mahasiswa where id_registrasi_mahasiswa = pd_feeder_list_mahasiswa.id_registrasi_mahasiswa) as total'))
             ->paginate(20);
 
@@ -80,7 +84,7 @@ class MahasiswaController extends Controller
                         'nama_kebutuhan_khusus_mahasiswa')->first();
 
         // $aktivitas = AktivitasKuliahMahasiswa::where('id_mahasiswa', $id)->get();
-        return view('backend.prodi.mahasiswa.detail-mahasiswa', compact('mahasiswa', 'req'));
+        return view('backend.prodi.mahasiswa.detail-mahasiswa', compact('mahasiswa'));
     }
 
     public function histori($id)
@@ -147,12 +151,20 @@ class MahasiswaController extends Controller
 
         } else {
 
-            $krs = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+            if (empty($periodeNow)) {
+                $krs = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+                    ->select('kode_mata_kuliah', 'nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah')
+                    ->get();
+            } else {
+
+                $krs = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
                     ->where('id_periode', $periodeNow[0])
                     ->select('kode_mata_kuliah', 'nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah')
                     ->get();
 
-            $periodeAkt = $periodeNow[0]['id_periode'];
+                $periodeAkt = $periodeNow[0]['id_periode'];
+            }
+
         }
 
         return view('backend.prodi.mahasiswa.krs-mahasiswa', compact('mahasiswa', 'krs', 'periodeNow', 'periodeAkt'));
@@ -185,14 +197,20 @@ class MahasiswaController extends Controller
 
         } else {
 
-            $histori = RNM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+            if (empty($periodeNow)) {
+                $histori = RNM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+                    ->select('id_matkul', 'nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah', 'nilai_angka', 'nilai_huruf', 'nilai_indeks')
+                    ->addSelect(DB::raw('(SELECT kode_mata_kuliah from pd_feeder_mata_kuliah where pd_feeder_riwayat_nilai_mahasiswa.id_matkul = id_matkul) as kode_mata_kuliah'))
+                    ->get();
+            } else {
+                $histori = RNM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
                     ->where('id_periode', $periodeNow[0])
                     ->select('id_matkul', 'nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah', 'nilai_angka', 'nilai_huruf', 'nilai_indeks')
                     ->addSelect(DB::raw('(SELECT kode_mata_kuliah from pd_feeder_mata_kuliah where pd_feeder_riwayat_nilai_mahasiswa.id_matkul = id_matkul) as kode_mata_kuliah'))
                     ->get();
 
-            $periodeAkt = $periodeNow[0]['id_periode'];
-
+                $periodeAkt = $periodeNow[0]['id_periode'];
+            }
         }
 
         // dd($histori);

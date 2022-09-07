@@ -35,14 +35,10 @@
                                                     tabindex="4">
                                                     <option value=""></option>
                                                     @foreach ($angkatan as $ang)
-                                                        <option value="{{ $ang->id_periode }}" @if ($val->angkatan && in_array($ang->id_periode, $val->angkatan))
+                                                        <option value="{{ $ang->angkatan }}" @if ($val->angkatan && in_array($ang->id_periode, $val->angkatan))
                                                             selected
                                                         @endif>
-                                                            @if (strlen($ang->id_periode) > 4)
-                                                                {{ substr($ang->id_periode, 0, 4) }}
-                                                            @else
-                                                                {{ $ang->id_periode }}
-                                                            @endif
+                                                            {{$ang->angkatan}}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -68,7 +64,7 @@
                                                 tabindex="4">
                                                     <option value=""></option>
                                                     @foreach ($jk as $j)
-                                                        <option value="{{ $j->jenis_kelamin }}"  @if ($val->jk && in_array($j->jenis_kelamin, $val->jk))
+                                                        <option value="@if ($j->jenis_kelamin == 'Perempuan')P @elseif ($j->jenis_kelamin == 'Laki-laki')L @endif"  @if ($val->jk && in_array($j->jenis_kelamin, $val->jk))
                                                             selected
                                                         @endif>{{ $j->jenis_kelamin }}
                                                         </option>
@@ -147,12 +143,7 @@
                                 <td class="text-center">{{ $data->tanggal_lahir }}</td>
                                 <td class="text-center">{{ $data->nama_program_studi }}</td>
                                 <td class="text-center">{{ $data->nama_status_mahasiswa }}</td>
-                                <td class="text-center">
-                                    @if (strlen($data->id_periode) > 4)
-                                        {{ substr($data->id_periode, 0, 4) }}
-                                    @else
-                                        {{ $data->id_periode }}
-                                    @endif
+                                <td class="text-center">{{$data->angkatan}}
                                 </td>
                             </tr>
                         @endforeach

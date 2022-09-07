@@ -28,7 +28,15 @@ class ListDosen extends Model
                     return '-';
                 }
             },
-
+            set: function ($value) {
+                if ($value == 'Laki-laki') {
+                    return 'L';
+                } elseif ($value == 'Perempuan') {
+                    return 'P';
+                } else {
+                    return '-';
+                }
+            }
         );
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpMyAdmin\SqlParser\Components\Limit;
 
-class PerkuliahanController extends Controller
+class MataKuliahController extends Controller
 {
     public function index(Request $req)
     {
@@ -27,7 +27,7 @@ class PerkuliahanController extends Controller
         ->addSelect(DB::raw('(SELECT nama_jenis_mata_kuliah FROM pd_feeder_jenis_mata_kuliah as jenis_mk WHERE jenis_mk.id_jenis_mata_kuliah = pd_feeder_mata_kuliah.id_jenis_mata_kuliah) as nama_jenis_mk'))
         ->paginate(20);
 
-        return view('backend.univ.perkuliahan.daftar-mata-kuliah', compact('mk'));
+        return view('backend.univ.perkuliahan.mata-kuliah.index', compact('mk'));
     }
 
     public function detail_matkul($id)
@@ -41,7 +41,7 @@ class PerkuliahanController extends Controller
                 ->get();
                 // dd($detail_matkul($id));
 
-        return view('backend.univ.perkuliahan.detail-mata-kuliah', compact('detail_matkul'));
+        return view('backend.univ.perkuliahan.mata-kuliah.detail', compact('detail_matkul'));
     }
 
     public function substansi_kuliah()
