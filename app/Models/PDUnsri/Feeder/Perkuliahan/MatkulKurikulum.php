@@ -5,10 +5,10 @@ namespace App\Models\PDUnsri\Feeder\Perkuliahan;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DetailKurikulum extends Model
+class MatkulKurikulum extends Model
 {
     use HasFactory;
-    protected $table = 'pd_feeder_detail_kurikulum';
+    protected $table = 'pd_feeder_matkul_kurikulum';
     public $timestamps = false;
     public $incrementing = false;
 }

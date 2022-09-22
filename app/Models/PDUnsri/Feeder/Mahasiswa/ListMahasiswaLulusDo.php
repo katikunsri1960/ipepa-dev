@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ListMahasiswaLulusDo extends Model
 {
     use HasFactory;
+    protected $table = 'pd_feeder_list_mahasiswa_lulus_do';
+    public $timestamps = false;
+    public $incrementing = false;
 }

@@ -1,0 +1,47 @@
+<?php
+
+namespace App\Http\Controllers\AdminUniv\Pelengkap;
+
+use App\Http\Controllers\Controller;
+use App\Models\PDUnsri\Feeder\Pelengkap\ListSkalaNilaiProdi;
+use App\Models\PDUnsri\Feeder\ProgramStudi;
+use Illuminate\Http\Request;
+
+class SkalaNilaiController extends Controller
+{
+    public function index(Request $req)
+    {
+        $this->authorize('admin-univ');
+
+        $data = new(ListSkalaNilaiProdi::class);
+
+        $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->get();
+        $val = $req;
+
+        $skala_nilai = $data->when($req->has('keyword') || $req->has('prodi'), function($q) use($req){
+            if ($req->keyword != '') {
+                $q->where('pd_feeder_list_skala_nilai_prodi.nama_program_studi', 'like', '%'.$req->keyword.'%');
+            }
+            if ($req->prodi!='') {
+                $q->whereIn('id_prodi', $req->prodi);
+            }
+        })
+        ->select('id_bobot_nilai', 'id_prodi', 'nama_program_studi', 'nilai_huruf', 'nilai_indeks', 'bobot_minimum','bobot_maksimum', 'tanggal_mulai_efektif','tanggal_akhir_efektif')
+        ->paginate(20);
+
+        return view('backend.univ.pelengkap.skala-nilai.index', compact('skala_nilai','prodi','val'));
+    }
+
+    public function detail($id)
+    {
+        $this->authorize('admin-univ');
+
+        $data = new(ListSkalaNilaiProdi::class);
+
+        $detail_skala_nilai = $data->where('id_bobot_nilai',$id)
+                ->select('nama_program_studi', 'nilai_huruf', 'nilai_indeks', 'bobot_minimum','bobot_maksimum', 'tanggal_mulai_efektif','tanggal_akhir_efektif')->get();
+
+
+        return view('backend.univ.pelengkap.skala-nilai.detail', compact('detail_skala_nilai'));
+    }
+}

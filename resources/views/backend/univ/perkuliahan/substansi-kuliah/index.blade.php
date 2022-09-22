@@ -12,10 +12,26 @@
                 </a>
             </div>
         </div>
-        <div class="ibox-content">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
+        <div class="ibox-content p-md">
+            <div class="row">
+                <div class="col-md-8"></div>
+                <div class="col-md-4 col-12">
+                    <form method="GET" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="keyword"
+                                placeholder="Search by Nama Substansi" value="{{request()->get('keyword','')}}"> <span class="input-group-btn">
+                                <button class="btn btn-default">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="p-md">
+                <table class="table table-bordered table-hover table-responsive" id="table-matkul">
+                    <thead>
+                        <tr>
                         <th rowspan="2" class="text-center" style="vertical-align: middle">No.</th>
                         <th rowspan="2" class="text-center" style="vertical-align: middle">Nama Substansi</th>
                         <th rowspan="2" class="text-center" style="vertical-align: middle">Bobot Mata Kuliah (sks)</th>
@@ -29,24 +45,19 @@
                     @foreach($substansi as $sub => $data)
                     <tr>
                         <td class="text-center">{{$substansi->firstItem() + $sub}}</td>
-
-
-                        <td  class="text-center"> <a href="{{route('admin-univ.substansi-kuliah', ['id' => $data->id_substansi])}}">
+                        <td  class="text-left"> <a href="{{route('admin-univ.detail-substansi-kuliah', ['id' => $data->id_substansi])}}">
                         {{$data->nama_substansi}}</td>
                         <td class="text-center">{{$data->sks_mata_kuliah}}</td>
                         <td class="text-center">{{$data->sks_tatap_muka}}</td>
                         <td class="text-center">{{$data->sks_praktek}}</td>
-                        if ($data->sks_praktek_lapangan == null) {
-                            <td class="text-center">{{$data->sks_praktek_lapangan}}</td>
-                        }
-
+                        <td class="text-center">{{$data->sks_praktek_lapangan}}</td>
                         <td class="text-center">{{$data->sks_simulasi}}</td>
 
                     </tr>
                     @endforeach
-
                 </tbody>
             </table>
+            {!! $substansi->withQueryString()->links() !!}
         </div>
     </div>
 @endsection

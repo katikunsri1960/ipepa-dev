@@ -7,7 +7,7 @@
         <div class="ibox-content p-md">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="widget yellow-bg no-padding text-vertical-midle">
+                    <div class="widget blue-bg no-padding text-vertical-midle">
                         <div class="p-md">
                             <h5>Menampilkan dan Mengelola Mata Kuliah</h5>
                         </div>

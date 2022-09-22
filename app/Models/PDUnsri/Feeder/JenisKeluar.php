@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class JenisKeluar extends Model
 {
     use HasFactory;
+    protected $table = 'pd_feeder_jenis_keluar';
+    
 }
