@@ -69,9 +69,9 @@
                         <a href="{{route('admin-univ.nilai-perkuliahan')}}">Nilai Perkuliahan</a>
                     </li> --}}
 
-                    <li class="{{request()->routeIs('admin-univ.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-univ.aktivitas-kuliah-mahasiswa') ? 'active' : ''}}">
+                    {{-- <li class="{{request()->routeIs('admin-univ.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-univ.aktivitas-kuliah-mahasiswa') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.aktivitas-kuliah-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Aktivitas Kuliah Mahasiswa</span></a>
-                    </li>
+                    </li> --}}
 
                     <li class="{{request()->routeIs('admin-univ.aktivitas-mahasiswa') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.aktivitas-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Aktivitas Mahasiswa</span></a>
