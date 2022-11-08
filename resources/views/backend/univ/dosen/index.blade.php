@@ -6,17 +6,17 @@
         </div>
         <div class="ibox-content p-md">
             <div class="row">
-                <div class="col-md-8">
-                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-filter"><i
-                            class="fa-solid fa-filter"></i><span style="margin-left: 6px; margin-right: 6px">Filter</span>
-                    </button>
-
-                    <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <form method="GET">
+                <form method="get">
+                    <div class="col-md-2">
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="modal"
+                            data-target="#modal-filter"><i class="fa-solid fa-filter"></i><span
+                            style="margin-left: 6px; margin-right: 6px">Filter</span>
+                        </button>
+                        <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="row">
                                             <div class="form-group">
                                                 <label>Pilih Status Kepegawaian</label>
                                                 <select name="status_pegawai[]" id="status"
@@ -70,14 +70,22 @@
                                                 </select>
                                             </div>
                                             <button class="btn btn-warning" type="submit">Apply Filter</button>
-                                        </form>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-12">
+                    </div><br><br><hr>
+                    <div class="col-md-2">
+                        <select name="p" id="p" class="form-control" onchange="this.form.submit()">
+                            @foreach ($paginate as $p)
+                            <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
+                            @endforeach
+                        </select>
+                    </div> 
+                </form>
+                <div class="col-lg-4 pull-right">
                     <form method="GET" role="search">
                         <div class="input-group">
                             <input type="text" class="form-control" name="keyword" placeholder="Search by NIDN or Nama"

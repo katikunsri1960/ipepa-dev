@@ -97,7 +97,19 @@
         </div><br>
         <div class="row">
             <div class="col-md-12">
-                <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :  <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i></span></p>
+                <p class="pull-right">Halaman ini menampilkan data berdasarkan tahun keluar :
+                    @if ($val['tahun_keluar'] != '')
+                        @foreach ($val['tahun_keluar'] as $s)
+                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $s }}</span>
+                        @endforeach
+                    @elseif ($val['prodi'] != '' && $val['tahun_keluar'] = '')
+                        @foreach ($val['tahun_keluar'] as $s)
+
+                        @endforeach
+                    {{-- @else
+                        <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span> --}}
+                    @endif
+                </p>
             </div>
         </div>
         <div class="pt-2">

@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('krs-ajax', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'krs_ajax'])->name('krs-ajax');
         Route::get('histori-nilai/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'histori_nilai'])->name('histori-nilai');
         Route::get('prestasi-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'prestasi'])->name('prestasi-mahasiswa');
+        Route::get('export-daftar-mahasiswa', [App\Http\Controllers\AdminUniv\Mahasiswa\ExportController::class, 'daftar_mahasiswa'])->name('export-daftar-mahasiswa');
 
         //Profil PT
         Route::get('profil-pt', [App\Http\Controllers\AdminUniv\Profil_pt\ProfilPTController::class, 'index'])->name('profil-pt');
@@ -99,20 +100,25 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('kurikulum', [App\Http\Controllers\AdminUniv\Perkuliahan\KurikulumController::class, 'index'])->name('kurikulum');
         Route::get('detail-kurikulum/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\KurikulumController::class, 'detail'])->name('detail-kurikulum');
         // Route::get('kelas-perkuliahan', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'kelas_perkuliahan'])->name('kelas-perkuliahan');
-        // Route::get('nilai-perkuliahan', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'nilai_perkuliahan'])->name('nilai-perkuliahan');
+        Route::get('nilai-perkuliahan', [App\Http\Controllers\AdminUniv\Perkuliahan\NilaiPerkuliahanController::class, 'index'])->name('nilai-perkuliahan');
+        Route::get('detail-nilai-perkuliahan/{id}/{semester}', [App\Http\Controllers\AdminUniv\Perkuliahan\NilaiPerkuliahanController::class, 'detail'])->name('detail-nilai-perkuliahan');
         Route::get('aktivitas-kuliah-mahasiswa', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasKuliahMahasiswaController::class, 'index'])->name('aktivitas-kuliah-mahasiswa');
-        Route::get('detail-aktivitas-kuliah-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasKuliahMahasiswaController::class, 'detail'])->name('detail-aktivitas-kuliah-mahasiswa');
+        Route::get('detail-aktivitas-kuliah-mahasiswa/{id}/{semester}', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasKuliahMahasiswaController::class, 'detail'])->name('detail-aktivitas-kuliah-mahasiswa');
         Route::get('aktivitas-mahasiswa', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasMahasiswaController::class, 'index'])->name('aktivitas-mahasiswa');
+        Route::get('detail-aktivitas-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasMahasiswaController::class, 'detail'])->name('detail-aktivitas-mahasiswa');
         // Route::get('kampus-merdeka', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'kampus_merdeka'])->name('kampus-merdeka');
         Route::get('mahasiswa-lulus-do', [App\Http\Controllers\AdminUniv\Perkuliahan\MahasiswaLulusDoController::class, 'index'])->name('mahasiswa-lulus-do');
         Route::get('detail-mahasiswa-lulus-do/{id}/{tahun}', [App\Http\Controllers\AdminUniv\Perkuliahan\MahasiswaLulusDoController::class, 'detail'])->name('detail-mahasiswa-lulus-do');
-        // Route::get('transkrip-mahasiswa', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'transkrip_mahasiswa'])->name('transkrip-mahasiswa');
+        Route::get('cek-transkrip-mahasiswa', [App\Http\Controllers\AdminUniv\Perkuliahan\CekTranskripMahasiswaController::class, 'index'])->name('cek-transkrip-mahasiswa');
 
         //Daftar Pelengkap
         Route::get('skala-nilai', [App\Http\Controllers\AdminUniv\Pelengkap\SkalaNilaiController::class, 'index'])->name('skala-nilai');
         Route::get('detail-skala-nilai/{id}', [App\Http\Controllers\AdminUniv\Pelengkap\SkalaNilaiController::class, 'detail'])->name('detail-skala-nilai');
         Route::get('periode-perkuliahan', [App\Http\Controllers\AdminUniv\Pelengkap\PeriodePerkuliahanController::class, 'index'])->name('periode-perkuliahan');
         Route::get('detail-periode-perkuliahan/{prodi}/{semester}', [App\Http\Controllers\AdminUniv\Pelengkap\PeriodePerkuliahanController::class, 'detail'])->name('detail-periode-perkuliahan');
+
+        //Export Data
+        Route::get('export-data', [App\Http\Controllers\AdminUniv\Export\ExportDataController::class, 'index'])->name('export-data');
     });
 
 
@@ -164,7 +170,27 @@ Route::group(['middleware' => 'auth'], function () {
 
             //Perkuliahan
             Route::get('mata-kuliah', [App\Http\Controllers\AdminProdi\Perkuliahan\MataKuliahController::class, 'index'])->name('mata-kuliah');
-            Route::get('detail-mata-kuliah/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\MataKuliahController::class, 'detail'])->name('detail-mata-kuliah');
+            // Route::get('detail-mata-kuliah/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\MataKuliahController::class, 'detail_matkul'])->name('detail-mata-kuliah');
+            Route::get('detail-mata-kuliah/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\MataKuliahController::class, 'detail_matkul'])->name('detail-mata-kuliah');
             Route::get('substansi-kuliah', [App\Http\Controllers\AdminProdi\Perkuliahan\SubstansiKuliahController::class, 'index'])->name('substansi-kuliah');
+            Route::get('kurikulum', [App\Http\Controllers\AdminProdi\Perkuliahan\KurikulumController::class, 'index'])->name('kurikulum');
+            Route::get('detail-kurikulum/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\KurikulumController::class, 'detail'])->name('detail-kurikulum');
+            Route::get('nilai-perkuliahan', [App\Http\Controllers\AdminProdi\Perkuliahan\NilaiPerkuliahanController::class, 'index'])->name('nilai-perkuliahan');
+            Route::get('detail-nilai-perkuliahan/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\NilaiPerkuliahanController::class, 'detail'])->name('detail-nilai-perkuliahan');
+            Route::get('aktivitas-kuliah-mahasiswa', [App\Http\Controllers\AdminProdi\Perkuliahan\AktivitasKuliahMahasiswaController::class, 'index'])->name('aktivitas-kuliah-mahasiswa');
+            Route::get('detail-aktivitas-kuliah-mahasiswa/{id}/{semester}', [App\Http\Controllers\AdminProdi\Perkuliahan\AktivitasKuliahMahasiswaController::class, 'detail'])->name('detail-aktivitas-kuliah-mahasiswa');
+            Route::get('aktivitas-mahasiswa', [App\Http\Controllers\AdminProdi\Perkuliahan\AktivitasMahasiswaController::class, 'index'])->name('aktivitas-mahasiswa');
+            Route::get('detail-aktivitas-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\AktivitasMahasiswaController::class, 'detail'])->name('detail-aktivitas-mahasiswa');
+            Route::get('mahasiswa-lulus-do', [App\Http\Controllers\AdminProdi\Perkuliahan\MahasiswaLulusDoController::class, 'index'])->name('mahasiswa-lulus-do');
+            Route::get('detail-mahasiswa-lulus-do/{id}/{tahun}', [App\Http\Controllers\AdminProdi\Perkuliahan\MahasiswaLulusDoController::class, 'detail'])->name('detail-mahasiswa-lulus-do');
+
+            //Profil PT
+            Route::get('profil-pt', [App\Http\Controllers\AdminProdi\Profil_pt\ProfilPTController::class, 'index'])->name('profil-pt');
+
+            //Daftar Pelengkap
+            Route::get('skala-nilai', [App\Http\Controllers\AdminProdi\Pelengkap\SkalaNilaiController::class, 'index'])->name('skala-nilai');
+            Route::get('detail-skala-nilai/{id}', [App\Http\Controllers\AdminProdi\Pelengkap\SkalaNilaiController::class, 'detail'])->name('detail-skala-nilai');
+            Route::get('periode-perkuliahan', [App\Http\Controllers\AdminProdi\Pelengkap\PeriodePerkuliahanController::class, 'index'])->name('periode-perkuliahan');
+            Route::get('detail-periode-perkuliahan/{prodi}/{semester}', [App\Http\Controllers\AdminProdi\Pelengkap\PeriodePerkuliahanController::class, 'detail'])->name('detail-periode-perkuliahan');
         });
 });

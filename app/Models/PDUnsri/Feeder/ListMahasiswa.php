@@ -10,6 +10,7 @@ class ListMahasiswa extends Model
 {
     use HasFactory;
     protected $table = 'pd_feeder_list_mahasiswa';
+    protected $primaryKey = null;
     public $timeStamps = false;
     public $incrementing = false;
 

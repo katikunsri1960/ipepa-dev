@@ -68,24 +68,24 @@
             </div>
         </div>
         <div class="ibox-content">
-            <form method="GET">
-                <div class="col-lg-3 m-4">
-                    <select name="periode" id="periode_aktif" class="form-control">
-                        <option value="">Pilih Periode</option>
-                        @foreach ($periodeNow as $item)
-                        <option value="{{ $item['id_periode'] }}"
-                            {{$item['id_periode'] == $periodeAkt ? 'selected' : ''}}
-                        >{{ $item['nama_periode'] }}</option>
-                        @endforeach
-                    </select>
+            <div class="row">
+                <form method="GET">
+                    <div class="col-lg-3">
+                        <select name="periode" id="periode_aktif" class="form-control" onchange="this.form.submit()">
+                            <option value="">Pilih Periode</option>
+                            @foreach ($periodeNow as $item)
+                            <option value="{{ $item['id_periode'] }}"
+                                {{$item['id_periode'] == $periodeAkt ? 'selected' : ''}}
+                            >{{ $item['nama_periode'] }}</option>
+                            @endforeach
+                        </select>
 
-                </div>
-                <div class="col-lg-3">
-                    <button class="btn btn-primary" type="submit">Submit</button>
-                </div>
-            </form>
+                    </div>
+                </form>
+            </div>
 
-            <table class="table table-bordered">
+
+            <table class="table table-bordered" style="margin-top: 10pt">
                 <thead>
                     <tr>
                         <th rowspan="2" class="text-center" style="vertical-align: middle">No.</th>

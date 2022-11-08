@@ -31,8 +31,7 @@ class MahasiswaController extends Controller
         $status = $data->select('nama_status_mahasiswa')->distinct()->get();
         $agama = $data->select('id_agama','nama_agama')->distinct()->get();
 
-        $angkatan = $data->select('id_periode')->addSelect(DB::raw(DB::raw('(SELECT id_tahun_ajaran from pd_feeder_semester as semester where semester.id_semester = pd_feeder_list_mahasiswa.id_periode) as angkatan')))
-                        ->distinct()->get();
+        $angkatan = Semester::select('id_tahun_ajaran as angkatan')->distinct()->orderBy('id_tahun_ajaran', 'desc')->get();
         // dd($angkatan);
         $jk = $data->select('jenis_kelamin')->distinct()->get();
 
@@ -66,11 +65,17 @@ class MahasiswaController extends Controller
                 'pd_feeder_list_mahasiswa.nama_status_mahasiswa as nama_status_mahasiswa', 'semester.id_tahun_ajaran as angkatan')
             // ->addSelect(DB::raw('(SELECT id_tahun_ajaran from pd_feeder_semester as semester where semester.id_semester = pd_feeder_list_mahasiswa.id_periode) as angkatan'))
             ->addSelect(DB::raw('(SELECT SUM(sks_mata_kuliah) from pd_feeder_transkrip_mahasiswa where id_registrasi_mahasiswa = pd_feeder_list_mahasiswa.id_registrasi_mahasiswa) as total'))
-            ->paginate(20);
+            ->paginate($req->p != '' ? $req->p : 20);
+
+            if ($req->has('p') && $req->p != '') {
+            $valPaginate = $req->p;
+        } else $valPaginate = 20;
+
+        $paginate = [20,50,100,200,500];
 
             $val = $req;
 
-        return view('backend.prodi.mahasiswa.index', compact('mahasiswa', 'status', 'agama', 'angkatan', 'jk', 'val', 'prodi'));
+        return view('backend.prodi.mahasiswa.index', compact('mahasiswa', 'status', 'agama', 'angkatan', 'jk', 'val', 'prodi', 'paginate', 'valPaginate'));
     }
 
     public function detail($id)

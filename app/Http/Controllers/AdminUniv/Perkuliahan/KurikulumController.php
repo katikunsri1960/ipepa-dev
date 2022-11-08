@@ -20,22 +20,28 @@ class KurikulumController extends Controller
 
         $data = new(ListKurikulum::class);
 
-        $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->get();
+        $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->orderBy('nama_jenjang_pendidikan')->orderBy('nama_program_studi')->get();
         $val = $req;
 
-        $kurikulum = $data->when($req->has('keyword') || $req->has('prodi'), function($q) use($req){
+        $kurikulum = $data->select('id_kurikulum', 'id_prodi', 'nama_kurikulum', 'nama_program_studi', 'semester_mulai_berlaku', 'jumlah_sks_lulus','jumlah_sks_wajib', 'jumlah_sks_pilihan','jumlah_sks_mata_kuliah_wajib','jumlah_sks_mata_kuliah_pilihan')
+        ->when($req->has('p') || $req->has('keyword') || $req->has('prodi'), function($q) use($req){
             if ($req->keyword != '') {
-                $q->where('pd_feeder_list_kurikulum.nama_program_studi', 'like', '%'.$req->keyword.'%')
-                ->orWhere('pd_feeder_list_kurikulum.semester_mulai_berlaku', 'like', '%'.$req->keyword.'%');
+                $q->where('pd_feeder_list_kurikulum.nama_kurikulum', 'like', '%'.$req->keyword.'%')
+                ->orWhere('pd_feeder_list_kurikulum.nama_program_studi', 'like', '%'.$req->keyword.'%');
             }
             if ($req->prodi!='') {
                 $q->whereIn('id_prodi', $req->prodi);
             }
-        })
-        ->select('id_kurikulum', 'id_prodi', 'nama_kurikulum', 'nama_program_studi', 'semester_mulai_berlaku', 'jumlah_sks_lulus','jumlah_sks_wajib', 'jumlah_sks_pilihan','jumlah_sks_mata_kuliah_wajib','jumlah_sks_mata_kuliah_pilihan')
-        ->paginate(20);
+        })->paginate($req->p != '' ? $req->p : 20);
 
-        return view('backend.univ.perkuliahan.kurikulum.index', compact('kurikulum','prodi','val'));
+        if ($req->has('p') && $req->p != '') {
+            $valPaginate = $req->p;
+        } else $valPaginate = 20;
+
+        $paginate = [20,50,100,200,500];
+
+
+        return view('backend.univ.perkuliahan.kurikulum.index', compact('kurikulum','prodi','val','paginate', 'valPaginate'));
     }
 
     public function detail($id)

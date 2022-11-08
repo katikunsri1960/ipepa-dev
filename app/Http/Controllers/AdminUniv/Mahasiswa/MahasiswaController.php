@@ -25,7 +25,8 @@ class MahasiswaController extends Controller
     {
         $this->authorize('admin-univ');
 
-        $data= ListMahasiswa::leftJoin('pd_feeder_semester as semester','id_semester','id_periode');
+        // $data= ListMahasiswa::leftJoin('pd_feeder_semester as semester','id_semester','id_periode');
+        $data = new ListMahasiswa;
 
         $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->get();
         $status = $data->select('nama_status_mahasiswa')->distinct()->get();
@@ -36,7 +37,7 @@ class MahasiswaController extends Controller
 
         $val = $req;
 
-        $mahasiswa = $data ->select('pd_feeder_list_mahasiswa.id_registrasi_mahasiswa as id_registrasi_mahasiswa','pd_feeder_list_mahasiswa.id_mahasiswa as id_mahasiswa',
+        $mahasiswa = $data->leftJoin('pd_feeder_semester as semester','id_semester','id_periode')->select('pd_feeder_list_mahasiswa.id_registrasi_mahasiswa as id_registrasi_mahasiswa','pd_feeder_list_mahasiswa.id_mahasiswa as id_mahasiswa',
              'pd_feeder_list_mahasiswa.nama_mahasiswa as nama_mahasiswa', 'pd_feeder_list_mahasiswa.nim as nim', 'pd_feeder_list_mahasiswa.jenis_kelamin as jenis_kelamin',
                 'pd_feeder_list_mahasiswa.nama_agama as nama_agama', 'pd_feeder_list_mahasiswa.total_sks as total_sks', 'pd_feeder_list_mahasiswa.tanggal_lahir as tanggal_lahir',
                 'pd_feeder_list_mahasiswa.nama_program_studi as nama_program_studi',

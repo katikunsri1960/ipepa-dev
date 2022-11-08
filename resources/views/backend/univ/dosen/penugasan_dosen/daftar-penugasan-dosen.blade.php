@@ -19,17 +19,17 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-8">
-                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-filter"><i
-                            class="fa-solid fa-filter"></i><span style="margin-left: 6px; margin-right: 6px">Filter</span>
-                    </button>
-
-                    <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <form method="GET">
+                <form method="get">
+                    <div class="col-md-2">
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="modal"
+                            data-target="#modal-filter"><i class="fa-solid fa-filter"></i><span
+                            style="margin-left: 6px; margin-right: 6px">Filter</span>
+                        </button>
+                        <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="row">
                                             <div class="form-group">
                                                 <label>Program Studi</label>
                                                 <select name="prodi[]" id="prodi"
@@ -46,9 +46,9 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label>Pilih Angkatan</label>
+                                                <label>Pilih Tahun Ajaran</label>
                                                 <select name="angkatan[]" id="angkatan"
-                                                    data-placeholder="Pilih Angkatan..." class="form-control chosen-select"
+                                                    data-placeholder="Pilih Tahun Ajaran..." class="form-control chosen-select"
                                                     multiple style="width:350px;" tabindex="4">
                                                     <option value=""></option>
                                                     @foreach ($angkatan as $ang)
@@ -98,14 +98,22 @@
                                                 </select>
                                             </div>
                                             <button class="btn btn-warning" type="submit">Apply Filter</button>
-                                        </form>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div><br><br><hr>
+                    <div class="col-md-2">
+                        <select name="p" id="p" class="form-control" onchange="this.form.submit()">
+                            @foreach ($paginate as $p)
+                            <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                </div>
-                <div class="col-md-4 col-12">
+                </form>
+                <div class="col-lg-4 pull-right">
                     <form method="GET" role="search">
                         <div class="input-group">
                             <input type="text" class="form-control" name="keyword" placeholder="Search by NIDN or Nama"
@@ -120,7 +128,15 @@
             </div><br>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :  <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $angkatan[0]['nama_tahun_ajaran'] }}</span></p>
+                    <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :
+                            @if ($val['angkatan'] != '')
+                                @foreach ($val['angkatan'] as $ang)
+                                    <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $ang }}</span>
+                                @endforeach
+                            @else
+                                <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $angkatan_aktif[0]['nama_tahun_ajaran'] }}</span>
+                            @endif
+                    </p>
                 </div>
             </div>
             <div class="row">

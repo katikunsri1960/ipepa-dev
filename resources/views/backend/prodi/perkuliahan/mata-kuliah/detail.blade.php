@@ -3,96 +3,95 @@
 
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h5>Detail Mata Kuliah</h5>
-        <div class="ibox-tools">
-            <a class="collapse-link">
-                <i class="fa fa-chevron-up"></i>
-            </a>
-            <a class="close-link">
-                <i class="fa fa-times"></i>
-            </a>
-        </div>
+        <h5>Mata kuliah</h5>
     </div>
-
     <div class="ibox-content">
-        <div class="widget blue-bg no-padding">
-            <div class="p-m">
-                <h5 class="font-bold no-margins">
-                    Menampilkan Mata Kuliah
-                </h5>
+        <div class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-primary pull-right" href="{{route('admin-univ.daftar-mata-kuliah')}}"><i class="fa-solid fa-list"></i> <span>Daftar Mata Kuliah</span></a>
             </div>
         </div>
-        <div class="row p-m">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="widget yellow-bg no-padding text-vertical-midle">
+                    <div class="p-md">
+                        <h4>Menampilkan dan Mengelola Mata Kuliah</h4>
+                    </div>
+                </div>
+            </div>
+        </div><br>
+
+        <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="kodemk">Kode Mata Kuliah</label>
-                    <input type="text" class="form-control" value="{{$detail[0]->kode_mata_kuliah}}" disabled>
+                    <label>Kode Mata Kuliah <span style="color: red">*</span></label>
+                    <input type="name" class="form-control" disabled value="{{ $detail_matkul[0]->kode_mata_kuliah }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="namamk">Nama Mata Kuliah</label>
-                    <input type="text" class="form-control" value="{{$detail[0]->nama_mata_kuliah}}" disabled>
+                    <label>Nama Mata Kuliah <span style="color: red">*</span></label>
+                    <input type="name" class="form-control" disabled value="{{ $detail_matkul[0]->nama_mata_kuliah }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="prodiampu">Program Studi Pengampu</label>
-                    <input type="text" class="form-control" value="{{$detail[0]->nama_program_studi}}" disabled>
+                    <label>Program Studi Pengampu <span style="color: red">*</span></label>
+                    <input type="name" class="form-control" disabled value="{{ $detail_matkul[0]->nama_program_studi }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="jenismk">Jenis Mata Kuliah</label>
-                    <input type="text" class="form-control" value="{{$detail[0]->nama_jenis_mk}}" disabled>
+                    <label>Jenis Mata Kuliah</label>
+                    <input type="name" class="form-control" disabled value="{{ $detail_matkul[0]->nama_jenis_mk }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="bobokmt">Bobot Mata Kuliah</label>
-                    <input type="text" class="form-control" value="{{$detail[0]->sks_mata_kuliah}}" disabled>
+                    <label>Bobot Mata Kuliah</label>
+                    <input type="name" class="form-control" disabled value="{{ $detail_matkul[0]->sks_mata_kuliah }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="bobottm">Bobot Tatap Muka</label>
-                    <input type="text" class="form-control" value="{{$detail[0]->sks_tatap_muka}}" disabled>
+                    <label>Bobot Tatap Muka</label>
+                    <input type="name" class="form-control" disabled value="{{ $detail_matkul[0]->sks_tatap_muka }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="bobotprak">Bobot Praktikum</label>
-                    <input type="text" class="form-control" value="{{$detail[0]->sks_praktik}}" disabled>
+                    <label>Bobot Praktikum</label>
+                    <input type="name" class="form-control" disabled value="{{ $detail_matkul[0]->sks_praktek }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="bobotpl">Bobot Praktek Lapangan</label>
-                    <input type="text" class="form-control" value="{{$detail[0]->sks_praktek_lapangan}}" disabled>
+                    <label>Bobot Praktek Lapangan</label>
+                    <input type="name" class="form-control" disabled value="{{ $detail_matkul[0]->sks_praktek_lapangan }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="bobotsim">Bobot Simulasi</label>
-                    <input type="text" class="form-control" value="{{$detail[0]->sks_simulasi}}" disabled>
+                    <label>Bobot Simulasi</label>
+                    <input type="name" class="form-control" disabled value="{{ $detail_matkul[0]->sks_simulasi }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="metodepem">Metode Pembelajaran</label>
-                    <input type="text" class="form-control" value="{{$detail[0]->metode_kuliah}}" disabled>
+                    <label>Metode Pembelajaran</label>
+                    <input type="name" class="form-control" disabled value="{{ $detail_matkul[0]->metode_kuliah }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="tme">Tanggal Mulai Efektif</label>
-                    <input type="text" class="form-control" value="{{$detail[0]->tanggal_mulai_efektif}}" disabled>
+                    <label>Tanggal Mulai Efektif</label>
+                    <input type="name" class="form-control" disabled value="{{ $detail_matkul[0]->tanggal_mulai_efektif }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label for="tae">Tanggal Akhir Efektif</label>
-                    <input type="text" class="form-control" value="{{$detail[0]->tanggal_selesai_efektif}}" disabled>
+                    <label>Tanggal Akhir Efektif</label>
+                    <input type="name" class="form-control" disabled value="{{ $detail_matkul[0]->tanggal_selesai_efektif }}">
                 </div>
             </div>
         </div>

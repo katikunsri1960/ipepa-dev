@@ -50,7 +50,7 @@
                 </ul>
             </li> --}}
 
-            <li class="{{request()->routeIs('admin-univ.perkuliahan') || request()->routeIs('admin-univ.daftar-mata-kuliah') || request()->routeIs('admin-univ.detail-mata-kuliah') || request()->routeIs('admin-univ.substansi-kuliah') || request()->routeIs('admin-univ.detail-substansi-kuliah') || request()->routeIs('admin-univ.kurikulum') || request()->routeIs('admin-univ.kelas-perkuliahan') || request()->routeIs('admin-univ.nilai-perkuliahan') || request()->routeIs('admin-univ.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-univ.aktivitas-mahasiswa') || request()->routeIs('admin-univ.kampus-merdeka') || request()->routeIs('admin-univ.kampus-merdeka') || request()->routeIs('admin-univ.mahasiswa-lulus-do') || request()->routeIs('admin-univ.transkrip-mahasiswa') || request()->routeIs('admin-univ.detail-mahasiswa-lulus-do') || request()->routeIs('admin-univ.detail-kurikulum') ? 'active' : ''}}">
+            <li class="{{request()->routeIs('admin-univ.perkuliahan') || request()->routeIs('admin-univ.daftar-mata-kuliah') || request()->routeIs('admin-univ.detail-mata-kuliah') || request()->routeIs('admin-univ.substansi-kuliah') || request()->routeIs('admin-univ.detail-substansi-kuliah') || request()->routeIs('admin-univ.kurikulum') || request()->routeIs('admin-univ.kelas-perkuliahan') || request()->routeIs('admin-univ.nilai-perkuliahan') || request()->routeIs('admin-univ.detail-nilai-perkuliahan') || request()->routeIs('admin-univ.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-univ.detail-aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-univ.aktivitas-mahasiswa')|| request()->routeIs('admin-univ.detail-aktivitas-mahasiswa')  || request()->routeIs('admin-univ.kampus-merdeka') || request()->routeIs('admin-univ.kampus-merdeka') || request()->routeIs('admin-univ.mahasiswa-lulus-do') || request()->routeIs('admin-univ.transkrip-mahasiswa') || request()->routeIs('admin-univ.detail-mahasiswa-lulus-do') || request()->routeIs('admin-univ.detail-kurikulum') || request()->routeIs('admin-univ.cek-transkrip-mahasiswa')? 'active' : ''}}">
                 <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Perkuliahan</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{request()->routeIs('admin-univ.daftar-mata-kuliah') || request()->routeIs('admin-univ.detail-mata-kuliah') ? 'active' : ''}}">
@@ -64,16 +64,16 @@
                     </li>
                     {{-- <li class="{{request()->routeIs('admin-univ.kelas-perkuliahan') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.kelas-perkuliahan')}}">Kelas Perkuliahan</a>
+                    </li> --}}
+                    <li class="{{request()->routeIs('admin-univ.nilai-perkuliahan') || request()->routeIs('admin-univ.detail-nilai-perkuliahan') ? 'active' : ''}}">
+                        <a href="{{route('admin-univ.nilai-perkuliahan')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Nilai Perkuliahan</span></a>
                     </li>
-                    <li class="{{request()->routeIs('admin-univ.nilai-perkuliahan') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.nilai-perkuliahan')}}">Nilai Perkuliahan</a>
-                    </li> --}}
 
-                    {{-- <li class="{{request()->routeIs('admin-univ.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-univ.aktivitas-kuliah-mahasiswa') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.aktivitas-kuliah-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Aktivitas Kuliah Mahasiswa</span></a>
-                    </li> --}}
+                    <li class="{{request()->routeIs('admin-univ.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-univ.detail-aktivitas-kuliah-mahasiswa') ? 'active' : ''}}">
+                        <a href="{{route('admin-univ.aktivitas-kuliah-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Aktivitas Kuliah Mahasiswa</span></a>
+                    </li>
 
-                    <li class="{{request()->routeIs('admin-univ.aktivitas-mahasiswa') ? 'active' : ''}}">
+                    <li class="{{request()->routeIs('admin-univ.aktivitas-mahasiswa') || request()->routeIs('admin-univ.detail-aktivitas-mahasiswa') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.aktivitas-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Aktivitas Mahasiswa</span></a>
                     </li>
                     {{-- <li class="{{request()->routeIs('admin-univ.kampus-merdeka') ? 'active' : ''}}">
@@ -82,8 +82,8 @@
                     <li class="{{request()->routeIs('admin-univ.mahasiswa-lulus-do') || request()->routeIs('admin-univ.detail-mahasiswa-lulus-do') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.mahasiswa-lulus-do')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Daftar Mahasiswa Lulus / Drop Out</span></a>
                     </li>
-                    {{-- <li class="{{request()->routeIs('admin-univ.transkrip-mahasiswa') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.transkrip-mahasiswa')}}">Cek Transkrip Mahasiswa</a>
+                    {{-- <li class="{{request()->routeIs('admin-univ.cek-transkrip-mahasiswa') ? 'active' : ''}}">
+                        <a href="{{route('admin-univ.cek-transkrip-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Cek Transkrip Mahasiswa</span></a>
                     </li> --}}
                 </ul>
             </li>
@@ -97,6 +97,9 @@
                         <a href="{{route('admin-univ.periode-perkuliahan')}}">Pengaturan Periode Perkuliahan</a>
                     </li>
                 </ul>
+            </li>
+            <li class="{{request()->routeIs('admin-univ.export-data') ? 'active' : ''}}">
+                <a href="{{route('admin-univ.export-data')}}"><i class="fa fa-file-excel"></i> <span class="nav-label">Export Data</span></a>
             </li>
         </ul>
     </div>

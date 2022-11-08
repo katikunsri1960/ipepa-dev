@@ -1,4 +1,4 @@
-@extends('layouts.admin-univ.layout_profilpt')
+@extends('layouts.admin-univ.layout')
 @section('content')
             <div class="wrapper wrapper-content">
                     <div class="row">

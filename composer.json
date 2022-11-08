@@ -11,7 +11,10 @@
         "laravel/framework": "^9.11",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "laravel/ui": "^3.4"
+        "laravel/ui": "^3.4",
+        "maatwebsite/excel": "^3.1",
+        "psr/simple-cache": "^2.0",
+        "spatie/simple-excel": "^2.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

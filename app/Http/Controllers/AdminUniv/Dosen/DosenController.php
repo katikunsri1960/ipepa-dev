@@ -29,8 +29,12 @@ class DosenController extends Controller
         $agama = Agama::select('id_agama','nama_agama')->get();
         $status_pegawai = $data->select('id_status_aktif', 'nama_status_aktif')->distinct()->get();
         $jk = $data->select('jenis_kelamin')->distinct()->get();
+        $val = $req;
 
-        $dosen = $data->when($req->has('keyword') || $req->has('status_pegawai') || $req->has('jk') || $req->has('agama'), function($q) use($req){
+        $dosen = $data ->select('pd_feeder_list_dosen.id_dosen as id_dosen',
+        'pd_feeder_list_dosen.nama_dosen as nama_dosen', 'pd_feeder_list_dosen.nidn as nidn', 'pd_feeder_list_dosen.jenis_kelamin as jenis_kelamin',
+           'pd_feeder_list_dosen.nama_agama as nama_agama', 'pd_feeder_list_dosen.tanggal_lahir as tanggal_lahir', 'pd_feeder_list_dosen.nama_status_aktif as nama_status_aktif')
+           ->when($req->has('p') || $req->has('keyword') || $req->has('status_pegawai') || $req->has('jk') || $req->has('agama'), function($q) use($req){
             if ($req->keyword != '') {
                 $q->where('pd_feeder_list_dosen.nama_dosen', 'like', '%'.$req->keyword.'%')
                 ->orWhere('pd_feeder_list_dosen.nidn', 'like', '%'.$req->keyword.'%')
@@ -45,16 +49,15 @@ class DosenController extends Controller
             if ($req->agama!='') {
                 $q->whereIn('id_agama', $req->agama);
             }
-        })
-        ->select('pd_feeder_list_dosen.id_dosen as id_dosen',
-         'pd_feeder_list_dosen.nama_dosen as nama_dosen', 'pd_feeder_list_dosen.nidn as nidn', 'pd_feeder_list_dosen.jenis_kelamin as jenis_kelamin',
-            'pd_feeder_list_dosen.nama_agama as nama_agama', 'pd_feeder_list_dosen.tanggal_lahir as tanggal_lahir', 'pd_feeder_list_dosen.nama_status_aktif as nama_status_aktif')->paginate(20);
+        })->paginate($req->p != '' ? $req->p : 20);
 
-        $val = $req;
+        if ($req->has('p') && $req->p != '') {
+            $valPaginate = $req->p;
+        } else $valPaginate = 20;
 
-        // dd($mahasiswa);
+        $paginate = [20,50,100,200,500];
 
-        return view('backend.univ.dosen.index', compact('dosen','status_pegawai','agama','jk','val'));
+        return view('backend.univ.dosen.index', compact('dosen','status_pegawai','agama','jk','val','paginate', 'valPaginate'));
     }
 
     public function detail($id)
