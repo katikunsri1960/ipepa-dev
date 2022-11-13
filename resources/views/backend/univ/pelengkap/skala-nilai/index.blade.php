@@ -5,7 +5,7 @@
             <h5>Skala Penilaian</h5>
         </div>
         <div class="ibox-content">
-            <div class="row">
+            <div class="row"> 
                 <form method="get">
                     <div class="col-md-2">
                         <button class="btn btn-primary btn-block" type="button" data-toggle="modal"

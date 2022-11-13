@@ -96,5 +96,87 @@
             </div>
         </div>
     </div>
+    {{-- <div class="ibox-title">
+        <h5>Informasi Detail Mahasiswa</h5>
+        <div class="ibox-tools">
+            <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+            </a>
+            <a class="close-link">
+                <i class="fa fa-times"></i>
+            </a>
+        </div>
+    </div> --}}
+    <div class="ibox-content">
+        <div class="row m-t-sm">
+            <div class="col-lg-12">
+                <div class="panel blank-panel">
+                    <div class="panel-heading">
+                        <div class="panel-options">
+                            <ul class="nav nav-tabs">
+                                <li class="active">
+                                    <a href="#tab-1" data-toggle="tab" aria-expanded="true">RENCANA PEMBELAJARAN</a>
+                                </li>
+                                <li class="">
+                                    <a href="#tab-2" data-toggle="tab" aria-expanded="false">RENCANA EVALUASI</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab-1">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" class="text-center">No.</th>
+                                            <th rowspan="2" class="text-center">Pertemuan</th>
+                                            <th rowspan="2" class="text-center">Materi</th>
+                                            <th rowspan="2" class="text-center">Materi (Inggris)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($pembelajaran as $no => $data)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-left">{{$data->pertemuan}}</td>
+                                                <td class="text-left">{{$data->materi_indonesia}}</td>
+                                                <td class="text-left">{{$data->materi_inggris}}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="tab-2">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" class="text-center">No.</th>
+                                            <th rowspan="2" class="text-center">Basis Evaluasi</th>
+                                            <th rowspan="2" class="text-center">Komponen Evaluasi</th>
+                                            <th rowspan="2" class="text-center">Deskripsi</th>
+                                            <th rowspan="2" class="text-center">Bobot (%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($evaluasi as $data)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-left">{{$data->jenis_evaluasi}}</td>
+                                                <td class="text-center">{{$data->nama_evaluasi}}</td>
+                                                <td class="text-left">{{$data->deskripsi_indonesia}}</td>
+                                                <td class="text-center">{{$data->bobot_evaluasi}}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

@@ -108,7 +108,7 @@ class DosenController extends Controller
                 ->addSelect(DB::raw('(SELECT nama_wilayah FROM pd_feeder_wilayah WHERE id_wilayah = pd_feeder_detail_biodata_dosen.id_wilayah LIMIT 1) AS kecamatan'))
                 ->addSelect(DB::raw('(SELECT id_ikatan_kerja FROM pd_feeder_list_penugasan_dosen WHERE id_dosen = pd_feeder_detail_biodata_dosen.id_dosen AND id_tahun_ajaran=2022 LIMIT 1) AS ikatan_kerja'))->first();
 
-        $riwayat_fungsional = RiwayatFungsionalDosen::where('id_dosen', $id)->select('nama_jabatan_fungsional','sk_jabatan_fungsional', 'mulai_sk_jabatan')->get();
+        $riwayat_fungsional = RiwayatFungsionalDosen::where('id_dosen', $id)->select('nama_jabatan_fungsional','sk_jabatan_fungsional', 'mulai_sk_jabatan')->orderBy('mulai_sk_jabatan', 'DESC')->get();
 
         return view('backend.univ.dosen.riwayat-fungsional-dosen', compact('dosen','riwayat_fungsional'));
     }
@@ -121,7 +121,7 @@ class DosenController extends Controller
                 ->addSelect(DB::raw('(SELECT nama_wilayah FROM pd_feeder_wilayah WHERE id_wilayah = pd_feeder_detail_biodata_dosen.id_wilayah LIMIT 1) AS kecamatan'))
                 ->addSelect(DB::raw('(SELECT id_ikatan_kerja FROM pd_feeder_list_penugasan_dosen WHERE id_dosen = pd_feeder_detail_biodata_dosen.id_dosen AND id_tahun_ajaran=2022 LIMIT 1) AS ikatan_kerja'))->first();
 
-        $riwayat_pangkat = RiwayatPangkatDosen::where('id_dosen', $id)->select('nama_pangkat_golongan','sk_pangkat','tanggal_sk_pangkat','mulai_sk_pangkat', DB::raw('CONCAT(masa_kerja_dalam_tahun," thn ",masa_kerja_dalam_bulan," bln") AS masa_kerja'))->get();
+        $riwayat_pangkat = RiwayatPangkatDosen::where('id_dosen', $id)->select('nama_pangkat_golongan','sk_pangkat','tanggal_sk_pangkat','mulai_sk_pangkat', DB::raw('CONCAT(masa_kerja_dalam_tahun," thn ",masa_kerja_dalam_bulan," bln") AS masa_kerja'))->orderBy('mulai_sk_pangkat', 'DESC')->get();
 
         return view('backend.univ.dosen.riwayat-kepangkatan-dosen', compact('dosen','riwayat_pangkat'));
     }
@@ -147,7 +147,7 @@ class DosenController extends Controller
                 ->addSelect(DB::raw('(SELECT nama_wilayah FROM pd_feeder_wilayah WHERE id_wilayah = pd_feeder_detail_biodata_dosen.id_wilayah LIMIT 1) AS kecamatan'))
                 ->addSelect(DB::raw('(SELECT id_ikatan_kerja FROM pd_feeder_list_penugasan_dosen WHERE id_dosen = pd_feeder_detail_biodata_dosen.id_dosen AND id_tahun_ajaran=2022 LIMIT 1) AS ikatan_kerja'))->first();
 
-        $riwayat_sertifikasi = RiwayatSertifikasiDosen::where('id_dosen', $id)->select('*')->get();
+        $riwayat_sertifikasi = RiwayatSertifikasiDosen::where('id_dosen', $id)->select('*')->orderBy('tahun_sertifikasi', 'DESC')->get();
 
         return view('backend.univ.dosen.riwayat-sertifikasi-dosen', compact('dosen','riwayat_sertifikasi'));
     }

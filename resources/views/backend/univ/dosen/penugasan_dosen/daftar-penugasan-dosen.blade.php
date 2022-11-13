@@ -2,7 +2,7 @@
 @section('content')
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h2>Penugasan Dosen</h2>
+            <h2>Penugasan Dosen</h2> 
         </div>
         <div class="ibox-content p-md">
             <div class="row">

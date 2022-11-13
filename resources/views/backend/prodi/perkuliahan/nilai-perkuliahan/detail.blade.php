@@ -1,71 +1,75 @@
-@extends('layouts.admin-univ.layout')
+@extends('layouts.admin-prodi.layout')
 @section('content')
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h5>Aktivitas Perkuliahan Mahasiswa</h5>
-
-        <div class="ibox-content p-md">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="widget blue-bg no-padding text-vertical-midle">
-                        <div class="p-md">
-                            <h4>Digunakan untuk mengelola status keaktifan ( Aktif, Cuti, Non Aktif dll) mahasiswa per periode</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h5>Nilai Perkuliahan</h5>
     </div>
     <div class="ibox-content">
         <div class="row">
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>Mahasiswa <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_mahasiswa}}">
-                </div>
+            <div class="col-lg-12">
+                <a class="btn btn-primary pull-right" href="{{route('admin-prodi.nilai-perkuliahan')}}"><i class="fa-solid fa-list"></i> <span>Daftar Nilai Perkuliahan</span></a>
             </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>Semester  <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_semester}}">
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>Status Mahasiswa <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_status_mahasiswa}}">
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>IPS (Indeks Prestasi Semester)</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->ips}}">
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>IPK (Indeks Prestasi Komulatif)</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->ipk}}">
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>Jumlah SKS Semester</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->sks_semester}}">
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>Jumlah SKS Total</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->sks_total}}">
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>Biaya Kuliah (semester) <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->biaya_kuliah_smt}}">
-                </div>
-            </div>
+        </div>
+        <div class="row">
+            <table class="table table-borderless m-4">
+                <tbody>
+                        <tr>
+                            <td class="text-left">Program Studi</td>
+                            <td class="text-left">: {{ $detail[0]->nama_prodi }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">Kode Mata Kuliah</td>
+                            <td class="text-left">: {{ $detail[0]->kode_mata_kuliah }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">Mata Kuliah</td>
+                            <td class="text-left">: {{ $detail[0]->nama_mata_kuliah }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">Semester</td>
+                            <td class="text-left">: {{ $detail[0]->nm_smt }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">Nama Kelas</td>
+                            <td class="text-left">: {{ $detail[0]->nama_kelas_kuliah }}</td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
+    </div><br>
+    <div class="ibox-content">
+        <div class="row">
+            <table class="table table-bordered m-4">
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="text-center">No</th>
+                        <th rowspan="2" class="text-center">NIM</th>
+                        <th rowspan="2" class="text-center">Nama Mahasiswa</th>
+                        <th rowspan="2" class="text-center">Jurusan</th>
+                        <th rowspan="2" class="text-center">Angkatan</th>
+                        <th colspan="2" class="text-center">Nilai</th>
+                    </tr>
+                    <tr>
+                        <th rowspan="2" class="text-center">Angka</th>
+                        <th rowspan="2" class="text-center">Huruf</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach ($mahasiswa as $data)
+                        <tr>
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $data->nim }}</td>
+                            <td class="text-left">{{ $data->nama_mahasiswa }}</td>
+                            <td class="text-center">{{ $data->nama_program_studi }}</td>
+                            <td class="text-center">{{ $data->angkatan }}</td>
+                            <td class="text-center">{{ $data->nilai_indeks }}</td>
+                            <td class="text-center">{{ $data->nilai_huruf }}</td>
+                        </tr>
+                    @endforeach
+
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

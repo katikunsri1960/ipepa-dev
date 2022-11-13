@@ -22,7 +22,7 @@
                 <form method="get" action="{{route('admin-univ.export-data')}}">
                     <div class="col-md-12 text-center">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Nama Tabel</label>
+                            <label for="exampleInputEmail1">Nama Tabel <span style="color: red;">*</span></label>
                             <select class="form-control" name="table_name">
                                 <option value="">Pilih Nama Tabel</option>
                                 @for ($i = 0; $i < count($table_name); $i++)
@@ -49,7 +49,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Program Studi</label>
+                            <label for="exampleInputEmail1">Program Studi <span style="color: red;">*</span></label>
                             <select class="form-control" name="program_studi">
                                 <option value="">Pilih Program Studi</option>
                                 @foreach($program_studi as $p)

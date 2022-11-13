@@ -174,8 +174,8 @@
                         <td class="text-center">{{$aktivitas_kuliah_mahasiswa->firstItem() + $no}}</td>
                         <td  class="text-left"> <a href="{{route('admin-univ.detail-aktivitas-kuliah-mahasiswa', ['id' => $data->id_mahasiswa, 'semester' => $data->id_semester])}}"
                             name="req"> {{$data->nim}}</a> </td>
-                        <td class="text-center">{{$data->nama_mahasiswa}}</td>
-                        <td class="text-center">{{$data->nama_program_studi}}</td>
+                        <td class="text-left">{{$data->nama_mahasiswa}}</td>
+                        <td class="text-left">{{$data->nama_program_studi}}</td>
                         <td class="text-center">{{$data->angkatan}}</td>
                         <td class="text-center">{{$data->nama_semester}}</td>
                         <td class="text-center">{{$data->nama_status_mahasiswa}}</td>
@@ -190,6 +190,7 @@
             {!! $aktivitas_kuliah_mahasiswa->withQueryString()->links() !!}
         </div>
     </div>
+</div>
 @endsection
 @push('css')
     <link href="{{ asset('assets/css/plugins/chosen/bootstrap-chosen.css') }}" rel="stylesheet">

@@ -92,11 +92,11 @@
                         </div>
                     </form>
                 </div>
-            </div><br>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :
-                        @if ($val['prodi'] = '' && $val['semester'] != '')
+                        @if ($val['semester'] != '')
                             @foreach ($val['semester'] as $s)
                                 <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $s }}</span>
                             @endforeach

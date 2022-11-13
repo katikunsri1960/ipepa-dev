@@ -8,7 +8,7 @@ use App\Models\PDUnsri\Feeder\ProgramStudi;
 use Illuminate\Http\Request;
 
 class SkalaNilaiController extends Controller
-{
+{ 
     public function index(Request $req)
     {
         $this->authorize('admin-univ');

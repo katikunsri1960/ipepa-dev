@@ -147,7 +147,7 @@
                             @endforeach
                         @elseif ($val['prodi'] != '' && $val['semester'] = '')
                             @foreach ($val['semester'] as $s)
-                            
+
                             @endforeach
                         {{-- @else
                             <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span> --}}
@@ -178,8 +178,8 @@
                         <td class="text-center">{{$aktivitas_kuliah_mahasiswa->firstItem() + $no}}</td>
                         <td  class="text-left"> <a href="{{route('admin-prodi.detail-aktivitas-kuliah-mahasiswa', ['id' => $data->id_mahasiswa, 'semester' => $data->id_semester])}}"
                             name="req"> {{$data->nim}}</a> </td>
-                        <td class="text-center">{{$data->nama_mahasiswa}}</td>
-                        <td class="text-center">{{$data->nama_program_studi}}</td>
+                        <td class="text-left">{{$data->nama_mahasiswa}}</td>
+                        <td class="text-left">{{$data->nama_program_studi}}</td>
                         <td class="text-center">{{$data->angkatan}}</td>
                         <td class="text-center">{{$data->nama_semester}}</td>
                         <td class="text-center">{{$data->nama_status_mahasiswa}}</td>

@@ -21,7 +21,7 @@ class MahasiswaLulusDoController extends Controller
         $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->get();
         $jenis_keluar = JenisKeluar::select('jenis_keluar as nama_jenis_keluar')->where('apa_mahasiswa', 0)->get();
         $angkatan = $data->select('angkatan')->distinct()->get();
-        $tahun_keluar = $data->select('id_tahun_ajaran as tahun_keluar')->distinct()->orderBy('id_tahun_ajaran', 'desc')->get();
+        $tahun_keluar = $data->select('id_tahun_ajaran as tahun_keluar')->distinct()->get();
         $val = $req;
 
         $mahasiswa_lulus_do = $data->when($req->has('keyword') || $req->has('angkatan') || $req->has('prodi') || $req->has('jenis_keluar') || $req->has('tahun_keluar'), function($q) use($req){

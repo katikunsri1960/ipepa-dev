@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminProdi\Perkuliahan;
 
 use App\Http\Controllers\Controller;
 use App\Models\PDUnsri\Feeder\Mahasiswa\AktivitasKuliahMahasiswa;
+use App\Models\PDUnsri\Feeder\Mahasiswa\KrsMahasiswa;
 use Illuminate\Http\Request;
 use PhpMyAdmin\Setup\Index;
 use App\Models\PDUnsri\Feeder\ProgramStudi;
@@ -35,6 +36,7 @@ class AktivitasKuliahMahasiswaController extends Controller
         if ($req->has('semester') || $req->has('prodi'))  {
             $aktivitas_kuliah_mahasiswa = $data->select('*')
             ->where('id_prodi', $prodiId)
+            ->orderBy('nama_mahasiswa')
             // ->orderBy('pd_feeder_aktivitas_kuliah_mahasiswa.nama_semester','DESC')
             ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi')  || $req->has('angkatan') || $req->has('status_mahasiswa'), function($q) use($req){
             if ($req->keyword != '') {
@@ -77,6 +79,7 @@ class AktivitasKuliahMahasiswaController extends Controller
             // ->orderBy('pd_feeder_aktivitas_kuliah_mahasiswa.nama_semester','DESC')
             ->where('id_prodi', $prodiId)
             ->where('pd_feeder_aktivitas_kuliah_mahasiswa.nama_semester', $semester_aktif[0]['nama_semester'])
+            ->orderBy('nama_mahasiswa')
             ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi')  || $req->has('angkatan') || $req->has('status_mahasiswa'), function($q) use($req){
             if ($req->keyword != '') {
                 $q->where('pd_feeder_aktivitas_kuliah_mahasiswa.nim', 'like', '%'.$req->keyword.'%')
@@ -103,6 +106,7 @@ class AktivitasKuliahMahasiswaController extends Controller
 
         }
 
+
         if ($req->has('p') && $req->p != '') {
             $valPaginate = $req->p;
         } else $valPaginate = 20;
@@ -121,6 +125,7 @@ class AktivitasKuliahMahasiswaController extends Controller
         $this->authorize('admin-prodi');
 
         $detail = AktivitasKuliahMahasiswa::where('id_mahasiswa',$id)->where('id_semester',$semester)->select('*')->get();
+
         // dd($detail);
         return view('backend.prodi.perkuliahan.aktivitas-kuliah-mahasiswa.detail', compact('detail'));
     }

@@ -3,14 +3,7 @@
 <div class="ibox float-e-margins">
     <div class="ibox-content p-md">
         <div class="row">
-            <form method="get"> 
-                <div class="col-md-1">
-                    <select name="p" id="p" class="form-control" onchange="this.form.submit()">
-                        @foreach ($paginate as $p)
-                        <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
-                        @endforeach
-                    </select>
-                </div>
+            <form method="get">
                 <div class="col-md-2">
                     <button class="btn btn-primary btn-block" type="button" data-toggle="modal"
                         data-target="#modal-filter"><i class="fa-solid fa-filter"></i><span
@@ -112,25 +105,29 @@
                             </div>
                         </div>
                     </div>
-            </form>
-        </div>
-        {{-- <div class="col-md-2">
-            <a href="{{route('admin-univ.export-daftar-mahasiswa')}}" class="btn btn-success">Export Data</a>
-        </div> --}}
-        <div class="col-md-4 col-12 navbar-right">
-            <form method="GET" role="search">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="keyword"
-                        placeholder="Search by NIM, Nama, Program Studi" value="{{ request()->get('keyword', '') }}">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
+                </div><br><br><hr>
+                <div class="col-md-2">
+                    <select name="p" id="p" class="form-control" onchange="this.form.submit()">
+                        @foreach ($paginate as $p)
+                        <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </form>
+            <div class="col-md-4 pull-right">
+                <form method="GET" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="keyword"
+                            placeholder="Search by NIM, Nama, Program Studi" value="{{ request()->get('keyword', '') }}">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
     <div class="pt-2">
         <table class="table table-bordered table-hover table-responsive" id="table-mahasiswa">
             <thead>

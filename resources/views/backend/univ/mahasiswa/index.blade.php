@@ -5,7 +5,7 @@
         <h2>Daftar Mahasiswa</h2>
     </div>
     <div class="ibox-content p-md">
-        <div class="row">
+        <div class="row"> 
             {{-- <div class="col-md-2">
                 @if ($val->prodi || $val->angkatan || $val->status || $val->jk || $val->agama)
                 {{-- Export Filtered Data

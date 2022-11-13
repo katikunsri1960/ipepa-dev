@@ -3,14 +3,18 @@
 <div class="ibox float-e-margins">
     <div class="ibox-title">
         <h5>Aktivitas Perkuliahan Mahasiswa</h5>
-
-        <div class="ibox-content p-md">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="widget blue-bg no-padding text-vertical-midle">
-                        <div class="p-md">
-                            <h4>Digunakan untuk mengelola status keaktifan ( Aktif, Cuti, Non Aktif dll) mahasiswa per periode</h5>
-                        </div>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-lg-12">
+                <a class="btn btn-primary pull-right" href="{{route('admin-univ.aktivitas-kuliah-mahasiswa')}}"><i class="fa-solid fa-list"></i> <span>Daftar Aktivitas Perkuliahan Mahasiswa</span></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="widget yellow-bg no-padding text-vertical-midle">
+                    <div class="p-md">
+                        <h4>Digunakan untuk mengelola status keaktifan ( Aktif, Cuti, Non Aktif dll) mahasiswa per periode</h4>
                     </div>
                 </div>
             </div>
@@ -21,7 +25,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Mahasiswa <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_mahasiswa}}">
+                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nim}} - {{ $detail[0]->nama_mahasiswa}}">
                 </div>
             </div>
             <div class="col-lg-6">

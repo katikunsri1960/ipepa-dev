@@ -21,7 +21,7 @@ class MahasiswaController extends Controller
 {
     public function index(Request $req)
     {
-        $this->authorize('admin-prodi');
+        $this->authorize('admin-prodi'); 
 
         $prodiId = RolesUser::where('user_id', auth()->user()->id)->value('fak_prod_id');
 

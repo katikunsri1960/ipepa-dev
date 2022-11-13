@@ -6,17 +6,17 @@
         </div>
         <div class="ibox-content">
             <div class="row">
-                <div class="col-md-8">
-                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-filter"><i
-                            class="fa-solid fa-filter"></i><span style="margin-left: 6px; margin-right: 6px">Filter</span>
-                    </button>
-
-                    <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <form method="GET">
+                <form method="get">
+                    <div class="col-md-2">
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="modal"
+                            data-target="#modal-filter"><i class="fa-solid fa-filter"></i><span
+                            style="margin-left: 6px; margin-right: 6px">Filter</span>
+                        </button>
+                        <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="row">
                                             <div class="form-group">
                                                 <label>Semester</label>
                                                 <select name="semester[]" id="semester"
@@ -25,8 +25,16 @@
                                                     tabindex="4">
                                                     <option value=""></option>
                                                     @foreach ($semester as $s)
-                                                        <option value="{{ $s->id_semester }}"
-                                                            @if ($val->semester && in_array($s->id_semester, $val->semester)) selected @endif>
+                                                        <option value="{{ $s->nama_semester }}"
+                                                            @php
+                                                            if($val->semester == ''){
+                                                                if($semester_aktif[0]['nama_semester'] && in_array($s->nama_semester,$semester_aktif[0])){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
+                                                            if($val->semester != '')
+                                                                if ($val->semester && in_array($s->nama_semester, $val->semester)) echo 'selected';
+                                                            @endphp>
                                                             {{ $s->nama_semester }}
                                                         </option>
                                                     @endforeach
@@ -48,24 +56,45 @@
                                                 </select>
                                             </div>
                                             <button class="btn btn-warning" type="submit">Apply Filter</button>
-                                        </form>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div><br><br><hr>
+                    <div class="col-md-2">
+                        <select name="p" id="p" class="form-control" onchange="this.form.submit()">
+                            @foreach ($paginate as $p)
+                            <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
+                            @endforeach
+                        </select>
                     </div>
-                </div>
-                <div class="col-md-4 col-12">
+                </form>
+                <div class="col-lg-4 pull-right">
                     <form method="GET" role="search">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="keyword"
-                                placeholder="Search by Nama Program Studi or Semester" value="{{request()->get('keyword','')}}"> <span class="input-group-btn">
+                            <input type="text" class="form-control" name="keyword" placeholder="Search by NIDN or Nama"
+                                value="{{ request()->get('keyword', '') }}"> <span class="input-group-btn">
                                 <button class="btn btn-default">
                                     <span class="glyphicon glyphicon-search"></span>
                                 </button>
                             </span>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :
+                        @if ($val['semester'] != '')
+                            @foreach ($val['semester'] as $s)
+                                <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $s }}</span>
+                            @endforeach
+                        @else
+                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span>
+                        @endif
+                    </p>
                 </div>
             </div>
             <div class="pt-2">

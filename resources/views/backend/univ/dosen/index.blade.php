@@ -83,9 +83,9 @@
                             <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
                             @endforeach
                         </select>
-                    </div> 
+                    </div>
                 </form>
-                <div class="col-lg-4 pull-right">
+                <div class="col-lg-4 pull-right"> 
                     <form method="GET" role="search">
                         <div class="input-group">
                             <input type="text" class="form-control" name="keyword" placeholder="Search by NIDN or Nama"

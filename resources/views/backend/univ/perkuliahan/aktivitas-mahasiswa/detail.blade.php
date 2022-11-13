@@ -76,7 +76,7 @@
             </div>
         </div>
     </div>
-</div><br>
+</div>
 <div class="ibox float-e-margins">
     {{-- <div class="ibox-title">
         <h5>Informasi Detail Mahasiswa</h5>
@@ -116,6 +116,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
+                                            <th class="text-center">No.</th>
                                             <th class="text-center">NIM</th>
                                             <th class="text-center">Nama Mahasiswa</th>
                                             <th class="text-center">Jenis</th>
@@ -125,6 +126,7 @@
                                     <tbody>
                                         @foreach ($detail as $pes)
                                             <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td class="text-center">{{$pes->nim}}</td>
                                                 <td class="text-left">{{$pes->nama_mahasiswa}}</td>
                                                 <td class="text-center">{{$pes->jenis_peran}}<br>{{$pes->nama_jenis_peran}}</td>
@@ -138,7 +140,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            {{-- <th class="text-center">No.</th> --}}
+                                            <th class="text-center">No.</th>
                                             <th class="text-center">NIDN/ NUPN/ NIDK </th>
                                             <th class="text-center">Nama Dosen</th>
                                             <th class="text-center">Pembimbing Ke</th>
@@ -149,7 +151,7 @@
                                     <tbody>
                                         @foreach ($pembimbing as $no => $data)
                                             <tr>
-                                                {{-- <td class="text-center">{{$data->firstItem() + $no}}</td> --}}
+                                                <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td class="text-left">{{$data->nidn}}</td>
                                                 <td class="text-left">{{$data->nama_dosen}}</td>
                                                 <td class="text-center">{{$data->pembimbing_ke}}</td>
@@ -164,7 +166,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            {{-- <th class="text-center">No.</th> --}}
+                                            <th class="text-center">No.</th>
                                             <th class="text-center">NIDN/ NUPN/ NIDK </th>
                                             <th class="text-center">Nama Dosen</th>
                                             <th class="text-center">Pembimbing Ke</th>
@@ -175,7 +177,7 @@
                                     <tbody>
                                         @foreach ($penguji as $no => $data)
                                             <tr>
-                                                {{-- <td class="text-center">{{$data->firstItem() + $no}}</td> --}}
+                                                <td class="text-center">{{ $loop->iteration }}</td>
                                                 <td class="text-left">{{$data->nidn}}</td>
                                                 <td class="text-left">{{$data->nama_dosen}}</td>
                                                 <td class="text-center">{{$data->penguji_ke}}</td>

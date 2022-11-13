@@ -21,7 +21,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Mahasiswa <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_mahasiswa}}">
+                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nim}} - {{ $detail[0]->nama_mahasiswa}}">
                 </div>
             </div>
             <div class="col-lg-6">

@@ -34,7 +34,7 @@ class KurikulumController extends Controller
             }
         })->paginate($req->p != '' ? $req->p : 20);
 
-        if ($req->has('p') && $req->p != '') {
+        if ($req->has('p') && $req->p != '') { 
             $valPaginate = $req->p;
         } else $valPaginate = 20;
 

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\AdminUniv\Export;
 use App\Exports\ExportAktivitasMengajarDosen;
 use App\Exports\ExportAktivitasPerkuliahan;
 use App\Exports\ExportDaftarMahasiswa;
+use App\Exports\ExportKelasPerkuliahan;
 use App\Exports\ExportKRSMahasiswa;
 use App\Exports\ExportMahasiswaLulusDO;
 use App\Exports\ExportMataKuliah;
+use App\Exports\ExportNilaiTransfer;
 use App\Exports\ExportPenugasanDosen;
 use App\Exports\ExportTranskrip;
 use App\Http\Controllers\Controller;
@@ -53,25 +55,26 @@ class ExportDataController extends Controller
             return Excel::download(new ExportMahasiswaLulusDO($req->program_studi, $req->periode), 'DAFTAR MAHASISWA LULUS DO-'.$req->program_studi.'-'.$req->periode.'.xlsx');
         }
 
+        if($req->table_name == "Nilai Transfer"){
+            return Excel::download(new ExportNilaiTransfer($req->program_studi, $req->periode), 'DAFTAR TRANSKRIP MAHASISWA-'.$req->program_studi.'-'.$req->periode.'.xlsx');
+        }
+
         if($req->table_name == "KRS Mahasiswa"){
             return Excel::download(new ExportKRSMahasiswa($req->program_studi, $req->semester), 'DAFTAR KRS MAHASISWA-'.$req->program_studi.'-'.$req->semester.'.xlsx');
         }
-
+        // Perbedaan Data Antara Feeder dan PD
         if($req->table_name == "Aktivitas Mengajar Dosen"){
             return Excel::download(new ExportAktivitasMengajarDosen($req->program_studi, $req->semester), 'DAFTAR AKTIVITAS MENGAJAR DOSEN-'.$req->program_studi.'-'.$req->semester.'.xlsx');
         }
-        // Masih Error
+
         if($req->table_name == "Kelas Perkuliahan"){
-            return Excel::download(new ExportKRSMahasiswa($req->program_studi, $req->semester), 'JADWAL KELAS PERKULIAHAN-'.$req->program_studi.'-'.$req->semester.'.xlsx');
+            return Excel::download(new ExportKelasPerkuliahan($req->program_studi, $req->semester), 'JADWAL KELAS PERKULIAHAN-'.$req->program_studi.'-'.$req->semester.'.xlsx');
         }
 
         if($req->table_name == "Transkrip"){
             return Excel::download(new ExportTranskrip($req->program_studi, $req->semester), 'DAFTAR TRANSKRIP MAHASISWA-'.$req->program_studi.'-'.$req->semester.'.xlsx');
         }
 
-        if($req->table_name == "Nilai Transfer"){
-            return Excel::download(new ExportTranskrip($req->program_studi, $req->semester), 'DAFTAR TRANSKRIP MAHASISWA-'.$req->program_studi.'-'.$req->semester.'.xlsx');
-        }
 
 
         return view('backend.univ.export-data.index', compact('table_name', 'program_studi', 'periode', 'semester'));

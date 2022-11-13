@@ -16,7 +16,7 @@ class PenugasanDosenController extends Controller
 {
     public function index(Request $req)
     {
-        $this->authorize('admin-univ');
+        $this->authorize('admin-univ'); 
 
         $data = ListPenugasanDosen::leftJoin('pd_feeder_tahun_ajaran','pd_feeder_tahun_ajaran.id_tahun_ajaran','pd_feeder_list_penugasan_dosen.id_tahun_ajaran');
 

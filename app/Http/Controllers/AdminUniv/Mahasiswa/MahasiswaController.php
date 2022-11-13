@@ -44,6 +44,8 @@ class MahasiswaController extends Controller
                 'pd_feeder_list_mahasiswa.nama_status_mahasiswa as nama_status_mahasiswa', 'semester.id_tahun_ajaran as angkatan')
             // ->addSelect(DB::raw('(SELECT id_tahun_ajaran from pd_feeder_semester as semester where semester.id_semester = pd_feeder_list_mahasiswa.id_periode) as angkatan'))
             ->addSelect(DB::raw('(SELECT SUM(sks_mata_kuliah) from pd_feeder_transkrip_mahasiswa where id_registrasi_mahasiswa = pd_feeder_list_mahasiswa.id_registrasi_mahasiswa) as total'))
+            ->orderBy('pd_feeder_list_mahasiswa.id_prodi', 'asc')
+            ->orderBy('pd_feeder_list_mahasiswa.nim', 'asc')
             ->when($req->has('p') ||$req->has('keyword') || $req->has('angkatan') || $req->has('prodi') || $req->has('status') || $req->has('jk') || $req->has('agama'), function($q) use($req) {
                 if ($req->keyword != '') {
                     $q->where('pd_feeder_list_mahasiswa.nama_mahasiswa', 'like', '%'.$req->keyword.'%')
@@ -100,10 +102,10 @@ class MahasiswaController extends Controller
                     ->select('id_mahasiswa','nama_mahasiswa', 'tempat_lahir', 'jenis_kelamin', 'tanggal_lahir', 'nama_agama')->first();
 
         $riwayat = ListRPM::where('id_mahasiswa', $id)
-                ->select('nim', 'nama_jenis_daftar', 'nama_periode_masuk', 'tanggal_daftar', 'nama_program_studi', 'nama_perguruan_tinggi', 'nama_pembiayaan_awal', 'biaya_masuk',
-                        'nama_perguruan_tinggi', 'nm_bidang_minat as nama_bidang_minat')
-                ->addSelect(DB::raw('(SELECT nama_jalur_masuk from pd_feeder_jalur_masuk AS jm WHERE pd_feeder_list_riwayat_pendidikan_mahasiswa.id_jalur_daftar = id_jalur_masuk) as jalur_masuk'))
-                ->get();
+                    ->select('nim', 'nama_jenis_daftar', 'nama_periode_masuk', 'tanggal_daftar', 'nama_program_studi', 'nama_perguruan_tinggi', 'nama_pembiayaan_awal', 'biaya_masuk',
+                            'nama_perguruan_tinggi', 'nm_bidang_minat as nama_bidang_minat')
+                    ->addSelect(DB::raw('(SELECT nama_jalur_masuk from pd_feeder_jalur_masuk AS jm WHERE pd_feeder_list_riwayat_pendidikan_mahasiswa.id_jalur_daftar = id_jalur_masuk) as jalur_masuk'))
+                    ->get();
         // dd($riwayat);
 
         return view('backend.univ.mahasiswa.histori-pendidikan', compact('mahasiswa', 'riwayat'));

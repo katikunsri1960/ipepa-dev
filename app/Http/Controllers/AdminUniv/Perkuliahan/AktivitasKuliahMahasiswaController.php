@@ -30,6 +30,7 @@ class AktivitasKuliahMahasiswaController extends Controller
 
         if ($req->has('semester') || $req->has('prodi'))  {
             $aktivitas_kuliah_mahasiswa = $data->select('*')
+            ->orderBy('nama_mahasiswa')
             // ->orderBy('pd_feeder_aktivitas_kuliah_mahasiswa.nama_semester','DESC')
             ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi')  || $req->has('angkatan') || $req->has('status_mahasiswa'), function($q) use($req){
             if ($req->keyword != '') {
@@ -66,11 +67,12 @@ class AktivitasKuliahMahasiswaController extends Controller
             ->paginate($req->p != '' ? $req->p : 20);
 
         }
-        
+
         else {
             $aktivitas_kuliah_mahasiswa = $data->select('*')
             // ->orderBy('pd_feeder_aktivitas_kuliah_mahasiswa.nama_semester','DESC')
             ->where('pd_feeder_aktivitas_kuliah_mahasiswa.nama_semester', $semester_aktif[0]['nama_semester'])
+            ->orderBy('nama_mahasiswa')
             ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi')  || $req->has('angkatan') || $req->has('status_mahasiswa'), function($q) use($req){
             if ($req->keyword != '') {
                 $q->where('pd_feeder_aktivitas_kuliah_mahasiswa.nim', 'like', '%'.$req->keyword.'%')
@@ -96,6 +98,7 @@ class AktivitasKuliahMahasiswaController extends Controller
             ->paginate($req->p != '' ? $req->p : 20);
 
         }
+
 
         if ($req->has('p') && $req->p != '') {
             $valPaginate = $req->p;

@@ -34,7 +34,11 @@
                     </li>
                 </ul>
             </li>
-            <li  class="{{request()->routeIs('admin-prodi.mata-kuliah')|| request()->routeIs('admin-prodi.detail-mata-kuliah') || request()->routeIs('admin-prodi.substansi-kuliah') || request()->routeIs('admin-prodi.kurikulum') || request()->routeIs('admin-prodi.detail-kurikulum') || request()->routeIs('admin-prodi.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-prodi.detail-aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-prodi.aktivitas-mahasiswa') || request()->routeIs('admin-prodi.detail-aktivitas-mahasiswa') || request()->routeIs('admin-prodi.mahasiswa-lulus-do') || request()->routeIs('admin-prodi.detail-mahasiswa-lulus-do') ? 'active' : ''}}">
+            <li  class="{{request()->routeIs('admin-prodi.mata-kuliah') || request()->routeIs('admin-prodi.detail-mata-kuliah') || request()->routeIs('admin-prodi.substansi-kuliah')
+                        || request()->routeIs('admin-prodi.kurikulum') || request()->routeIs('admin-prodi.detail-kurikulum') || request()->routeIs('admin-prodi.kelas-perkuliahan')
+                        || request()->routeIs('admin-prodi.detail-kelas-perkuliahan') || request()->routeIs('admin-prodi.nilai-perkuliahan') || request()->routeIs('admin-prodi.detail-nilai-perkuliahan')
+                        || request()->routeIs('admin-prodi.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-prodi.detail-aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-prodi.aktivitas-mahasiswa')
+                        || request()->routeIs('admin-prodi.detail-aktivitas-mahasiswa') || request()->routeIs('admin-prodi.mahasiswa-lulus-do') || request()->routeIs('admin-prodi.detail-mahasiswa-lulus-do') ? 'active' : ''}}">
                 <a href=""><i class="fa-solid fa-book-open"></i> <span class="nav-label">Perkuliahan</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{request()->routeIs('admin-prodi.mata-kuliah') || request()->routeIs('admin-prodi.detail-mata-kuliah') ? 'active' : ''}}">
@@ -45,6 +49,12 @@
                     </li>
                     <li class="{{request()->routeIs('admin-prodi.kurikulum') || request()->routeIs('admin-prodi.detail-kurikulum') ? 'active' : ''}}">
                         <a href="{{route('admin-prodi.kurikulum')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Kurikulum</span></a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-prodi.kelas-perkuliahan') || request()->routeIs('admin-prodi.detail-kelas-perkuliahan') ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.kelas-perkuliahan')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Kelas Perkuliahan</span></a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-prodi.nilai-perkuliahan') || request()->routeIs('admin-prodi.detail-nilai-perkuliahan') ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.nilai-perkuliahan')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Nilai Perkuliahan</span></a>
                     </li>
                     <li class="{{request()->routeIs('admin-prodi.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-prodi.detail-aktivitas-kuliah-mahasiswa') ? 'active' : ''}}">
                         <a href="{{route('admin-prodi.aktivitas-kuliah-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Aktivitas Kuliah Mahasiswa</span></a>
@@ -68,6 +78,9 @@
                         <a href="{{route('admin-prodi.periode-perkuliahan')}}">Pengaturan Periode Perkuliahan</a>
                     </li>
                 </ul>
+            </li>
+            <li class="{{request()->routeIs('admin-prodi.export-data') ? 'active' : ''}}">
+                <a href="{{route('admin-prodi.export-data')}}"><i class="fa fa-file-excel"></i> <span class="nav-label">Export Data</span></a>
             </li>
         </ul>
     </div>

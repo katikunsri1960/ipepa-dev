@@ -177,7 +177,7 @@
                                         <div class="form-group">
                                             <label>Tanggal SK Pengangkatan</label>
                                             <input type="name" class="form-control" disabled
-                                                value="{{ $dosen->tgl_sk_pengangkatan }}">
+                                                value="{{ $dosen->mulai_sk_pengangkatan }}">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">

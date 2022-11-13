@@ -21,7 +21,7 @@ class PeriodePerkuliahanController extends Controller
         $semester = $data->select('pd_feeder_list_periode_perkuliahan.nama_semester')->distinct()->orderBy('pd_feeder_list_periode_perkuliahan.nama_semester','DESC')->get();
         $semester_aktif = $semester->toArray();
         $val = $req;
-
+ 
         if ($req->has('semester')) {
             $periode_kuliah = $data->select('id_semester', 'pd_feeder_list_periode_perkuliahan.id_prodi', 'pd_feeder_list_periode_perkuliahan.nama_program_studi', 'nama_semester', 'jumlah_target_mahasiswa_baru', 'tanggal_awal_perkuliahan','tanggal_akhir_perkuliahan','pd_feeder_program_studi.status')
             ->when($req->has('p') || $req->has('keyword') || $req->has('prodi') || $req->has('semester'), function($q) use($req){

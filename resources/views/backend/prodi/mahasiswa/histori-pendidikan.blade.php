@@ -88,7 +88,7 @@
                         <th class="text-center">Program Studi</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody> 
                     @foreach ($riwayat as $dataR)
                         <tr>
                             <td class="text-center"><button class="btn btn-info btn-circle" type="button"
