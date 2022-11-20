@@ -2,7 +2,7 @@
 @section('content')
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h5>Aktivitas Perkuliahan Mahasiswa</h5>
+        <h5> Aktivitas Perkuliahan Mahasiswa</h5>
 
         <div class="ibox-content p-md">
             <div class="row">
@@ -48,12 +48,68 @@
                     <input type="name" class="form-control" disabled value="{{ $detail[0]->ipk}}">
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <div class="form-group">
                     <label>Jumlah SKS Semester</label>
                     <input type="name" class="form-control" disabled value="{{ $detail[0]->sks_semester}}">
                 </div>
             </div>
+
+            <div class="col-lg-2">
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-filter"><i class="fa-solid fa-file-lines"></i><span style="margin-left: 1px; margin-right: 1px"><br>Tampilkan KRS</span>
+                </button>
+
+                <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">KRS Mahasiswa</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+
+                                    <table class="table table-bordered m-4" id="krsMahasiswa" style="margin-top: 10pt">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">No</th>
+                                                <th class="text-center">Semester</th>
+                                                <th class="text-center">Nama MK</th>
+                                                <th class="text-center">Nama Mata Kuliah</th>
+                                                <th class="text-center">Bobot (sks)</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($krs as $data)
+                                            <tr>
+                                                <td class="text-center">{{ $loop->iteration }}</td>
+                                                <td class="text-center">{{ $data->semester}}</td>
+                                                <td class="text-center">{{ $data->kode_mata_kuliah }}</td>
+                                                <td class="text-left">{{ $data->nama_mata_kuliah }}</td>
+                                                <td class="text-center">{{ $data->sks_mata_kuliah }}</td>
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="4" class="text-right"><strong>TOTAL SKS</strong></td>
+                                                <td colspan="4" class="text-center"><strong>{{ $sks[0]->jumlah_sks }}</strong></td>
+                                            </tr>
+                                        </tfoot>
+
+                                    </table>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><br><br><hr>
+
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Jumlah SKS Total</label>

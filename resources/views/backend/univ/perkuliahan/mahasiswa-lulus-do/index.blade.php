@@ -131,7 +131,7 @@
                     @foreach($mahasiswa_lulus_do as $m => $data)
                     <tr>
                         <td class="text-center">{{$mahasiswa_lulus_do->firstItem() + $m}}</td>
-                        <td  class="text-center"><a href="{{route('admin-univ.detail-mahasiswa-lulus-do', ['id' => $data->id_mahasiswa, 'tahun' => $data->angkatan])}}" name="req">
+                        <td  class="text-left"><a href="{{route('admin-univ.detail-mahasiswa-lulus-do', ['id' => $data->id_mahasiswa, 'tahun' => $data->angkatan])}}" name="req">
                         {{$data->nim}}</td>
                         <td class="text-left">{{$data->nama_mahasiswa}}</td>
                         <td class="text-left">{{ $data->nama_jenjang_pendidikan }} {{ $data->nama_program_studi }}</td>

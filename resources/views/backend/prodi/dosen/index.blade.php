@@ -19,15 +19,20 @@
                                     <div class="row">
                                         <div class="form-group">
                                             <label>Pilih Status Kepegawaian</label>
-                                            <select name="status_pegawai[]" id="status"
+                                            <select name="status[]" id="status"
                                                 data-placeholder="Pilih Status Kepegawaian..."
                                                 class="form-control chosen-select" multiple style="width:350px;"
                                                 tabindex="4">
-                                                @foreach ($status as $s)
+                                                @foreach ($status as $a)
+                                                    <option value="{{ $a->id_status_aktif }}"
+                                                        @if ($val->status && in_array($a->id_status_aktif, $val->status)) selected @endif>
+                                                        {{ $a->nama_status_aktif }}</option>
+                                                @endforeach
+                                                {{-- @foreach ($status as $s)
                                                     <option value="{{ $s->id_status_aktif }}"
                                                         @if ($val->status && in_array($s->id_status_aktif, $val->status)) selected @endif>
                                                         {{ $s->nama_status_aktif }}</option>
-                                                @endforeach
+                                                @endforeach --}}
                                             </select>
                                         </div>
                                         <div class="form-group">
@@ -88,7 +93,7 @@
             <div class="col-lg-4 pull-right">
                 <form method="GET" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="keyword" placeholder="Search by NIDN or Nama"
+                        <input type="text" class="form-control" name="keyword" placeholder="Search by Nama Dosen or NIDN"
                             value="{{ request()->get('keyword', '') }}"> <span class="input-group-btn">
                             <button class="btn btn-default">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -97,7 +102,7 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div><br>
         <div class="pt-2">
             <table class="table table-bordered table-hover table-responsive" id="table-mahasiswa">
                 <thead>

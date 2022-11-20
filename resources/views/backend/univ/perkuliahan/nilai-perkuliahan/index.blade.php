@@ -42,7 +42,6 @@
                                                                     echo 'selected';
                                                                 }
                                                             }
-
                                                             @endphp>
                                                             {{ $sem->nama_semester }}
                                                         </option>
@@ -96,16 +95,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :
-                        @if ($val['semester'] != '')
-                            @foreach ($val['semester'] as $s)
-                                <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $s }}</span>
+                        @if($val->prodi != '' && $val->semester == '')
+                        {{"-"}}
+                        @elseif($val->semester == '' && $val->prodi == '')
+                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span>
+                        @elseif($val->semester != '' || $val->prodi != '')
+                            @foreach ($val->semester as $sem)
+                                <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $sem }}</span>
                             @endforeach
-                        @elseif ($val['prodi'] != '' && $val['semester'] = '')
-                            @foreach ($val['semester'] as $s)
-
-                            @endforeach
-                        {{-- @else
-                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span> --}}
                         @endif
                     </p>
                 </div>

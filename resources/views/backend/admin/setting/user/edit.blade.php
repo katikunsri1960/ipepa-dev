@@ -1,6 +1,6 @@
 @extends('layouts.admin.layout')
 @section('content')
-<div class="container">
+<div class="wrapper">
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
@@ -102,7 +102,9 @@
                         </div>
                         <div class="hr-line-dashed"></div>
 
-                        <div id="selectProdi" class="form-group" style="visibility: hidden">
+                        <div id="selectProdi" class="form-group" style="@if ($user->role_id != 4)
+                        visibility: hidden
+                        @endif ">
                             <label class="col-sm-2 control-label">Pilih Fakultas/Prodi</label>
                             <div class="col-sm-10">
                                 <select id="fak_prodi" class="form-control m-b" name="fak_prodi">
@@ -162,7 +164,7 @@
                         $('#fak_prodi').append($('<option>', {
                             value: data[i]['id_prodi'],
                             text: data[i]['nama_jenjang_pendidikan'] + " - " + data[i]['nama_program_studi']
-                        }, '</option>'));
+                        }, '</option>'))
                     }
                 },
             });

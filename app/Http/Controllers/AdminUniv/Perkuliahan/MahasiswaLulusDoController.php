@@ -47,6 +47,7 @@ class MahasiswaLulusDoController extends Controller
         })
         ->select('id_mahasiswa','id_prodi','pd_feeder_semester.id_tahun_ajaran','nim', 'nama_mahasiswa', 'angkatan', 'nama_jenis_keluar','tanggal_keluar', 'pd_feeder_semester.nama_semester','keterangan')
         ->addSelect(DB::raw('(SELECT CONCAT(nama_jenjang_pendidikan," ",nama_program_studi) FROM pd_feeder_program_studi WHERE pd_feeder_program_studi.id_prodi = pd_feeder_list_mahasiswa_lulus_do.id_prodi) as nama_program_studi'))
+        // ->orderBy('nama_program_studi')
         ->paginate(20);
 
         return view('backend.univ.perkuliahan.mahasiswa-lulus-do.index', compact('mahasiswa_lulus_do','prodi','angkatan','jenis_keluar','tahun_keluar','val'));

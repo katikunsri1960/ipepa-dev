@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('frontend.index');
+    // return view('frontend.index');
+    return redirect()->to('login');
 });
 
 Auth::routes();
@@ -173,6 +175,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('mata-kuliah', [App\Http\Controllers\AdminProdi\Perkuliahan\MataKuliahController::class, 'index'])->name('mata-kuliah');
             Route::get('detail-mata-kuliah/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\MataKuliahController::class, 'detail_matkul'])->name('detail-mata-kuliah');
             Route::get('substansi-kuliah', [App\Http\Controllers\AdminProdi\Perkuliahan\SubstansiKuliahController::class, 'index'])->name('substansi-kuliah');
+            Route::get('detail-substansi-kuliah/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\SubstansiKuliahController::class, 'detail'])->name('detail-substansi-kuliah');
             Route::get('kurikulum', [App\Http\Controllers\AdminProdi\Perkuliahan\KurikulumController::class, 'index'])->name('kurikulum');
             Route::get('detail-kurikulum/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\KurikulumController::class, 'detail'])->name('detail-kurikulum');
             Route::get('kelas-perkuliahan', [App\Http\Controllers\AdminProdi\Perkuliahan\KelasPerkuliahanController::class, 'index'])->name('kelas-perkuliahan');

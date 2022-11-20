@@ -56,13 +56,13 @@ class ExportDataController extends Controller
         }
 
         if($req->table_name == "Nilai Transfer"){
-            return Excel::download(new ExportNilaiTransfer($req->program_studi, $req->periode), 'DAFTAR TRANSKRIP MAHASISWA-'.$req->program_studi.'-'.$req->periode.'.xlsx');
+            return Excel::download(new ExportNilaiTransfer($req->program_studi, $req->periode), 'DAFTAR NILAI TRANSFER MAHASISWA-'.$req->program_studi.'-'.$req->periode.'.xlsx');
         }
 
         if($req->table_name == "KRS Mahasiswa"){
             return Excel::download(new ExportKRSMahasiswa($req->program_studi, $req->semester), 'DAFTAR KRS MAHASISWA-'.$req->program_studi.'-'.$req->semester.'.xlsx');
         }
-        // Perbedaan Data Antara Feeder dan PD
+
         if($req->table_name == "Aktivitas Mengajar Dosen"){
             return Excel::download(new ExportAktivitasMengajarDosen($req->program_studi, $req->semester), 'DAFTAR AKTIVITAS MENGAJAR DOSEN-'.$req->program_studi.'-'.$req->semester.'.xlsx');
         }

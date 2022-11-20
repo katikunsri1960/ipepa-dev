@@ -16,7 +16,7 @@ class PenugasanDosenController extends Controller
 {
     public function index(Request $req)
     {
-        $this->authorize('admin-univ'); 
+        $this->authorize('admin-univ');
 
         $data = ListPenugasanDosen::leftJoin('pd_feeder_tahun_ajaran','pd_feeder_tahun_ajaran.id_tahun_ajaran','pd_feeder_list_penugasan_dosen.id_tahun_ajaran');
 
@@ -26,26 +26,26 @@ class PenugasanDosenController extends Controller
         $angkatan_aktif = $angkatan->toArray();
         $val = $req;
 
-        if ($req->has('angkatan')) {
+        if ($req->has('angkatan') || $req->has('prodi') || $req->has('jk')) {
             $dosen = $data->select('*')->orderBy('pd_feeder_list_penugasan_dosen.nama_tahun_ajaran','DESC')
             ->when($req->has('p') || $req->has('keyword') || $req->has('prodi') || $req->has('jk') || $req->has('angkatan'), function($q) use($req){
-            if ($req->keyword != '') {
-                $q->where('pd_feeder_list_penugasan_dosen.nama_dosen', 'like', '%'.$req->keyword.'%')
-                ->orWhere('pd_feeder_list_penugasan_dosen.nidn', 'like', '%'.$req->keyword.'%');
-            }
-            if ($req->angkatan!='') {
-                $q->whereIn('pd_feeder_tahun_ajaran.nama_tahun_ajaran', $req->angkatan);
-            }
-            if ($req->prodi!='') {
-                $q->whereIn('id_prodi', $req->prodi);
-            }
-            if ($req->jk!='') {
-                $q->whereIn('jk', $req->jk);
+                if ($req->keyword != '') {
+                    $q->where('pd_feeder_list_penugasan_dosen.nama_dosen', 'like', '%'.$req->keyword.'%')
+                    ->orWhere('pd_feeder_list_penugasan_dosen.nidn', 'like', '%'.$req->keyword.'%');
+                }
+                if ($req->angkatan!='') {
+                    $q->whereIn('pd_feeder_tahun_ajaran.nama_tahun_ajaran', $req->angkatan);
+                }
+                if ($req->prodi!='') {
+                    $q->whereIn('id_prodi', $req->prodi);
+                }
+                if ($req->jk!='') {
+                    $q->whereIn('jk', $req->jk);
 
-            }
-        })->paginate($req->p != '' ? $req->p : 20);
-        } else {
-
+                }
+            })->paginate($req->p != '' ? $req->p : 20);
+        }
+        else{
             $dosen = $data->select('*')->orderBy('pd_feeder_list_penugasan_dosen.nama_tahun_ajaran','DESC')->where('pd_feeder_list_penugasan_dosen.nama_tahun_ajaran', $angkatan_aktif[0]['nama_tahun_ajaran'])
             ->when($req->has('p') ||$req->has('keyword') || $req->has('prodi') || $req->has('jk') || $req->has('angkatan'), function($q) use($req){
                 if ($req->keyword != '') {

@@ -8,17 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class RolesUser extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = ['user_id', 'role_id', 'fak_prod_id'];
 
     /**
-     * Get all of the user for the RolesUser
+     * Get the user associated with the RolesUser
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function user(): HasMany
+    public function user(): HasOne
     {
-        return $this->hasMany(User::class);
+        return $this->hasOne(User::class);
     }
 
     /**

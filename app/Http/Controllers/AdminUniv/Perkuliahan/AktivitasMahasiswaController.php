@@ -21,7 +21,7 @@ class AktivitasMahasiswaController extends Controller
         $now = $semester_now->max('id_semester');
 
         $semester= Semester::select('nama_semester', 'id_semester', 'id_tahun_ajaran')->where('id_semester', '<=', $now )->orderBy('nama_semester','DESC')->limit(50)->get();
-         $semester_aktif = $semester->toArray();
+        $semester_aktif = $semester->toArray();
         $val = $req;
 
         if ($req->has('semester') || $req->has('prodi'))  {
@@ -85,7 +85,7 @@ class AktivitasMahasiswaController extends Controller
         ->leftJoin('pd_feeder_dosen_pembimbing','pd_feeder_dosen_pembimbing.id_registrasi_mahasiswa','pd_feeder_list_anggota_aktivitas_mahasiswa.id_registrasi_mahasiswa')
         ->leftJoin('pd_feeder_list_uji_mahasiswa','pd_feeder_list_uji_mahasiswa.id_aktivitas','pd_feeder_list_aktivitas_mahasiswa.id_aktivitas');
 
-        $detail = $data->where('pd_feeder_list_aktivitas_mahasiswa.id_aktivitas',$id)->distinct()->select('nama_prodi', 'nama_semester', 'sk_tugas', 'tanggal_sk_tugas', 'nama_jenis_aktivitas', 'nama_jenis_anggota', 'pd_feeder_list_anggota_aktivitas_mahasiswa.judul', 'keterangan', 'lokasi', 'pd_feeder_list_anggota_aktivitas_mahasiswa.nim', 'pd_feeder_list_anggota_aktivitas_mahasiswa.nama_mahasiswa', 'jenis_peran', 'nama_jenis_peran')->get();
+        $detail = $data->where('pd_feeder_list_aktivitas_mahasiswa.id_aktivitas',$id)->distinct()->select('nama_prodi', 'nama_semester', 'sk_tugas', 'tanggal_sk_tugas', 'nama_jenis_aktivitas', 'nama_jenis_anggota', 'pd_feeder_list_aktivitas_mahasiswa.judul', 'keterangan', 'lokasi', 'pd_feeder_list_anggota_aktivitas_mahasiswa.nim', 'pd_feeder_list_anggota_aktivitas_mahasiswa.nama_mahasiswa', 'jenis_peran', 'nama_jenis_peran')->get();
         // dd($detail);
         $pembimbing = $data->where('pd_feeder_list_aktivitas_mahasiswa.id_aktivitas',$id)->select('pd_feeder_dosen_pembimbing.nidn', 'pd_feeder_dosen_pembimbing.nama_dosen', 'pembimbing_ke', 'jenis_aktivitas')->get();
         $penguji = $data->where('pd_feeder_list_aktivitas_mahasiswa.id_aktivitas',$id)->select('pd_feeder_list_uji_mahasiswa.nidn', 'pd_feeder_list_uji_mahasiswa.nama_dosen', 'penguji_ke', 'nama_kategori_kegiatan')->get();

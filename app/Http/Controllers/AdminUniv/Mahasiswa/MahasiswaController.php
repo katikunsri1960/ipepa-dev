@@ -16,6 +16,7 @@ use App\Models\PDUnsri\Feeder\Semester;
 use App\Models\PDUnsri\Feeder\StatusMahasiswa;
 use App\Models\PDUnsri\Feeder\Agama;
 use App\Models\PDUnsri\Feeder\ProgramStudi;
+use App\Models\PDUnsri\Feeder\TahunAjaran;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -28,10 +29,10 @@ class MahasiswaController extends Controller
         // $data= ListMahasiswa::leftJoin('pd_feeder_semester as semester','id_semester','id_periode');
         $data = new ListMahasiswa;
 
-        $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->get();
+        $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->orderBy('nama_jenjang_pendidikan','ASC')->get();
         $status = $data->select('nama_status_mahasiswa')->distinct()->get();
         $agama = Agama::select('id_agama','nama_agama')->get();
-        $angkatan = Semester::select('id_tahun_ajaran as angkatan')->distinct()->orderBy('id_tahun_ajaran', 'desc')->get();
+        $angkatan = TahunAjaran::select('id_tahun_ajaran as angkatan')->orderBy('id_tahun_ajaran', 'desc')->get();
         // dd($angkatan);
         $jk = $data->select('jenis_kelamin')->distinct()->get();
 

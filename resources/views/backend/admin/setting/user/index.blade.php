@@ -14,7 +14,7 @@
             <a class="btn btn-success" href="{{route('admin.settings.users.create')}}">Add User</a>
         </div>
 
-        <table class="table table-bordered table-hover" id="user-data">
+        <table class="table table-bordered table-responsive table-hover" id="user-data">
             <thead>
                 <tr>
                     <th>#</th>
@@ -54,7 +54,7 @@
                     } else {
                         return data;
                     }
-                    
+
                 }},
                 { data: 'id', searchable: false ,render: function(data, type, row) {
                     return '<a href="{{ route('admin.settings.users.edit', ':id') }}'.replace(':id', data) + '" class="btn btn-primary btn-sm">Edit</a> '
@@ -73,7 +73,7 @@
                     orderable: false,
                     sortable: false,
                 },
-                
+
             ],
         });
 

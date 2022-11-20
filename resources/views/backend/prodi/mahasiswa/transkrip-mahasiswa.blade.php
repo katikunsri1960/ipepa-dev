@@ -76,7 +76,7 @@
                         <th rowspan="2" class="text-center" style="vertical-align: middle">Nama MK</th>
                         <th rowspan="2" class="text-center" style="vertical-align: middle">Bobot MK (sks)</th>
                         <th colspan="3" class="text-center">Nilai</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">sksk * N.Indeks</th>
+                        <th rowspan="2" class="text-center" style="vertical-align: middle">sks * N.Indeks</th>
                     </tr>
                     <tr>
                         <th class="text-center">Angka</th>

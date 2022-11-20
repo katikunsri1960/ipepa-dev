@@ -53,7 +53,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Jumlah SKS</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail_kurikulum[0]->jumlah_sks_total }}">
+                    <input type="name" class="form-control" disabled value="{{ $detail_kurikulum[0]->jumlah_sks_lulus }}">
                 </div>
             </div>
         </div>

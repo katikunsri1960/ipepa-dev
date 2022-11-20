@@ -108,17 +108,7 @@
             </div>
         </div>
     </div>
-    {{-- <div class="ibox-title">
-        <h5>Informasi Detail Mahasiswa</h5>
-        <div class="ibox-tools">
-            <a class="collapse-link">
-                <i class="fa fa-chevron-up"></i>
-            </a>
-            <a class="close-link">
-                <i class="fa fa-times"></i>
-            </a>
-        </div>
-    </div> --}}
+
     <div class="ibox-content">
         <div class="row m-t-sm">
             <div class="col-lg-12">
@@ -179,7 +169,6 @@
                                             <th class="text-center">Jenis Kelamin</th>
                                             <th class="text-center">Program Studi</th>
                                             <th class="text-center">Angkatan</th>
-                                            {{-- <th class="text-center">Action</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -191,7 +180,6 @@
                                                 <td class="text-center">{{$pes->jenis_kelamin}}</td>
                                                 <td class="text-center">{{$pes->nama_program_studi}}</td>
                                                 <td class="text-center">{{$pes->angkatan}}</td>
-                                                {{-- <td class="text-center">-</td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>

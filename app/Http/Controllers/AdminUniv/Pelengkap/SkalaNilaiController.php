@@ -8,7 +8,7 @@ use App\Models\PDUnsri\Feeder\ProgramStudi;
 use Illuminate\Http\Request;
 
 class SkalaNilaiController extends Controller
-{ 
+{
     public function index(Request $req)
     {
         $this->authorize('admin-univ');
@@ -19,6 +19,7 @@ class SkalaNilaiController extends Controller
         $val = $req;
 
         $skala_nilai = $data->select('id_bobot_nilai', 'id_prodi', 'nama_program_studi', 'nilai_huruf', 'nilai_indeks', 'bobot_minimum','bobot_maksimum', 'tanggal_mulai_efektif','tanggal_akhir_efektif')
+        ->orderBy('nilai_huruf')
         ->when($req->has('p') || $req->has('keyword') || $req->has('prodi'), function($q) use($req){
             if ($req->keyword != '') {
                 $q->where('pd_feeder_list_skala_nilai_prodi.nama_program_studi', 'like', '%'.$req->keyword.'%');

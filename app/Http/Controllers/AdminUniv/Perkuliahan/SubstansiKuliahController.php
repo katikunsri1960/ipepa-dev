@@ -16,7 +16,8 @@ class SubstansiKuliahController extends Controller
         $this->authorize('admin-univ');
 
         $data =ListSubstansiKuliah::leftJoin('pd_feeder_program_studi','pd_feeder_program_studi.id_prodi','pd_feeder_list_substansi_kuliah.id_prodi');
-        $prodi = $data->select('pd_feeder_list_substansi_kuliah.id_prodi', 'pd_feeder_list_substansi_kuliah.nama_program_studi', 'nama_jenjang_pendidikan')->distinct()->orderBy('nama_jenjang_pendidikan')->orderBy('nama_program_studi')->get();
+        
+        $prodi = ProgramStudi::select('pd_feeder_program_studi.id_prodi', 'pd_feeder_program_studi.nama_program_studi', 'nama_jenjang_pendidikan')->orderBy('nama_jenjang_pendidikan')->orderBy('nama_program_studi')->get();
         $val = $req;
         // dd($prodi);
         // $data = ListSubstansiKuliah::leftJoin('pd_feeder_jenis_mata_kuliah','pd_feeder_jenis_mata_kuliah.id_jenis_mata_kuliah','pd_feeder_mata_kuliah.id_jenis_mata_kuliah');
@@ -49,7 +50,7 @@ class SubstansiKuliahController extends Controller
         $this->authorize('admin-univ');
 
         $detail = ListSubstansiKuliah::where('id_substansi',$id)
-        ->select('id_substansi', 'nama_substansi', 'sks_mata_kuliah', 'sks_tatap_muka','sks_praktek', 'sks_praktek_lapangan', 'sks_simulasi')
+        ->select('id_substansi','nama_program_studi', 'nama_substansi', 'sks_mata_kuliah', 'sks_tatap_muka','sks_praktek', 'sks_praktek_lapangan', 'sks_simulasi')
         ->paginate(20);
         return view('backend.univ.perkuliahan.substansi-kuliah.detail', compact('detail'));
     }

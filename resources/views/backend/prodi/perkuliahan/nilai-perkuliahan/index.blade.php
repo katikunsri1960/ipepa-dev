@@ -24,27 +24,31 @@
                                                     data-placeholder="Pilih Semester..." class="form-control chosen-select"
                                                     multiple style="width:350px;" tabindex="4">
                                                     <option value=""></option>
-                                                    @foreach ($semester as $sem)
-                                                        <option value="{{ $sem->nama_semester }}"
+                                                    @foreach ($semester as $s)
+                                                        <option value="{{ $s->nama_semester }}"
                                                             @php
                                                             if($val->prodi != '' && $val->semester == ''){
-                                                                if($val->semester && in_array($sem->nama_semester, $val->semester)){
+                                                                if($val->semester && in_array($s->nama_semester, $val->semester)){
                                                                     echo 'selected';
                                                                 }
                                                             }
-                                                            elseif($val->semester == ''){
-                                                                if($semester_aktif[0]['nama_semester'] && in_array($sem->nama_semester,$semester_aktif[0])){
+                                                            if($val->jk != '' && $val->semester == ''){
+                                                                if($val->semester && in_array($s->nama_semester, $val->semester)){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
+                                                            elseif($val->semester == '' && $val->prodi == ''){
+                                                                if($semester_aktif[0]['nama_semester'] && in_array($s->nama_semester,$semester_aktif[0])){
                                                                     echo 'selected';
                                                                 }
                                                             }
                                                             if($val->semester != ''|| $val->prodi != ''){
-                                                                if($val->semester && in_array($sem->nama_semester, $val->semester)){
+                                                                if($val->semester && in_array($s->nama_semester, $val->semester)){
                                                                     echo 'selected';
                                                                 }
                                                             }
-
                                                             @endphp>
-                                                            {{ $sem->nama_semester }}
+                                                            {{ $s->nama_semester }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -58,7 +62,7 @@
                                                     <option value=""></option>
                                                     @foreach ($prodi as $p)
                                                         <option value="{{ $p->id_prodi }}"
-                                                            @if ($val->prodi && in_array($p->id_prodi, $val->prodi )) selected @endif>
+                                                            @if ($val->prodi && in_array($p->id_prodi, $val->prodi)) selected @endif>
                                                             {{ $p->nama_jenjang_pendidikan }} {{ $p->nama_program_studi }}
                                                         </option>
                                                     @endforeach
@@ -96,16 +100,14 @@
             <div class="row">
                 <div class="col-md-12">
                     <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :
-                        @if ($val['semester'] != '')
-                            @foreach ($val['semester'] as $s)
+                        @if($val->prodi != '' && $val->semester == '')
+                                {{"-"}}
+                        @elseif($val->semester == '' && $val->prodi == '')
+                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span>
+                        @elseif($val->semester != '' || $val->prodi != '')
+                            @foreach ($val->semester as $s)
                                 <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $s }}</span>
                             @endforeach
-                        @elseif ($val['prodi'] != '' && $val['semester'] = '')
-                            @foreach ($val['semester'] as $s)
-
-                            @endforeach
-                        {{-- @else
-                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span> --}}
                         @endif
                     </p>
                 </div>

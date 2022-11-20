@@ -7,7 +7,8 @@
     <div class="ibox-content">
         <div class="row">
             <div class="col-lg-12">
-                <a class="btn btn-primary pull-right" href="{{route('admin-univ.kelas-perkuliahan')}}"><i class="fa-solid fa-list"></i> <span>Daftar Kelas Perkuliahan</span></a>
+                <a class="btn btn-danger pull-right" href="{{route('admin-univ.kelas-perkuliahan')}}"><i
+                        class="fa-solid fa-list"></i> <span>Daftar Kelas Perkuliahan</span></a>
             </div>
         </div>
         <div class="row">
@@ -24,13 +25,13 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label>Program Studi  <span style="color: red">*</span></label>
+                    <label>Program Studi <span style="color: red">*</span></label>
                     <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_program_studi}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
-                    <label>Semester  <span style="color: red">*</span></label>
+                    <label>Semester <span style="color: red">*</span></label>
                     <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_semester}}">
                 </div>
             </div>
@@ -130,7 +131,8 @@
                                     <a href="#tab-1" data-toggle="tab" aria-expanded="true">DOSEN PENGAJAR</a>
                                 </li>
                                 <li class="">
-                                    <a href="#tab-2" data-toggle="tab" aria-expanded="false">MAHASISWA KRS / PESERTA KELAS</a>
+                                    <a href="#tab-2" data-toggle="tab" aria-expanded="false">MAHASISWA KRS / PESERTA
+                                        KELAS</a>
                                 </li>
                             </ul>
                         </div>
@@ -156,15 +158,15 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($dosen as $no => $dosen)
-                                            <tr>
-                                                <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-left">{{$dosen->nidn}}</td>
-                                                <td class="text-left">{{$dosen->nama_dosen}}</td>
-                                                <td class="text-center">{{$dosen->sks_substansi_total}}</td>
-                                                <td class="text-center">{{$dosen->rencana_minggu_pertemuan}}</td>
-                                                <td class="text-center">{{$dosen->realisasi_minggu_pertemuan}}</td>
-                                                <td class="text-center">{{$dosen->nama_jenis_evaluasi}}</td>
-                                            </tr>
+                                        <tr>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                            <td class="text-left">{{$dosen->nidn}}</td>
+                                            <td class="text-left">{{$dosen->nama_dosen}}</td>
+                                            <td class="text-center">{{$dosen->sks_substansi_total}}</td>
+                                            <td class="text-center">{{$dosen->rencana_minggu_pertemuan}}</td>
+                                            <td class="text-center">{{$dosen->realisasi_minggu_pertemuan}}</td>
+                                            <td class="text-center">{{$dosen->nama_jenis_evaluasi}}</td>
+                                        </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -184,15 +186,15 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($mahasiswa as $pes)
-                                            <tr>
-                                                <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-center">{{$pes->nim}}</td>
-                                                <td class="text-left">{{$pes->nama_mahasiswa}}</td>
-                                                <td class="text-center">{{$pes->jenis_kelamin}}</td>
-                                                <td class="text-center">{{$pes->nama_program_studi}}</td>
-                                                <td class="text-center">{{$pes->angkatan}}</td>
-                                                {{-- <td class="text-center">-</td> --}}
-                                            </tr>
+                                        <tr>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                            <td class="text-center">{{$pes->nim}}</td>
+                                            <td class="text-left">{{$pes->nama_mahasiswa}}</td>
+                                            <td class="text-center">{{$pes->jenis_kelamin}}</td>
+                                            <td class="text-center">{{$pes->nama_program_studi}}</td>
+                                            <td class="text-center">{{$pes->angkatan}}</td>
+                                            {{-- <td class="text-center">-</td> --}}
+                                        </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

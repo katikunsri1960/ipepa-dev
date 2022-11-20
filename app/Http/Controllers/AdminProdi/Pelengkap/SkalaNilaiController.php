@@ -22,6 +22,7 @@ class SkalaNilaiController extends Controller
         $val = $req;
 
         $skala_nilai = $data->select('id_bobot_nilai', 'id_prodi', 'nama_program_studi', 'nilai_huruf', 'nilai_indeks', 'bobot_minimum','bobot_maksimum', 'tanggal_mulai_efektif','tanggal_akhir_efektif')->where('pd_feeder_list_skala_nilai_prodi.id_prodi',$prodiId)
+        ->orderBy('nilai_huruf')
         ->when($req->has('p') || $req->has('keyword') || $req->has('prodi'), function($q) use($req){
             if ($req->keyword != '') {
                 $q->where('pd_feeder_list_skala_nilai_prodi.nama_program_studi', 'like', '%'.$req->keyword.'%');

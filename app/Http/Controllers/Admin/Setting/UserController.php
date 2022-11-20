@@ -27,7 +27,7 @@ class UserController extends Controller
 
             $users = (User::leftJoin('roles', 'users.role_id', 'roles.id')->leftJoin('roles_users as ru', 'users.id', 'ru.user_id')
                         ->leftJoin('pd_feeder_program_studi as ps', 'ru.fak_prod_id', 'ps.id_prodi')
-                        ->select('users.id as id','users.name as name', 'email', 'users.role_id as role_id', 'username', 'roles.name as role', 
+                        ->select('users.id as id','users.name as name', 'email', 'users.role_id as role_id', 'username', 'roles.name as role',
                                 'ps.nama_jenjang_pendidikan as jenjang', 'ps.nama_program_studi as prodi')
                         ->get())->toJson();
 
@@ -62,7 +62,7 @@ class UserController extends Controller
         $data = $request->validated();
         // dd($data);
         DB::transaction(function () use ($data) {
-           
+
             $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
@@ -98,6 +98,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $roles = Role::all();
 
+        // dd($user->role_id);
+
         return view('backend.admin.setting.user.edit', compact('user', 'roles'));
 
     }
@@ -116,43 +118,46 @@ class UserController extends Controller
         $data = $request->all();
         $user = User::findOrFail($id);
 
-        $roleUser = RolesUser::where('user_id',$id)->first();
+        DB::transaction(function () use ($request, $data, $user, $id) {
 
-        if ($data['password'] == '') {
-            $this->validate($request, [
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255',
-                'username' => 'required|string|max:255',
-                'role_id' => 'required|integer',
-            ]);
-            $data['password'] = $user->password;
+            if ($data['password'] == '') {
+                $this->validate($request, [
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|string|email|max:255',
+                    'username' => 'required|string|max:255',
+                    'role_id' => 'required|integer',
+                ]);
+                $data['password'] = $user->password;
 
-        } else {
+            } else {
 
-            $this->validate($request, [
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255',
-                'username' => 'required|string|max:255',
-                'password' => 'required|string|min:6|confirmed',
-                'role_id' => 'required|integer',
-            ]);
+                $this->validate($request, [
+                    'name' => 'required|string|max:255',
+                    'email' => 'required|string|email|max:255',
+                    'username' => 'required|string|max:255',
+                    'password' => 'required|string|min:6|confirmed',
+                    'role_id' => 'required|integer',
+                ]);
 
-            $data['password'] = $data['password'];
-        }
+                $data['password'] = $data['password'];
+            }
 
 
-        $user->update($data);
+            $user->update($data);
 
-        if ($data['role_id'] == 4) {
-            $roleUser->updateOrCreate([
-                'user_id' => $user->id,
-                'role_id' => $data['role_id'],
-                'fak_prod_id' => $data['fak_prodi'],
-            ]);
-        } else if($roleUser != null) {
-            $roleUser->delete();
-        }
-     
+            if ($data['role_id'] == 4) {
+                RolesUser::where('user_id',$id)->updateOrCreate([
+                    'user_id' => $user->id,
+                    'role_id' => $data['role_id'],
+                    'fak_prod_id' => $data['fak_prodi'],
+                ]);
+            } else {
+                RolesUser::where('user_id',$id)->delete();
+            }
+        });
+
+
+
         return redirect()->route('admin.settings.users.index')->with('success', 'User has been updated');
 
     }
@@ -168,7 +173,7 @@ class UserController extends Controller
         $this->authorize('admin');
 
         DB::transaction(function () use ($id) {
-            
+
             $user = User::findOrFail($id);
             $roleUser = RolesUser::where('user_id',$id)->first();
             if ($roleUser) {
@@ -176,7 +181,7 @@ class UserController extends Controller
             }
             $user->delete();
         });
-        
+
         return redirect()->route('admin.settings.users.index')->with('success', 'User has been deleted');
 
     }

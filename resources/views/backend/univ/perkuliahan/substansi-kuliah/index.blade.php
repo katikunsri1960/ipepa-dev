@@ -27,7 +27,7 @@
                                                     @foreach ($prodi as $p)
                                                             <option value="{{ $p->id_prodi }}"
                                                                 @if ($val->prodi && in_array($p->id_prodi, $val->prodi )) selected @endif>
-                                                                {{ $p->nama_program_studi }}
+                                                                {{ $p->nama_jenjang_pendidikan }} {{ $p->nama_program_studi }}
                                                             </option>
                                                         @endforeach
                                                 </select>

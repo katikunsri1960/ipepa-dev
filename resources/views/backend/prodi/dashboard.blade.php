@@ -17,7 +17,7 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
-            <div class="widget navy-bg p-xl pull-right">
+            <div class="widget navy-bg p-xl">
                 <h2><strong>{{$profil_pt[0]['nama_perguruan_tinggi']}}</strong></h2><br>
                 <table class="table">
                     <tr>

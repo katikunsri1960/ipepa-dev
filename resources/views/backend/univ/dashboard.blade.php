@@ -15,10 +15,8 @@
                 <p><i class="fa fa-hand-o-right"></i> Data yang ditampilkan pada halaman ini merupakan data dari Neo Feeder PDDIKTI<br><i class="fa fa-hand-o-right"></i> Last Sync Table ({{$sync_table[0]['updated_at']}} - {{$sync_table[0]['table_name']}})</p>
             </div>
         </div>
-    </div>
-    <div class="row">
         <div class="col-lg-12">
-            <div class="widget navy-bg p-xl pull-right">
+            <div class="widget navy-bg p-xl">
                 <h2><strong>{{$profil_pt[0]['nama_perguruan_tinggi']}}</strong></h2><br>
                 <table class="table">
                     <tr>

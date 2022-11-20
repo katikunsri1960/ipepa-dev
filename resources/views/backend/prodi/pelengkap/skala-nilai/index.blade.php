@@ -79,7 +79,7 @@
                         @foreach($skala_nilai as $s => $data)
                         <tr>
                             <td class="text-center">{{$skala_nilai->firstItem() + $s}}</td>
-                            <td  class="text-left"><a href="{{route('admin-univ.detail-skala-nilai', ['id' => $data->id_bobot_nilai])}}">{{$data->nama_program_studi}}</td>
+                            <td  class="text-left"><a href="{{route('admin-prodi.detail-skala-nilai', ['id' => $data->id_bobot_nilai])}}">{{$data->nama_program_studi}}</td>
                             <td class="text-left">{{$data->nilai_huruf}}</td>
                             <td class="text-center">{{$data->nilai_indeks}}</td>
                             <td class="text-center">{{$data->bobot_minimum}}</td>

@@ -31,7 +31,7 @@ class NilaiPerkuliahanController extends Controller
 
         if ($req->has('semester') || $req->has('prodi'))  {
             $nilai_perkuliahan = $data->select('*')
-            ->where('id_prodi', $prodiId)
+            ->where('id_sms', $prodiId)
             ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi'), function($q) use($req){
             if ($req->keyword != '') {
                 $q->where('pd_feeder_list_nilai_perkuliahan.kode_mata_kuliah', 'like', '%'.$req->keyword.'%')
@@ -73,6 +73,7 @@ class NilaiPerkuliahanController extends Controller
             ->paginate($req->p != '' ? $req->p : 20);
 
         }
+        // dd($nilai_perkuliahan);
 
         if ($req->has('p') && $req->p != '') {
             $valPaginate = $req->p;

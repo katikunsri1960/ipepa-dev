@@ -24,18 +24,26 @@
                                                     class="form-control chosen-select" multiple style="width:350px;"
                                                     tabindex="4">
                                                     <option value=""></option>
-                                                    @foreach ($semester as $s)
-                                                        <option value="{{ $s->nama_semester }}"
+                                                    @foreach ($semester as $sem)
+                                                        <option value="{{ $sem->nama_semester }}"
                                                             @php
-                                                            if($val->semester == ''){
-                                                                if($semester_aktif[0]['nama_semester'] && in_array($s->nama_semester,$semester_aktif[0])){
+                                                            if($val->prodi != '' && $val->semester == ''){
+                                                                if($val->semester && in_array($sem->nama_semester, $val->semester)){
                                                                     echo 'selected';
                                                                 }
                                                             }
-                                                            if($val->semester != '')
-                                                                if ($val->semester && in_array($s->nama_semester, $val->semester)) echo 'selected';
+                                                            elseif($val->semester == ''){
+                                                                if($semester_aktif[0]['nama_semester'] && in_array($sem->nama_semester,$semester_aktif[0])){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
+                                                            if($val->semester != ''|| $val->prodi != ''){
+                                                                if($val->semester && in_array($sem->nama_semester, $val->semester)){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
                                                             @endphp>
-                                                            {{ $s->nama_semester }}
+                                                            {{ $sem->nama_semester }}
                                                         </option>
                                                     @endforeach
                                                 </select>

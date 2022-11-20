@@ -53,12 +53,22 @@
                                                 @foreach ($angkatan as $ang)
                                                     <option value="{{ $ang->nama_tahun_ajaran }}"
                                                         @php
-                                                        if($val->angkatan == ''){
+                                                        if($val->prodi != '' && $val->angkatan == ''){
+                                                            if($val->angkatan && in_array($ang->nama_tahun_ajaran, $val->angkatan)){
+                                                                echo 'selected';
+                                                            }
+                                                        }
+                                                        if($val->jk != '' && $val->angkatan == ''){
+                                                            if($val->angkatan && in_array($ang->nama_tahun_ajaran, $val->angkatan)){
+                                                                echo 'selected';
+                                                            }
+                                                        }
+                                                        elseif($val->angkatan == '' && $val->prodi == '' && $val->jk == '' ){
                                                             if($angkatan_aktif[0]['nama_tahun_ajaran'] && in_array($ang->nama_tahun_ajaran,$angkatan_aktif[0])){
                                                                 echo 'selected';
                                                             }
                                                         }
-                                                        if($val->angkatan != ''){
+                                                        if($val->angkatan != ''|| $val->prodi != '' || $val->jk != ''){
                                                             if($val->angkatan && in_array($ang->nama_tahun_ajaran, $val->angkatan)){
                                                                 echo 'selected';
                                                             }
@@ -115,7 +125,7 @@
             <div class="col-lg-4 pull-right">
                 <form method="GET" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="keyword" placeholder="Search by NIDN or Nama"
+                        <input type="text" class="form-control" name="keyword" placeholder="Search by Nama Dosen or NIDN"
                             value="{{ request()->get('keyword', '') }}"> <span class="input-group-btn">
                             <button class="btn btn-default">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -128,13 +138,17 @@
         <div class="row">
             <div class="col-md-12">
                 <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :
-                        @if ($val['angkatan'] != '')
-                            @foreach ($val['angkatan'] as $ang)
-                                <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $ang }}</span>
-                            @endforeach
-                        @else
-                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $angkatan_aktif[0]['nama_tahun_ajaran'] }}</span>
-                        @endif
+                    @if($val->prodi != '' && $val->angkatan == '')
+                        {{"-"}}
+                    @elseif($val->jk != '' && $val->angkatan == '')
+                        {{"-"}}
+                    @elseif($val->angkatan == '' && $val->prodi == '' && $val->jk == '' )
+                        <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $angkatan_aktif[0]['nama_tahun_ajaran'] }}</span>
+                    @elseif($val->angkatan != '' || $val->prodi != '' || $val->jk != '')
+                        @foreach ($val->angkatan as $ang)
+                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $ang }}</span>
+                        @endforeach
+                    @endif
                 </p>
             </div>
         </div>

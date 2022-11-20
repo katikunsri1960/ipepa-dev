@@ -95,6 +95,7 @@
             {!! $substansi->withQueryString()->links() !!}
         </div>
     </div>
+</div>
 @endsection
 @push('css')
     <link href="{{ asset('assets/css/plugins/chosen/bootstrap-chosen.css') }}" rel="stylesheet">

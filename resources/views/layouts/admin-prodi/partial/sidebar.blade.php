@@ -15,10 +15,10 @@
             <li class="{{request()->routeIs('admin-prodi.profil-pt') ? 'active' : ''}}">
                 <a href="{{route('admin-prodi.profil-pt')}}"><i class="fa fa-user-circle"></i> <span class="nav-label">Profil</span></a>
             </li>
-            <li  class="{{request()->routeIs('admin-prodi.daftar-mahasiswa') || request()->routeIs('admin-prodiprodi.detail-mahasiswa') || request()->routeIs('admin-prodiprodi.histori-pendidikan') || request()->routeIs('admin-prodiprodi.krs-mahasiswa') || request()->routeIs('admin-prodiprodi.histori-nilai') || request()->routeIs('admin-prodiprodi.aktivitas-perkuliahan') || request()->routeIs('admin-prodiprodi.prestasi-mahasiswa') || request()->routeIs('admin-prodiprodi.detail-transkrip-mahasiswa') ? 'active' : ''}}">
+            <li  class="{{request()->routeIs('admin-prodi.daftar-mahasiswa') || request()->routeIs('admin-prodi.detail-mahasiswa') || request()->routeIs('admin-prodi.histori-pendidikan') || request()->routeIs('admin-prodi.krs-mahasiswa') || request()->routeIs('admin-prodi.histori-nilai') || request()->routeIs('admin-prodi.aktivitas-perkuliahan') || request()->routeIs('admin-prodi.prestasi-mahasiswa') || request()->routeIs('admin-prodi.transkrip-mahasiswa') ? 'active' : ''}}">
                 <a href=""><i class="fa fa-graduation-cap"></i> <span class="nav-label">Mahasiswa</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li class="{{request()->routeIs('admin-prodi.daftar-mahasiswa') || request()->routeIs('admin-prodiprodi.detail-mahasiswa') || request()->routeIs('admin-prodiprodi.histori-pendidikan') || request()->routeIs('admin-prodiprodi.krs-mahasiswa') || request()->routeIs('admin-prodiprodi.histori-nilai') || request()->routeIs('admin-prodiprodi.aktivitas-perkuliahan') || request()->routeIs('admin-prodiprodi.prestasi-mahasiswa') || request()->routeIs('admin-prodiprodi.detail-transkrip-mahasiswa') ? 'active' : ''}}">
+                    <li class="{{request()->routeIs('admin-prodi.daftar-mahasiswa') || request()->routeIs('admin-prodi.detail-mahasiswa') || request()->routeIs('admin-prodi.histori-pendidikan') || request()->routeIs('admin-prodi.krs-mahasiswa') || request()->routeIs('admin-prodi.histori-nilai') || request()->routeIs('admin-prodi.aktivitas-perkuliahan') || request()->routeIs('admin-prodi.prestasi-mahasiswa') || request()->routeIs('admin-prodi.transkrip-mahasiswa') ? 'active' : ''}}">
                         <a href="{{route('admin-prodi.daftar-mahasiswa')}}">Daftar Mahasiswa</a>
                     </li>
                 </ul>
@@ -34,7 +34,7 @@
                     </li>
                 </ul>
             </li>
-            <li  class="{{request()->routeIs('admin-prodi.mata-kuliah') || request()->routeIs('admin-prodi.detail-mata-kuliah') || request()->routeIs('admin-prodi.substansi-kuliah')
+            <li  class="{{request()->routeIs('admin-prodi.mata-kuliah') || request()->routeIs('admin-prodi.detail-mata-kuliah') || request()->routeIs('admin-prodi.substansi-kuliah')|| request()->routeIs('admin-prodi.detail-substansi-kuliah')
                         || request()->routeIs('admin-prodi.kurikulum') || request()->routeIs('admin-prodi.detail-kurikulum') || request()->routeIs('admin-prodi.kelas-perkuliahan')
                         || request()->routeIs('admin-prodi.detail-kelas-perkuliahan') || request()->routeIs('admin-prodi.nilai-perkuliahan') || request()->routeIs('admin-prodi.detail-nilai-perkuliahan')
                         || request()->routeIs('admin-prodi.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-prodi.detail-aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-prodi.aktivitas-mahasiswa')
@@ -44,11 +44,11 @@
                     <li class="{{request()->routeIs('admin-prodi.mata-kuliah') || request()->routeIs('admin-prodi.detail-mata-kuliah') ? 'active' : ''}}">
                         <a href="{{route('admin-prodi.mata-kuliah')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Mata Kuliah</span></a>
                     </li>
-                    <li class="{{request()->routeIs('admin-prodi.substansi-kuliah') ? 'active' : ''}}">
+                    <li class="{{request()->routeIs('admin-prodi.substansi-kuliah') || request()->routeIs('admin-prodi.detail-substansi-kuliah')? 'active' : ''}}">
                         <a href="{{route('admin-prodi.substansi-kuliah')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Substansi Kuliah</span></a>
                     </li>
                     <li class="{{request()->routeIs('admin-prodi.kurikulum') || request()->routeIs('admin-prodi.detail-kurikulum') ? 'active' : ''}}">
-                        <a href="{{route('admin-prodi.kurikulum')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Kurikulum</span></a>
+                        <a href="{{route('admin-prodi.kurikulum')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Kurikulum</span></a>
                     </li>
                     <li class="{{request()->routeIs('admin-prodi.kelas-perkuliahan') || request()->routeIs('admin-prodi.detail-kelas-perkuliahan') ? 'active' : ''}}">
                         <a href="{{route('admin-prodi.kelas-perkuliahan')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Kelas Perkuliahan</span></a>
@@ -60,12 +60,11 @@
                         <a href="{{route('admin-prodi.aktivitas-kuliah-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Aktivitas Kuliah Mahasiswa</span></a>
                     </li>
                     <li class="{{request()->routeIs('admin-prodi.aktivitas-mahasiswa') || request()->routeIs('admin-prodi.detail-aktivitas-mahasiswa') ? 'active' : ''}}">
-                        <a href="{{route('admin-prodi.aktivitas-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Aktivitas Mahasiswa</span></a>
+                        <a href="{{route('admin-prodi.aktivitas-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Aktivitas Mahasiswa</span></a>
                     </li>
                     <li class="{{request()->routeIs('admin-prodi.mahasiswa-lulus-do') || request()->routeIs('admin-prodi.detail-mahasiswa-lulus-do') ? 'active' : ''}}">
-                        <a href="{{route('admin-prodi.mahasiswa-lulus-do')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Daftar Mahasiswa Lulus / Drop Out</span></a>
+                        <a href="{{route('admin-prodi.mahasiswa-lulus-do')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Daftar Mahasiswa Lulus / Drop Out</span></a>
                     </li>
-
                 </ul>
             </li>
             <li  class="{{request()->routeIs('admin-prodi.pelengkap') || request()->routeIs('admin-prodi.skala-nilai') || request()->routeIs('admin-prodi.periode-perkuliahan') || request()->routeIs('admin-prodi.detail-skala-nilai') || request()->routeIs('admin-prodi.detail-periode-perkuliahan') ? 'active' : ''}}">

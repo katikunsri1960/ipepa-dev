@@ -5,7 +5,8 @@ namespace App\Http\Controllers\AdminUniv\Perkuliahan;
 use App\Http\Controllers\Controller;
 use App\Models\PDUnsri\Feeder\Mahasiswa\AktivitasKuliahMahasiswa;
 use Illuminate\Http\Request;
-use PhpMyAdmin\Setup\Index;
+use App\Models\PDUnsri\Feeder\Mahasiswa\KrsMahasiswa as KM;
+use App\Models\PDUnsri\Feeder\ListMahasiswa;
 use App\Models\PDUnsri\Feeder\ProgramStudi;
 use App\Models\PDUnsri\Feeder\Semester;
 use App\Models\PDUnsri\Feeder\StatusMahasiswa;
@@ -30,7 +31,7 @@ class AktivitasKuliahMahasiswaController extends Controller
 
         if ($req->has('semester') || $req->has('prodi'))  {
             $aktivitas_kuliah_mahasiswa = $data->select('*')
-            ->orderBy('nama_mahasiswa')
+            ->orderBy('nama_semester')
             // ->orderBy('pd_feeder_aktivitas_kuliah_mahasiswa.nama_semester','DESC')
             ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi')  || $req->has('angkatan') || $req->has('status_mahasiswa'), function($q) use($req){
             if ($req->keyword != '') {
@@ -72,7 +73,7 @@ class AktivitasKuliahMahasiswaController extends Controller
             $aktivitas_kuliah_mahasiswa = $data->select('*')
             // ->orderBy('pd_feeder_aktivitas_kuliah_mahasiswa.nama_semester','DESC')
             ->where('pd_feeder_aktivitas_kuliah_mahasiswa.nama_semester', $semester_aktif[0]['nama_semester'])
-            ->orderBy('nama_mahasiswa')
+            ->orderBy('nama_semester')
             ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi')  || $req->has('angkatan') || $req->has('status_mahasiswa'), function($q) use($req){
             if ($req->keyword != '') {
                 $q->where('pd_feeder_aktivitas_kuliah_mahasiswa.nim', 'like', '%'.$req->keyword.'%')
@@ -118,8 +119,20 @@ class AktivitasKuliahMahasiswaController extends Controller
         $this->authorize('admin-univ');
 
         $detail = AktivitasKuliahMahasiswa::where('id_mahasiswa',$id)->where('id_semester',$semester)->select('*')->get();
-        // dd($detail);
-        return view('backend.univ.perkuliahan.aktivitas-kuliah-mahasiswa.detail', compact('detail'));
-    }
+        $mahasiswa = ListMahasiswa::where('id_mahasiswa', $id)->select('id_mahasiswa', 'id_registrasi_mahasiswa','nama_mahasiswa', 'nim', 'nama_program_studi', 'id_periode as angkatan')->first();
 
+        $krs = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+                    ->where('id_periode', $semester)
+                    ->select('kode_mata_kuliah', 'nama_mata_kuliah', 'sks_mata_kuliah', 'id_registrasi_mahasiswa')
+                    ->addSelect(DB::raw('(SELECT nama_semester FROM pd_feeder_semester WHERE id_semester=pd_feeder_krs_mahasiswa.id_periode) as semester'))
+                    // ->addSelect(DB::raw('(SELECT SUM(sks_mata_kuliah) FROM pd_feeder_krs_mahasiswa WHERE pd_feeder_krs_mahasiswa.id_periode='.$semester.') AS jumlah_sks'))
+                    ->get();
+
+        $sks = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
+                   ->where('id_periode', $semester)
+                   ->select(DB::raw('SUM(sks_mata_kuliah) AS jumlah_sks'))->get();
+
+        // dd($krs);
+        return view('backend.univ.perkuliahan.aktivitas-kuliah-mahasiswa.detail', compact('detail', 'mahasiswa', 'krs','sks'));
+    }
 }

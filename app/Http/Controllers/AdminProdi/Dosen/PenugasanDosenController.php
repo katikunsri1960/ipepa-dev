@@ -17,15 +17,15 @@ class PenugasanDosenController extends Controller
 
         $prodiId = RolesUser::where('user_id', auth()->user()->id)->value('fak_prod_id');
 
-        $data = ListPenugasanDosen::leftJoin('pd_feeder_tahun_ajaran','pd_feeder_tahun_ajaran.id_tahun_ajaran','pd_feeder_list_penugasan_dosen.id_tahun_ajaran')->where('pd_feeder_list_penugasan_dosen.id_prodi', $prodiId);
+        $data = ListPenugasanDosen::where('pd_feeder_list_penugasan_dosen.id_prodi', $prodiId);
 
         $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->where('id_prodi', $prodiId)->get();
-        $angkatan = $data->select('pd_feeder_tahun_ajaran.nama_tahun_ajaran')->distinct()->orderBy('pd_feeder_tahun_ajaran.nama_tahun_ajaran','DESC')->get();
+        $angkatan = $data->select('nama_tahun_ajaran')->distinct()->orderBy('nama_tahun_ajaran','DESC')->get();
         $jk = $data->select('jk')->distinct()->get();
         $angkatan_aktif = $angkatan->toArray();
         $val = $req;
 
-        if ($req->has('angkatan')) {
+        if ($req->has('angkatan')|| $req->has('prodi')|| $req->has('jk')) {
             $dosen = $data->select('*')->orderBy('pd_feeder_list_penugasan_dosen.nama_tahun_ajaran','DESC')
             ->when($req->has('p') || $req->has('keyword') || $req->has('prodi') || $req->has('jk') || $req->has('angkatan'), function($q) use($req){
             if ($req->keyword != '') {
@@ -33,7 +33,7 @@ class PenugasanDosenController extends Controller
                 ->orWhere('pd_feeder_list_penugasan_dosen.nidn', 'like', '%'.$req->keyword.'%');
             }
             if ($req->angkatan!='') {
-                $q->whereIn('pd_feeder_tahun_ajaran.nama_tahun_ajaran', $req->angkatan);
+                $q->whereIn('nama_tahun_ajaran', $req->angkatan);
             }
             if ($req->prodi!='') {
                 $q->whereIn('id_prodi', $req->prodi);

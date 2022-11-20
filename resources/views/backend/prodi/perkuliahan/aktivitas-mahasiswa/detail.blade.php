@@ -120,7 +120,7 @@
                                             <th class="text-center">NIM</th>
                                             <th class="text-center">Nama Mahasiswa</th>
                                             <th class="text-center">Jenis</th>
-                                            <th class="text-center">Action</th>
+                                            {{-- <th class="text-center">Action</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -130,7 +130,7 @@
                                                 <td class="text-center">{{$pes->nim}}</td>
                                                 <td class="text-left">{{$pes->nama_mahasiswa}}</td>
                                                 <td class="text-center">{{$pes->jenis_peran}}<br>{{$pes->nama_jenis_peran}}</td>
-                                                <td class="text-center">-</td>
+                                                {{-- <td class="text-center">-</td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -145,18 +145,18 @@
                                             <th class="text-center">Nama Dosen</th>
                                             <th class="text-center">Pembimbing Ke</th>
                                             <th class="text-center">Kategori Kegiatan</th>
-                                            <th class="text-center">Action</th>
+                                            {{-- <th class="text-center">Action</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($pembimbing as $no => $data)
+                                        @foreach ($pembimbing as $no => $pem)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-left">{{$data->nidn}}</td>
-                                                <td class="text-left">{{$data->nama_dosen}}</td>
-                                                <td class="text-center">{{$data->pembimbing_ke}}</td>
-                                                <td class="text-center">{{$data->jenis_aktivitas}}</td>
-                                                <td class="text-center">-</td>
+                                                <td class="text-left">{{$pem->nidn}}</td>
+                                                <td class="text-left">{{$pem->nama_dosen}}</td>
+                                                <td class="text-center">{{$pem->pembimbing_ke}}</td>
+                                                <td class="text-center">{{$pem->nama_kategori_kegiatan}}</td>
+                                                {{-- <td class="text-center">-</td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -171,18 +171,18 @@
                                             <th class="text-center">Nama Dosen</th>
                                             <th class="text-center">Pembimbing Ke</th>
                                             <th class="text-center">Kategori Kegiatan</th>
-                                            <th class="text-center">Action</th>
+                                            {{-- <th class="text-center">Action</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($penguji as $no => $data)
+                                        @foreach ($penguji as $no => $peng)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
-                                                <td class="text-left">{{$data->nidn}}</td>
-                                                <td class="text-left">{{$data->nama_dosen}}</td>
-                                                <td class="text-center">{{$data->penguji_ke}}</td>
-                                                <td class="text-center">{{$data->nama_kategori_kegiatan}}</td>
-                                                <td class="text-center">-</td>
+                                                <td class="text-left">{{$peng->nidn}}</td>
+                                                <td class="text-left">{{$peng->nama_dosen}}</td>
+                                                <td class="text-center">{{$peng->penguji_ke}}</td>
+                                                <td class="text-center">{{$peng->nama_kategori_kegiatan}}</td>
+                                                {{-- <td class="text-center">-</td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>

@@ -35,10 +35,12 @@
                                                 tabindex="4">
                                                 <option value=""></option>
                                                 @foreach ($angkatan as $ang)
-                                                <option value="{{ $ang->angkatan }}" @if ($val->angkatan &&
-                                                    in_array($ang->id_periode, $val->angkatan)) selected @endif>
-                                                    {{ $ang->angkatan }}
-                                                </option>
+                                                    <option value="{{ $ang->angkatan }}"
+                                                        @if ($val->angkatan &&
+                                                            in_array($ang->angkatan, $val->angkatan)) selected
+                                                        @endif>
+                                                        {{ $ang->angkatan }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -50,8 +52,9 @@
                                                 tabindex="4">
                                                 <option value=""></option>
                                                 @foreach ($status as $s)
-                                                <option value="{{ $s->nama_status_mahasiswa }}" @if ($val->status &&
-                                                    in_array($s->nama_status_mahasiswa, $val->status)) selected
+                                                <option value="{{ $s->nama_status_mahasiswa }}"
+                                                    @if ($val->status &&
+                                                        in_array($s->nama_status_mahasiswa, $val->status)) selected
                                                     @endif>
                                                     {{ $s->nama_status_mahasiswa }}</option>
                                                 @endforeach
@@ -128,53 +131,51 @@
                 </form>
             </div>
         </div>
-    <div class="pt-2">
-        <table class="table table-bordered table-hover table-responsive" id="table-mahasiswa">
-            <thead>
-                <tr>
-                    <th class="text-center">No</th>
-                    <th class="text-center">Nama</th>
-                    <th class="text-center">NIM</th>
-                    <th class="text-center">Jenis Kelamin</th>
-                    <th class="text-center">Agama</th>
-                    <th class="text-center">Total SKS Diambil</th>
-                    <th class="text-center">Tanggal Lahir</th>
-                    <th class="text-center">Program Studi</th>
-                    <th class="text-center">Status</th>
-                    <th class="text-center">Angkatan</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($mahasiswa as $m => $data)
-                <tr>
-                    <td class="text-center">{{ $mahasiswa->firstItem() + $m }}</td>
-                    <td><a href="{{ route('admin-prodi.detail-mahasiswa', ['id' => $data->id_mahasiswa]) }}">{{
-                            $data->nama_mahasiswa }}</a>
-                    </td>
-                    <td class="text-center">{{ $data->nim }}</td>
-                    <td class="text-center">{{ $data->jenis_kelamin }}</td>
-                    <td class="text-center">{{ $data->nama_agama }}</td>
-                    <td class="text-center">
-                        @if (!empty($data->total))
-                        {{ $data->total }}
-                        @else
-                        0
-                        @endif
-                    </td>
-                    <td class="text-center">{{ $data->tanggal_lahir }}</td>
-                    <td class="text-center">{{ $data->nama_program_studi }}</td>
-                    <td class="text-center">{{ $data->nama_status_mahasiswa }}</td>
-                    <td class="text-center">{{$data->angkatan}}
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        {{-- {{$mahasiswa->getOptions()}} --}}
-        {!! $mahasiswa->withQueryString()->links() !!}
+        <div class="pt-2">
+            <table class="table table-bordered table-hover table-responsive" id="table-mahasiswa">
+                <thead>
+                    <tr>
+                        <th class="text-center">No</th>
+                        <th class="text-center">Nama</th>
+                        <th class="text-center">NIM</th>
+                        <th class="text-center">Jenis Kelamin</th>
+                        <th class="text-center">Agama</th>
+                        <th class="text-center">Total SKS Diambil</th>
+                        <th class="text-center">Tanggal Lahir</th>
+                        <th class="text-center">Program Studi</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Angkatan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($mahasiswa as $m => $data)
+                    <tr>
+                        <td class="text-center">{{ $mahasiswa->firstItem() + $m }}</td>
+                        <td><a href="{{ route('admin-prodi.detail-mahasiswa', ['id' => $data->id_mahasiswa]) }}">{{
+                                $data->nama_mahasiswa }}</a>
+                        </td>
+                        <td class="text-center">{{ $data->nim }}</td>
+                        <td class="text-center">{{ $data->jenis_kelamin }}</td>
+                        <td class="text-center">{{ $data->nama_agama }}</td>
+                        <td class="text-center">
+                            @if (!empty($data->total))
+                            {{ $data->total }}
+                            @else
+                            0
+                            @endif
+                        </td>
+                        <td class="text-center">{{ $data->tanggal_lahir }}</td>
+                        <td class="text-center">{{ $data->nama_program_studi }}</td>
+                        <td class="text-center">{{ $data->nama_status_mahasiswa }}</td>
+                        <td class="text-center">{{$data->angkatan}}
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            {!! $mahasiswa->withQueryString()->links() !!}
+        </div>
     </div>
-
-    {{-- {{$mahasiswa->onEachSide(5)->links()}} --}}
 </div>
 @endsection
 

@@ -21,7 +21,7 @@ class MahasiswaController extends Controller
 {
     public function index(Request $req)
     {
-        $this->authorize('admin-prodi'); 
+        $this->authorize('admin-prodi');
 
         $prodiId = RolesUser::where('user_id', auth()->user()->id)->value('fak_prod_id');
 
@@ -65,6 +65,7 @@ class MahasiswaController extends Controller
                 'pd_feeder_list_mahasiswa.nama_status_mahasiswa as nama_status_mahasiswa', 'semester.id_tahun_ajaran as angkatan')
             // ->addSelect(DB::raw('(SELECT id_tahun_ajaran from pd_feeder_semester as semester where semester.id_semester = pd_feeder_list_mahasiswa.id_periode) as angkatan'))
             ->addSelect(DB::raw('(SELECT SUM(sks_mata_kuliah) from pd_feeder_transkrip_mahasiswa where id_registrasi_mahasiswa = pd_feeder_list_mahasiswa.id_registrasi_mahasiswa) as total'))
+            // ->orderBy('nama_mahasiswa')
             ->paginate($req->p != '' ? $req->p : 20);
 
             if ($req->has('p') && $req->p != '') {

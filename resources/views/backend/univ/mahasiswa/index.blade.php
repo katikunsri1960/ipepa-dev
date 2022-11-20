@@ -5,7 +5,7 @@
         <h2>Daftar Mahasiswa</h2>
     </div>
     <div class="ibox-content p-md">
-        <div class="row"> 
+        <div class="row">
             {{-- <div class="col-md-2">
                 @if ($val->prodi || $val->angkatan || $val->status || $val->jk || $val->agama)
                 {{-- Export Filtered Data
@@ -58,10 +58,10 @@
                                                 tabindex="4">
                                                 <option value=""></option>
                                                 @foreach ($angkatan as $ang)
-                                                <option value="{{ $ang->angkatan }}" @if ($val->angkatan &&
-                                                    in_array($ang->id_periode, $val->angkatan)) selected @endif>
-                                                    {{ $ang->angkatan }}
-                                                </option>
+                                                    <option value="{{ $ang->angkatan }}" @if ($val->angkatan &&
+                                                        in_array($ang->angkatan, $val->angkatan)) selected @endif>
+                                                        {{ $ang->angkatan }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>

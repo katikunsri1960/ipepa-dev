@@ -36,7 +36,7 @@ class SubstansiKuliahController extends Controller
                 $q->whereIn('pd_feeder_list_substansi_kuliah.id_prodi', $req->prodi);
             }
         })->paginate($req->p != '' ? $req->p : 20);
-        // dd($mata_kuliah);
+        // dd($substansi);
 
         if ($req->has('p') && $req->p != '') {
             $valPaginate = $req->p;
@@ -54,7 +54,7 @@ class SubstansiKuliahController extends Controller
         $this->authorize('admin-prodi');
 
         $detail = ListSubstansiKuliah::where('id_substansi',$id)
-        ->select('id_substansi', 'nama_substansi', 'sks_mata_kuliah', 'sks_tatap_muka','sks_praktek', 'sks_praktek_lapangan', 'sks_simulasi')
+        ->select('id_substansi','nama_program_studi', 'nama_substansi', 'sks_mata_kuliah', 'sks_tatap_muka','sks_praktek', 'sks_praktek_lapangan', 'sks_simulasi')
         ->paginate(20);
         return view('backend.prodi.perkuliahan.substansi-kuliah.detail', compact('detail'));
     }

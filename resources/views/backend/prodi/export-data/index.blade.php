@@ -19,19 +19,19 @@
                 </div>
             </div><hr style="border-width: 2px;">
             <div class="row">
-                <form method="get" action="{{route('admin-univ.export-data')}}">
+                <form method="get" action="{{route('admin-prodi.export-data')}}">
                     <div class="col-md-12 text-center">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Nama Tabel <span style="color: red;">*</span></label>
-                            <select class="form-control" name="table_name">
+                            <select id="table_name" class="form-control" name="table_name" onchange="Export()" required>
                                 <option value="">Pilih Nama Tabel</option>
                                 @for ($i = 0; $i < count($table_name); $i++)
                                     <option value="{{ $table_name[$i] }}">{{ $table_name[$i] }}</option>
                                 @endfor
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Periode / Angkatan<br><span style="color: red;">* Daftar Mahasiswa, Nilai Transfer, Penugasan Dosen, Mahasiswa Lulus / DO</span></label>
+                        <div class="form-group" id='periode' hidden>
+                            <label for="exampleInputEmail1">Periode / Angkatan<br><span style="color: red;">*</span></label>
                             <select class="form-control" name="periode">
                                 <option value="">Pilih Periode / Angkatan</option>
                                 @foreach($periode as $t)
@@ -39,8 +39,8 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Semester<br><span style="color: red;">* Kelas Perkuliahan, KRS Mahasiswa, Aktivitas Mengajar Dosen, Aktivitas Kuliah, Transkrip</span></label>
+                        <div class="form-group" id='semester' hidden>
+                            <label for="exampleInputEmail1">Semester<br><span style="color: red;">*</span></label>
                             <select class="form-control" name="semester">
                                 <option value="">Pilih Semester</option>
                                 @foreach($semester as $s)
@@ -48,7 +48,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id='prodi' hidden>
                             <label for="exampleInputEmail1">Program Studi <span style="color: red;">*</span></label>
                             <select class="form-control" name="program_studi">
                                 <option value="">Pilih Program Studi</option>
@@ -79,6 +79,65 @@
                 width: "100%"
             });
         });
+    </script>
+    <script>
+        function Export(){
+            if($('#table_name').val() == ''){
+                $('#prodi').hide();
+                $('#periode').hide();
+                $('#semester').hide();
+            }
+            if($('#table_name').val() == 'Mata Kuliah'){
+                $('#prodi').show();
+                $('#periode').hide();
+                $('#semester').hide();
+            }
+            else if($('#table_name').val() == 'Daftar Mahasiswa'){
+                $('#periode').show();
+                $('#semester').hide();
+                $('#prodi').show();
+            }
+            if($('#table_name').val() == 'Nilai Transfer'){
+                $('#periode').show();
+                $('#semester').hide();
+                $('#prodi').show();
+            }
+            if($('#table_name').val() == 'Penugasan Dosen'){
+                $('#periode').show();
+                $('#semester').hide();
+                $('#prodi').show();
+            }
+            if($('#table_name').val() == 'Mahasiswa Lulus/DO'){
+                $('#periode').show();
+                $('#semester').hide();
+                $('#prodi').show();
+            }
+            if($('#table_name').val() == 'Kelas Perkuliahan'){
+                $('#semester').show();
+                $('#periode').hide();
+                $('#prodi').show();
+            }
+            if($('#table_name').val() == 'Aktivitas Mengajar Dosen'){
+                $('#semester').show();
+                $('#periode').hide();
+                $('#prodi').show();
+            }
+            if($('#table_name').val() == 'KRS Mahasiswa'){
+                $('#semester').show();
+                $('#periode').hide();
+                $('#prodi').show();
+            }
+            if($('#table_name').val() == 'Aktivitas Kuliah'){
+                $('#semester').show();
+                $('#periode').hide();
+                $('#prodi').show();
+            }
+            if($('#table_name').val() == 'Transkrip'){
+                $('#semester').show();
+                $('#periode').hide();
+                $('#prodi').show();
+            }
+        }
     </script>
 @endpush
 

@@ -2,7 +2,7 @@
 @section('content')
     <div class="ibox float-e-margins">
         <div class="ibox-title">
-            <h5>Aktivitas Kuliah Mahasiswa</h5>
+            <h5> Aktivitas Perkuliahan Mahasiswa</h5>
         </div>
 
         <div class="ibox-content p-md">
@@ -48,17 +48,26 @@
                                                                     echo 'selected';
                                                                 }
                                                             }
-                                                            elseif($val->semester == ''){
-                                                                if($semester_aktif[0]['nama_semester'] && in_array($sem->nama_semester,$semester_aktif[0])){
-                                                                    echo 'selected';
-                                                                }
-                                                            }
-                                                            if($val->semester != ''|| $val->prodi != ''){
+                                                            if($val->angkatan != '' && $val->semester == ''){
                                                                 if($val->semester && in_array($sem->nama_semester, $val->semester)){
                                                                     echo 'selected';
                                                                 }
                                                             }
-
+                                                            if($val->status_mahasiswa != '' && $val->semester == ''){
+                                                                if($val->semester && in_array($sem->nama_semester, $val->semester)){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
+                                                            elseif($val->semester == '' && $val->prodi == '' && $val->angkatan == '' && $val->status_mahasiswa == ''){
+                                                                if($semester_aktif[0]['nama_semester'] && in_array($sem->nama_semester,$semester_aktif[0])){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
+                                                            if($val->semester != '' || $val->prodi != '' || $val->angkatan != '' || $val->status_mahasiswa != ''){
+                                                                if($val->semester && in_array($sem->nama_semester, $val->semester)){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
                                                             @endphp>
                                                             {{ $sem->nama_semester }}
                                                         </option>
@@ -141,16 +150,18 @@
             <div class="row">
                 <div class="col-md-12">
                     <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :
-                        @if ($val['semester'] != '')
-                            @foreach ($val['semester'] as $s)
-                                <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $s }}</span>
+                        @if($val->prodi != '' && $val->semester == '')
+                        {{"-"}}
+                        @elseif($val->angkatan != '' && $val->semester == '')
+                        {{"-"}}
+                        @elseif($val->status_mahasiswa != '' && $val->semester == '')
+                        {{"-"}}
+                        @elseif($val->semester == '' && $val->prodi == '' && $val->angkatan == '' && $val->status_mahasiswa == '')
+                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span>
+                        @elseif($val->semester != '' || $val->prodi != '' || $val->angkatan != '' || $val->status_mahasiswa != '')
+                            @foreach ($val->semester as $sem)
+                                <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $sem }}</span>
                             @endforeach
-                        @elseif ($val['prodi'] != '' && $val['semester'] = '')
-                            @foreach ($val['semester'] as $s)
-
-                            @endforeach
-                        {{-- @else
-                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span> --}}
                         @endif
                     </p>
                 </div>

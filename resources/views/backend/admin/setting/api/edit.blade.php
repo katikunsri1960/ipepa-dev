@@ -1,11 +1,11 @@
 @extends('layouts.admin.layout')
 @section('content')
-<div class="container">
+<div class="wrapper">
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Add Config</h5>
+                    <h5>Edit Config</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>

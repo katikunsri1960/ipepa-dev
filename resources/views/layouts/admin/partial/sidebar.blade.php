@@ -2,22 +2,11 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li class="nav-header">
-                <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
-                             </span>
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{auth()->user()->name}}</strong>
-                             </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
-                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a href="profile.html">Profile</a></li>
-                        <li><a href="contacts.html">Contacts</a></li>
-                        <li><a href="mailbox.html">Mailbox</a></li>
-                        <li class="divider"></li>
-                        <li><a href="login.html">Logout</a></li>
-                    </ul>
+                <div class="dropdown profile-element">
+                    <a href="{{route('admin.dashboard-admin')}}"><i class="fa fa-user"></i> | <span class="nav-label"><strong class="font-bold">{{auth()->user()->name}}</strong></span></a>
                 </div>
                 <div class="logo-element">
-                    IN+
+                    <a href="{{route('admin.dashboard-admin')}}">UNSRI</a>
                 </div>
             </li>
             <li class="{{request()->routeIs('admin.dashboard-admin') ? 'active' : ''}}">
@@ -37,9 +26,9 @@
                     <li class="{{request()->routeIs('admin.settings.api-configs.*') ? 'active' : ''}}">
                         <a href="{{route('admin.settings.api-configs.index')}}">API Configs</a>
                     </li>
-                    <li class="{{request()->routeIs('admin.settings.frontend-configs.*') ? 'active' : ''}}">
+                    {{-- <li class="{{request()->routeIs('admin.settings.frontend-configs.*') ? 'active' : ''}}">
                         <a href="{{route('admin.settings.frontend-configs.index')}}">Frontend Configs</a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
         </ul>

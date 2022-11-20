@@ -36,9 +36,9 @@ class DosenController extends Controller
            'pd_feeder_list_dosen.nama_agama as nama_agama', 'pd_feeder_list_dosen.tanggal_lahir as tanggal_lahir', 'pd_feeder_list_dosen.nama_status_aktif as nama_status_aktif')
            ->when($req->has('p') || $req->has('keyword') || $req->has('status_pegawai') || $req->has('jk') || $req->has('agama'), function($q) use($req){
             if ($req->keyword != '') {
-                $q->where('pd_feeder_list_dosen.nama_dosen', 'like', '%'.$req->keyword.'%')
-                ->orWhere('pd_feeder_list_dosen.nidn', 'like', '%'.$req->keyword.'%')
-                ->orWhere('pd_feeder_list_dosen.nip', 'like', '%'.$req->keyword.'%');
+                $q->where('nama_dosen', 'like', '%'.$req->keyword.'%')
+                ->orWhere('nidn', 'like', '%'.$req->keyword.'%');
+                // ->orWhere('pd_feeder_list_dosen.nip', 'like', '%'.$req->keyword.'%');
             }
             if ($req->status_pegawai!='') {
                 $q->whereIn('id_status_aktif', $req->status_pegawai);

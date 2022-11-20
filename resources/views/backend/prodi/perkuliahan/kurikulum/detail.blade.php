@@ -53,7 +53,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Jumlah SKS</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail_kurikulum[0]->jumlah_sks_total }}">
+                    <input type="name" class="form-control" disabled value="{{ $detail_kurikulum[0]->jumlah_sks_lulus }}">
                 </div>
             </div>
         </div>
@@ -83,7 +83,7 @@
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $data->kode_mata_kuliah }}</td>
-                            <td class="text-center">{{ $data->nama_mata_kuliah }}</td>
+                            <td class="text-left">{{ $data->nama_mata_kuliah }}</td>
                             <td class="text-center">{{ number_format($data->sks_mata_kuliah,0) }}</td>
                             <td class="text-center">{{ number_format($data->sks_tatap_muka,0) }}</td>
                             <td class="text-center">{{ number_format($data->sks_praktek,0) }}</td>

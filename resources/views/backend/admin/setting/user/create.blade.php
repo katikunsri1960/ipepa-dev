@@ -1,6 +1,6 @@
 @extends('layouts.admin.layout')
 @section('content')
-<div class="container">
+<div class="wrapper">
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
@@ -100,7 +100,7 @@
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
-                        
+
                         <div id="selectProdi" class="form-group" style="visibility: hidden">
                             <label class="col-sm-2 control-label">Pilih Fakultas/Prodi</label>
                             <div class="col-sm-10">
@@ -166,6 +166,6 @@
             });
         }
     }
-    
+
 </script>
 @endpush

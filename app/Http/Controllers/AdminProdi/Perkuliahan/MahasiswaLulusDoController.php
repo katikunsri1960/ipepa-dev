@@ -23,7 +23,7 @@ class MahasiswaLulusDoController extends Controller
 
         $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->where('pd_feeder_program_studi.id_prodi',$prodiId)->get();
         // dd($data);
-        $jenis_keluar = JenisKeluar::select('jenis_keluar as nama_jenis_keluar')->where('apa_mahasiswa', 0)->get();
+        $jenis_keluar = JenisKeluar::select('jenis_keluar as nama_jenis_keluar')->where('apa_mahasiswa', 1)->get();
         $angkatan = $data->select('angkatan')->distinct()->get();
         $tahun_keluar = $data->select('id_tahun_ajaran as tahun_keluar')->distinct()->orderBy('id_tahun_ajaran', 'desc')->get();
         $val = $req;
@@ -52,6 +52,7 @@ class MahasiswaLulusDoController extends Controller
         })
         ->select('id_mahasiswa','id_prodi','pd_feeder_semester.id_tahun_ajaran','nim', 'nama_mahasiswa', 'angkatan', 'nama_jenis_keluar','tanggal_keluar', 'pd_feeder_semester.nama_semester','keterangan')
         ->addSelect(DB::raw('(SELECT CONCAT(nama_jenjang_pendidikan," ",nama_program_studi) FROM pd_feeder_program_studi WHERE pd_feeder_program_studi.id_prodi = pd_feeder_list_mahasiswa_lulus_do.id_prodi) as nama_program_studi'))->where('pd_feeder_list_mahasiswa_lulus_do.id_prodi',$prodiId)
+        // ->orderBy('nama_program_studi')
         ->paginate(20);
 
         return view('backend.prodi.perkuliahan.mahasiswa-lulus-do.index', compact('mahasiswa_lulus_do','prodi','angkatan','jenis_keluar','tahun_keluar','val'));

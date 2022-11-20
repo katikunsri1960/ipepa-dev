@@ -64,6 +64,7 @@ class MataKuliahController extends Controller
         $detail_matkul = DetailMataKuliah::where('id_matkul',$id)
                 ->select('id_matkul', 'kode_mata_kuliah', 'nama_mata_kuliah', 'nama_program_studi', 'id_jenis_mata_kuliah', 'sks_mata_kuliah', 'sks_tatap_muka', 'sks_praktek', 'sks_praktek_lapangan', 'sks_simulasi', 'metode_kuliah', 'tanggal_mulai_efektif', 'tanggal_selesai_efektif' )
                 ->addSelect(DB::raw('(SELECT nama_jenis_mata_kuliah FROM pd_feeder_jenis_mata_kuliah as jenis_mk WHERE jenis_mk.id_jenis_mata_kuliah = pd_feeder_detail_mata_kuliah.id_jenis_mata_kuliah) as nama_jenis_mk'))
+                // ->sum('sks_mata_kuliah')
                 ->get();
                 // dd($detail_matkul);
 
