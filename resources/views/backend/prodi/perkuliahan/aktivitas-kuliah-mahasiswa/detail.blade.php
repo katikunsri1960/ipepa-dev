@@ -48,17 +48,16 @@
                     <input type="name" class="form-control" disabled value="{{ $detail[0]->ipk}}">
                 </div>
             </div>
+            
             <div class="col-lg-4">
                 <div class="form-group">
                     <label>Jumlah SKS Semester</label>
                     <input type="name" class="form-control" disabled value="{{ $detail[0]->sks_semester}}">
                 </div>
             </div>
-
             <div class="col-lg-2">
-                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-filter"><i class="fa-solid fa-file-lines"></i><span style="margin-left: 1px; margin-right: 1px"><br>Tampilkan KRS</span>
+                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-filter"><i class="fa-solid fa-file-lines"></i> <span style="margin-left: 1px; margin-right: 1px">  Tampilkan KRS</span>
                 </button>
-
                 <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -70,7 +69,6 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-
                                     <table class="table table-bordered m-4" id="krsMahasiswa" style="margin-top: 10pt">
                                         <thead>
                                             <tr>
@@ -98,17 +96,13 @@
                                                 <td colspan="4" class="text-center"><strong>{{ $sks[0]->jumlah_sks }}</strong></td>
                                             </tr>
                                         </tfoot>
-
                                     </table>
-
-
-
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div><br><br><hr>
+            </div><br>
 
             <div class="col-lg-6">
                 <div class="form-group">

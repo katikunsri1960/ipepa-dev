@@ -1,7 +1,7 @@
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
-            <li class="nav-header"> 
+            <li class="nav-header">
                 <div class="dropdown profile-element">
                     <a href="{{route('admin-univ.dashboard-admin-univ')}}"><i class="fa fa-user"></i> | <span class="nav-label"><strong class="font-bold">{{auth()->user()->name}}</strong></span></a>
                     <!-- <a data-toggle="dropdown" class="dropdown-toggle" href="#">
@@ -38,48 +38,35 @@
                 </ul>
             </li>
 
-            {{-- <li  class="{{request()->routeIs('admin-univ.mata-kuliah') || request()->routeIs('admin-univ.substansi-kuliah') ? 'active' : ''}}">
-                <a href=""><i class="fa-solid fa-book-open"></i> <span class="nav-label">Perkuliahan</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse">
-                    <li class="{{request()->routeIs('admin-univ.mata-kuliah') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.daftar-mata-kuliah')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Mata Kuliah</span></a>
-                    </li>
-                    <li class="{{request()->routeIs('admin-univ.substansi-kuliah') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.substansi-kuliah')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Substansi Kuliah</span></a>
-                    </li>
-                </ul>
-            </li> --}}
-
             <li class="{{request()->routeIs('admin-univ.perkuliahan') || request()->routeIs('admin-univ.daftar-mata-kuliah') || request()->routeIs('admin-univ.detail-mata-kuliah') || request()->routeIs('admin-univ.substansi-kuliah') || request()->routeIs('admin-univ.detail-substansi-kuliah') || request()->routeIs('admin-univ.kurikulum') || request()->routeIs('admin-univ.kelas-perkuliahan') || request()->routeIs('admin-univ.detail-kelas-perkuliahan') || request()->routeIs('admin-univ.nilai-perkuliahan') || request()->routeIs('admin-univ.detail-nilai-perkuliahan') || request()->routeIs('admin-univ.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-univ.detail-aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-univ.aktivitas-mahasiswa')|| request()->routeIs('admin-univ.detail-aktivitas-mahasiswa')  || request()->routeIs('admin-univ.kampus-merdeka') || request()->routeIs('admin-univ.kampus-merdeka') || request()->routeIs('admin-univ.mahasiswa-lulus-do') || request()->routeIs('admin-univ.transkrip-mahasiswa') || request()->routeIs('admin-univ.detail-mahasiswa-lulus-do') || request()->routeIs('admin-univ.detail-kurikulum') || request()->routeIs('admin-univ.cek-transkrip-mahasiswa')? 'active' : ''}}">
                 <a href="#"><i class="fa fa-book"></i> <span class="nav-label">Perkuliahan</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{request()->routeIs('admin-univ.daftar-mata-kuliah') || request()->routeIs('admin-univ.detail-mata-kuliah') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.daftar-mata-kuliah')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Mata Kuliah</span></a>
+                        <a href="{{route('admin-univ.daftar-mata-kuliah')}}">Mata Kuliah</a>
                     </li>
                     <li class="{{request()->routeIs('admin-univ.substansi-kuliah') ||request()->routeIs('admin-univ.detail-substansi-kuliah') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.substansi-kuliah')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Substansi Kuliah</span></a>
+                        <a href="{{route('admin-univ.substansi-kuliah')}}">Substansi Kuliah</a>
                     </li>
                     <li class="{{request()->routeIs('admin-univ.kurikulum') || request()->routeIs('admin-univ.detail-kurikulum') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.kurikulum')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Kurikulum</span></a>
+                        <a href="{{route('admin-univ.kurikulum')}}">Kurikulum</a>
                     </li>
                     <li class="{{request()->routeIs('admin-univ.kelas-perkuliahan') || request()->routeIs('admin-univ.detail-kelas-perkuliahan') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.kelas-perkuliahan')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Kelas Perkuliahan</span></a>
+                        <a href="{{route('admin-univ.kelas-perkuliahan')}}">Kelas Perkuliahan</a>
                     </li>
                     <li class="{{request()->routeIs('admin-univ.nilai-perkuliahan') || request()->routeIs('admin-univ.detail-nilai-perkuliahan') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.nilai-perkuliahan')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Nilai Perkuliahan</span></a>
+                        <a href="{{route('admin-univ.nilai-perkuliahan')}}">Nilai Perkuliahan</a>
                     </li>
                     <li class="{{request()->routeIs('admin-univ.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-univ.detail-aktivitas-kuliah-mahasiswa') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.aktivitas-kuliah-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i><span>Aktivitas Kuliah Mahasiswa</span></a>
+                        <a href="{{route('admin-univ.aktivitas-kuliah-mahasiswa')}}">Aktivitas Kuliah Mahasiswa</a>
                     </li>
-
                     <li class="{{request()->routeIs('admin-univ.aktivitas-mahasiswa') || request()->routeIs('admin-univ.detail-aktivitas-mahasiswa') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.aktivitas-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Aktivitas Mahasiswa</span></a>
+                        <a href="{{route('admin-univ.aktivitas-mahasiswa')}}">Aktivitas Mahasiswa</a>
                     </li>
                     {{-- <li class="{{request()->routeIs('admin-univ.kampus-merdeka') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.kampus-merdeka')}}">Konversi Kampus Merdeka</a>
                     </li> --}}
                     <li class="{{request()->routeIs('admin-univ.mahasiswa-lulus-do') || request()->routeIs('admin-univ.detail-mahasiswa-lulus-do') ? 'active' : ''}}">
-                        <a href="{{route('admin-univ.mahasiswa-lulus-do')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Daftar Mahasiswa Lulus / Drop Out</span></a>
+                        <a href="{{route('admin-univ.mahasiswa-lulus-do')}}">Daftar Mahasiswa Lulus / Drop Out</a>
                     </li>
                     {{-- <li class="{{request()->routeIs('admin-univ.cek-transkrip-mahasiswa') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.cek-transkrip-mahasiswa')}}"><i class="fa-solid fa-chalkboard-user"></i> <span>Cek Transkrip Mahasiswa</span></a>

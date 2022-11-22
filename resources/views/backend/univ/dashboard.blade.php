@@ -90,7 +90,7 @@
                         @foreach ($sync_table as $s_tbl => $data)
                             <tr>
                                 <td class="text-center">{{ $sync_table->firstItem() + $s_tbl }}</td>
-                                <td class="text-center">{{ $data->table_name }}</td>
+                                <td>{{ $data->table_name }}</td>
                                 <td class="text-center">{{ $data->updated_at }}</td>
                             </tr>
                         @endforeach

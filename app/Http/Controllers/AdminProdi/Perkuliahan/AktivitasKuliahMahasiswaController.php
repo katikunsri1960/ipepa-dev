@@ -22,10 +22,10 @@ class AktivitasKuliahMahasiswaController extends Controller
     {
         $this->authorize('admin-prodi');
 
-        // $prodiId = RolesUser::where('user_id', auth()->user()->id)->value('fak_prod_id');
+        $prodiId = RolesUser::where('user_id', auth()->user()->id)->value('fak_prod_id');
 
         $data = new(AktivitasKuliahMahasiswa::class);
-        $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->get();
+        $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->orderBy('nama_jenjang_pendidikan')->orderBy('nama_program_studi')->where('pd_feeder_program_studi.id_prodi', $prodiId)->get();
         $semester_now = Semester::select('pd_feeder_semester.id_semester', 'pd_feeder_semester.nama_semester')->where('a_periode_aktif', 1)->get();
         $now = $semester_now->max('id_semester');
         $semester= Semester::select('nama_semester', 'id_semester', 'id_tahun_ajaran')->where('id_semester', '<=', $now )->orderBy('nama_semester','DESC')->get();
@@ -36,7 +36,7 @@ class AktivitasKuliahMahasiswaController extends Controller
 
         if ($req->has('semester') || $req->has('prodi'))  {
             $aktivitas_kuliah_mahasiswa = $data->select('*')
-            // ->where('id_prodi', $prodiId)
+            ->where('id_prodi', $prodiId)
             ->orderBy('nama_semester')
             // ->orderBy('pd_feeder_aktivitas_kuliah_mahasiswa.nama_semester','DESC')
             ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi')  || $req->has('angkatan') || $req->has('status_mahasiswa'), function($q) use($req){
@@ -78,7 +78,7 @@ class AktivitasKuliahMahasiswaController extends Controller
         else {
             $aktivitas_kuliah_mahasiswa = $data->select('*')
             // ->orderBy('pd_feeder_aktivitas_kuliah_mahasiswa.nama_semester','DESC')
-            // ->where('id_prodi', $prodiId)
+            ->where('id_prodi', $prodiId)
             ->where('pd_feeder_aktivitas_kuliah_mahasiswa.nama_semester', $semester_aktif[0]['nama_semester'])
             ->orderBy('nama_semester')
             ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi')  || $req->has('angkatan') || $req->has('status_mahasiswa'), function($q) use($req){

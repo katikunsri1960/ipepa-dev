@@ -39,9 +39,9 @@
                                                 multiple style="width:350px;" tabindex="4">
                                                 <option value=""></option>
                                                 @foreach ($angkatan as $ang)
-                                                    <option value="{{ $ang->angkatan }}"
-                                                        @if ($val->angkatan && in_array($ang->angkatan, $val->angkatan)) selected @endif>
-                                                        {{ $ang->angkatan }}
+                                                    <option value="{{ $ang->id_tahun_ajaran }}"
+                                                        @if ($val->angkatan && in_array($ang->id_tahun_ajaran, $val->angkatan)) selected @endif>
+                                                        {{ $ang->id_tahun_ajaran }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -86,7 +86,7 @@
                 <form method="GET" role="search">
                     <div class="input-group">
                         <input type="text" class="form-control" name="keyword"
-                            placeholder="Search by NIM, Nama or Nomor Seri Ijazah" value="{{request()->get('keyword','')}}"> <span class="input-group-btn">
+                            placeholder="Search by NIM or Nama" value="{{request()->get('keyword','')}}"> <span class="input-group-btn">
                             <button class="btn btn-default">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
@@ -98,16 +98,18 @@
         <div class="row">
             <div class="col-md-12">
                 <p class="pull-right">Halaman ini menampilkan data berdasarkan tahun keluar :
-                    @if ($val['tahun_keluar'] != '')
-                        @foreach ($val['tahun_keluar'] as $s)
-                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $s }}</span>
+                    @if($val->prodi != '' && $val->tahun_keluar == '')
+                    {{"-"}}
+                    @elseif ($val->angkatan != '' && $val->tahun_keluar != '')
+                    {{"-"}}
+                    @elseif ($val->jenis_keluar != '' && $val->tahun_keluar != '')
+                    {{"-"}}
+                    @elseif($val->tahun_keluar == '' && $val->prodi == '' && $val->angkatan == '' && $val->jenis_keluar == '')
+                        <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $tahun_keluar_aktif[0]['tahun_keluar'] }}</span>
+                    @elseif($val->tahun_keluar != '' || $val->prodi != '' || $val->angkatan != '' || $val->jenis_keluar != '')
+                        @foreach ($val->tahun_keluar as $tahun)
+                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $tahun }}</span>
                         @endforeach
-                    @elseif ($val['prodi'] != '' && $val['tahun_keluar'] = '')
-                        @foreach ($val['tahun_keluar'] as $s)
-
-                        @endforeach
-                    {{-- @else
-                        <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span> --}}
                     @endif
                 </p>
             </div>

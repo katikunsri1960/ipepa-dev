@@ -4,19 +4,20 @@
     <div class="ibox-title">
         <h5>Daftar Mahasiswa Lulus / Drop Out</h5>
     </div>
+
     <div class="ibox-content p-md">
         <div class="row">
-            <div class="col-md-8">
-                <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-filter"><i
-                        class="fa-solid fa-filter"></i><span style="margin-left: 6px; margin-right: 6px">Filter</span>
-                </button>
+            <form method="get">
+                <div class="col-md-8">
+                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-filter"><i
+                            class="fa-solid fa-filter"></i><span style="margin-left: 6px; margin-right: 6px">Filter</span>
+                    </button>
 
-                <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="row">
-                                    <form method="GET">
+                    <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    <div class="row">
                                         <div class="form-group">
                                             <label>Program Studi</label>
                                             <select name="prodi[]" id="prodi"
@@ -39,9 +40,9 @@
                                                 multiple style="width:350px;" tabindex="4">
                                                 <option value=""></option>
                                                 @foreach ($angkatan as $ang)
-                                                    <option value="{{ $ang->angkatan }}"
-                                                        @if ($val->angkatan && in_array($ang->angkatan, $val->angkatan)) selected @endif>
-                                                        {{ $ang->angkatan }}
+                                                    <option value="{{ $ang->id_tahun_ajaran }}"
+                                                        @if ($val->angkatan && in_array($ang->id_tahun_ajaran, $val->angkatan)) selected @endif>
+                                                        {{ $ang->id_tahun_ajaran }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -74,19 +75,27 @@
                                                 @endforeach
                                             </select>
                                         </div>
+
                                         <button class="btn btn-warning" type="submit">Apply Filter</button>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div><br><br><hr>
+                <div class="col-md-2">
+                    <select name="p" id="p" class="form-control" onchange="this.form.submit()">
+                        @foreach ($paginate as $p)
+                        <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
+                        @endforeach
+                    </select>
                 </div>
-            </div>
-            <div class="col-md-4 col-12">
+            </form>
+            <div class="col-lg-4 pull-right">
                 <form method="GET" role="search">
                     <div class="input-group">
-                        <input type="text" class="form-control" name="keyword"
-                            placeholder="Search by NIM, Nama or Nomor Seri Ijazah" value="{{request()->get('keyword','')}}"> <span class="input-group-btn">
+                        <input type="text" class="form-control" name="keyword" placeholder="Search by Kode MK or Nama MK or Nama Kelas"
+                            value="{{ request()->get('keyword', '') }}"> <span class="input-group-btn">
                             <button class="btn btn-default">
                                 <span class="glyphicon glyphicon-search"></span>
                             </button>
@@ -94,20 +103,22 @@
                     </div>
                 </form>
             </div>
-        </div><br>
+        </div>
         <div class="row">
             <div class="col-md-12">
-                <p class="pull-right">Halaman ini menampilkan data berdasarkan tahun keluar :
-                    @if ($val['tahun_keluar'] != '')
-                        @foreach ($val['tahun_keluar'] as $s)
-                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $s }}</span>
+                <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :
+                    @if($val->prodi != '' && $val->tahun_keluar == '')
+                    {{"-"}}
+                    @elseif ($val->angkatan != '' && $val->tahun_keluar != '')
+                    {{"-"}}
+                    @elseif ($val->jenis_keluar != '' && $val->tahun_keluar != '')
+                    {{"-"}}
+                    @elseif($val->tahun_keluar == '' && $val->prodi == '' && $val->angkatan == '' && $val->jenis_keluar == '')
+                        <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $tahun_keluar_aktif[0]['tahun_keluar'] }}</span>
+                    @elseif($val->tahun_keluar != '' || $val->prodi != '' || $val->angkatan != '' || $val->jenis_keluar != '')
+                        @foreach ($val->tahun_keluar as $tahun)
+                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $tahun }}</span>
                         @endforeach
-                    @elseif ($val['prodi'] != '' && $val['tahun_keluar'] = '')
-                        @foreach ($val['tahun_keluar'] as $s)
-
-                        @endforeach
-                    {{-- @else
-                        <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span> --}}
                     @endif
                 </p>
             </div>

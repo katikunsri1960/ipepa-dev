@@ -137,7 +137,7 @@
                 <div class="col-lg-4 pull-right">
                     <form method="GET" role="search">
                         <div class="input-group">
-                            <input type="text" class="form-control" name="keyword" placeholder="Search by NIDN or Nama"
+                            <input type="text" class="form-control" name="keyword" placeholder="Search by NIM or Nama"
                                 value="{{ request()->get('keyword', '') }}"> <span class="input-group-btn">
                                 <button class="btn btn-default">
                                     <span class="glyphicon glyphicon-search"></span>

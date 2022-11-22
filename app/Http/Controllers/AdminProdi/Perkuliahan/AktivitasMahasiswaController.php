@@ -54,7 +54,7 @@ class AktivitasMahasiswaController extends Controller
         }
 
         else {
-            $aktivitas_mahasiswa = $data->select('id_aktivitas', 'pd_feeder_list_aktivitas_mahasiswa.id_prodi', 'id_semester', 'nama_prodi', 'nama_semester', 'nama_jenis_aktivitas','judul', 'tanggal_sk_tugas')
+            $aktivitas_mahasiswa = $data->select('id_aktivitas', 'pd_feeder_list_aktivitas_mahasiswa.id_prodi', 'id_semester', 'nama_prodi', 'nama_semester', 'nama_jenis_aktivitas','pd_feeder_list_aktivitas_mahasiswa.judul', 'tanggal_sk_tugas')
             ->where('id_prodi', $prodiId)
             ->where('nama_semester', $semester_aktif[0]['nama_semester'])
             ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi')  || $req->has('angkatan') || $req->has('status_mahasiswa'), function($q) use($req){
@@ -71,6 +71,7 @@ class AktivitasMahasiswaController extends Controller
 
             })
             ->paginate($req->p != '' ? $req->p : 20);
+            // dd($aktivitas_mahasiswa);
 
         }
 

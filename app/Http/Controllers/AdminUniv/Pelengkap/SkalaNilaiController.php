@@ -15,7 +15,7 @@ class SkalaNilaiController extends Controller
 
         $data = new(ListSkalaNilaiProdi::class);
 
-        $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->get();
+        $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->orderBy('nama_jenjang_pendidikan', 'ASC')->orderBy('nama_program_studi','ASC')->get();
         $val = $req;
 
         $skala_nilai = $data->select('id_bobot_nilai', 'id_prodi', 'nama_program_studi', 'nilai_huruf', 'nilai_indeks', 'bobot_minimum','bobot_maksimum', 'tanggal_mulai_efektif','tanggal_akhir_efektif')
