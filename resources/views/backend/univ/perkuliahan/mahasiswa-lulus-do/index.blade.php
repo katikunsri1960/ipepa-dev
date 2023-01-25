@@ -68,11 +68,42 @@
                                                 multiple style="width:350px;" tabindex="4">
                                                 <option value=""></option>
                                                 @foreach ($tahun_keluar as $thn)
-                                                    <option value="{{ $thn->tahun_keluar }}"
-                                                        @if ($val->tahun_keluar && in_array($thn->tahun_keluar, $val->tahun_keluar)) selected @endif>
-                                                        {{ $thn->tahun_keluar }}
-                                                    </option>
-                                                @endforeach
+                                                        <option value="{{ $thn->tahun_keluar }}"
+                                                            @php
+                                                            if($val->prodi != '' && $val->tahun_keluar == ''){
+                                                                if($val->tahun_keluar && in_array($thn->tahun_keluar, $val->tahun_keluar)){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
+                                                            if($val->angkatan != '' && $val->tahun_keluar == ''){
+                                                                if($val->tahun_keluar && in_array($thn->tahun_keluar, $val->tahun_keluar)){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
+                                                            if($val->nama_jenis_keluar != '' && $val->tahun_keluar == ''){
+                                                                if($val->tahun_keluar && in_array($thn->tahun_keluar, $val->tahun_keluar)){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
+                                                            if($val->nama_jenis_keluar == '' && $val->prodi == '' && $val->angkatan == '' && $val->tahun_keluar != ''){
+                                                                if($val->tahun_keluar && in_array($thn->tahun_keluar, $val->tahun_keluar)){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
+                                                            elseif($val->tahun_keluar == '' && $val->prodi == '' && $val->angkatan == '' && $val->nama_jenis_keluar == ''){
+                                                                if($tahun_keluar_aktif[0]['tahun_keluar'] && in_array($thn->tahun_keluar,$tahun_keluar_aktif[0])){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
+                                                            if($val->tahun_keluar != '' || $val->prodi != '' || $val->angkatan != '' || $val->nama_jenis_keluar != ''){
+                                                                if($val->tahun_keluar && in_array($thn->tahun_keluar, $val->tahun_keluar)){
+                                                                    echo 'selected';
+                                                                }
+                                                            }
+                                                            @endphp>
+                                                            {{ $thn->tahun_keluar }}
+                                                        </option>
+                                                    @endforeach
                                             </select>
                                         </div>
 

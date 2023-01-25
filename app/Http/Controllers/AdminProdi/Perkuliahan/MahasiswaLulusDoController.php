@@ -37,7 +37,7 @@ class MahasiswaLulusDoController extends Controller
         // ->where('id_tahun_ajaran', '<=', $now )->get();
         $semester_aktif = $tahun_keluar->toArray();
         $angkatan = Semester::select('pd_feeder_semester.id_tahun_ajaran')->distinct()->orderBy('pd_feeder_semester.id_tahun_ajaran','DESC')->get();
-        // dd($semester_aktif);
+        dd($tahun_keluar);
 
 
 
@@ -100,7 +100,7 @@ class MahasiswaLulusDoController extends Controller
 
         $paginate = [20,50,100,200,500];
 
-        return view('backend.prodi.perkuliahan.mahasiswa-lulus-do.index', compact('mahasiswa_lulus_do','prodi','angkatan','jenis_keluar','tahun_keluar', 'semester_aktif','angkatan','paginate', 'valPaginate','val'));
+        return view('backend.prodi.perkuliahan.mahasiswa-lulus-do.index', compact('mahasiswa_lulus_do','prodi','angkatan','jenis_keluar','tahun_keluar','tahun_keluar_aktif', 'semester_aktif','angkatan','paginate', 'valPaginate','val'));
     }
 
     public function detail($id,$tahun)
