@@ -12,6 +12,8 @@
             <li class="{{request()->routeIs('admin-prodi.dashboard-admin-prodi') ? 'active' : ''}}">
                 <a href="{{route('admin-prodi.dashboard-admin-prodi')}}"><i class="fa-solid fa-table-cells"></i> <span class="nav-label">Dashboards</span></a>
             </li>
+            <li class="{{request()->routeIs('admin-prodi.pemantauan-lulusan') ? 'active' : ''}}">
+                <a href="{{route('admin-prodi.pemantauan-lulusan')}}"><i class="fa-solid fa-table-cells"></i> <span class="nav-label">Pemantauan Lulusan</span></a>
             <li class="{{request()->routeIs('admin-prodi.profil-pt') ? 'active' : ''}}">
                 <a href="{{route('admin-prodi.profil-pt')}}"><i class="fa fa-user-circle"></i> <span class="nav-label">Profil</span></a>
             </li>

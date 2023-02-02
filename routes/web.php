@@ -200,5 +200,8 @@ Route::group(['middleware' => 'auth'], function () {
 
             //Export Data
             Route::get('export-data', [App\Http\Controllers\AdminProdi\Export\ExportDataController::class, 'index'])->name('export-data');
+
+            //Pemantauan Lulusan
+            Route::get('pemantauan-lulusan', [App\Http\Controllers\AdminProdi\PemantauanController::class, 'index'])->name('pemantauan-lulusan');
         });
 });
