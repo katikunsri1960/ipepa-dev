@@ -178,7 +178,7 @@
                         <td class="text-center">{{$data->angkatan}}</td>
                         <td class="text-center">{{$data->nama_jenis_keluar}}</td>
                         <td class="text-center">{{$data->tanggal_keluar}}</td>
-                        <td class="text-center">{{$data->tahun_keluar}}</td>
+                        <td class="text-center">{{$data->nama_semester}}</td>
                         <td class="text-center">{{$data->keterangan}}</td>
                     </tr>
                     @endforeach

@@ -4,40 +4,40 @@
 <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-lg-12">
-            <div class="widget lazur-bg p-xl">
+            <div class="widget p-xl" style="background-color:rgb(32, 34, 107); color: white">
                 <h2><strong>Selamat Datang !</strong></h2><br>
-                <h2><strong>{{auth()->user()->name}} - {{$profil_pt[0]['nama_perguruan_tinggi']}}</strong></h2>
+                <h2><strong>{{auth()->user()->name}} - {{!empty($profil_pt[0]['nama_perguruan_tinggi']) ? $profil_pt[0]['nama_perguruan_tinggi'] :"-"}}</strong></h2>
                 <div class="text-right">
                     <i class="fa fa-cloud fa-4x"></i> <i class="fa fa-cloud fa-4x"></i> <i class="fa fa-cloud fa-4x"></i>
                 </div>
                 <hr>
                 <h4>Notes :</h4>
-                <p><i class="fa fa-hand-o-right"></i> Data yang ditampilkan pada halaman ini merupakan data dari Neo Feeder PDDIKTI<br><i class="fa fa-hand-o-right"></i> Last Sync Table ({{$sync_table[0]['updated_at']}} - {{$sync_table[0]['table_name']}})</p>
+                <p><i class="fa fa-hand-o-right"></i> Data yang ditampilkan pada halaman ini merupakan data dari Neo Feeder PDDIKTI<br><i class="fa fa-hand-o-right"></i> Last Sync Table ({{!empty($sync_table[0]['updated_at']) ? $sync_table[0]['updated_at'] :"-"}} - {{!empty($sync_table[0]['table_name']) ? $sync_table[0]['table_name'] :"-"}})</p>
             </div>
         </div>
         <div class="col-lg-12">
-            <div class="widget navy-bg p-xl">
-                <h2><strong>{{$profil_pt[0]['nama_perguruan_tinggi']}}</strong></h2><br>
+            <div class="widget navy-bg p-xl" style="background-color:rgb(136, 62, 6); color:white">
+                <h2><strong>{{!empty($profil_pt[0]['nama_perguruan_tinggi']) ? $profil_pt[0]['nama_perguruan_tinggi'] :"-"}}</strong></h2><br>
                 <table class="table">
                     <tr>
                         <td class="col-md-4"><span><h4>Alamat</h4></span><td>
                         <td><h4> : </h4></td>
-                        <td class="col-md-8"><h4>{{ $profil_pt[0]['jalan'] }}</h4></td>
+                        <td class="col-md-8"><h4>{{!empty($profil_pt[0]['jalan']) ? $profil_pt[0]['jalan'] :"-" }}</h4></td>
                     </tr>
                     <tr>
                         <td class="col-md-4"><span><h4>Telephone</h4></span><td>
                         <td><h4> : </h4></td>
-                        <td class="col-md-8"><h4>{{$profil_pt[0]['telepon']}}</h4></td>
+                        <td class="col-md-8"><h4>{{!empty($profil_pt[0]['telepon']) ? $profil_pt[0]['telepon'] :"-"}}</h4></td>
                     </tr>
                     <tr>
                         <td class="col-md-4"><span><h4>Email</h4></span><td>
                         <td><h4> : </h4></td>
-                        <td class="col-md-8"><h4>{{$profil_pt[0]['email']}}</h4></td>
+                        <td class="col-md-8"><h4>{{!empty($profil_pt[0]['email']) ? $profil_pt[0]['email'] :"-"}}</h4></td>
                     </tr>
                     <tr>
                         <td class="col-md-4"><span><h4>Website</h4></span><td>
                         <td><h4> : </h4></td>
-                        <td class="col-md-8"><h4>{{$profil_pt[0]['website']}}</h4></td>
+                        <td class="col-md-8"><h4>{{!empty($profil_pt[0]['website']) ? $profil_pt[0]['website'] :"-"}}</h4></td>
                     </tr>
                 </table>
             </div>
@@ -90,8 +90,8 @@
                         @foreach ($sync_table as $s_tbl => $data)
                             <tr>
                                 <td class="text-center">{{ $sync_table->firstItem() + $s_tbl }}</td>
-                                <td>{{ $data->table_name }}</td>
-                                <td class="text-center">{{ $data->updated_at }}</td>
+                                <td>{{ !empty($data->table_name) ? $data->table_name :"-" }}</td>
+                                <td class="text-center">{{ !empty($data->updated_at) ? $data->updated_at :"-" }}</td>
                             </tr>
                         @endforeach
                     </tbody>

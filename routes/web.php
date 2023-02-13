@@ -203,5 +203,6 @@ Route::group(['middleware' => 'auth'], function () {
 
             //Pemantauan Lulusan
             Route::get('pemantauan-lulusan', [App\Http\Controllers\AdminProdi\PemantauanController::class, 'index'])->name('pemantauan-lulusan');
+            Route::get('dev-pemantauan', [App\Http\Controllers\AdminProdi\PemantauanController::class, 'dev'])->name('dev-pemantauan');
         });
 });

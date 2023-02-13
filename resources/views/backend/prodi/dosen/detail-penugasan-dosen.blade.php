@@ -102,7 +102,7 @@
                                         <td>{{ $data->nama_tahun_ajaran }}</td>
                                         <td>{{ $data->perguruan_tinggi }}</td>
                                         <td>{{ $data->nama_program_studi }}</td>
-                                        <td>{{ $data->no_surat_tugas }}</td>
+                                        <td>{{ $data->nomor_surat_tugas }}</td>
                                         <td>{{ $data->tanggal_surat_tugas }}</td>
                                         <td>{{ $data->mulai_surat_tugas }}</td>
                                     </tr>

@@ -4,9 +4,6 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <a href="{{route('admin-univ.dashboard-admin-univ')}}"><i class="fa fa-user"></i> | <span class="nav-label"><strong class="font-bold">{{auth()->user()->name}}</strong></span></a>
-                    <!-- <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{auth()->user()->name}}</strong></span>
-                    </a> -->
                 </div>
                 <div class="logo-element">
                     <a href="{{route('admin-univ.dashboard-admin-univ')}}">UNSRI</a>

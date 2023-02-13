@@ -15,23 +15,23 @@
                 <tbody>
                         <tr>
                             <td class="text-left">Program Studi</td>
-                            <td class="text-left">: {{ $detail[0]->nama_prodi }}</td>
+                            <td class="text-left">: {{ ($detail[0]->nama_prodi) ? $detail[0]->nama_prodi :"-" }}</td>
                         </tr>
                         <tr>
                             <td class="text-left">Kode Mata Kuliah</td>
-                            <td class="text-left">: {{ $detail[0]->kode_mata_kuliah }}</td>
+                            <td class="text-left">: {{ !empty($detail[0]->kode_mata_kuliah) ? $detail[0]->kode_mata_kuliah :"-" }}</td>
                         </tr>
                         <tr>
                             <td class="text-left">Mata Kuliah</td>
-                            <td class="text-left">: {{ $detail[0]->nama_mata_kuliah }}</td>
+                            <td class="text-left">: {{ !empty($detail[0]->nama_mata_kuliah) ? $detail[0]->nama_mata_kuliah :"-" }}</td>
                         </tr>
                         <tr>
                             <td class="text-left">Semester</td>
-                            <td class="text-left">: {{ $detail[0]->nm_smt }}</td>
+                            <td class="text-left">: {{ !empty($detail[0]->nm_smt) ? $detail[0]->nm_smt :"-" }}</td>
                         </tr>
                         <tr>
                             <td class="text-left">Nama Kelas</td>
-                            <td class="text-left">: {{ $detail[0]->nama_kelas_kuliah }}</td>
+                            <td class="text-left">: {{ !empty($detail[0]->nama_kelas_kuliah) ? $detail[0]->nama_kelas_kuliah :"-" }}</td>
                         </tr>
                 </tbody>
             </table>

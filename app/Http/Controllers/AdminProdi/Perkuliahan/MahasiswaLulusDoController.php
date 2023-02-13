@@ -37,7 +37,7 @@ class MahasiswaLulusDoController extends Controller
         // ->where('id_tahun_ajaran', '<=', $now )->get();
         $semester_aktif = $tahun_keluar->toArray();
         $angkatan = Semester::select('pd_feeder_semester.id_tahun_ajaran')->distinct()->orderBy('pd_feeder_semester.id_tahun_ajaran','DESC')->get();
-        dd($tahun_keluar);
+        // dd($tahun_keluar);
 
 
 

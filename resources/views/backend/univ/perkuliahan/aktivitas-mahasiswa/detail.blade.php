@@ -23,55 +23,55 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Program Studi <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_prodi}}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->nama_prodi!='') ? $detail[0]->nama_prodi :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Semester <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_semester}}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->nama_semester!='') ? $detail[0]->nama_semester :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Nomor SK Tugas</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->sk_tugas}}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->sk_tugas!='') ? $detail[0]->sk_tugas :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Tanggal SK Tugas</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->tanggal_sk_tugas}}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->tanggal_sk_tugas!='') ? $detail[0]->tanggal_sk_tugas :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Jenis Aktivitas <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_jenis_aktivitas}}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->nama_jenis_aktivitas!='') ? $detail[0]->nama_jenis_aktivitas :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Jenis Anggota</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_jenis_anggota}}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->nama_jenis_anggota!='') ? $detail[0]->nama_jenis_anggota :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Judul <span style="color: red">*</span></label>
-                    <input type="text" class="form-control" disabled value="{{ $detail[0]->judul}}">
+                    <input type="text" class="form-control" disabled value="{{ ($detail[0]->judul!='') ? $detail[0]->judul :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Keterangan</label>
-                    <input type="text" class="form-control" disabled value="{{ $detail[0]->keterangan}}">
+                    <input type="text" class="form-control" disabled value="{{ ($detail[0]->keterangan!='') ? $detail[0]->keterangan :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Lokasi</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->lokasi}}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->lokasi!='') ? $detail[0]->lokasi :"-"}}">
                 </div>
             </div>
         </div>

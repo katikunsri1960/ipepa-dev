@@ -156,8 +156,6 @@ class UserController extends Controller
             }
         });
 
-
-
         return redirect()->route('admin.settings.users.index')->with('success', 'User has been updated');
 
     }

@@ -23,37 +23,37 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Nama Kurikulum <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail_kurikulum[0]->nama_kurikulum }}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail_kurikulum[0]->nama_kurikulum!='') ? $detail_kurikulum[0]->nama_kurikulum :"-" }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Nama Program Studi <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail_kurikulum[0]->nama_program_studi }}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail_kurikulum[0]->nama_program_studi!='') ? $detail_kurikulum[0]->nama_program_studi :"-" }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Mulai Berlaku <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail_kurikulum[0]->semester_mulai_berlaku }}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail_kurikulum[0]->semester_mulai_berlaku!='') ? $detail_kurikulum[0]->semester_mulai_berlaku :"-" }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Jumlah Bobot Mata Kuliah Wajib <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail_kurikulum[0]->jumlah_sks_wajib }}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail_kurikulum[0]->jumlah_sks_wajib!='') ? $detail_kurikulum[0]->jumlah_sks_wajib :"-" }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Jumlah Bobot Mata Kuliah Pilihan <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail_kurikulum[0]->jumlah_sks_pilihan }}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail_kurikulum[0]->jumlah_sks_pilihan!='') ? $detail_kurikulum[0]->jumlah_sks_pilihan :"-" }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Jumlah SKS</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail_kurikulum[0]->jumlah_sks_lulus }}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail_kurikulum[0]->jumlah_sks_lulus!='') ? $detail_kurikulum[0]->jumlah_sks_lulus :"-" }}">
                 </div>
             </div>
         </div>

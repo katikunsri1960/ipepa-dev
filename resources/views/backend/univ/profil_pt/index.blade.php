@@ -3,39 +3,39 @@
             <div class="wrapper wrapper-content">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="widget lazur-bg p-xl">
+                            <div class="widget p-xl" style="background-color:rgb(32, 34, 107); color: white">
                                 <h2>Profil Perguruan Tinggi</h2><br>
-                                <h2><strong>{{$profil_pt[0]['nama_perguruan_tinggi']}}</strong></h2><br>
+                                <h2><strong>{{!empty($profil_pt[0]['nama_perguruan_tinggi']) ? $profil_pt[0]['nama_perguruan_tinggi'] :"-"}}</strong></h2><br>
                                 <table class="table">
                                     <tr>
                                         <td class="col-md-2"><span><h3><i class="fa fa-id-card"></i> Kode PT</h3></span><td>
                                         <td><h3> : </h3></td>
-                                        <td class="col-md-10"><h3>{{$profil_pt[0]['kode_perguruan_tinggi']}}</h3></td>
+                                        <td class="col-md-10"><h3>{{!empty($profil_pt[0]['kode_perguruan_tinggi']) ? $profil_pt[0]['kode_perguruan_tinggi'] :"-"}}</h3></td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-2"><span><h3><i class="fa fa-user"></i> Nama PT</h3></span><td>
                                         <td><h3> : </h3></td>
-                                        <td class="col-md-10"><h3>{{$profil_pt[0]['nama_perguruan_tinggi']}}</h3></td>
+                                        <td class="col-md-10"><h3>{{!empty($profil_pt[0]['nama_perguruan_tinggi']) ? $profil_pt[0]['nama_perguruan_tinggi'] :"-"}}</h3></td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-2"><span><h3><i class="fa fa-phone"></i> Telephone</h3></span><td>
                                         <td><h3> : </h3></td>
-                                        <td class="col-md-10"><h3>{{$profil_pt[0]['telepon']}}</h3></td>
+                                        <td class="col-md-10"><h3>{{!empty($profil_pt[0]['telepon']) ? $profil_pt[0]['telepon'] :"-"}}</h3></td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-2"><span><h3><i class="fa fa-fax"></i> Faximile</h3></span><td>
                                         <td><h3> : </h3></td>
-                                        <td class="col-md-10"><h3>{{$profil_pt[0]['faximile']}}</h3></td>
+                                        <td class="col-md-10"><h3>{{!empty($profil_pt[0]['faximile']) ? $profil_pt[0]['faximile'] :"-"}}</h3></td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-2"><span><h3><i class="fa fa-envelope"></i> Email</h3></span><td>
                                         <td><h3> : </h3></td>
-                                        <td class="col-md-10"><h3>{{$profil_pt[0]['email']}}</h3></td>
+                                        <td class="col-md-10"><h3>{{!empty($profil_pt[0]['email']) ? $profil_pt[0]['email'] :"-"}}</h3></td>
                                     </tr>
                                     <tr>
                                         <td class="col-md-2"><span><h3><i class="fa fa-link"></i> Website</h3></span><td>
                                         <td><h3> : </h3></td>
-                                        <td class="col-md-10"><h3>{{$profil_pt[0]['website']}}</h3></td>
+                                        <td class="col-md-10"><h3>{{!empty($profil_pt[0]['website']) ? $profil_pt[0]['website'] :"-"}}</h3></td>
                                     </tr>
                                 </table>
                             </div>
@@ -63,37 +63,37 @@
                                                             <tr>
                                                                 <td class="col-md-2">Jalan</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['jalan']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['jalan']) ? $profil_pt[0]['jalan'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Dusun</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['dusun']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['dusun']) ? $profil_pt[0]['dusun'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Kelurahan</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['kelurahan']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['kelurahan']) ? $profil_pt[0]['kelurahan'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Kecamatan</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['nama_wilayah']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['nama_wilayah']) ? $profil_pt[0]['nama_wilayah'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Lintang Bujur</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['lintang_bujur']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['lintang_bujur']) ? $profil_pt[0]['lintang_bujur'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">RT / RW</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['rt_rw']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['rt_rw']) ? $profil_pt[0]['rt_rw'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Kode Pos</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['kode_pos']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['kode_pos']) ? $profil_pt[0]['kode_pos'] :"-"}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -106,32 +106,32 @@
                                                             <tr>
                                                                 <td class="col-md-2">Bank</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['bank']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['bank']) ? $profil_pt[0]['bank'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Unit Cabang</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['unit_cabang']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['unit_cabang']) ? $profil_pt[0]['unit_cabang'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Nomor Rekening</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['nomor_rekening']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['nomor_rekening']) ? $profil_pt[0]['nomor_rekening'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">MBS</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['mbs']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['mbs']) ? $profil_pt[0]['mbs'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Luas Tanah Milik</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['luas_tanah_milik']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['luas_tanah_milik']) ? $profil_pt[0]['luas_tanah_milik'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Luas Tanah Bukan Milik</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['luas_tanah_bukan_milik']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['luas_tanah_bukan_milik']) ? $profil_pt[0]['luas_tanah_bukan_milik'] :"-"}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -144,32 +144,32 @@
                                                             <tr>
                                                                 <td class="col-md-2">No SK Pendirian</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['sk_pendirian']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['sk_pendirian']) ? $profil_pt[0]['sk_pendirian'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Tanggal SK Pendirian</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['tanggal_sk_pendirian']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['tanggal_sk_pendirian']) ? $profil_pt[0]['tanggal_sk_pendirian'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Status Kepemilikan</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['nama_status_milik']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['nama_status_milik']) ? $profil_pt[0]['nama_status_milik'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Status Perguruan Tinggi</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['status_perguruan_tinggi']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['status_perguruan_tinggi']) ? $profil_pt[0]['status_perguruan_tinggi'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">SK Izin Operasional</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['sk_izin_operasional']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['sk_izin_operasional']) ? $profil_pt[0]['sk_izin_operasional'] :"-"}}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td class="col-md-2">Tanggal Izin Operasional</td>
                                                                 <td> : </td>
-                                                                <td class="col-md-10">{{$profil_pt[0]['tanggal_izin_operasional']}}</td>
+                                                                <td class="col-md-10">{{!empty($profil_pt[0]['tanggal_izin_operasional']) ? $profil_pt[0]['tanggal_izin_operasional'] :"-"}}</td>
                                                             </tr>
                                                         </tbody>
                                                     </table>

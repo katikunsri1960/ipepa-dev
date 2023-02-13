@@ -21,38 +21,38 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Mahasiswa <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nim}} - {{ $detail[0]->nama_mahasiswa}}">
+                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->nim) ? $detail[0]->nim :"-"}} - {{ !empty($detail[0]->nama_mahasiswa) ? $detail[0]->nama_mahasiswa :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Semester  <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_semester}}">
+                    <input type="name" class="form-control" disabled value="{{ !empty($detail[0]->nama_semester) ? $detail[0]->nama_semester :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Status Mahasiswa <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->nama_status_mahasiswa}}">
+                    <input type="name" class="form-control" disabled value="{{ !empty($detail[0]->nama_status_mahasiswa) ? $detail[0]->nama_status_mahasiswa :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>IPS (Indeks Prestasi Semester)</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->ips}}">
+                    <input type="name" class="form-control" disabled value="{{ !empty($detail[0]->ips) ? $detail[0]->ips :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>IPK (Indeks Prestasi Komulatif)</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->ipk}}">
+                    <input type="name" class="form-control" disabled value="{{ !empty($detail[0]->ipk) ? $detail[0]->ipk :"-"}}">
                 </div>
             </div>
-            
+
             <div class="col-lg-4">
                 <div class="form-group">
                     <label>Jumlah SKS Semester</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->sks_semester}}">
+                    <input type="name" class="form-control" disabled value="{{ !empty($detail[0]->sks_semester) ? $detail[0]->sks_semester :"-"}}">
                 </div>
             </div>
             <div class="col-lg-2">
@@ -107,13 +107,13 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Jumlah SKS Total</label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->sks_total}}">
+                    <input type="name" class="form-control" disabled value="{{ !empty($detail[0]->sks_total) ? $detail[0]->sks_total :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Biaya Kuliah (semester) <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ $detail[0]->biaya_kuliah_smt}}">
+                    <input type="name" class="form-control" disabled value="{{ !empty($detail[0]->biaya_kuliah_smt) ? $detail[0]->biaya_kuliah_smt :"-"}}">
                 </div>
             </div>
         </div>
