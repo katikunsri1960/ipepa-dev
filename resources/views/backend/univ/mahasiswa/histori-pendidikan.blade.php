@@ -111,7 +111,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>NIM</label>
-                                        <input type="text" class="form-control" disabled value="{{ ($riwayat[0]->nim!='') $riwayat[0]->nim ? "-" }}">
+                                        <input type="text" class="form-control" disabled value="{{ ($riwayat[0]->nim!='') ? $riwayat[0]->nim : "-" }}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
