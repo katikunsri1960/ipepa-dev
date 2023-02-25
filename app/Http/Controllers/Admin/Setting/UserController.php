@@ -10,7 +10,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Models\RolesUser;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\PDUnsri\Feeder\ProgramStudi;
 
 class UserController extends Controller
 {
@@ -97,10 +97,11 @@ class UserController extends Controller
         $this->authorize('admin');
         $user = User::findOrFail($id);
         $roles = Role::all();
+        $prodi = ProgramStudi::all();
 
         // dd($user->role_id);
 
-        return view('backend.admin.setting.user.edit', compact('user', 'roles'));
+        return view('backend.admin.setting.user.edit', compact('user', 'roles', 'prodi'));
 
     }
 
@@ -147,7 +148,7 @@ class UserController extends Controller
 
             if ($data['role_id'] == 4) {
                 RolesUser::where('user_id',$id)->updateOrCreate([
-                    'user_id' => $user->id,
+                    // 'user_id' => $user->id,
                     'role_id' => $data['role_id'],
                     'fak_prod_id' => $data['fak_prodi'],
                 ]);

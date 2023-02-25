@@ -34,7 +34,7 @@ class KelasPerkuliahanController extends Controller
             $kelas_perkuliahan = $data->select('pd_feeder_detail_kelas_kuliah.id_matkul','pd_feeder_detail_kelas_kuliah.id_semester','pd_feeder_detail_kelas_kuliah.nama_semester','pd_feeder_detail_kelas_kuliah.kode_mata_kuliah','pd_feeder_detail_kelas_kuliah.nama_mata_kuliah','pd_feeder_detail_kelas_kuliah.id_kelas_kuliah','pd_feeder_detail_kelas_kuliah.nama_kelas_kuliah','pd_feeder_mata_kuliah.sks_mata_kuliah')
             ->addSelect(DB::raw('(SELECT GROUP_CONCAT(pd_feeder_dosen_pengajar_kelas_kuliah.nama_dosen SEPARATOR ", ") FROM pd_feeder_dosen_pengajar_kelas_kuliah WHERE pd_feeder_detail_kelas_kuliah.id_kelas_kuliah=pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah AND pd_feeder_detail_kelas_kuliah.id_semester=pd_feeder_dosen_pengajar_kelas_kuliah.id_semester) AS nama_dosen'))
             ->addSelect(DB::raw('(SELECT COUNT(id_registrasi_mahasiswa) FROM `pd_feeder_krs_mahasiswa` WHERE pd_feeder_krs_mahasiswa.id_matkul=pd_feeder_detail_kelas_kuliah.id_matkul AND pd_feeder_krs_mahasiswa.id_kelas=pd_feeder_detail_kelas_kuliah.id_kelas_kuliah) AS jumlah_mahasiswa'))
-            ->orderBy ('nama_semester')
+            // ->orderBy ('nama_semester')
             ->when($req->has('p') || $req->has('keyword') || $req->has('semester') || $req->has('prodi'), function($q) use($req){
                 if ($req->keyword != '') {
                     $q->where('pd_feeder_detail_kelas_kuliah.kode_mata_kuliah', 'like', '%'.$req->keyword.'%')
@@ -58,7 +58,7 @@ class KelasPerkuliahanController extends Controller
             ->addSelect(DB::raw('(SELECT GROUP_CONCAT(pd_feeder_dosen_pengajar_kelas_kuliah.nama_dosen SEPARATOR ", ") FROM pd_feeder_dosen_pengajar_kelas_kuliah WHERE pd_feeder_detail_kelas_kuliah.id_kelas_kuliah=pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah AND pd_feeder_detail_kelas_kuliah.id_semester=pd_feeder_dosen_pengajar_kelas_kuliah.id_semester) AS nama_dosen'))
             ->addSelect(DB::raw('(SELECT COUNT(id_registrasi_mahasiswa) FROM `pd_feeder_krs_mahasiswa` WHERE pd_feeder_krs_mahasiswa.id_matkul=pd_feeder_detail_kelas_kuliah.id_matkul AND pd_feeder_krs_mahasiswa.id_kelas=pd_feeder_detail_kelas_kuliah.id_kelas_kuliah) AS jumlah_mahasiswa'))
             ->where('pd_feeder_detail_kelas_kuliah.nama_semester', $semester_aktif[0]['nama_semester'])
-            ->orderBy ('nama_semester')
+            // ->orderBy ('nama_semester')
             ->when($req->has('p') || $req->has('keyword') || $req->has('semester') || $req->has('prodi'), function($q) use($req){
                 if ($req->keyword != '') {
                     $q->where('pd_feeder_detail_kelas_kuliah.kode_mata_kuliah', 'like', '%'.$req->keyword.'%')

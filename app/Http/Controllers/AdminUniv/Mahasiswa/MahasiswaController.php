@@ -32,7 +32,7 @@ class MahasiswaController extends Controller
         $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->orderBy('nama_jenjang_pendidikan','ASC')->get();
         $status = $data->select('nama_status_mahasiswa')->distinct()->get();
         $agama = Agama::select('id_agama','nama_agama')->get();
-        $angkatan = TahunAjaran::select('id_tahun_ajaran as angkatan')->orderBy('id_tahun_ajaran', 'desc')->get();
+        $angkatan = Semester::select('id_tahun_ajaran as angkatan')->distinct()->orderBy('id_tahun_ajaran', 'desc')->get();
         // dd($angkatan);
         $jk = $data->select('jenis_kelamin')->distinct()->get();
 

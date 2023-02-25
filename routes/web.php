@@ -122,6 +122,9 @@ Route::group(['middleware' => 'auth'], function () {
 
         //Export Data
         Route::get('export-data', [App\Http\Controllers\AdminUniv\Export\ExportDataController::class, 'index'])->name('export-data');
+
+        Route::get('pemantauan-lulusan', [App\Http\Controllers\AdminUniv\PemantauanController::class, 'index'])->name('pemantauan-lulusan');
+        Route::get('dev-pemantauan', [App\Http\Controllers\AdminUniv\PemantauanController::class, 'dev'])->name('dev-pemantauan');
     });
 
 

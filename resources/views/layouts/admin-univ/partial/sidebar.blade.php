@@ -12,6 +12,9 @@
             <li class="{{request()->routeIs('admin-univ.dashboard-admin-univ') ? 'active' : ''}}">
                 <a href="{{route('admin-univ.dashboard-admin-univ')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
+            <li class="{{request()->routeIs('admin-univ.pemantauan-lulusan') ? 'active' : ''}}">
+                <a href="{{route('admin-univ.pemantauan-lulusan')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Pemantauan Lulusan</span></a>
+            </li>
             <li class="{{request()->routeIs('admin-univ.profil-pt') ? 'active' : ''}}">
                 <a href="{{route('admin-univ.profil-pt')}}"><i class="fa fa-user-circle"></i> <span class="nav-label">Profil</span></a>
             </li>

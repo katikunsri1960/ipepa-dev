@@ -103,21 +103,27 @@
                         <div class="hr-line-dashed"></div>
 
                         <div id="selectProdi" class="form-group" style="@if ($user->role_id != 4)
-                        visibility: hidden
-                        @endif ">
-                            <label class="col-sm-2 control-label">Pilih Fakultas/Prodi</label>
-                            <div class="col-sm-10">
-                                <select id="fak_prodi" class="form-control m-b" name="fak_prodi">
-                                    <option value="">Select Role</option>
-                                </select>
-
-                                @error('fak_prodi')
-                                <span class="invalid-feedback text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+                            visibility: hidden
+                            @endif ">
+                                <label class="col-sm-2 control-label">Pilih Fakultas/Prodi</label>
+                                <div class="col-sm-10">
+                                    <select id="fak_prodi" class="form-control m-b" name="fak_prodi">
+                                        <option value="">Select Role</option>
+                                        @foreach ($prodi as $p)
+                                            <option value="{{$p->id_prodi}}" @if (!empty($user->roles_user->fak_prod_id))
+                                                {{$user->roles_user->fak_prod_id == $p->id_prodi ? 'selected' : ''}}
+                                            @endif >{{$p->nama_jenjang_pendidikan . " - " . $p->nama_program_studi}}</option>
+                                        @endforeach
+                                    </select>
+    
+                                    @error('fak_prodi')
+                                    <span class="invalid-feedback text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
+                        
                         <div></div>
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
@@ -154,6 +160,7 @@
                 document.getElementById("selectProdi").style.visibility = "hidden";
             }
         } else if(roleId == 4) {
+
             $.ajax({
                 url: "{{route('admin.get-fak-prodi')}}",
                 method: "GET",
@@ -163,7 +170,7 @@
                     for (let i = 0; i < data.length; i++) {
                         $('#fak_prodi').append($('<option>', {
                             value: data[i]['id_prodi'],
-                            text: data[i]['nama_jenjang_pendidikan'] + " - " + data[i]['nama_program_studi']
+                            text: data[i]['nama_jenjang_pendidikan'] + " - " + data[i]['nama_program_studi'],
                         }, '</option>'))
                     }
                 },
