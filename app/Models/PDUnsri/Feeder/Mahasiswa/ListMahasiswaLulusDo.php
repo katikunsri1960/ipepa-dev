@@ -11,4 +11,9 @@ class ListMahasiswaLulusDo extends Model
     protected $table = 'pd_feeder_list_mahasiswa_lulus_do';
     public $timestamps = false;
     public $incrementing = false;
+
+    public function mahasiswa()
+    {
+        return $this->belongsTo(ListMahasiswa::class, 'id_registrasi_mahasiswa', 'id_registrasi_mahasiswa');
+    }
 }

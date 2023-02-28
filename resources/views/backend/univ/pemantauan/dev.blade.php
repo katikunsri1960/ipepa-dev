@@ -6,7 +6,7 @@
     </div>
     <div class="ibox-content p-md">
         <div class="row">
-            <form action="{{route('admin-prodi.pemantauan-lulusan')}}" method="get">
+            <form action="{{route('admin-univ.dev-pemantauan')}}" method="get">
                 <label class="control-label col-lg-3">Filter by Angkatan</label>
                 <div class="col-lg-6">
                     <div class="input-group">

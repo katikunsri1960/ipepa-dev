@@ -136,7 +136,6 @@
             scales: {
                 y: {
                     beginAtZero: true,
-                    max: 100,
                     stacked: true
 
                 },

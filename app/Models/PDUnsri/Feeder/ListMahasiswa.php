@@ -5,6 +5,7 @@ namespace App\Models\PDUnsri\Feeder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use App\Models\PDUnsri\Feeder\Mahasiswa\ListMahasiswaLulusDo;
 
 class ListMahasiswa extends Model
 {
@@ -37,6 +38,11 @@ class ListMahasiswa extends Model
             }
 
         );
+    }
+
+    public function lulus_do()
+    {
+        return $this->hasOne(ListMahasiswaLulusDo::class, 'id_registrasi_mahasiswa', 'id_registrasi_mahasiswa');
     }
 
 }
