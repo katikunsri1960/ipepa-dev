@@ -1,4 +1,5 @@
-@extends('layouts.admin-univ.layout')
+
+@extends('layouts.admin-prodi.layout')
 @section('content')
 <div class="ibox float-e-margins">
     <div class="ibox-title">
@@ -6,7 +7,7 @@
     </div>
     <div class="ibox-content p-md">
         <div class="row">
-            <form action="{{route('admin-univ.dev-pemantauan')}}" method="get">
+            <form action="{{route('admin-prodi.pemantauan-lulusan')}}" method="get">
                 <label class="control-label col-lg-3">Filter by Angkatan</label>
                 <div class="col-lg-6">
                     <div class="input-group">
@@ -136,6 +137,7 @@
             scales: {
                 y: {
                     beginAtZero: true,
+                    max: 100,
                     stacked: true
 
                 },

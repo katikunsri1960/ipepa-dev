@@ -12,9 +12,19 @@
             <li class="{{request()->routeIs('admin-univ.dashboard-admin-univ') ? 'active' : ''}}">
                 <a href="{{route('admin-univ.dashboard-admin-univ')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
-            <li class="{{request()->routeIs('admin-univ.pemantauan-lulusan') ? 'active' : ''}}">
+            <li  class="{{request()->routeIs('admin-univ.pemantauan-lulusan') || request()->routeIs('admin-univ.length-studi') ? 'active' : ''}}">
+                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Monev</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="{{request()->routeIs('admin-univ.pemantauan-lulusan') ? 'active' : ''}}">
+                        <a href="{{route('admin-univ.pemantauan-lulusan')}}">Lulusan</a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-univ.length-studi')  ? 'active' : ''}}">
+                        <a href="{{route('admin-univ.length-studi')}}">Length Studi</a>
+                    </li>
+                </ul>
+            {{-- <li class="{{request()->routeIs('admin-univ.pemantauan-lulusan') ? 'active' : ''}}">
                 <a href="{{route('admin-univ.pemantauan-lulusan')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Pemantauan Lulusan</span></a>
-            </li>
+            </li> --}}
             <li class="{{request()->routeIs('admin-univ.profil-pt') ? 'active' : ''}}">
                 <a href="{{route('admin-univ.profil-pt')}}"><i class="fa fa-user-circle"></i> <span class="nav-label">Profil</span></a>
             </li>

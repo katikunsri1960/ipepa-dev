@@ -13,14 +13,18 @@
                         <select name="start" id="min" class="input form-control" required>
                             <option value="">Pilih Angkatan Awal</option>
                             @foreach ($angkatan as $item)
-                            <option value="{{ $item }}">{{ $item }}</option>
+                            <option value="{{ $item }}" @if (request()->has('start') && request('start') == $item)
+                                selected
+                            @endif>{{ $item }}</option>
                             @endforeach
                         </select>
                         <span class="input-group-addon">to</span>
                         <select name="end" id="max" class="input form-control" required>
                             <option value="">Pilih Angkatan Akhir</option>
                             @foreach ($angkatan as $item)
-                            <option value="{{ $item }}">{{ $item }}</option>
+                            <option value="{{ $item }}" @if (request()->has('end') && request('end') == $item)
+                                selected
+                            @endif>{{ $item }}</option>
                             @endforeach
                         </select>
                         <span class="input-group-btn">
@@ -35,6 +39,35 @@
                 <canvas id="keberhasilanLulus"></canvas>
             </div>
         </div>
+        <div class="row m-5" style="margin-top: 5rem">
+            <table class="table table-bordered table-hover" id="info">
+                <thead>
+                    <tr class="text-center align-middle">
+                        <th scope="col" class="align-middle">Tahun</th>
+                        @foreach ($status as $s)
+                            <th class="text-center">Jumlah {{$s}}</th>
+                        @endforeach
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($mahasiswaFix as $tahun => $status)
+                    <tr class="text-center">
+                        <th scope="row" class="text-center align-middle">{{ $tahun }}</th>
+                        <td>{{ $status['AKTIF'] }}</td>
+                        <td>{{ $status['Dikeluarkan'] }}</td>
+                        <td>{{ $status['Hilang'] }}</td>
+                        <td>{{ $status['Lainnya'] }}</td>
+                        <td>{{ $status['Lulus'] }}</td>
+                        <td>{{ $status['Mengundurkan diri'] }}</td>
+                        <td>{{ $status['Mutasi'] }}</td>
+                        <td>{{ $status['Putus Studi'] }}</td>
+                        <td>{{ $status['Selesai Pendidikan Non Gelar'] }}</td>
+                        <td>{{ $status['Wafat'] }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection
@@ -44,8 +77,27 @@
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{public_path('assets/js/plugins/dataTables/datatables.min.js')}}"></script>
 
+    
 <script>
+
+    $(document).ready(function () {
+        $('#info').DataTable({
+            "scrollX": false,
+            "scrollY": "300px",
+            "scrollCollapse": true,
+            "paging": false,
+            "searching": true,
+            "info": false,
+            "ordering": true,
+            "columnDefs": [
+                { "width": "10%", "targets": 0 }
+            ],
+            "fixedColumns": true
+        });
+    });
+
     const ctx = document.getElementById('keberhasilanLulus');
 
         const data = {!! $mahasiswaPerStatus !!};
