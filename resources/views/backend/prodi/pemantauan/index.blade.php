@@ -34,7 +34,35 @@
             <div class="col-12" style="margin-top: 50px">
                 <canvas id="keberhasilanLulus"></canvas>
             </div>
-            
+            {{-- <div class="row m-5" style="margin-top: 5rem">
+                <table class="table table-bordered table-hover" id="info">
+                    <thead>
+                        <tr class="text-center align-middle">
+                            <th scope="col" class="align-middle">Tahun</th>
+                            @foreach ($status as $s)
+                                <th class="text-center">Jumlah {{$s}}</th>
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($mahasiswaFix as $tahun => $status)
+                        <tr class="text-center">
+                            <th scope="row" class="text-center align-middle">{{ $tahun }}</th>
+                            <td>{{ $status['AKTIF'] }}</td>
+                            <td>{{ $status['Dikeluarkan'] }}</td>
+                            <td>{{ $status['Hilang'] }}</td>
+                            <td>{{ $status['Lainnya'] }}</td>
+                            <td>{{ $status['Lulus'] }}</td>
+                            <td>{{ $status['Mengundurkan diri'] }}</td>
+                            <td>{{ $status['Mutasi'] }}</td>
+                            <td>{{ $status['Putus Studi'] }}</td>
+                            <td>{{ $status['Selesai Pendidikan Non Gelar'] }}</td>
+                            <td>{{ $status['Wafat'] }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div> --}}
         </div>
     </div>
 </div>
