@@ -22,7 +22,7 @@
             {{ session('success') }}
         </div>
         @endif
-        <button class="btn btn-primary" id="sync">Syncronize data</button>
+        {{-- <button class="btn btn-primary" id="sync">Syncronize data</button> --}}
 
         <div class="text-right mb-12">
             <a class="btn btn-success" href="{{route('admin.sync.create')}}">Add Data</a>
@@ -175,35 +175,35 @@
 
 
 
-        $("#sync").click(function(e){
-            e.preventDefault();
+        // $("#sync").click(function(e){
+        //     e.preventDefault();
 
-            $.ajax({
-                url: "{{ route('admin.sync-data') }}",
-                method: 'GET',
-                dataSrc: 'data',
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                },
-                success: function(data) {
+        //     $.ajax({
+        //         url: "{{ route('admin.sync-data') }}",
+        //         method: 'GET',
+        //         dataSrc: 'data',
+        //         error: function(xhr, status, error) {
+        //             console.log(xhr.responseText);
+        //         },
+        //         success: function(data) {
 
-                    $("#status-message").removeClass('hidden');
+        //             $("#status-message").removeClass('hidden');
 
-                    $.ajax({
-                        url: "{{ route('admin.sync-data-process') }}" + "?id=" + data.id,
-                        method: 'GET',
-                        dataSrc: 'data',
-                        error: function(xhr, status, error) {
-                            console.log(xhr.responseText);
-                        },
-                        success: function(data) {
-                            $("#status-message").removeClass('hidden');
-                            callProgress(data.id);
-                           }
-                        });
-                }
-            });
-        });
+        //             $.ajax({
+        //                 url: "{{ route('admin.sync-data-process') }}" + "?id=" + data.id,
+        //                 method: 'GET',
+        //                 dataSrc: 'data',
+        //                 error: function(xhr, status, error) {
+        //                     console.log(xhr.responseText);
+        //                 },
+        //                 success: function(data) {
+        //                     $("#status-message").removeClass('hidden');
+        //                     callProgress(data.id);
+        //                    }
+        //                 });
+        //         }
+        //     });
+        // });
     });
 
 

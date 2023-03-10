@@ -1,4 +1,4 @@
-@extends('layouts.admin-univ.layout')
+@extends('layouts.admin-prodi.layout')
 @section('content')
 <div class="ibox float-e-margins">
     <div class="ibox-title">
@@ -6,7 +6,7 @@
     </div>
     <div class="ibox-content p-md">
         <div class="row">
-            <form action="{{route('admin-univ.length-studi')}}" method="get">
+            <form action="{{route('admin-prodi.length-studi')}}" method="get">
                 <div class="col-lg-3">
                     <button class="btn btn-primary btn-block" type="button" data-toggle="modal"
                     data-target="#modal-filter"><i class="fa-solid fa-filter"></i><span
@@ -89,7 +89,6 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
   
-
     $(document).ready(function () {
 
         $('#info').DataTable({
@@ -148,12 +147,7 @@
                 }
             }
         });
-
-
     });
-
-
-
 </script>
 
 @endpush

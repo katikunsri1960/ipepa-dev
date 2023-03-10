@@ -22,6 +22,7 @@
                         <a href="{{route('admin-univ.length-studi')}}">Length Studi</a>
                     </li>
                 </ul>
+            </li>
             {{-- <li class="{{request()->routeIs('admin-univ.pemantauan-lulusan') ? 'active' : ''}}">
                 <a href="{{route('admin-univ.pemantauan-lulusan')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Pemantauan Lulusan</span></a>
             </li> --}}

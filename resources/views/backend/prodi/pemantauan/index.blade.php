@@ -34,6 +34,7 @@
             <div class="col-12" style="margin-top: 50px">
                 <canvas id="keberhasilanLulus"></canvas>
             </div>
+            
         </div>
     </div>
 </div>

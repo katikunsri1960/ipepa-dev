@@ -56,7 +56,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Semua Routing Admin Universitas masuk ke sini
     Route::group([
         'prefix' => 'admin-univ',
-        'middleware' => 'admin_univ',
+        'middleware' => ['auth','admin_univ'],
         'as' => 'admin-univ.',
     ], function() {
 
@@ -209,6 +209,7 @@ Route::group(['middleware' => 'auth'], function () {
 
             //Pemantauan Lulusan
             Route::get('pemantauan-lulusan', [App\Http\Controllers\AdminProdi\PemantauanController::class, 'index'])->name('pemantauan-lulusan');
+            Route::get('pemantauan-length-studi', [App\Http\Controllers\AdminProdi\PemantauanController::class, 'length_studi'])->name('length-studi');
             Route::get('dev-pemantauan', [App\Http\Controllers\AdminProdi\PemantauanController::class, 'dev'])->name('dev-pemantauan');
         });
 });
