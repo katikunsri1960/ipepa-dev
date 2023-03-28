@@ -16,7 +16,7 @@ class AktivitasMahasiswaController extends Controller
 
         $data = new(ListAktivitasMahasiswa::class);
 
-        $prodi = $data->select('pd_feeder_list_aktivitas_mahasiswa.id_prodi', 'pd_feeder_list_aktivitas_mahasiswa.nama_prodi')->distinct()->orderBy('nama_prodi')->get();
+        $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->orderBy('nama_jenjang_pendidikan')->orderBy('nama_program_studi')->get();
         $semester_now = Semester::select('pd_feeder_semester.id_semester', 'pd_feeder_semester.nama_semester')->where('a_periode_aktif', 1)->get();
         $now = $semester_now->max('id_semester');
 
