@@ -19,14 +19,17 @@ Route::get('/', function () {
     return redirect()->to('login');
 });
 
-Auth::routes();
+Auth::routes([
+    'register' => false,
+    'reset' => false,
+]);
 
 Route::group(['middleware' => 'auth'], function () {
 
     // Semua Routing Administrator masuk ke sini
     Route::group([
         'prefix' => 'admin',
-        'middleware' => 'admin',
+        'middleware' => ['auth','admin'],
         'as' => 'admin.',
     ], function() {
 
@@ -38,6 +41,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('fak-prodi', [App\Http\Controllers\Admin\AjaxSyncController::class, 'prodiId'])->name('get-fak-prodi');
 
         Route::resource('/sync', App\Http\Controllers\Admin\SyncController::class)->except(['show']);
+        Route::get('tesDnp', [App\Http\Controllers\Admin\SyncController::class, 'dnp'])->name('tesDnp');
 
         Route::group(
             [

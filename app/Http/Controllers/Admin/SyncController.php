@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SyncTable;
 use App\Http\Requests\Sync\SyncTableRequest;
+use Illuminate\Support\Facades\DB;
 
 class SyncController extends Controller
 {
@@ -97,6 +98,39 @@ class SyncController extends Controller
         $user->delete();
 
         return redirect()->route('admin.sync.index')->with('success', 'Data has been deleted');
+    }
+
+    public function dnp()
+    {
+        $this->authorize('admin');
+        $count = DB::connection('pdunsri')->table('detail_nilai_perkuliahan')->count();
+        
+        $limit = 50000;
+        $offset = 0;
+
+        $check = DB::table('pd_feeder_detail_nilai_perkuliahan')->count();
+
+        if ($check > 0) {
+            DB::table('pd_feeder_detail_nilai_perkuliahan')->truncate();
+        }
+
+        for ($i=0; $i < $count; $i+50000) { 
+            $data = DB::connection('pdunsri')->table('detail_nilai_perkuliahan')->offset($offset)->limit($limit)->get();
+            
+            //convert object to array
+            $data = json_decode(json_encode($data), true);
+
+            $chunk = array_chunk($data, 1000);
+            //insert data to database
+            foreach ($chunk as $k) {
+                DB::table('pd_feeder_detail_nilai_perkuliahan')->insert($k);
+            }
+
+            $offset += $limit;
+        }
+
+        return redirect()->route('admin.sync.index')->with('success', 'Data berhasil disinkronisasi');
+        
     }
 
 }

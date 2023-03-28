@@ -11,8 +11,8 @@
         <h3>Welcome to Dashboard Feeder<br/>
             Universitas Sriwijaya</h3>
         <p>Login in. To see it in action.</p>
-
-
+        <p class="text-danger">{{session('error')}}</p>
+        
         <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-group">

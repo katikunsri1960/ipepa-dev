@@ -43,6 +43,19 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+        'pdunsri' => [
+            'driver'    => 'mysql',
+            'host'      => 'pd-dev.unsri.ac.id',
+            'database'  => 'pdunsri',
+            'username'  => 'feeder',
+            'password'  => 'Eleunsri*#*#',
+            'charset'   => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix'    => '',
+            'strict'    => true,
+            'engine'    => null,
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),

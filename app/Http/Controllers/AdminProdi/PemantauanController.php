@@ -9,6 +9,7 @@ use App\Models\RolesUser;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use App\Models\PDUnsri\Feeder\Mahasiswa\ListMahasiswaLulusDo as LulusDo;
+use App\Models\PDUnsri\Feeder\ProgramStudi as Prodi;
 
 class PemantauanController extends Controller
 {
@@ -91,7 +92,19 @@ class PemantauanController extends Controller
         $prodiId = RolesUser::where('user_id', auth()->user()->id)->value('fak_prod_id');
 
         // variable month for tepat waktu
-        $day = 1643;
+        if ($req->has('day') && $req->day != null) {
+            $day = $req->day;
+        } else {
+            $day = 1643;
+        }
+
+        if($req->has('jenjang') && $req->jenjang != null){
+            $jenjang = $req->jenjang;
+        } else {
+            $jenjang= 'S1';
+        }
+
+        $jp = Prodi::select('nama_jenjang_pendidikan')->distinct()->get();
 
         $angkatan = LulusDo::select('angkatan')->distinct()->get();
 
@@ -107,7 +120,7 @@ class PemantauanController extends Controller
         $data = LulusDo::join('pd_feeder_program_studi as ps', 'ps.id_prodi', 'pd_feeder_list_mahasiswa_lulus_do.id_prodi')
                         ->selectRaw('angkatan, count(case when timestampdiff(day, tgl_masuk_sp, tgl_keluar) between 0 and '.$day.' then 1 end) as tepat_waktu')
                         ->selectRaw('count(case when timestampdiff(day, tgl_masuk_sp, tgl_keluar) > '.$day.' or timestampdiff(day, tgl_masuk_sp, tgl_keluar) < 0 then 1 end) as tidak_tepat_waktu')
-                        ->where('ps.nama_jenjang_pendidikan', 'S1')
+                        ->where('ps.nama_jenjang_pendidikan', $jenjang)
                         ->where('nama_jenis_keluar', 'Lulus')
                         ->where('pd_feeder_list_mahasiswa_lulus_do.id_prodi', $prodiId)
                         ->groupBy('angkatan')
@@ -130,7 +143,7 @@ class PemantauanController extends Controller
         // convert to json
         $mahasiswa = json_encode($data, JSON_NUMERIC_CHECK);
         // dd($data);
-        return view('backend.prodi.pemantauan.length-studi', compact('mahasiswa', 'angkatan', 'data'));
+        return view('backend.prodi.pemantauan.length-studi', compact('mahasiswa', 'angkatan', 'data', 'jp', 'jenjang', 'day'));
     }
 
     public function dev(Request $req)

@@ -27,6 +27,7 @@
         <div class="text-right mb-12">
             <a class="btn btn-success" href="{{route('admin.sync.create')}}">Add Data</a>
         </div>
+        <a href="{{route('admin.tesDnp')}}" class="btn btn-warning">GetDetailNilaiPerkuliahan</a>
 
         <form id="form-table-data" action="{{route('admin.sync-data-selected')}}">
             <button class="btn btn-danger" id="sync-selected" type="submit">Sync Selected Data</button>
