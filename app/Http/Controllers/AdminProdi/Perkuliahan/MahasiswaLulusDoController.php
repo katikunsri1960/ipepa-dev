@@ -41,7 +41,7 @@ class MahasiswaLulusDoController extends Controller
 
 
 
-        if ($req->has('angkatan') || $req->has('prodi') || $req->has('tahun_keluar') || $req->has('jenis_keluar')) {
+        if ($req->has('keyword') || $req->has('angkatan') || $req->has('prodi') || $req->has('tahun_keluar') || $req->has('jenis_keluar')) {
             $mahasiswa_lulus_do = $data->select('id_mahasiswa','id_prodi','pd_feeder_semester.id_tahun_ajaran','nim', 'nama_mahasiswa', 'angkatan', 'nama_jenis_keluar','tanggal_keluar', 'pd_feeder_semester.nama_semester','keterangan')
             ->addSelect(DB::raw('(SELECT CONCAT(nama_jenjang_pendidikan," ",nama_program_studi) FROM pd_feeder_program_studi WHERE pd_feeder_program_studi.id_prodi = pd_feeder_list_mahasiswa_lulus_do.id_prodi) as nama_program_studi'))
             ->where('id_prodi', $prodiId)
