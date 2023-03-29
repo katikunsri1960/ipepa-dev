@@ -45,10 +45,10 @@ return [
 
         'pdunsri' => [
             'driver'    => 'mysql',
-            'host'      => 'pd-dev.unsri.ac.id',
-            'database'  => 'pdunsri',
-            'username'  => 'feeder',
-            'password'  => 'Eleunsri*#*#',
+            'host'      => '',
+            'database'  => '',
+            'username'  => '',
+            'password'  => '',
             'charset'   => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix'    => '',
