@@ -134,7 +134,7 @@
                     <tr>
                         <td class="text-center">{{$kelas_perkuliahan->firstItem() + $no}}</td>
                         <td class="text-center">{{$data->nama_semester}}</td>
-                        <td  class="text-left"> <a href="{{route('admin-prodi.detail-kelas-perkuliahan', ['id' => $data->id_matkul, 'kelas_kuliah' => $data->nama_kelas_kuliah, 'semester' => $data->id_semester])}}"
+                        <td  class="text-left"> <a href="{{route('admin-prodi.detail-kelas-perkuliahan', ['id' => $data->id_matkul, 'kelas_kuliah' => $data->id_kelas_kuliah, 'semester' => $data->id_semester])}}"
                         {{-- <td  class="text-left"> <a href="{{route('admin-prodi.detail-kelas-perkuliahan', ['id' => $data->id_matkul, 'semester' => $data->id_semester])}}" --}}
                             name="req">{{$data->kode_mata_kuliah}}</a> </td>
                         <td class="text-left">{{$data->nama_mata_kuliah}}</td>
