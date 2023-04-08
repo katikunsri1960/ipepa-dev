@@ -13,7 +13,7 @@
                 <a href="{{route('admin-univ.dashboard-admin-univ')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
             <li  class="{{request()->routeIs('admin-univ.pemantauan-lulusan') || request()->routeIs('admin-univ.length-studi') ? 'active' : ''}}">
-                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Monev</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">Monev</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{request()->routeIs('admin-univ.pemantauan-lulusan') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.pemantauan-lulusan')}}">Lulusan</a>

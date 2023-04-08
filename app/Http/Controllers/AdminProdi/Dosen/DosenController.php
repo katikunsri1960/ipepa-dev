@@ -29,9 +29,7 @@ class DosenController extends Controller
 
         $prodiId = RolesUser::where('user_id', auth()->user()->id)->value('fak_prod_id');
 
-        $db = ListDosen::leftJoin('pd_feeder_list_penugasan_dosen','pd_feeder_list_penugasan_dosen.id_dosen','pd_feeder_list_dosen.id_dosen')
-                        ->where('pd_feeder_list_penugasan_dosen.id_prodi', $prodiId)
-                        ;
+        $db = new (ListDosen::class);
 
         // $db = new (ListDosen::class);
         // $status = $db->select('id_status_aktif', 'nama_status_aktif')->distinct()->get();
@@ -67,8 +65,6 @@ class DosenController extends Controller
         } else $valPaginate = 20;
 
         $paginate = [20,50,100,200,500];
-
-
 
         return view('backend.prodi.dosen.index', compact('dosen', 'status', 'val', 'jk', 'agama','paginate', 'valPaginate'));
     }

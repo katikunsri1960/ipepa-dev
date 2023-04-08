@@ -113,6 +113,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('detail-aktivitas-kuliah-mahasiswa/{id}/{semester}', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasKuliahMahasiswaController::class, 'detail'])->name('detail-aktivitas-kuliah-mahasiswa');
         Route::get('aktivitas-mahasiswa', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasMahasiswaController::class, 'index'])->name('aktivitas-mahasiswa');
         Route::get('detail-aktivitas-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasMahasiswaController::class, 'detail'])->name('detail-aktivitas-mahasiswa');
+        //revisi
+        Route::get('kelas-perkuliahan-rev', [App\Http\Controllers\RevisiController::class, 'index'])->name('kelas-perkuliahan-rev');
+        
         // Route::get('kampus-merdeka', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'kampus_merdeka'])->name('kampus-merdeka');
         Route::get('mahasiswa-lulus-do', [App\Http\Controllers\AdminUniv\Perkuliahan\MahasiswaLulusDoController::class, 'index'])->name('mahasiswa-lulus-do');
         Route::get('detail-mahasiswa-lulus-do/{id}/{tahun}', [App\Http\Controllers\AdminUniv\Perkuliahan\MahasiswaLulusDoController::class, 'detail'])->name('detail-mahasiswa-lulus-do');
