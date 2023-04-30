@@ -32,8 +32,8 @@ class DosenController extends Controller
         $db = new (ListDosen::class);
 
         // $db = new (ListDosen::class);
-        // $status = $db->select('id_status_aktif', 'nama_status_aktif')->distinct()->get();
-        $status = ListDosen::select('id_status_aktif', 'nama_status_aktif')->distinct()->get();
+        $status = $db->select('id_status_aktif', 'nama_status_aktif')->distinct()->get();
+        // $status = ListDosen::select('id_status_aktif', 'nama_status_aktif')->distinct()->get();
         $jk = $db->select('jenis_kelamin')->distinct()->get();
         $agama = Agama::select('id_agama','nama_agama')->get();
         $val = $req;

@@ -89,9 +89,6 @@ class NilaiPerkuliahanController extends Controller
         $this->authorize('admin-prodi');
         // $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->where('pd_feeder_program_studi.id_prodi',$prodiId)->get();
 
-        $nim = KrsMahasiswa::leftJoin('pd_feeder_list_mahasiswa', 'pd_feeder_list_mahasiswa.id_registrasi_mahasiswa', 'pd_feeder_krs_mahasiswa.id_registrasi_mahasiswa')
-                        ->leftJoin('pd_feeder_transkrip_mahasiswa', 'pd_feeder_transkrip_mahasiswa.id_kelas_kuliah', 'pd_feeder_krs_mahasiswa.id_kelas');
-
         $detail = ListNilaiPerkuliahan::where('id_kelas_kuliah',$id)->where('id_smt',$semester)->select('*')->get();
 
         $mahasiswa = DetailNilaiPerkuliahan::where('id_kelas_kuliah',$id)

@@ -85,7 +85,6 @@ class NilaiPerkuliahanController extends Controller
     public function detail($id,$semester)
     {
         $this->authorize('admin-univ');
-        $nim = KrsMahasiswa::leftJoin('pd_feeder_transkrip_mahasiswa', 'pd_feeder_transkrip_mahasiswa.id_kelas_kuliah', 'pd_feeder_krs_mahasiswa.id_kelas');
 
         $detail = ListNilaiPerkuliahan::where('id_kelas_kuliah',$id)->where('id_smt',$semester)->select('*')->get();
 

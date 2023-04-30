@@ -166,7 +166,7 @@
                                                 <td class="text-left">{{$data->jenis_evaluasi}}</td>
                                                 <td class="text-center">{{$data->nama_evaluasi}}</td>
                                                 <td class="text-left">{{$data->deskripsi_indonesia}}</td>
-                                                <td class="text-center">{{$data->bobot_evaluasi}}</td>
+                                                <td class="text-center">{{number_format($data->bobot_evaluasi, 0, '.','')}}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

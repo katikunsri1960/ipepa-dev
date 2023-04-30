@@ -6,7 +6,7 @@
     </div>
         <div class="ibox-content p-md">
             <div class="row">
-                <form method="get" id="filter-form">
+                <form method="get">
                     <div class="col-md-2">
                         <button class="btn btn-primary btn-block" type="button" data-toggle="modal"
                             data-target="#modal-filter"><i class="fa-solid fa-filter"></i><span
@@ -47,34 +47,63 @@
                                                         @endforeach
                                                 </select>
                                             </div>
-                                            <button class="btn btn-warning" type="submit" id="applyFilter">Apply Filter</button>
+                                            <button class="btn btn-warning" type="submit">Apply Filter</button>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="{{route('admin-univ.daftar-mata-kuliah')}}" class="btn btn-warning btn-block" id="reset-filter">Reset Filter</a>
                     </div><br><br><hr>
+                    <div class="col-md-2">
+                        <select name="p" id="p" class="form-control" onchange="this.form.submit()">
+                            @foreach ($paginate as $p)
+                            <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </form>
+                <div class="col-lg-4 pull-right">
+                    <form method="GET" role="search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="keyword" placeholder="Search by Nama Mata Kuliah or Nama Program Studi"
+                                value="{{ request()->get('keyword', '') }}"> <span class="input-group-btn">
+                                <button class="btn btn-default">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="pt-2">
             <table class="table table-bordered table-hover table-responsive" id="table-matkul">
                 <thead>
                     <tr>
-                        <th class="text-center" style="vertical-align: middle">No.</th>
-                        <th class="text-center" style="vertical-align: middle">Kode MK</th>
-                        <th class="text-center" style="vertical-align: middle">Nama Mata Kuliah</th>
-                        <th class="text-center" style="vertical-align: middle">Bobot MK (sks)</th>
-                        <th class="text-center" style="vertical-align: middle">Program Studi</th>
-                        <th class="text-center" style="vertical-align: middle">Jenis Mata Kuliah</th>
+                        <th rowspan="2" class="text-center" style="vertical-align: middle">No.</th>
+                        <th rowspan="2" class="text-center" style="vertical-align: middle">Kode MK</th>
+                        <th rowspan="2" class="text-center" style="vertical-align: middle">Nama Mata Kuliah</th>
+                        <th rowspan="2" class="text-center" style="vertical-align: middle">Bobot MK (sks)</th>
+                        <th rowspan="2" class="text-center" style="vertical-align: middle">Program Studi</th>
+                        <th rowspan="2" class="text-center" style="vertical-align: middle">Jenis Mata Kuliah</th>
                     </tr>
                 </thead>
+                <tbody>
+                    @foreach($mata_kuliah as $m => $data)
+                    <tr>
+                        <td class="text-center">{{$mata_kuliah->firstItem() + $m}}</td>
+                        <td  class="text-center"><a href="{{route('admin-univ.detail-mata-kuliah', ['id' => $data->id_matkul])}}">
+                        {{$data->kode_mata_kuliah}}</td>
+                        <td class="text-left">{{$data->nama_mata_kuliah}}</td>
 
+                        <td class="text-center">{{$data->sks_mata_kuliah}}</td>
+                        <td class="text-left">{{$data->nama_program_studi}}</td>
+                        <td class="text-center">{{$data->id_jenis_mata_kuliah}}<br>- {{ $data->nama_jenis_mata_kuliah}}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
             </table>
-            {{-- {!! $mata_kuliah->withQueryString()->links() !!} --}}
+            {!! $mata_kuliah->withQueryString()->links() !!}
         </div>
     </div>
 </div>
@@ -91,46 +120,6 @@
         $(document).ready(function() {
             $('.chosen-select').chosen({
                 width: "100%"
-            });
-
-            $('#table-matkul').DataTable({
-                lengthMenu: [[20, 50, 100, 300, 500], [20, 50, 100, 300, 500]],
-                searchable: true,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('admin-univ.mk-data') }}",
-                    data: function (d) {
-                        d.prodi = $('#prodi').val();
-                        d.jenis_matkul = $('#jenis_matkul').val();
-                    }
-                },
-                pageLength: 20,
-                responsive: true,
-                ordering: false,
-                columns: [
-                    {data: 'number', name: 'number', searchable: false, class: 'text-center'},
-                    {data: 'kode_mata_kuliah', name: 'kode_mata_kuliah', searchable: false, class: 'text-center',
-                            "render": function ( data, type, row, meta ) {
-                                var link = '<a href="{{route("admin-univ.detail-mata-kuliah", ["id" => ":id"])}}">:data</a>';
-                                link = link.replace(':id', row.id_matkul);
-                                link = link.replace(':data', data);
-                                return link;
-                        }
-                     },
-                    {data: 'nama_mata_kuliah', name: 'nama_mata_kuliah', searchable: true},
-                    {data: 'sks_mata_kuliah', name: 'sks_mata_kuliah', class: 'text-center'},
-                    {data: 'nama_program_studi', name: 'nama_program_studi', searchable: true},
-                    {data: 'id_jm', name: 'id_jenis_mata_kuliah', class:'text-center align-middle', render: function(data, type, row, meta){
-                        var join = data + '<br> - ' + row.nama_jm;
-                        return join;
-                    }},
-                ]
-            });
-
-            $('#applyFilter').on('click', function() {
-                table.ajax.reload();// merefresh datatable
-                $('#modal-filter').modal('hide'); // hide modal
             });
         });
     </script>

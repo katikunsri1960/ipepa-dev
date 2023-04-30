@@ -100,6 +100,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         //Daftar Perkuliahan
         Route::get('daftar-mata-kuliah', [App\Http\Controllers\AdminUniv\Perkuliahan\MataKuliahController::class, 'index'])->name('daftar-mata-kuliah');
+        Route::get('mk-data', [App\Http\Controllers\AdminUniv\Perkuliahan\MataKuliahController::class, 'mk_data'])->name('mk-data');
+        Route::get('mk-dev', [App\Http\Controllers\AdminUniv\Perkuliahan\MataKuliahController::class, 'mk_dev'])->name('mk-dev');
         Route::get('detail-mata-kuliah/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\MataKuliahController::class, 'detail_matkul'])->name('detail-mata-kuliah');
         Route::get('substansi-kuliah', [App\Http\Controllers\AdminUniv\Perkuliahan\SubstansiKuliahController::class, 'index'])->name('substansi-kuliah');
         Route::get('detail-substansi-kuliah/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\SubstansiKuliahController::class, 'detail'])->name('detail-substansi-kuliah');
@@ -115,7 +117,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('detail-aktivitas-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasMahasiswaController::class, 'detail'])->name('detail-aktivitas-mahasiswa');
         //revisi
         Route::get('kelas-perkuliahan-rev', [App\Http\Controllers\RevisiController::class, 'index'])->name('kelas-perkuliahan-rev');
-        
+
         // Route::get('kampus-merdeka', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'kampus_merdeka'])->name('kampus-merdeka');
         Route::get('mahasiswa-lulus-do', [App\Http\Controllers\AdminUniv\Perkuliahan\MahasiswaLulusDoController::class, 'index'])->name('mahasiswa-lulus-do');
         Route::get('detail-mahasiswa-lulus-do/{id}/{tahun}', [App\Http\Controllers\AdminUniv\Perkuliahan\MahasiswaLulusDoController::class, 'detail'])->name('detail-mahasiswa-lulus-do');
