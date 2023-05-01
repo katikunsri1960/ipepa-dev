@@ -18,30 +18,61 @@ class KurikulumController extends Controller
     {
         $this->authorize('admin-univ');
 
-        $data = new(ListKurikulum::class);
 
         $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->orderBy('nama_jenjang_pendidikan')->orderBy('nama_program_studi')->get();
         $val = $req;
 
-        $kurikulum = $data->select('id_kurikulum', 'id_prodi', 'nama_kurikulum', 'nama_program_studi', 'semester_mulai_berlaku', 'jumlah_sks_lulus','jumlah_sks_wajib', 'jumlah_sks_pilihan','jumlah_sks_mata_kuliah_wajib','jumlah_sks_mata_kuliah_pilihan')
-        ->when($req->has('p') || $req->has('keyword') || $req->has('prodi'), function($q) use($req){
-            if ($req->keyword != '') {
-                $q->where('pd_feeder_list_kurikulum.nama_kurikulum', 'like', '%'.$req->keyword.'%')
-                ->orWhere('pd_feeder_list_kurikulum.nama_program_studi', 'like', '%'.$req->keyword.'%');
-            }
-            if ($req->prodi!='') {
-                $q->whereIn('id_prodi', $req->prodi);
-            }
-        })->paginate($req->p != '' ? $req->p : 20);
+        return view('backend.univ.perkuliahan.kurikulum.index', compact('prodi','val'));
+    }
 
-        if ($req->has('p') && $req->p != '') { 
-            $valPaginate = $req->p;
-        } else $valPaginate = 20;
+    public function getData(Request $request)
+    {
+        $this->authorize('admin-univ');
 
-        $paginate = [20,50,100,200,500];
+        $searchValue = $request->input('search.value');
 
+        $query = ListKurikulum::select('id_kurikulum', 'id_prodi', 'nama_kurikulum', 'nama_program_studi', 'semester_mulai_berlaku', 'jumlah_sks_lulus','jumlah_sks_wajib', 'jumlah_sks_pilihan','jumlah_sks_mata_kuliah_wajib','jumlah_sks_mata_kuliah_pilihan');
 
-        return view('backend.univ.perkuliahan.kurikulum.index', compact('kurikulum','prodi','val','paginate', 'valPaginate'));
+        if ($searchValue) {
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('pd_feeder_list_kurikulum.nama_kurikulum', 'LIKE', '%'.$searchValue.'%')
+                    ->orWhere('pd_feeder_list_kurikulum.nama_program_studi', 'LIKE', '%'.$searchValue.'%');
+            });
+        }
+
+        if ($request->has('prodi') && !empty($request->input('prodi'))) {
+            $kota = $request->input('prodi');
+            $query->whereIn('id_prodi', $kota);
+        }
+
+        $recordsFiltered = $query->count();
+
+        // limit and offset
+        $limit = $request->input('length');
+        $offset = $request->input('start');
+        $query->skip($offset)->take($limit);
+
+         // get data
+        $data = $query->get();
+
+        $recordsTotal = ListKurikulum::count();
+
+         // add numbering
+        $number = $offset + 1;
+        foreach ($data as $d) {
+            $d->number = $number;
+            $number++;
+        }
+
+        // prepare response
+        $response = [
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $data,
+        ];
+
+        return response()->json($response);
     }
 
     public function detail($id)

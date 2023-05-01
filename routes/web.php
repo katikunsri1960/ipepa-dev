@@ -107,6 +107,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('substansi-kuliah', [App\Http\Controllers\AdminUniv\Perkuliahan\SubstansiKuliahController::class, 'index'])->name('substansi-kuliah');
         Route::get('detail-substansi-kuliah/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\SubstansiKuliahController::class, 'detail'])->name('detail-substansi-kuliah');
         Route::get('kurikulum', [App\Http\Controllers\AdminUniv\Perkuliahan\KurikulumController::class, 'index'])->name('kurikulum');
+        Route::get('get-kurikulum', [App\Http\Controllers\AdminUniv\Perkuliahan\KurikulumController::class, 'getData'])->name('get-kurikulum');
+
         Route::get('detail-kurikulum/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\KurikulumController::class, 'detail'])->name('detail-kurikulum');
         Route::get('kelas-perkuliahan', [App\Http\Controllers\AdminUniv\Perkuliahan\KelasPerkuliahanController::class, 'index'])->name('kelas-perkuliahan');
         Route::get('detail-kelas-perkuliahan/{id}/{kelas_kuliah}/{semester}', [App\Http\Controllers\AdminUniv\Perkuliahan\KelasPerkuliahanController::class, 'detail'])->name('detail-kelas-perkuliahan');

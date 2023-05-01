@@ -32,34 +32,18 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <button class="btn btn-warning" type="submit">Apply Filter</button>
+                                        <button class="btn btn-warning" type="submit" id="applyFilter">Apply Filter</button>
 
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div><br><br><hr>
-                <div class="col-md-2">
-                    <select name="p" id="p" class="form-control" onchange="this.form.submit()">
-                        @foreach ($paginate as $p)
-                        <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
-                        @endforeach
-                    </select>
                 </div>
+                <div class="col-md-2">
+                    <a href="{{route('admin-univ.kurikulum')}}" class="btn btn-warning btn-block" id="reset-filter">Reset Filter</a>
+                </div><br><br><hr>
             </form>
-            <div class="col-lg-4 pull-right">
-                <form method="GET" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="keyword" placeholder="Search by Nama Kurikulum or Program Studi"
-                            value="{{ request()->get('keyword', '') }}"> <span class="input-group-btn">
-                            <button class="btn btn-default">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-            </div>
         </div>
         <div class="pt-2">
             <table class="table table-bordered table-hover table-responsive" id="table-matkul">
@@ -81,23 +65,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($kurikulum as $k => $data)
-                    <tr>
-                        <td class="text-center">{{$kurikulum->firstItem() + $k}}</td>
-                        <td  class="text-left"><a href="{{route('admin-univ.detail-kurikulum', ['id' => $data->id_kurikulum])}}">
-                        {{$data->nama_kurikulum}}</td>
-                        <td class="text-left">{{$data->nama_program_studi}}</td>
-                        <td class="text-center">{{$data->semester_mulai_berlaku}}</td>
-                        <td class="text-center">{{$data->jumlah_sks_lulus}}</td>
-                        <td class="text-center">{{$data->jumlah_sks_wajib}}</td>
-                        <td class="text-center">{{$data->jumlah_sks_pilihan}}</td>
-                        <td class="text-center">{{number_format($data->jumlah_sks_mata_kuliah_wajib,0)}}</td>
-                        <td class="text-center">{{number_format($data->jumlah_sks_mata_kuliah_pilihan,0)}}</td>
-                    </tr>
-                    @endforeach
                 </tbody>
             </table>
-            {!! $kurikulum->withQueryString()->links() !!}
         </div>
     </div>
 </div>
@@ -112,9 +81,57 @@
     <script src="{{ asset('assets/js/plugins/chosen/chosen.jquery.js') }}"></script>
 
     <script>
+        function numberFormat(value) {
+            return new Intl.NumberFormat('id-ID').format(value);
+        }
+
         $(document).ready(function() {
             $('.chosen-select').chosen({
                 width: "100%"
+            });
+
+            $('#table-matkul').DataTable({
+                lengthMenu: [[20, 50, 100, 300, 500], [20, 50, 100, 300, 500]],
+                searchable: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin-univ.get-kurikulum') }}",
+                    data: function (d) {
+                        d.prodi = $('#prodi').val();
+                        d.jenis_matkul = $('#jenis_matkul').val();
+                    }
+                },
+                pageLength: 20,
+                responsive: true,
+                ordering: false,
+                columns: [
+                    {data: 'number', name: 'number', searchable: false, class: 'text-center'},
+                    {data: 'nama_kurikulum', name: 'nama_kurikulum', searchable: true,
+                            "render": function ( data, type, row, meta ) {
+                                var link = '<a href="{{route("admin-univ.detail-kurikulum", ["id" => ":id"])}}">:data</a>';
+                                link = link.replace(':id', row.id_kurikulum);
+                                link = link.replace(':data', data);
+                                return link;
+                        }
+                     },
+                     {data: 'nama_program_studi', name: 'nama_program_studi', searchable: true},
+                    {data: 'semester_mulai_berlaku', name: 'semester_mulai_berlaku', searchable: false},
+                    {data: 'jumlah_sks_lulus', name: 'jumlah_sks_lulus', class: 'text-center'},
+                    {data: 'jumlah_sks_wajib', name: 'jumlah_sks_wajib', class: 'text-center'},
+                    {data: 'jumlah_sks_pilihan', name: 'jumlah_sks_pilihan', class: 'text-center'},
+                    {data: 'jumlah_sks_mata_kuliah_wajib', name: 'jumlah_sks_mata_kuliah_wajib', class: 'text-center', render: function(data, type, row, meta){
+                        return (type === 'display') ? numberFormat(data) : data;
+                    }},
+                    {data: 'jumlah_sks_mata_kuliah_pilihan', name: 'jumlah_sks_mata_kuliah_pilihan', class: 'text-center', render: function(data, type, row, meta){
+                        return (type === 'display') ? numberFormat(data) : data;
+                    }},
+                ]
+            });
+
+            $('#applyFilter').on('click', function() {
+                table.ajax.reload();// merefresh datatable
+                $('#modal-filter').modal('hide'); // hide modal
             });
         });
     </script>
