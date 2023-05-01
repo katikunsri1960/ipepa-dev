@@ -19,7 +19,7 @@
                                         <div class="row">
                                             <div class="form-group">
                                                 <label>Pilih Status Kepegawaian</label>
-                                                <select name="status_pegawai[]" id="status"
+                                                <select name="status_pegawai[]" id="status_pegawai"
                                                     data-placeholder="Pilih Status Kepegawaian..."
                                                     class="form-control chosen-select" multiple style="width:350px;"
                                                     tabindex="4">
@@ -76,27 +76,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div><br><br><hr>
-                    <div class="col-md-2">
-                        <select name="p" id="p" class="form-control" onchange="this.form.submit()">
-                            @foreach ($paginate as $p)
-                            <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
-                            @endforeach
-                        </select>
                     </div>
+                    <div class="col-md-2">
+                        <a href="{{route('admin-univ.daftar-dosen')}}" class="btn btn-warning btn-block" id="reset-filter">Reset Filter</a>
+                    </div><br><br><hr>
                 </form>
-                <div class="col-lg-4 pull-right"> 
-                    <form method="GET" role="search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="keyword" placeholder="Search by NIDN or Nama"
-                                value="{{ request()->get('keyword', '') }}"> <span class="input-group-btn">
-                                <button class="btn btn-default">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </form>
-                </div>
             </div>
             <div class="pt-2">
                 <table class="table table-bordered table-hover table-responsive" id="table-mahasiswa">
@@ -112,26 +96,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($dosen as $d => $data)
-                            <tr>
-                                <td class="text-center">{{ $dosen->firstItem() + $d }}</td>
-                                <td><a
-                                        href="{{ route('admin-univ.detail-dosen', ['id' => $data->id_dosen]) }}">{{ $data->nama_dosen }}</a>
-                                </td>
-                                <td class="text-center">{{ $data->nidn }}</td>
-                                <td class="text-center">{{ $data->jenis_kelamin }}</td>
-                                <td class="text-center">{{ $data->nama_agama }}</td>
-                                <td class="text-center">{{ $data->nama_status_aktif }}</td>
-                                <td class="text-center">{{ $data->tanggal_lahir }}</td>
-                            </tr>
-                        @endforeach
                     </tbody>
                 </table>
-                {{-- {{$dosen->getOptions()}} --}}
-                {!! $dosen->withQueryString()->links() !!}
             </div>
-
-            {{-- {{$dosen->onEachSide(5)->links()}} --}}
         </div>
     </div>
 @endsection
@@ -148,6 +115,45 @@
         $(document).ready(function() {
             $('.chosen-select').chosen({
                 width: "100%"
+            });
+
+            $('#table-mahasiswa').DataTable({
+                lengthMenu: [[20, 50, 100, 300, 500], [20, 50, 100, 300, 500]],
+                searchable: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin-univ.get-dsn') }}",
+                    data: function (d) {
+                        d.status_pegawai = $('#status_pegawai').val();
+                        d.jk = $('#jk').val();
+                        d.agama = $('#agama').val();
+                    }
+                },
+                pageLength: 20,
+                responsive: true,
+                ordering: false,
+                columns: [
+                    {data: 'number', name: 'number', searchable: false, class: 'text-center'},
+                    {data: 'nama_dosen', name: 'nama_dosen', searchable: false,
+                            "render": function ( data, type, row, meta ) {
+                                var link = '<a href="{{route("admin-univ.detail-dosen", ["id" => ":id"])}}">:data</a>';
+                                link = link.replace(':id', row.id_dosen);
+                                link = link.replace(':data', data);
+                                return link;
+                        }
+                     },
+                     {data: 'nidn', name: 'nidn', class: 'text-center'},
+                    {data: 'jenis_kelamin', name: 'jenis_kelamin', class: 'text-center'},
+                    {data: 'nama_agama', name: 'nama_agama', class: 'text-center'},
+                    {data: 'nama_status_aktif', name: 'status_pegawai', class: 'text-center'},
+                    {data: 'tanggal_lahir', name: 'tanggal_lahir', class: 'text-center'},
+                ]
+            });
+
+            $('#applyFilter').on('click', function() {
+                table.ajax.reload();// merefresh datatable
+                $('#modal-filter').modal('hide'); // hide modal
             });
         });
     </script>

@@ -31,33 +31,68 @@ class DosenController extends Controller
         $jk = $data->select('jenis_kelamin')->distinct()->get();
         $val = $req;
 
-        $dosen = $data ->select('pd_feeder_list_dosen.id_dosen as id_dosen',
-        'pd_feeder_list_dosen.nama_dosen as nama_dosen', 'pd_feeder_list_dosen.nidn as nidn', 'pd_feeder_list_dosen.jenis_kelamin as jenis_kelamin',
-           'pd_feeder_list_dosen.nama_agama as nama_agama', 'pd_feeder_list_dosen.tanggal_lahir as tanggal_lahir', 'pd_feeder_list_dosen.nama_status_aktif as nama_status_aktif')
-           ->when($req->has('p') || $req->has('keyword') || $req->has('status_pegawai') || $req->has('jk') || $req->has('agama'), function($q) use($req){
-            if ($req->keyword != '') {
-                $q->where('nama_dosen', 'like', '%'.$req->keyword.'%')
-                ->orWhere('nidn', 'like', '%'.$req->keyword.'%');
-                // ->orWhere('pd_feeder_list_dosen.nip', 'like', '%'.$req->keyword.'%');
-            }
-            if ($req->status_pegawai!='') {
-                $q->whereIn('id_status_aktif', $req->status_pegawai);
-            }
-            if ($req->jk!='') {
-                $q->whereIn('jenis_kelamin', $req->jk);
-            }
-            if ($req->agama!='') {
-                $q->whereIn('id_agama', $req->agama);
-            }
-        })->paginate($req->p != '' ? $req->p : 20);
+        return view('backend.univ.dosen.index', compact('status_pegawai','agama','jk','val'));
+    }
 
-        if ($req->has('p') && $req->p != '') {
-            $valPaginate = $req->p;
-        } else $valPaginate = 20;
+    public function getData(Request $request)
+    {
+        $this->authorize('admin-univ');
 
-        $paginate = [20,50,100,200,500];
+        $searchValue = $request->input('search.value');
 
-        return view('backend.univ.dosen.index', compact('dosen','status_pegawai','agama','jk','val','paginate', 'valPaginate'));
+        $query = ListDosen::select('pd_feeder_list_dosen.id_dosen as id_dosen',
+                'pd_feeder_list_dosen.nama_dosen as nama_dosen', 'pd_feeder_list_dosen.nidn as nidn', 'pd_feeder_list_dosen.jenis_kelamin as jenis_kelamin', 'pd_feeder_list_dosen.id_status_aktif as id_status_aktif',
+                'pd_feeder_list_dosen.nama_agama as nama_agama', 'pd_feeder_list_dosen.tanggal_lahir as tanggal_lahir', 'pd_feeder_list_dosen.nama_status_aktif as nama_status_aktif');
+
+        if ($searchValue) {
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('nama_dosen', 'LIKE', '%'.$searchValue.'%')
+                    ->orWhere('nidn', 'LIKE', '%'.$searchValue.'%');
+            });
+        }
+
+        if ($request->has('status_pegawai') && !empty($request->input('status_pegawai'))) {
+            $f = $request->input('status_pegawai');
+            $query->whereIn('id_status_aktif', $f);
+        }
+
+        if ($request->has('jk') && !empty($request->input('jk'))) {
+            $f = $request->input('jk');
+            $query->whereIn('jenis_kelamin', $f);
+        }
+        if ($request->has('agama') && !empty($request->input('agama'))) {
+            $f = $request->input('agama');
+            $query->whereIn('id_agama', $f);
+        }
+
+        $recordsFiltered = $query->count();
+
+         // limit and offset
+        $limit = $request->input('length');
+        $offset = $request->input('start');
+        $query->skip($offset)->take($limit);
+
+        $data = $query->get();
+
+        $recordsTotal = ListDosen::count();
+
+         // add numbering
+         $number = $offset + 1;
+        foreach ($data as $d) {
+            $d->number = $number;
+            $number++;
+        }
+
+        // prepare response
+        $response = [
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $data,
+        ];
+
+        return response()->json($response);
+
     }
 
     public function detail($id)

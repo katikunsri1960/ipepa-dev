@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         //Daftar Dosen
         Route::get('daftar-dosen', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'index'])->name('daftar-dosen');
+        Route::get('get-dsn', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'getData'])->name('get-dsn');
         Route::get('detail-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'detail'])->name('detail-dosen');
         Route::get('penugasan-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'penugasan'])->name('penugasan-dosen');
         Route::get('aktivitas-mengajar-dosen/{id}', [App\Http\Controllers\AdminUniv\Dosen\DosenController::class, 'aktivitas_mengajar'])->name('aktivitas-mengajar-dosen');
