@@ -68,6 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         //Daftar Mahasiswa
         Route::get('daftar-mahasiswa', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'index'])->name('daftar-mahasiswa');
+        Route::get('get-mhs', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'getData'])->name('get-mhs');
         Route::get('detail-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'detail'])->name('detail-mahasiswa');
         Route::get('histori-pendidikan/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'histori'])->name('histori-pendidikan');
         Route::get('aktivitas-perkuliahan/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'aktivitas'])->name('aktivitas-perkuliahan');

@@ -13,6 +13,7 @@ class ExportAktivitasPerkuliahan implements FromCollection, WithHeadings
         $this->program_studi = $program_studi;
         $this->semester = $semester;
     }
+    
     public function collection()
     {
         $data = AktivitasKuliahMahasiswa::select('nim','nama_mahasiswa','nama_program_studi','nama_status_mahasiswa','ips','sks_semester','ipk','sks_total','biaya_kuliah_smt')->where('pd_feeder_aktivitas_kuliah_mahasiswa.id_prodi', $this->program_studi)->where('pd_feeder_aktivitas_kuliah_mahasiswa.id_semester', $this->semester)->get();

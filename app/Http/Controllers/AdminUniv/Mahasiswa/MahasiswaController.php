@@ -38,7 +38,13 @@ class MahasiswaController extends Controller
 
         $val = $req;
 
-        $mahasiswa = $data->leftJoin('pd_feeder_semester as semester','id_semester','id_periode')->select('pd_feeder_list_mahasiswa.id_registrasi_mahasiswa as id_registrasi_mahasiswa','pd_feeder_list_mahasiswa.id_mahasiswa as id_mahasiswa',
+        return view('backend.univ.mahasiswa.index', compact('status', 'agama', 'angkatan', 'jk', 'val', 'prodi'));
+    }
+
+    public function getData(Request $request)
+    {
+        $searchValue = $request->input('search.value');
+        $query = ListMahasiswa::leftJoin('pd_feeder_semester as semester','id_semester','id_periode')->select('pd_feeder_list_mahasiswa.id_registrasi_mahasiswa as id_registrasi_mahasiswa','pd_feeder_list_mahasiswa.id_mahasiswa as id_mahasiswa',
              'pd_feeder_list_mahasiswa.nama_mahasiswa as nama_mahasiswa', 'pd_feeder_list_mahasiswa.nim as nim', 'pd_feeder_list_mahasiswa.jenis_kelamin as jenis_kelamin',
                 'pd_feeder_list_mahasiswa.nama_agama as nama_agama', 'pd_feeder_list_mahasiswa.total_sks as total_sks', 'pd_feeder_list_mahasiswa.tanggal_lahir as tanggal_lahir',
                 'pd_feeder_list_mahasiswa.nama_program_studi as nama_program_studi',
@@ -46,39 +52,67 @@ class MahasiswaController extends Controller
             // ->addSelect(DB::raw('(SELECT id_tahun_ajaran from pd_feeder_semester as semester where semester.id_semester = pd_feeder_list_mahasiswa.id_periode) as angkatan'))
             ->addSelect(DB::raw('(SELECT SUM(sks_mata_kuliah) from pd_feeder_transkrip_mahasiswa where id_registrasi_mahasiswa = pd_feeder_list_mahasiswa.id_registrasi_mahasiswa) as total'))
             ->orderBy('pd_feeder_list_mahasiswa.id_prodi', 'asc')
-            ->orderBy('pd_feeder_list_mahasiswa.nim', 'asc')
-            ->when($req->has('p') ||$req->has('keyword') || $req->has('angkatan') || $req->has('prodi') || $req->has('status') || $req->has('jk') || $req->has('agama'), function($q) use($req) {
-                if ($req->keyword != '') {
-                    $q->where('pd_feeder_list_mahasiswa.nama_mahasiswa', 'like', '%'.$req->keyword.'%')
-                    ->orWhere('pd_feeder_list_mahasiswa.nim', 'like', '%'.$req->keyword.'%')
-                    ->orWhere('pd_feeder_list_mahasiswa.nama_program_studi', 'like', '%'.$req->keyword.'%');
-                }
-                if ($req->angkatan!='') {
-                    $q->whereIn('semester.id_tahun_ajaran', $req->angkatan);
-                }
-                if ($req->prodi!='') {
-                    $q->whereIn('id_prodi', $req->prodi);
-                }
-                if ($req->status!='') {
-                    $q->whereIn('nama_status_mahasiswa', $req->status);
+            ->orderBy('pd_feeder_list_mahasiswa.nim', 'asc');
 
-                }
-                if ($req->jk!='') {
-                    $q->whereIn('jenis_kelamin', $req->jk);
+        if ($searchValue) {
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('pd_feeder_list_mahasiswa.nama_mahasiswa', 'LIKE', '%'.$searchValue.'%')
+                    ->orWhere('pd_feeder_list_mahasiswa.nim', 'LIKE', '%'.$searchValue.'%')
+                    ->orWhere('pd_feeder_list_mahasiswa.nama_program_studi', 'LIKE', '%'.$searchValue.'%');
+            });
+        }
 
-                }
-                if ($req->agama!='') {
-                    $q->whereIn('id_agama', $req->agama);
-                }
-            })->paginate($req->p != '' ? $req->p : 20);
+        if ($request->has('prodi') && !empty($request->input('prodi'))) {
+            $f = $request->input('prodi');
+            $query->whereIn('id_prodi', $f);
+        }
 
-        if ($req->has('p') && $req->p != '') {
-            $valPaginate = $req->p;
-        } else $valPaginate = 20;
+        if ($request->has('angkatan') && !empty($request->input('angkatan'))) {
+            $f = $request->input('angkatan');
+            $query->whereIn('semester.id_tahun_ajaran', $f);
+        }
 
-        $paginate = [20,50,100,200,500];
+        if ($request->has('status') && !empty($request->input('status'))) {
+            $f = $request->input('status');
+            $query->whereIn('nama_status_mahasiswa', $f);
+        }
 
-        return view('backend.univ.mahasiswa.index', compact('mahasiswa', 'status', 'agama', 'angkatan', 'jk', 'val', 'prodi', 'paginate', 'valPaginate'));
+        if ($request->has('jk') && !empty($request->input('jk'))) {
+            $f = $request->input('jk');
+            $query->whereIn('jenis_kelamin', $f);
+        }
+        if ($request->has('agama') && !empty($request->input('agama'))) {
+            $f = $request->input('agama');
+            $query->whereIn('id_agama', $f);
+        }
+
+        $recordsFiltered = $query->count();
+
+         // limit and offset
+         $limit = $request->input('length');
+        $offset = $request->input('start');
+        $query->skip($offset)->take($limit);
+
+        $data = $query->get();
+
+        $recordsTotal = ListMahasiswa::count();
+
+         // add numbering
+         $number = $offset + 1;
+        foreach ($data as $d) {
+            $d->number = $number;
+            $number++;
+        }
+
+        // prepare response
+        $response = [
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $data,
+        ];
+
+        return response()->json($response);
     }
 
     public function detail($id)

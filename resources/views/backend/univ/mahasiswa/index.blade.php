@@ -6,27 +6,7 @@
     </div>
     <div class="ibox-content p-md">
         <div class="row">
-            {{-- <div class="col-md-2">
-                @if ($val->prodi || $val->angkatan || $val->status || $val->jk || $val->agama)
-                {{-- Export Filtered Data
-                {{-- <form action="{{ route('export.mahasiswa') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="prodi" value="{{ $val->prodi }}">
-                    <input type="hidden" name="angkatan" value="{{ $val->angkatan }}">
-                    <input type="hidden" name="status" value="{{ $val->status }}">
-                    <input type="hidden" name="jk" value="{{ $val->jk }}">
-                    <input type="hidden" name="agama" value="{{ $val->agama }}">
-                    <button class="btn btn-success btn-block" type="submit"><i class="fa-solid fa-file-excel"></i><span
-                            style="margin-left: 6px; margin-right: 6px">Export</span>
-                    </button>
-                </form> --}}
-                {{-- <a href="#" class="btn btn-success">Export Filtered Data</a> --}}
-
-                {{-- @else --}}
-                {{-- <a href="{{route('admin-univ.export-daftar-mahasiswa')}}" class="btn btn-success">Export Data</a> --}}
-                {{-- @endif
-            </div> --}}
-            <form method="get">
+            <form method="get"  id="filter-form">
                 <div class="col-md-2">
                     <button class="btn btn-primary btn-block" type="button" data-toggle="modal"
                         data-target="#modal-filter"><i class="fa-solid fa-filter"></i><span
@@ -121,35 +101,18 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <button class="btn btn-warning" type="submit">Apply Filter</button>
+                                        <button class="btn btn-warning" type="submit" id="applyFilter">Apply Filter</button>
 
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div><br><br><hr>
-                <div class="col-md-2">
-                    <select name="p" id="p" class="form-control" onchange="this.form.submit()">
-                        @foreach ($paginate as $p)
-                        <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
-                        @endforeach
-                    </select>
                 </div>
+                <div class="col-md-2">
+                    <a href="{{route('admin-univ.daftar-mahasiswa')}}" class="btn btn-warning btn-block" id="reset-filter">Reset Filter</a>
+                </div><br><br><hr>
             </form>
-            <div class="col-md-4 pull-right">
-                <form method="GET" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="keyword"
-                            placeholder="Search by NIM, Nama, Program Studi" value="{{ request()->get('keyword', '') }}">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-            </div>
         </div>
         <div class="pt-2">
             <table class="table table-bordered table-hover table-responsive" id="table-mahasiswa">
@@ -168,35 +131,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($mahasiswa as $m => $data)
-                    <tr>
-                        <td class="text-center">{{ $mahasiswa->firstItem() + $m }}</td>
-                        <td><a href="{{ route('admin-univ.detail-mahasiswa', ['id' => $data->id_mahasiswa]) }}">{{
-                                $data->nama_mahasiswa }}</a>
-                        </td>
-                        <td class="text-center">{{ $data->nim }}</td>
-                        <td class="text-center">{{ $data->jenis_kelamin }}</td>
-                        <td class="text-center">{{ $data->nama_agama }}</td>
-                        <td class="text-center">
-                            @if (!empty($data->total))
-                            {{ $data->total }}
-                            @else
-                            0
-                            @endif
-                        </td>
-                        <td class="text-center">{{ $data->tanggal_lahir }}</td>
-                        <td class="text-center">{{ $data->nama_program_studi }}</td>
-                        <td class="text-center">{{ $data->nama_status_mahasiswa }}</td>
-                        <td class="text-center">{{ $data->angkatan }}</td>
-                    </tr>
-                    @endforeach
                 </tbody>
             </table>
-            {!! $mahasiswa->withQueryString()->links() !!}
-
         </div>
-
-        {{-- {{$mahasiswa->onEachSide(5)->links()}} --}}
     </div>
 </div>
 @endsection
@@ -213,6 +150,56 @@
     $(document).ready(function() {
             $('.chosen-select').chosen({
                 width: "100%"
+            });
+            $('#table-mahasiswa').DataTable({
+                lengthMenu: [[20, 50, 100, 300, 500], [20, 50, 100, 300, 500]],
+                searchable: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin-univ.get-mhs') }}",
+                    data: function (d) {
+                        d.prodi = $('#prodi').val();
+                        d.angkatan = $('#angkatan').val();
+                        d.status = $('#status').val();
+                        d.jk = $('#jk').val();
+                        d.agama = $('#agama').val();
+                    }
+                },
+                pageLength: 20,
+                responsive: true,
+                ordering: false,
+                columns: [
+                    {data: 'number', name: 'number', searchable: false, class: 'text-center'},
+                    {data: 'nama_mahasiswa', name: 'nama_mahasiswa', searchable: false,
+                            "render": function ( data, type, row, meta ) {
+                                var link = '<a href="{{route("admin-univ.detail-mahasiswa", ["id" => ":id"])}}">:data</a>';
+                                link = link.replace(':id', row.id_mahasiswa);
+                                link = link.replace(':data', data);
+                                return link;
+                        }
+                     },
+                    {data: 'nim', name: 'nim', searchable: true},
+                    {data: 'jenis_kelamin', name: 'jenis_kelamin', class: 'text-center'},
+                    {data: 'nama_agama', name: 'nama_agama', class: 'text-center'},
+                    {data: 'total', name: 'total', class: 'text-center', render: function(data, type, row, meta){
+                        if (data == null) {
+                            return 0;
+                        } else {
+                            return data;
+                        }
+                    }},
+                    {data: 'tanggal_lahir', name: 'tanggal_lahir', class: 'text-center'},
+                    {data: 'nama_program_studi', name: 'nama_program_studi', searchable: true},
+                    {data: 'nama_status_mahasiswa', name: 'nama_status_mahasiswa', class: 'text-center'},
+                    {data: 'angkatan', name: 'angkatan', class: 'text-center'},
+
+                ]
+            });
+
+            $('#applyFilter').on('click', function() {
+                table.ajax.reload();// merefresh datatable
+                $('#modal-filter').modal('hide'); // hide modal
             });
         });
 </script>
