@@ -122,7 +122,9 @@ Route::group(['middleware' => 'auth'], function () {
         //revisi
         Route::get('kelas-perkuliahan-rev', [App\Http\Controllers\RevisiController::class, 'index'])->name('kelas-perkuliahan-rev');
 
-        // Route::get('kampus-merdeka', [App\Http\Controllers\AdminUniv\Perkuliahan\PerkuliahanController::class, 'kampus_merdeka'])->name('kampus-merdeka');
+        Route::get('kampus-merdeka', [App\Http\Controllers\AdminUniv\Perkuliahan\KampusMerdekaController::class, 'index'])->name('kampus-merdeka');
+        Route::get('detail-kampus-merdeka/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\KampusMerdekaController::class, 'detail'])->name('detail-kampus-merdeka');
+        Route::get('merdeka-data', [App\Http\Controllers\AdminUniv\Perkuliahan\KampusMerdekaController::class, 'merdekaData'])->name('merdeka-data');
         Route::get('mahasiswa-lulus-do', [App\Http\Controllers\AdminUniv\Perkuliahan\MahasiswaLulusDoController::class, 'index'])->name('mahasiswa-lulus-do');
         Route::get('detail-mahasiswa-lulus-do/{id}/{tahun}', [App\Http\Controllers\AdminUniv\Perkuliahan\MahasiswaLulusDoController::class, 'detail'])->name('detail-mahasiswa-lulus-do');
         Route::get('cek-transkrip-mahasiswa', [App\Http\Controllers\AdminUniv\Perkuliahan\CekTranskripMahasiswaController::class, 'index'])->name('cek-transkrip-mahasiswa');
@@ -191,6 +193,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('detail-daftar-penugasan-dosen/{id}/{tahun}/{prodi}', [App\Http\Controllers\AdminProdi\Dosen\PenugasanDosenController::class, 'detail'])->name('detail-daftar-penugasan-dosen');
 
             //Perkuliahan
+            Route::get('kampus-merdeka', [App\Http\Controllers\AdminProdi\Perkuliahan\KampusMerdekaController::class, 'index'])->name('kampus-merdeka');
+            Route::get('detail-kampus-merdeka/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\KampusMerdekaController::class, 'detail'])->name('detail-kampus-merdeka');
+            Route::get('merdeka-data', [App\Http\Controllers\AdminProdi\Perkuliahan\KampusMerdekaController::class, 'merdekaData'])->name('merdeka-data');
             Route::get('mata-kuliah', [App\Http\Controllers\AdminProdi\Perkuliahan\MataKuliahController::class, 'index'])->name('mata-kuliah');
             Route::get('detail-mata-kuliah/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\MataKuliahController::class, 'detail_matkul'])->name('detail-mata-kuliah');
             Route::get('substansi-kuliah', [App\Http\Controllers\AdminProdi\Perkuliahan\SubstansiKuliahController::class, 'index'])->name('substansi-kuliah');

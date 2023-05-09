@@ -47,7 +47,7 @@
                     </li>
                 </ul>
             </li>
-            <li  class="{{request()->routeIs('admin-prodi.mata-kuliah') || request()->routeIs('admin-prodi.detail-mata-kuliah') || request()->routeIs('admin-prodi.substansi-kuliah')|| request()->routeIs('admin-prodi.detail-substansi-kuliah')
+            <li  class="{{request()->routeIs('admin-prodi.mata-kuliah') || request()->routeIs('admin-prodi.detail-mata-kuliah') || request()->routeIs('admin-prodi.kampus-merdeka') || request()->routeIs('admin-prodi.detail-kampus-merdeka') || request()->routeIs('admin-prodi.substansi-kuliah')|| request()->routeIs('admin-prodi.detail-substansi-kuliah')
                         || request()->routeIs('admin-prodi.kurikulum') || request()->routeIs('admin-prodi.detail-kurikulum') || request()->routeIs('admin-prodi.kelas-perkuliahan')
                         || request()->routeIs('admin-prodi.detail-kelas-perkuliahan') || request()->routeIs('admin-prodi.nilai-perkuliahan') || request()->routeIs('admin-prodi.detail-nilai-perkuliahan')
                         || request()->routeIs('admin-prodi.aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-prodi.detail-aktivitas-kuliah-mahasiswa') || request()->routeIs('admin-prodi.aktivitas-mahasiswa')
@@ -74,6 +74,9 @@
                     </li>
                     <li class="{{request()->routeIs('admin-prodi.aktivitas-mahasiswa') || request()->routeIs('admin-prodi.detail-aktivitas-mahasiswa') ? 'active' : ''}}">
                         <a href="{{route('admin-prodi.aktivitas-mahasiswa')}}">Aktivitas Mahasiswa</a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-prodi.kampus-merdeka') || request()->routeIs('admin-prodi.detail-kampus-merdeka') ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.kampus-merdeka')}}">Konversi Kampus Merdeka</a>
                     </li>
                     <li class="{{request()->routeIs('admin-prodi.mahasiswa-lulus-do') || request()->routeIs('admin-prodi.detail-mahasiswa-lulus-do') ? 'active' : ''}}">
                         <a href="{{route('admin-prodi.mahasiswa-lulus-do')}}">Daftar Mahasiswa Lulus / Drop Out</a>
