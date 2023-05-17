@@ -57,7 +57,10 @@ class KampusMerdekaController extends Controller
 
         $data = $query->get();
 
-        $recordsTotal = DB::table('pd_feeder_list_aktivitas_mahasiswa')->whereIn('id_jenis_aktivitas', $jenis)->count();
+        $recordsTotal = DB::table('pd_feeder_list_aktivitas_mahasiswa')->whereIn('id_jenis_aktivitas', $jenis)->where(
+            'id_prodi',
+            $prodiId
+        )->count();
 
         // add numbering
         $number = $offset + 1;

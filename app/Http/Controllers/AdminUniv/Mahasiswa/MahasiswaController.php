@@ -124,7 +124,7 @@ class MahasiswaController extends Controller
                         'nama_ayah', 'nik_ayah', 'nik_ibu', 'tanggal_lahir_ayah', 'tanggal_lahir_ibu', 'nama_pendidikan_ayah', 'nama_pendidikan_ibu',
                         'nama_penghasilan_ayah', 'nama_penghasilan_ibu', 'nama_wali', 'nama_pekerjaan_wali', 'tanggal_lahir_wali', 'nama_penghasilan_wali', 'nama_pendidikan_wali',
                         'nama_kebutuhan_khusus_mahasiswa')->first();
-
+        
         // $aktivitas = AktivitasKuliahMahasiswa::where('id_mahasiswa', $id)->get();
         return view('backend.univ.mahasiswa.detail-mahasiswa', compact('mahasiswa'));
     }
