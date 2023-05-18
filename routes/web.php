@@ -117,6 +117,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('detail-nilai-perkuliahan/{id}/{semester}', [App\Http\Controllers\AdminUniv\Perkuliahan\NilaiPerkuliahanController::class, 'detail'])->name('detail-nilai-perkuliahan');
         Route::get('aktivitas-kuliah-mahasiswa', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasKuliahMahasiswaController::class, 'index'])->name('aktivitas-kuliah-mahasiswa');
         Route::get('detail-aktivitas-kuliah-mahasiswa/{id}/{semester}', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasKuliahMahasiswaController::class, 'detail'])->name('detail-aktivitas-kuliah-mahasiswa');
+
+        Route::get('am-data', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasMahasiswaController::class, 'am_data'])->name('am-data');
         Route::get('aktivitas-mahasiswa', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasMahasiswaController::class, 'index'])->name('aktivitas-mahasiswa');
         Route::get('detail-aktivitas-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\AktivitasMahasiswaController::class, 'detail'])->name('detail-aktivitas-mahasiswa');
         //revisi

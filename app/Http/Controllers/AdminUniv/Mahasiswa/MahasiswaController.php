@@ -44,7 +44,7 @@ class MahasiswaController extends Controller
     public function getData(Request $request)
     {
         $searchValue = $request->input('search.value');
-        $query = ListMahasiswa::leftJoin('pd_feeder_semester as semester','id_semester','id_periode')->select('pd_feeder_list_mahasiswa.id_registrasi_mahasiswa as id_registrasi_mahasiswa','pd_feeder_list_mahasiswa.id_mahasiswa as id_mahasiswa',
+        $query = ListMahasiswa::leftJoin('pd_feeder_semester as semester','id_semester','id_periode')->select('pd_feeder_list_mahasiswa.status_sync','pd_feeder_list_mahasiswa.id_registrasi_mahasiswa as id_registrasi_mahasiswa','pd_feeder_list_mahasiswa.id_mahasiswa as id_mahasiswa',
              'pd_feeder_list_mahasiswa.nama_mahasiswa as nama_mahasiswa', 'pd_feeder_list_mahasiswa.nim as nim', 'pd_feeder_list_mahasiswa.jenis_kelamin as jenis_kelamin',
                 'pd_feeder_list_mahasiswa.nama_agama as nama_agama', 'pd_feeder_list_mahasiswa.total_sks as total_sks', 'pd_feeder_list_mahasiswa.tanggal_lahir as tanggal_lahir',
                 'pd_feeder_list_mahasiswa.nama_program_studi as nama_program_studi',
@@ -124,7 +124,7 @@ class MahasiswaController extends Controller
                         'nama_ayah', 'nik_ayah', 'nik_ibu', 'tanggal_lahir_ayah', 'tanggal_lahir_ibu', 'nama_pendidikan_ayah', 'nama_pendidikan_ibu',
                         'nama_penghasilan_ayah', 'nama_penghasilan_ibu', 'nama_wali', 'nama_pekerjaan_wali', 'tanggal_lahir_wali', 'nama_penghasilan_wali', 'nama_pendidikan_wali',
                         'nama_kebutuhan_khusus_mahasiswa')->first();
-        
+
         // $aktivitas = AktivitasKuliahMahasiswa::where('id_mahasiswa', $id)->get();
         return view('backend.univ.mahasiswa.detail-mahasiswa', compact('mahasiswa'));
     }

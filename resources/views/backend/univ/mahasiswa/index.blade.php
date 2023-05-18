@@ -118,6 +118,7 @@
             <table class="table table-bordered table-hover table-responsive" id="table-mahasiswa">
                 <thead>
                     <tr>
+                        <th class="text-center">Status</th>
                         <th class="text-center">No</th>
                         <th class="text-center">Nama</th>
                         <th class="text-center">NIM</th>
@@ -170,7 +171,14 @@
                 responsive: true,
                 ordering: false,
                 columns: [
-                    {data: 'number', name: 'number', searchable: false, class: 'text-center'},
+                    {data: 'status_sync', searchable:false, class: 'text-center', render: function(data, type, row, meta){
+                        if (data == 'sudah sync') {
+                            return '<span class="badge badge-xl badge-primary">Sudah Sync</span>';
+                        } else {
+                            return '<span class="badge badge-danger">Belum Sync</span>';
+                        }
+                    }},
+                    {data: 'number', name: 'number', searchable: false, class: 'text-center', style: 'align: middle;'},
                     {data: 'nama_mahasiswa', name: 'nama_mahasiswa', searchable: false,
                             "render": function ( data, type, row, meta ) {
                                 var link = '<a href="{{route("admin-univ.detail-mahasiswa", ["id" => ":id"])}}">:data</a>';

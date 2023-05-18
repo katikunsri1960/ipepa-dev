@@ -7,6 +7,7 @@ use App\Models\PDUnsri\Feeder\Dosen\ListAktivitasMahasiswa;
 use App\Models\PDUnsri\Feeder\ProgramStudi;
 use App\Models\PDUnsri\Feeder\Semester;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AktivitasMahasiswaController extends Controller
 {
@@ -14,79 +15,82 @@ class AktivitasMahasiswaController extends Controller
     {
         $this->authorize('admin-univ');
 
-        $data = new(ListAktivitasMahasiswa::class);
 
         $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->orderBy('nama_jenjang_pendidikan')->orderBy('nama_program_studi')->get();
         $semester_now = Semester::select('pd_feeder_semester.id_semester', 'pd_feeder_semester.nama_semester')->where('a_periode_aktif', 1)->get();
         $now = $semester_now->max('id_semester');
 
         $semester= Semester::select('nama_semester', 'id_semester', 'id_tahun_ajaran')->where('id_semester', '<=', $now )->orderBy('nama_semester','DESC')->limit(50)->get();
-        $semester_aktif = $semester->toArray();
         $val = $req;
 
-        if ($req->has('semester') || $req->has('prodi'))  {
-            $aktivitas_mahasiswa = $data->select('id_aktivitas', 'pd_feeder_list_aktivitas_mahasiswa.id_prodi', 'id_semester', 'nama_prodi', 'nama_semester', 'nama_jenis_aktivitas','judul', 'tanggal_sk_tugas')
-            ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi'), function($q) use($req){
-            if ($req->keyword != '') {
-                $q->where('pd_feeder_list_aktivitas_mahasiswa.judul', 'like', '%'.$req->keyword.'%')
-                // ->orWhere('pd_feeder_list_aktivitas_mahasiswa.nama_mahasiswa', 'like', '%'.$req->keyword.'%')
-                // ->orWhere('pd_feeder_aktivitas_kuliah_mahasiswa.nama_program_studi', 'like', '%'.$req->keyword.'%')
-                ;
-            }
+        return view('backend.univ.perkuliahan.aktivitas-mahasiswa.index', compact('prodi', 'semester', 'val'));
+    }
 
-            //semester
-            if ($req->semester!='') {
-                $q->whereIn('nama_semester', $req->semester);
-            }
+    public function am_data(Request $request)
+    {
+        $this->authorize('admin-univ');
 
-            if ($req->prodi!='') {
-                $q->whereIn('id_prodi', $req->prodi);
-            }
+        $searchValue = $request->input('search.value');
 
-            })
-            ->paginate($req->p != '' ? $req->p : 20);
+        $query = DB::table('pd_feeder_list_aktivitas_mahasiswa')->select('id_aktivitas', 'id_semester','id_prodi', 'nama_prodi', 'nama_semester', 'nama_jenis_aktivitas','judul', 'tanggal_sk_tugas');
+
+        if ($searchValue) {
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('judul', 'LIKE', '%'.$searchValue.'%')
+                    ->orWhere('nama_prodi', 'LIKE', '%'.$searchValue.'%');
+            });
         }
 
-        else {
-            $aktivitas_mahasiswa = $data->select('id_aktivitas', 'pd_feeder_list_aktivitas_mahasiswa.id_prodi', 'id_semester', 'nama_prodi', 'nama_semester', 'nama_jenis_aktivitas','judul', 'tanggal_sk_tugas')
-            ->where('nama_semester', $semester_aktif[0]['nama_semester'])
-            ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi')  || $req->has('angkatan') || $req->has('status_mahasiswa'), function($q) use($req){
-            if ($req->keyword != '') {
-                $q->where('pd_feeder_list_aktivitas_mahasiswa.judul', 'like', '%'.$req->keyword.'%')
-                // ->orWhere('pd_feeder_aktivitas_kuliah_mahasiswa.nama_mahasiswa', 'like', '%'.$req->keyword.'%')
-                // ->orWhere('pd_feeder_aktivitas_kuliah_mahasiswa.nama_program_studi', 'like', '%'.$req->keyword.'%')
-                ;
-            }
-
-            if ($req->prodi!='') {
-                $q->whereIn('id_prodi', $req->prodi);
-            }
-
-            })
-            ->paginate($req->p != '' ? $req->p : 20);
-
+        if ($request->has('prodi') && !empty($request->input('prodi'))) {
+            $prodi = $request->input('prodi');
+            $query->whereIn('id_prodi', $prodi);
         }
 
-        if ($req->has('p') && $req->p != '') {
-            $valPaginate = $req->p;
-        } else $valPaginate = 20;
+        if ($request->has('semester') && !empty($request->input('semester'))) {
+            $semester = $request->input('semester');
+            $query->whereIn('id_semester', $semester);
+        }
 
-        $paginate = [20,50,100,200,500];
+        $recordsFiltered = $query->count();
 
-        return view('backend.univ.perkuliahan.aktivitas-mahasiswa.index', compact('aktivitas_mahasiswa','prodi','val','prodi',
-        'semester', 'semester_aktif', 'paginate', 'valPaginate'));
+        // limit and offset
+        $limit = $request->input('length');
+        $offset = $request->input('start');
+        $query->skip($offset)->take($limit);
+
+         // get data
+        $data = $query->get();
+
+        $recordsTotal = DB::table('pd_feeder_list_aktivitas_mahasiswa')->count();
+
+         // add numbering
+        $number = $offset + 1;
+        foreach ($data as $d) {
+            $d->number = $number;
+            $number++;
+        }
+
+        // prepare response
+        $response = [
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $data,
+        ];
+
+        return response()->json($response);
     }
 
     public function detail($id)
     {
         $this->authorize('admin-univ');
 
+        // dd($detail);
         $data = ListAktivitasMahasiswa::leftJoin('pd_feeder_list_anggota_aktivitas_mahasiswa','pd_feeder_list_anggota_aktivitas_mahasiswa.id_aktivitas','pd_feeder_list_aktivitas_mahasiswa.id_aktivitas')
         ->leftJoin('pd_feeder_dosen_pembimbing','pd_feeder_dosen_pembimbing.id_registrasi_mahasiswa','pd_feeder_list_anggota_aktivitas_mahasiswa.id_registrasi_mahasiswa')
         ->leftJoin('pd_feeder_list_uji_mahasiswa','pd_feeder_list_uji_mahasiswa.id_aktivitas','pd_feeder_list_aktivitas_mahasiswa.id_aktivitas');
 
         $detail = $data->where('pd_feeder_list_aktivitas_mahasiswa.id_aktivitas',$id)->distinct()->select('nama_prodi', 'nama_semester', 'sk_tugas', 'tanggal_sk_tugas', 'nama_jenis_aktivitas', 'nama_jenis_anggota', 'pd_feeder_list_aktivitas_mahasiswa.judul', 'keterangan', 'lokasi', 'pd_feeder_list_anggota_aktivitas_mahasiswa.nim', 'pd_feeder_list_anggota_aktivitas_mahasiswa.nama_mahasiswa', 'jenis_peran', 'nama_jenis_peran')->get();
-        // dd($detail);
         $pembimbing = $data->where('pd_feeder_list_aktivitas_mahasiswa.id_aktivitas',$id)->select('pd_feeder_dosen_pembimbing.nidn', 'pd_feeder_dosen_pembimbing.nama_dosen', 'pembimbing_ke', 'jenis_aktivitas')->get();
         $penguji = $data->where('pd_feeder_list_aktivitas_mahasiswa.id_aktivitas',$id)->select('pd_feeder_list_uji_mahasiswa.nidn', 'pd_feeder_list_uji_mahasiswa.nama_dosen', 'penguji_ke', 'nama_kategori_kegiatan')->get();
 
