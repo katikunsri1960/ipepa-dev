@@ -8,6 +8,7 @@ use App\Models\PDUnsri\Feeder\ProgramStudi;
 use App\Models\PDUnsri\Feeder\Semester;
 use Illuminate\Http\Request;
 use App\Models\RolesUser;
+use Illuminate\Support\Facades\DB;
 
 class AktivitasMahasiswaController extends Controller
 {
@@ -17,72 +18,77 @@ class AktivitasMahasiswaController extends Controller
 
         $prodiId = RolesUser::where('user_id', auth()->user()->id)->value('fak_prod_id');
 
-        $data = new(ListAktivitasMahasiswa::class);
-        $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->where('pd_feeder_program_studi.id_prodi',$prodiId)->get();
+        $aktivitas = DB::table('pd_feeder_jenis_aktivitas_mahasiswa')->select('id_jenis_aktivitas_mahasiswa', 'nama_jenis_aktivitas_mahasiswa')->get();
 
+        $prodi = ProgramStudi::select('id_prodi', 'nama_program_studi', 'nama_jenjang_pendidikan')->where('pd_feeder_program_studi.id_prodi',$prodiId)->get();
 
         // $prodi = $data->select('pd_feeder_list_aktivitas_mahasiswa.id_prodi', 'pd_feeder_list_aktivitas_mahasiswa.nama_prodi')->distinct()->orderBy('nama_prodi')->get();
         $semester_now = Semester::select('pd_feeder_semester.id_semester', 'pd_feeder_semester.nama_semester')->where('a_periode_aktif', 1)->get();
         $now = $semester_now->max('id_semester');
 
         $semester= Semester::select('nama_semester', 'id_semester', 'id_tahun_ajaran')->where('id_semester', '<=', $now )->orderBy('nama_semester','DESC')->get();
-         $semester_aktif = $semester->toArray();
         $val = $req;
 
-        if ($req->has('semester') || $req->has('prodi'))  {
-            $aktivitas_mahasiswa = $data->select('id_aktivitas', 'pd_feeder_list_aktivitas_mahasiswa.id_prodi', 'id_semester', 'nama_prodi', 'nama_semester', 'nama_jenis_aktivitas','judul', 'tanggal_sk_tugas')
-            ->where('id_prodi', $prodiId)
-            ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi'), function($q) use($req){
-            if ($req->keyword != '') {
-                $q->where('pd_feeder_list_aktivitas_mahasiswa.judul', 'like', '%'.$req->keyword.'%')
-                // ->orWhere('pd_feeder_list_aktivitas_mahasiswa.nama_mahasiswa', 'like', '%'.$req->keyword.'%')
-                // ->orWhere('pd_feeder_aktivitas_kuliah_mahasiswa.nama_program_studi', 'like', '%'.$req->keyword.'%')
-                ;
-            }
+        return view('backend.prodi.perkuliahan.aktivitas-mahasiswa.index', compact('val','prodi','semester', 'aktivitas'));
+    }
 
-            //semester
-            if ($req->semester!='') {
-                $q->whereIn('nama_semester', $req->semester);
-            }
+    public function am_data(Request $request)
+    {
 
-            if ($req->prodi!='') {
-                $q->whereIn('id_prodi', $req->prodi);
-            }
+        $this->authorize('admin-prodi');
 
-            })
-            ->paginate($req->p != '' ? $req->p : 20);
+        $prodiId = RolesUser::where('user_id', auth()->user()->id)->value('fak_prod_id');
+
+        $searchValue = $request->input('search.value');
+
+        $query = DB::table('pd_feeder_list_aktivitas_mahasiswa')->select('id_aktivitas', 'id_semester','id_prodi', 'nama_prodi', 'nama_semester', 'nama_jenis_aktivitas','judul', 'tanggal_sk_tugas')
+                                                                ->where('id_prodi', $prodiId);
+
+        if ($searchValue) {
+            $query->where(function ($query) use ($searchValue) {
+                $query->where('judul', 'LIKE', '%'.$searchValue.'%')
+                    ->orWhere('nama_prodi', 'LIKE', '%'.$searchValue.'%');
+            });
         }
 
-        else {
-            $aktivitas_mahasiswa = $data->select('id_aktivitas', 'pd_feeder_list_aktivitas_mahasiswa.id_prodi', 'id_semester', 'nama_prodi', 'nama_semester', 'nama_jenis_aktivitas','pd_feeder_list_aktivitas_mahasiswa.judul', 'tanggal_sk_tugas')
-            ->where('id_prodi', $prodiId)
-            ->where('nama_semester', $semester_aktif[0]['nama_semester'])
-            ->when($req->has('keyword') || $req->has('semester') || $req->has('prodi')  || $req->has('angkatan') || $req->has('status_mahasiswa'), function($q) use($req){
-            if ($req->keyword != '') {
-                $q->where('pd_feeder_list_aktivitas_mahasiswa.judul', 'like', '%'.$req->keyword.'%')
-                // ->orWhere('pd_feeder_aktivitas_kuliah_mahasiswa.nama_mahasiswa', 'like', '%'.$req->keyword.'%')
-                // ->orWhere('pd_feeder_aktivitas_kuliah_mahasiswa.nama_program_studi', 'like', '%'.$req->keyword.'%')
-                ;
-            }
-
-            if ($req->prodi!='') {
-                $q->whereIn('id_prodi', $req->prodi);
-            }
-
-            })
-            ->paginate($req->p != '' ? $req->p : 20);
-            // dd($aktivitas_mahasiswa);
-
+        if ($request->has('prodi') && !empty($request->input('prodi'))) {
+            $prodi = $request->input('prodi');
+            $query->whereIn('id_prodi', $prodi);
         }
 
-        if ($req->has('p') && $req->p != '') {
-            $valPaginate = $req->p;
-        } else $valPaginate = 20;
+        if ($request->has('semester') && !empty($request->input('semester'))) {
+            $semester = $request->input('semester');
+            $query->whereIn('id_semester', $semester);
+        }
 
-        $paginate = [20,50,100,200,500];
+        $recordsFiltered = $query->count();
 
-        return view('backend.prodi.perkuliahan.aktivitas-mahasiswa.index', compact('aktivitas_mahasiswa','prodi','val','prodi',
-        'semester', 'semester_aktif', 'paginate', 'valPaginate'));
+        // limit and offset
+        $limit = $request->input('length');
+        $offset = $request->input('start');
+        $query->skip($offset)->take($limit);
+
+         // get data
+        $data = $query->get();
+
+        $recordsTotal = DB::table('pd_feeder_list_aktivitas_mahasiswa')->where('id_prodi', $prodiId)->count();
+
+         // add numbering
+        $number = $offset + 1;
+        foreach ($data as $d) {
+            $d->number = $number;
+            $number++;
+        }
+
+        // prepare response
+        $response = [
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $recordsTotal,
+            'recordsFiltered' => $recordsFiltered,
+            'data' => $data,
+        ];
+
+        return response()->json($response);
     }
 
     public function detail($id)

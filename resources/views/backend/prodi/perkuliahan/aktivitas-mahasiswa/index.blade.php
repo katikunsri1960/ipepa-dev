@@ -8,12 +8,12 @@
 
         <div class="ibox-content p-md">
             <div class="row">
-                <form method="get">
-                    <div class="col-md-8">
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-filter"><i
-                                class="fa-solid fa-filter"></i><span style="margin-left: 6px; margin-right: 6px">Filter</span>
+                <form method="get" id="filter-form">
+                    <div class="col-md-2">
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="modal"
+                            data-target="#modal-filter"><i class="fa-solid fa-filter"></i><span
+                            style="margin-left: 6px; margin-right: 6px">Filter</span>
                         </button>
-
                         <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -28,147 +28,125 @@
                                                     tabindex="4">
                                                     <option value=""></option>
                                                     @foreach ($prodi as $p)
-                                                        <option value="{{ $p->id_prodi }}"
-                                                            @if ($val->prodi && in_array($p->id_prodi, $val->prodi )) selected @endif>
-                                                            {{ $p->nama_jenjang_pendidikan }} {{ $p->nama_program_studi }}
-                                                        </option>
+                                                    <option value="{{ $p->id_prodi }}" @if ($val->prodi &&
+                                                        in_array($p->id_prodi, $val->prodi)) selected @endif>
+                                                        {{ $p->nama_jenjang_pendidikan }} {{ $p->nama_program_studi }}
+                                                    </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label>Pilih Semester</label>
                                                 <select name="semester[]" id="semester"
-                                                    data-placeholder="Pilih Semester..." class="form-control chosen-select"
-                                                    multiple style="width:350px;" tabindex="4">
+                                                    data-placeholder="Pilih Semester..."
+                                                    class="form-control chosen-select" multiple style="width:350px;"
+                                                    tabindex="4">
                                                     <option value=""></option>
                                                     @foreach ($semester as $sem)
-                                                        <option value="{{ $sem->nama_semester }}"
-                                                            @php
-                                                            if($val->prodi != '' && $val->semester == ''){
-                                                                if($val->semester && in_array($sem->nama_semester, $val->semester)){
-                                                                    echo 'selected';
-                                                                }
-                                                            }
-                                                            elseif($val->semester == ''){
-                                                                if($semester_aktif[0]['nama_semester'] && in_array($sem->nama_semester,$semester_aktif[0])){
-                                                                    echo 'selected';
-                                                                }
-                                                            }
-                                                            if($val->semester != ''|| $val->prodi != ''){
-                                                                if($val->semester && in_array($sem->nama_semester, $val->semester)){
-                                                                    echo 'selected';
-                                                                }
-                                                            }
-
-                                                            @endphp>
-                                                            {{ $sem->nama_semester }}
-                                                        </option>
+                                                    <option value="{{ $sem->id_semester }}" @if ($val->semester &&
+                                                        in_array($sem->id_semester, $val->semester)) selected @endif>
+                                                        {{ $sem->nama_semester }}
+                                                     </option>
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <button class="btn btn-warning" type="submit">Apply Filter</button>
+                                            <button class="btn btn-warning" type="submit" id="applyFilter">Apply Filter</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div><br><br><hr>
-                    <div class="col-md-2">
-                        <select name="p" id="p" class="form-control" onchange="this.form.submit()">
-                            @foreach ($paginate as $p)
-                            <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
-                            @endforeach
-                        </select>
                     </div>
+                    <div class="col-md-2">
+                        <a href="{{route('admin-prodi.aktivitas-mahasiswa')}}" class="btn btn-warning btn-block" id="reset-filter">Reset Filter</a>
+                    </div>
+
                 </form>
-                <div class="col-lg-4 pull-right">
-                    <form method="GET" role="search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="keyword" placeholder="Search by Judul or Nama Program Studi"
-                                value="{{ request()->get('keyword', '') }}"> <span class="input-group-btn">
-                                <button class="btn btn-default">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </form>
-                </div>
             </div><br>
             <div class="row">
                 <div class="col-md-12">
                     <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :
-                        @if ($val['semester'] != '')
-                            @foreach ($val['semester'] as $s)
-                                <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $s }}</span>
-                            @endforeach
-                        @elseif ($val['prodi'] != '' && $val['semester'] = '')
-                            @foreach ($val['semester'] as $s)
-
-                            @endforeach
-                        {{-- @else
-                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span> --}}
+                        @foreach ($semester as $sem)
+                        @if ($val->semester && in_array($sem->id_semester, $val->semester))
+                        <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i> {{ $sem->nama_semester }} </span>
                         @endif
+                        @endforeach
                     </p>
                 </div>
             </div>
             <div class="pt-2">
-            <table class="table table-bordered table-hover table-responsive" id="table-akt-mhs">
-                <thead>
-                    <tr>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">No.</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Program Studi</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Semester</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Jenis</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Judul</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Tanggal SK</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($aktivitas_mahasiswa as $a => $data)
-                    <tr>
-                        <td class="text-center">{{$aktivitas_mahasiswa->firstItem() + $a}}</td>
-                        <td  class="text-left"><a href=" {{route('admin-prodi.detail-aktivitas-mahasiswa', ['id' => $data->id_aktivitas])}}" name="req">
-                        {{$data->nama_prodi}}</td>
-                        <td class="text-left">{{$data->nama_semester}}</td>
-                        <td class="text-center">{{ $data->nama_jenis_aktivitas }}</td>
-                        <td class="text-left">{{$data->judul}}</td>
-                        <td class="text-center">{{$data->tanggal_sk_tugas}}</td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            {!! $aktivitas_mahasiswa->withQueryString()->links() !!}
+                <table class="table table-bordered table-hover table-responsive" id="table-akt-mhs">
+                    <thead>
+                        <tr>
+                            <th class="text-center" style="vertical-align: middle">No.</th>
+                            <th class="text-center" style="vertical-align: middle">Program Studi</th>
+                            <th class="text-center" style="vertical-align: middle">Semester</th>
+                            <th class="text-center" style="vertical-align: middle">Jenis</th>
+                            <th class="text-center" style="vertical-align: middle">Judul</th>
+                            <th class="text-center" style="vertical-align: middle">Tanggal SK</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                {{-- {!! $aktivitas_mahasiswa->withQueryString()->links() !!} --}}
+            </div>
         </div>
     </div>
-</div>
 </div>
 @endsection
 
 @push('css')
-    <link href="{{ asset('assets/css/plugins/chosen/bootstrap-chosen.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/css/plugins/chosen/bootstrap-chosen.css') }}" rel="stylesheet">
 @endpush
 
 @push('scripts')
-    <!-- Chosen -->
-    <script src="{{ asset('assets/js/plugins/chosen/chosen.jquery.js') }}"></script>
+<!-- Chosen -->
+<script src="{{ asset('assets/js/plugins/chosen/chosen.jquery.js') }}"></script>
 
-    <!-- TableToExcel -->
-    <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
+<script>
 
-    <script>
-        $(document).ready(function() {
+    $(document).ready(function() {
             $('.chosen-select').chosen({
                 width: "100%"
             });
 
-            $("#exportBtn1").click(function(){
-                TableToExcel.convert(document.getElementById("table-akt-mhs"), {
-                    name: "Feeder-Unsri.xlsx",
-                    sheet: {
-                    name: "Sheet1"
+            $('#table-akt-mhs').DataTable({
+                lengthMenu: [[20, 50, 100, 300, 500], [20, 50, 100, 300, 500]],
+                searchable: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin-prodi.am-data') }}",
+                    data: function (d) {
+                        d.prodi = $('#prodi').val();
+                        d.semester = $('#semester').val();
                     }
-                });
+                },
+                pageLength: 20,
+                responsive: true,
+                ordering: false,
+                columns: [
+                    {data: 'number', name: 'number', searchable: false, class: 'text-center'},
+                    {data: 'nama_prodi', name: 'nama_prodi', searchable: false,
+                            "render": function ( data, type, row, meta ) {
+                                var link = '<a href="{{route("admin-prodi.detail-aktivitas-mahasiswa", ["id" => ":id"])}}">:data</a>';
+                                link = link.replace(':id', row.id_aktivitas);
+                                link = link.replace(':data', data);
+                                return link;
+                        }
+                     },
+                    {data: 'nama_semester', name: 'nama_semester', searchable: false},
+                    {data: 'nama_jenis_aktivitas', name: 'nama_jenis_aktivitas', class: 'text-center'},
+                    {data: 'judul', name: 'judul', searchable: true},
+                    {data: 'tanggal_sk_tugas', name: 'tanggal_sk_tugas', searchable: true},
+                ],
+            });
+            $('#applyFilter').on('click', function() {
+                table.ajax.reload();// merefresh datatable
+                $('#modal-filter').modal('hide'); // hide modal
             });
         });
-    </script>
+</script>
 @endpush

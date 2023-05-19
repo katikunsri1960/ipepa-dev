@@ -7,9 +7,9 @@
 
         <div class="ibox-content p-md">
             <div class="row">
-                <form method="get">
-                    <div class="col-md-8">
-                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#modal-filter"><i
+                <form method="get" id="filter-form">
+                    <div class="col-md-2">
+                        <button class="btn btn-primary btn-block" type="button" data-toggle="modal" data-target="#modal-filter"><i
                                 class="fa-solid fa-filter"></i><span style="margin-left: 6px; margin-right: 6px">Filter</span>
                         </button>
 
@@ -41,34 +41,8 @@
                                                     multiple style="width:350px;" tabindex="4">
                                                     <option value=""></option>
                                                     @foreach ($semester as $sem)
-                                                        <option value="{{ $sem->nama_semester }}"
-                                                            @php
-                                                            if($val->prodi != '' && $val->semester == ''){
-                                                                if($val->semester && in_array($sem->nama_semester, $val->semester)){
-                                                                    echo 'selected';
-                                                                }
-                                                            }
-                                                            if($val->angkatan != '' && $val->semester == ''){
-                                                                if($val->semester && in_array($sem->nama_semester, $val->semester)){
-                                                                    echo 'selected';
-                                                                }
-                                                            }
-                                                            if($val->status_mahasiswa != '' && $val->semester == ''){
-                                                                if($val->semester && in_array($sem->nama_semester, $val->semester)){
-                                                                    echo 'selected';
-                                                                }
-                                                            }
-                                                            elseif($val->semester == '' && $val->prodi == '' && $val->angkatan == '' && $val->status_mahasiswa == ''){
-                                                                if($semester_aktif[0]['nama_semester'] && in_array($sem->nama_semester,$semester_aktif[0])){
-                                                                    echo 'selected';
-                                                                }
-                                                            }
-                                                            if($val->semester != '' || $val->prodi != '' || $val->angkatan != '' || $val->status_mahasiswa != ''){
-                                                                if($val->semester && in_array($sem->nama_semester, $val->semester)){
-                                                                    echo 'selected';
-                                                                }
-                                                            }
-                                                            @endphp>
+                                                        <option value="{{ $sem->id_semester }}" @if ($val->semester &&
+                                                            in_array($sem->id_semester, $val->semester)) selected @endif>
                                                             {{ $sem->nama_semester }}
                                                         </option>
                                                     @endforeach
@@ -83,11 +57,6 @@
                                                     @foreach ($angkatan as $ang)
                                                     <option value="{{ $ang->id_tahun_ajaran }}"
                                                         @php
-                                                        // if($val->angkatan == ''){
-                                                        //     if($angkatan_aktif[0]['id_tahun_ajaran'] && in_array($ang->id_tahun_ajaran,$angkatan_aktif[0])){
-                                                        //         echo 'selected';
-                                                        //     }
-                                                        // }
                                                         if($val->angkatan != ''){
                                                             if($val->angkatan && in_array($ang->id_tahun_ajaran, $val->angkatan)){
                                                                 echo 'selected';
@@ -119,90 +88,51 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            <button class="btn btn-warning" type="submit">Apply Filter</button>
+                                            <button class="btn btn-warning" type="submit" id="applyFilter">Apply Filter</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div><br><br><hr>
-                    <div class="col-md-2">
-                        <select name="p" id="p" class="form-control" onchange="this.form.submit()">
-                            @foreach ($paginate as $p)
-                            <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
-                            @endforeach
-                        </select>
                     </div>
+                    <div class="col-md-2">
+                        <a href="{{route('admin-univ.aktivitas-kuliah-mahasiswa')}}" class="btn btn-warning btn-block" id="reset-filter">Reset Filter</a>
+                    </div>
+
                 </form>
-                <div class="col-lg-4 pull-right">
-                    <form method="GET" role="search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="keyword" placeholder="Search by NIDN or Nama"
-                                value="{{ request()->get('keyword', '') }}"> <span class="input-group-btn">
-                                <button class="btn btn-default">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                </button>
-                            </span>
-                        </div>
-                    </form>
-                </div>
             </div><br>
             <div class="row">
                 <div class="col-md-12">
                     <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :
-                        @if($val->prodi != '' && $val->semester == '')
-                        {{"-"}}
-                        @elseif($val->angkatan != '' && $val->semester == '')
-                        {{"-"}}
-                        @elseif($val->status_mahasiswa != '' && $val->semester == '')
-                        {{"-"}}
-                        @elseif($val->semester == '' && $val->prodi == '' && $val->angkatan == '' && $val->status_mahasiswa == '')
-                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span>
-                        @elseif($val->semester != '' || $val->prodi != '' || $val->angkatan != '' || $val->status_mahasiswa != '')
-                            @foreach ($val->semester as $sem)
-                                <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $sem }}</span>
-                            @endforeach
+                        @foreach ($semester as $sem)
+                        @if ($val->semester && in_array($sem->id_semester, $val->semester))
+                        <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i> {{ $sem->nama_semester }} </span>
                         @endif
+                        @endforeach
                     </p>
                 </div>
             </div>
             <div class="pt-2">
-                <table class="table table-bordered table-hover table-responsive" id="table-matkul">
+                <table class="table table-bordered table-hover table-responsive" id="table-akm">
                     <thead>
                         <tr>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">No.</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">NIM</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Nama Mahasiswa</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Program Studi</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Angkatan</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Semester</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Status</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">IPS</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">IPK</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">SKS Semester</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">SKS Total</th>
+                        <th class="text-center" style="vertical-align: middle">No.</th>
+                        <th class="text-center" style="vertical-align: middle">NIM</th=>
+                        <th class="text-center" style="vertical-align: middle">Nama Mahasiswa</th>
+                        <th class="text-center" style="vertical-align: middle">Program Studi</th>
+                        <th class="text-center" style="vertical-align: middle">Angkatan</th>
+                        <th class="text-center" style="vertical-align: middle">Semester</th>
+                        <th class="text-center" style="vertical-align: middle">Status</th>
+                        <th class="text-center" style="vertical-align: middle">IPS</th>
+                        <th class="text-center" style="vertical-align: middle">IPK</th>
+                        <th class="text-center" style="vertical-align: middle">SKS Semester</th>
+                        <th class="text-center" style="vertical-align: middle">SKS Total</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($aktivitas_kuliah_mahasiswa as $no => $data)
-                    <tr>
-                        <td class="text-center">{{$aktivitas_kuliah_mahasiswa->firstItem() + $no}}</td>
-                        <td  class="text-left"> <a href="{{route('admin-univ.detail-aktivitas-kuliah-mahasiswa', ['id' => $data->id_mahasiswa, 'semester' => $data->id_semester])}}"
-                            name="req"> {{$data->nim}}</a> </td>
-                        <td class="text-left">{{$data->nama_mahasiswa}}</td>
-                        <td class="text-left">{{$data->nama_program_studi}}</td>
-                        <td class="text-center">{{$data->angkatan}}</td>
-                        <td class="text-center">{{$data->nama_semester}}</td>
-                        <td class="text-center">{{$data->nama_status_mahasiswa}}</td>
-                        <td class="text-center">{{$data->ips}}</td>
-                        <td class="text-center">{{$data->ipk}}</td>
-                        <td class="text-center">{{$data->sks_semester}}</td>
-                        <td class="text-center">{{$data->sks_total}}</td>
-                    </tr>
-                    @endforeach
                 </tbody>
             </table>
-            {!! $aktivitas_kuliah_mahasiswa->withQueryString()->links() !!}
+
         </div>
     </div>
 </div>
@@ -219,6 +149,51 @@
         $(document).ready(function() {
             $('.chosen-select').chosen({
                 width: "100%"
+            });
+
+            $('#table-akm').DataTable({
+                lengthMenu: [[20, 50, 100, 300, 500], [20, 50, 100, 300, 500]],
+                searchable: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin-univ.akm-data') }}",
+                    data: function (d) {
+                        d.prodi = $('#prodi').val();
+                        d.semester = $('#semester').val();
+                        d.angkatan = $('#angkatan').val();
+                        d.status_mahasiswa = $('#status_mahasiswa').val();
+                    }
+                },
+                pageLength: 20,
+                responsive: true,
+                ordering: false,
+                columns: [
+                    {data: 'number', name: 'number', searchable: false, class: 'text-center'},
+                    {data: 'nim', name: 'nim', searchable: false,
+                            "render": function ( data, type, row, meta ) {
+                                var link = '<a href="{{route("admin-univ.detail-aktivitas-kuliah-mahasiswa", ["id" => ":id", "semester" => ":sem"])}}">:data</a>';
+                                link = link.replace(':id', row.id_mahasiswa);
+                                link = link.replace(':sem', row.id_semester);
+                                link = link.replace(':data', data);
+                                return link;
+                        }
+                     },
+                    {data: 'nama_mahasiswa', name: 'nama_mahasiswa', searchable: false},
+                    {data: 'nama_program_studi', name: 'nama_program_studi'},
+                    {data: 'angkatan', name: 'angkatan', searchable: true, class: 'text-center'},
+                    {data: 'nama_semester', name: 'nama_semester', searchable: false, class: 'text-center'},
+                    {data: 'nama_status_mahasiswa', name: 'nama_status_mahasiswa', searchable: true, class: 'text-center'},
+                    {data: 'ips', name: 'ips', searchable: false, class: 'text-center'},
+                    {data: 'ipk', name: 'ipk', searchable: false, class: 'text-center'},
+                    {data: 'sks_semester', name: 'sks_semester', searchable: false, class: 'text-center'},
+                    {data: 'sks_total', name: 'sks_total', searchable: false, class: 'text-center'},
+                ],
+            });
+
+            $('#applyFilter').on('click', function() {
+                table.ajax.reload();// merefresh datatable
+                $('#modal-filter').modal('hide'); // hide modal
             });
         });
     </script>
