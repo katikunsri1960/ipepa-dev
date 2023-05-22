@@ -23,8 +23,7 @@
                                                 <label>Program Studi</label>
                                                 <select name="prodi[]" id="prodi"
                                                     data-placeholder="Pilih Program Studi..."
-                                                    class="form-control chosen-select" multiple style="width:350px;"
-                                                    tabindex="4">
+                                                    class="form-control chosen-select" multiple>
                                                     <option value=""></option>
                                                     @foreach ($prodi as $p)
                                                         <option value="{{ $p->id_prodi }}"
@@ -40,6 +39,10 @@
                                                     data-placeholder="Pilih Semester..." class="form-control chosen-select"
                                                     multiple style="width:350px;" tabindex="4">
                                                     <option value=""></option>
+                                                    <option value="all" @if (in_array('all', $val->semester))
+                                                        selected
+                                                    @endif
+                                                     >Semua Semester</option>
                                                     @foreach ($semester as $sem)
                                                         <option value="{{ $sem->id_semester }}" @if ($val->semester &&
                                                             in_array($sem->id_semester, $val->semester)) selected @endif>
@@ -151,6 +154,7 @@
                 width: "100%"
             });
 
+
             $('#table-akm').DataTable({
                 lengthMenu: [[20, 50, 100, 300, 500], [20, 50, 100, 300, 500]],
                 searchable: true,
@@ -160,7 +164,10 @@
                     url: "{{ route('admin-univ.akm-data') }}",
                     data: function (d) {
                         d.prodi = $('#prodi').val();
-                        d.semester = $('#semester').val();
+                        if($('#semester').val() != 'all'){
+                            d.semester = $('#semester').val();
+                        }
+                        // d.semester = $('#semester').val();
                         d.angkatan = $('#angkatan').val();
                         d.status_mahasiswa = $('#status_mahasiswa').val();
                     }

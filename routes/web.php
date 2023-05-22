@@ -111,7 +111,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('get-kurikulum', [App\Http\Controllers\AdminUniv\Perkuliahan\KurikulumController::class, 'getData'])->name('get-kurikulum');
 
         Route::get('detail-kurikulum/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\KurikulumController::class, 'detail'])->name('detail-kurikulum');
+
         Route::get('kelas-perkuliahan', [App\Http\Controllers\AdminUniv\Perkuliahan\KelasPerkuliahanController::class, 'index'])->name('kelas-perkuliahan');
+        Route::get('kelas-data', [App\Http\Controllers\AdminUniv\Perkuliahan\KelasPerkuliahanController::class, 'kelas_data'])->name('kelas-data');
         Route::get('detail-kelas-perkuliahan/{id}/{kelas_kuliah}/{semester}', [App\Http\Controllers\AdminUniv\Perkuliahan\KelasPerkuliahanController::class, 'detail'])->name('detail-kelas-perkuliahan');
         Route::get('nilai-perkuliahan', [App\Http\Controllers\AdminUniv\Perkuliahan\NilaiPerkuliahanController::class, 'index'])->name('nilai-perkuliahan');
         Route::get('detail-nilai-perkuliahan/{id}/{semester}', [App\Http\Controllers\AdminUniv\Perkuliahan\NilaiPerkuliahanController::class, 'detail'])->name('detail-nilai-perkuliahan');
@@ -208,7 +210,9 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('detail-substansi-kuliah/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\SubstansiKuliahController::class, 'detail'])->name('detail-substansi-kuliah');
             Route::get('kurikulum', [App\Http\Controllers\AdminProdi\Perkuliahan\KurikulumController::class, 'index'])->name('kurikulum');
             Route::get('detail-kurikulum/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\KurikulumController::class, 'detail'])->name('detail-kurikulum');
+
             Route::get('kelas-perkuliahan', [App\Http\Controllers\AdminProdi\Perkuliahan\KelasPerkuliahanController::class, 'index'])->name('kelas-perkuliahan');
+            Route::get('kelas-data', [App\Http\Controllers\AdminProdi\Perkuliahan\KelasPerkuliahanController::class, 'kelas_data'])->name('kelas-data');
             Route::get('detail-kelas-perkuliahan/{id}/{kelas_kuliah}/{semester}', [App\Http\Controllers\AdminProdi\Perkuliahan\KelasPerkuliahanController::class, 'detail'])->name('detail-kelas-perkuliahan');
             Route::get('nilai-perkuliahan', [App\Http\Controllers\AdminProdi\Perkuliahan\NilaiPerkuliahanController::class, 'index'])->name('nilai-perkuliahan');
             Route::get('detail-nilai-perkuliahan/{id}/{semester}', [App\Http\Controllers\AdminProdi\Perkuliahan\NilaiPerkuliahanController::class, 'detail'])->name('detail-nilai-perkuliahan');

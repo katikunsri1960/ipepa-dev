@@ -24,26 +24,13 @@
                                                 data-placeholder="Pilih Semester..." class="form-control chosen-select"
                                                 multiple style="width:350px;" tabindex="4">
                                                 <option value=""></option>
+                                                <option value="all" @if (in_array('all', $val->semester))
+                                                    selected
+                                                @endif
+                                                 >Semua Semester</option>
                                                 @foreach ($semester as $sem)
-                                                    <option value="{{ $sem->nama_semester }}"
-                                                        @php
-                                                        if($val->prodi != '' && $val->semester == ''){
-                                                            if($val->semester && in_array($sem->nama_semester, $val->semester)){
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        elseif($val->semester == '' && $val->prodi == ''){
-                                                            if($semester_aktif[0]['nama_semester'] && in_array($sem->nama_semester,$semester_aktif[0])){
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        if($val->semester != ''|| $val->prodi != ''){
-                                                            if($val->semester && in_array($sem->nama_semester, $val->semester)){
-                                                                echo 'selected';
-                                                            }
-                                                        }
-
-                                                        @endphp>
+                                                    <option value="{{ $sem->id_semester }}" @if ($val->semester &&
+                                                        in_array($sem->id_semester, $val->semester)) selected @endif>
                                                         {{ $sem->nama_semester }}
                                                     </option>
                                                 @endforeach
@@ -71,82 +58,41 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="col-md-2">
+                    <a href="{{route('admin-univ.kelas-perkuliahan')}}" class="btn btn-warning btn-block" id="reset-filter">Reset Filter</a>
                 </div><br><br>
                 <hr>
-                <div class="col-md-2">
-                    <select name="p" id="p" class="form-control" onchange="this.form.submit()">
-                        @foreach ($paginate as $p)
-                        <option value="{{ $p }}" @if ($p==$valPaginate) selected @endif>{{ $p }}</option>
-                        @endforeach
-                    </select>
-                </div>
             </form>
-            <div class="col-lg-4 pull-right">
-                <form method="GET" role="search">
-                    <div class="input-group">
-                        <input type="text" class="form-control" name="keyword"
-                            placeholder="Search by Kode MK or Nama MK or Nama Kelas"
-                            value="{{ request()->get('keyword', '') }}"> <span class="input-group-btn">
-                            <button class="btn btn-default">
-                                <span class="glyphicon glyphicon-search"></span>
-                            </button>
-                        </span>
-                    </div>
-                </form>
-            </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <p class="pull-right">Halaman ini menampilkan data berdasarakan semester :
-                    @if($val->prodi != '' && $val->semester == '')
-                        {{"-"}}
-                    @elseif($val->semester == '' && $val->prodi == '')
-                        <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $semester_aktif[0]['nama_semester'] }}</span>
-                    @elseif($val->semester != '' || $val->prodi != '')
-                        @foreach ($val->semester as $sem)
-                            <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i>   {{ $sem }}</span>
-                        @endforeach
+                    @foreach ($semester as $sem)
+                    @if ($val->semester && in_array($sem->id_semester, $val->semester))
+                    <span class="badge badge-primary"><i class="fa fa-calendar" aria-hidden="true"></i> {{ $sem->nama_semester }} </span>
                     @endif
+                    @endforeach
                 </p>
             </div>
         </div>
         <div class="pt-2">
-            <table class="table table-bordered table-hover table-responsive" id="table-matkul">
+            <table class="table table-bordered table-hover table-responsive" id="table-kelas">
                 <thead>
                     <tr>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">No.</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Semester</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Kode MK</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Nama Mata Kuliah</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Nama Kelas</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Bobot MK (sks)</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Dosen Pengajar</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Peserta Kelas</th>
-
-
+                        <th class="text-center" style="vertical-align: middle">No.</th>
+                        <th class="text-center" style="vertical-align: middle">Semester</th>
+                        <th class="text-center" style="vertical-align: middle">Kode MK</th>
+                        <th class="text-center" style="vertical-align: middle">Nama Mata Kuliah</th>
+                        <th class="text-center" style="vertical-align: middle">Nama Kelas</th>
+                        <th class="text-center" style="vertical-align: middle">Bobot MK (sks)</th>
+                        <th class="text-center" style="vertical-align: middle">Dosen Pengajar</th>
+                        <th class="text-center" style="vertical-align: middle">Peserta Kelas</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($kelas_perkuliahan as $no => $data)
-                    <tr>
-                        <td class="text-center">{{$kelas_perkuliahan->firstItem() + $no}}</td>
-                        <td class="text-center">{{$data->nama_semester}}</td>
-                        <td class="text-left"> <a
-                                href="{{route('admin-univ.detail-kelas-perkuliahan', ['id' => $data->id_matkul, 'kelas_kuliah' => $data->id_kelas_kuliah, 'semester' => $data->id_semester])}}"
-                                {{-- <td class="text-left"> <a
-                                    href="{{route('admin-univ.detail-kelas-perkuliahan', ['id' => $data->id_matkul, 'semester' => $data->id_semester])}}"
-                                    --}} name="req">{{$data->kode_mata_kuliah}}</a> </td>
-                        <td class="text-left">{{$data->nama_mata_kuliah}}</td>
-                        <td class="text-center">{{$data->nama_kelas_kuliah}}</td>
-                        <td class="text-center">{{$data->sks_mata_kuliah}}</td>
-                        <td class="text-left">{{$data->nama_dosen}}</td>
-                        <td class="text-center">{{$data->jumlah_mahasiswa}}</td>
-
-                    </tr>
-                    @endforeach
                 </tbody>
             </table>
-            {!! $kelas_perkuliahan->withQueryString()->links() !!}
         </div>
     </div>
 </div>
@@ -163,6 +109,52 @@
     $(document).ready(function() {
             $('.chosen-select').chosen({
                 width: "100%"
+            });
+
+            $('#table-kelas').DataTable({
+                lengthMenu: [[20, 50, 100, 300, 500], [20, 50, 100, 300, 500]],
+                searchable: true,
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin-univ.kelas-data') }}",
+                    data: function (d) {
+                        d.prodi = $('#prodi').val();
+                        if($('#semester').val() != 'all'){
+                            d.semester = $('#semester').val();
+                        }
+                        // d.semester = $('#semester').val();
+                        d.angkatan = $('#angkatan').val();
+                        d.status_mahasiswa = $('#status_mahasiswa').val();
+                    }
+                },
+                pageLength: 20,
+                responsive: true,
+                ordering: false,
+                columns: [
+                    {data: 'number', name: 'number', searchable: false, class: 'text-center'},
+                    {data: 'nama_semester', name: 'nama_semester', searchable: false, class: 'text-center'},
+                    {data: 'kode_mata_kuliah', name: 'kode_mata_kuliah', searchable: false,
+                            "render": function ( data, type, row, meta ) {
+                                var link = '<a href="{{route("admin-univ.detail-kelas-perkuliahan", ["id" => ":id", "kelas_kuliah" => ":kelas", "semester" => ":sem"])}}">:data</a>';
+                                link = link.replace(':id', row.id_matkul);
+                                link = link.replace(':kelas', row.id_kelas_kuliah);
+                                link = link.replace(':sem', row.id_semester);
+                                link = link.replace(':data', data);
+                                return link;
+                        }
+                     },
+                     {data: 'nama_mata_kuliah', name: 'nama_mata_kuliah'},
+                    {data: 'nama_kelas_kuliah', name: 'nama_kelas_kuliah', class: 'text-center'},
+                    {data: 'sks', name: 'sks', searchable: false, class: 'text-center'},
+                    {data: 'nama_dosen', name: 'nama_dosen', searchable: true},
+                    {data: 'jumlah_mahasiswa', name: 'jumlah_mahasiswa', searchable: false, class: 'text-center'},
+                ],
+            });
+
+            $('#applyFilter').on('click', function() {
+                table.ajax.reload();// merefresh datatable
+                $('#modal-filter').modal('hide'); // hide modal
             });
         });
 </script>

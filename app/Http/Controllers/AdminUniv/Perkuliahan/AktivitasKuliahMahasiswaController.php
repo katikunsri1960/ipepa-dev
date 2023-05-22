@@ -28,6 +28,18 @@ class AktivitasKuliahMahasiswaController extends Controller
         $val = $req;
         $status_mahasiswa = StatusMahasiswa::select('id_status_mahasiswa', 'nama_status_mahasiswa')->get();
 
+        $year = date('Y');
+        $month = date('m');
+        if ($month < 7) {
+            $aktif = ($year-1).'2';
+        } else {
+            $aktif = $year.'1';
+        }
+
+        if ($req->semester == null) {
+          $val->semester = [$aktif];
+        }
+        // dd($val->semester);
         return view('backend.univ.perkuliahan.aktivitas-kuliah-mahasiswa.index', compact('val','prodi',
         'semester', 'semester_aktif','angkatan' ,'status_mahasiswa'));
         // 'angkatan_aktif',
@@ -40,8 +52,7 @@ class AktivitasKuliahMahasiswaController extends Controller
 
         $searchValue = $request->input('search.value');
 
-        $query = DB::table('pd_feeder_aktivitas_kuliah_mahasiswa')->select('id_mahasiswa','nim', 'nama_mahasiswa', 'nama_program_studi', 'id_prodi', 'id_semester', 'angkatan', 'nama_semester', 'nama_status_mahasiswa', 'ipk','ips','sks_semester', 'sks_total')
-                                                                ->orderBy('id_prodi', 'ASC');
+        $query = DB::table('pd_feeder_aktivitas_kuliah_mahasiswa')->select('id_mahasiswa','nim', 'nama_mahasiswa', 'nama_program_studi', 'id_prodi', 'id_semester', 'angkatan', 'nama_semester', 'nama_status_mahasiswa', 'ipk','ips','sks_semester', 'sks_total');
 
         if ($searchValue) {
             $query->where(function ($query) use ($searchValue) {
@@ -58,8 +69,11 @@ class AktivitasKuliahMahasiswaController extends Controller
         }
 
         if ($request->has('semester') && !empty($request->input('semester'))) {
-            $semester = $request->input('semester');
-            $query->whereIn('id_semester', $semester);
+            if($request->input('semester') != 'all')
+            {
+                $semester = $request->input('semester');
+                $query->whereIn('id_semester', $semester);
+            }
         }
 
         if ($request->has('angkatan') && !empty($request->input('angkatan'))) {
@@ -82,7 +96,7 @@ class AktivitasKuliahMahasiswaController extends Controller
          // get data
         $data = $query->get();
 
-        $recordsTotal = DB::table('pd_feeder_aktivitas_kuliah_mahasiswa')->count();
+        $recordsTotal = $query->count();
 
          // add numbering
         $number = $offset + 1;
