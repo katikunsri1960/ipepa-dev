@@ -56,7 +56,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
-
     // Semua Routing Admin Universitas masuk ke sini
     Route::group([
         'prefix' => 'admin-univ',
@@ -78,6 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('histori-nilai/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'histori_nilai'])->name('histori-nilai');
         Route::get('prestasi-mahasiswa/{id}', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'prestasi'])->name('prestasi-mahasiswa');
         Route::get('export-daftar-mahasiswa', [App\Http\Controllers\AdminUniv\Mahasiswa\ExportController::class, 'daftar_mahasiswa'])->name('export-daftar-mahasiswa');
+        Route::get('nilai-transfer', [App\Http\Controllers\AdminUniv\Mahasiswa\MahasiswaController::class, 'nilai_transfer'])->name('nilai-transfer');
 
         //Profil PT
         Route::get('profil-pt', [App\Http\Controllers\AdminUniv\Profil_pt\ProfilPTController::class, 'index'])->name('profil-pt');
@@ -132,6 +132,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('detail-kampus-merdeka/{id}', [App\Http\Controllers\AdminUniv\Perkuliahan\KampusMerdekaController::class, 'detail'])->name('detail-kampus-merdeka');
         Route::get('merdeka-data', [App\Http\Controllers\AdminUniv\Perkuliahan\KampusMerdekaController::class, 'merdekaData'])->name('merdeka-data');
         Route::get('mahasiswa-lulus-do', [App\Http\Controllers\AdminUniv\Perkuliahan\MahasiswaLulusDoController::class, 'index'])->name('mahasiswa-lulus-do');
+        Route::get('lulus-do-data', [App\Http\Controllers\AdminUniv\Perkuliahan\MahasiswaLulusDoController::class, 'lulusDoData'])->name('lulus-do-data');
+
         Route::get('detail-mahasiswa-lulus-do/{id}/{tahun}', [App\Http\Controllers\AdminUniv\Perkuliahan\MahasiswaLulusDoController::class, 'detail'])->name('detail-mahasiswa-lulus-do');
         Route::get('cek-transkrip-mahasiswa', [App\Http\Controllers\AdminUniv\Perkuliahan\CekTranskripMahasiswaController::class, 'index'])->name('cek-transkrip-mahasiswa');
 
@@ -226,7 +228,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('detail-aktivitas-mahasiswa/{id}', [App\Http\Controllers\AdminProdi\Perkuliahan\AktivitasMahasiswaController::class, 'detail'])->name('detail-aktivitas-mahasiswa');
             Route::get('mahasiswa-lulus-do', [App\Http\Controllers\AdminProdi\Perkuliahan\MahasiswaLulusDoController::class, 'index'])->name('mahasiswa-lulus-do');
             Route::get('detail-mahasiswa-lulus-do/{id}/{tahun}', [App\Http\Controllers\AdminProdi\Perkuliahan\MahasiswaLulusDoController::class, 'detail'])->name('detail-mahasiswa-lulus-do');
-
+            Route::get('lulus-do-data', [App\Http\Controllers\AdminProdi\Perkuliahan\MahasiswaLulusDoController::class, 'lulusDoData'])->name('lulus-do-data');
             //Profil PT
             Route::get('profil-pt', [App\Http\Controllers\AdminProdi\Profil_pt\ProfilPTController::class, 'index'])->name('profil-pt');
 

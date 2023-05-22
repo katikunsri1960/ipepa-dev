@@ -13,14 +13,14 @@
                         style="margin-left: 6px; margin-right: 6px">Filter</span>
                 </button>
                 </div>
-                
+
                 <div id="modal-filter" class="modal fade" aria-hidden="true" style="display: none;">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="input-group">
-                                        <select name="start" id="min" class="input form-control" onchange="pushRequired()">
+                                        <select name="start" id="min" class="input form-control" >
                                             <option value="">Pilih Angkatan Awal</option>
                                             @foreach ($angkatan as $item)
                                             <option value="{{ $item }}" @if (request()->has('start') && request('start') == $item) selected @endif>{{ $item }}</option>
@@ -64,18 +64,17 @@
                                 <h3>Variable yang dinyatakan tepat waktu adalah < {{$day}} Hari.</h3>
                                 <p>Untuk mengganti variable, silahkan gunakan menu FILTER.</p>
                             </div>
-    
+
                             @if (request()->has('start') && request()->has('end') && request('start') != '' && request('end') != '')
                             <div class="">
                                 Filter Angkatan : <h2>{{ request('start') }} sampai {{ request('end') }}</h2>
                             </div>
                             @endif
-    
+
                             <div class="">
                                 <h2>Jenjang Pendidikan: {{$jenjang}}</h2>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div
@@ -91,6 +90,7 @@
                         <th class="text-center align-middle">Angkatan</th>
                         <th class="text-center align-middle">Tepat Waktu</th>
                         <th class="text-center align-middle">Tidak Tepat Waktu</th>
+                        <th class="text-center align-middle">Data Salah</th>
                         <th class="text-center align-middle">Total Lulus</th>
                     </tr>
                 </thead>
@@ -100,7 +100,8 @@
                         <th class="text-center align-middle">{{ $i }}</th>
                         <td class="text-center align-middle">{{ $v['tepat_waktu'] }}</td>
                         <td class="text-center align-middle">{{ $v['tidak_tepat_waktu'] }}</td>
-                        <td class="text-center align-middle">{{ $v['tepat_waktu'] + $v['tidak_tepat_waktu'] }}</td>
+                        <td class="text-center align-middle">{{ $v['data_salah'] }}</td>
+                        <td class="text-center align-middle">{{ $v['tepat_waktu'] + $v['tidak_tepat_waktu'] + $v['data_salah'] }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -117,7 +118,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 
-    function pushRequired(){
+    function pushRequired() {
         const min = document.getElementById('min').value;
         const max = document.getElementById('max').value;
         if (min | max) {
@@ -127,7 +128,8 @@
             document.getElementById('day').required = false;
         }
     }
-  
+
+
     $(document).ready(function () {
 
         $('#info').DataTable({
@@ -166,7 +168,13 @@
                         // borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1
                     },
-                    
+                    {
+                        label: 'Data Salah',
+                        data: Object.values(data).map(year => year.data_salah),
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        borderWidth: 1
+                    },
+
                 ]},
             options: {
                 responsive: true,
@@ -186,7 +194,12 @@
                 }
             }
         });
+
+
     });
+
+
+
 </script>
 
 @endpush

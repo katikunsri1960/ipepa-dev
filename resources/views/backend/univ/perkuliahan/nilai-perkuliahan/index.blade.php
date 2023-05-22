@@ -111,15 +111,15 @@
                 <table class="table table-bordered table-hover table-responsive" id="table-matkul">
                     <thead>
                         <tr>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">No.</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Semester</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Kode MK</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Nama Mata Kuliah</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Nama Kelas</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Bobot MK (sks)</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Peserta Kelas</th>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">Peserta Sudah di Nilai</th>
-                        {{-- <th rowspan="2" class="text-center" style="vertical-align: middle">Program Studi</th> --}}
+                        <th class="text-center" style="vertical-align: middle">No.</th>
+                        <th class="text-center" style="vertical-align: middle">Semester</th>
+                        <th class="text-center" style="vertical-align: middle">Kode MK</th>
+                        <th class="text-center" style="vertical-align: middle">Nama Mata Kuliah</th>
+                        <th class="text-center" style="vertical-align: middle">Nama Kelas</th>
+                        <th class="text-center" style="vertical-align: middle">Bobot MK (sks)</th>
+                        <th class="text-center" style="vertical-align: middle">Peserta Kelas</th>
+                        <th class="text-center" style="vertical-align: middle">Peserta Sudah di Nilai</th>
+                        {{-- <th class="text-center" style="vertical-align: middle">Program Studi</th> --}}
 
                     </tr>
                 </thead>

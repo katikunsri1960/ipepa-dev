@@ -25,7 +25,7 @@ class PemantauanController extends Controller
 
         $angkatan = $angkatan->map(function ($item, $key) {
             return $item->angkatan;
-        })->values()->toArray(); 
+        })->values()->toArray();
 
         //sort $angkatan ascending
         sort($angkatan);
@@ -71,9 +71,9 @@ class PemantauanController extends Controller
         foreach ($mahasiswaFix as $key => $value) {
             ksort($mahasiswaFix[$key]);
         }
-        
+
         $totalPerYear = json_encode($mahasiswaFix, JSON_NUMERIC_CHECK);
-      
+
         $mahasiswaPerStatus = json_encode($mahasiswaFix, JSON_NUMERIC_CHECK);
 
 
@@ -94,31 +94,30 @@ class PemantauanController extends Controller
         } else {
             $jenjang= 'S1';
         }
-        
+
 
         $jp = Prodi::select('nama_jenjang_pendidikan')->distinct()->get();
-        
+
         // dd($jp);
 
         $angkatan = LulusDo::select('angkatan')->distinct()->get();
 
         $angkatan = $angkatan->map(function ($item, $key) {
             return $item->angkatan;
-        })->values()->toArray(); 
+        })->values()->toArray();
 
         //sort $angkatan descending
         sort($angkatan);
 
         // get count tepat waktu where timestampdiff betwen tgl_masuk_sp and tgl_keluar is less than 1460 days, tidak_tepat_waktu where timestampdiff betwen tgl_masuk_sp and tgl_keluar is more than 1460 days, and total_mahasiswa_lulus
         $data = LulusDo::join('pd_feeder_program_studi as ps', 'ps.id_prodi', 'pd_feeder_list_mahasiswa_lulus_do.id_prodi')
-                        ->selectRaw('angkatan, count(case when timestampdiff(day, tgl_masuk_sp, tgl_keluar) between 0 and '.$day.' then 1 end) as tepat_waktu')
-                        ->selectRaw('count(case when timestampdiff(day, tgl_masuk_sp, tgl_keluar) < 0 then 1 end) as data_salah')
-                        ->selectRaw('count(case when timestampdiff(day, tgl_masuk_sp, tgl_keluar) > '.$day.' then 1 end) as tidak_tepat_waktu')
+                        ->selectRaw('angkatan, count(case when timestampdiff(day, STR_TO_DATE(tgl_masuk_sp, "%d-%m-%Y"), STR_TO_DATE(tgl_keluar, "%d-%m-%Y")) between 0 and '.$day.' then 1 end) as tepat_waktu')
+                        ->selectRaw('count(case when timestampdiff(day, STR_TO_DATE(tgl_masuk_sp, "%d-%m-%Y"), STR_TO_DATE(tgl_keluar, "%d-%m-%Y")) < 0 then 1 end) as data_salah')
+                        ->selectRaw('count(case when timestampdiff(day, STR_TO_DATE(tgl_masuk_sp, "%d-%m-%Y"), STR_TO_DATE(tgl_keluar, "%d-%m-%Y")) > '.$day.' then 1 end) as tidak_tepat_waktu')
                         ->where('ps.nama_jenjang_pendidikan', $jenjang)
                         ->where('nama_jenis_keluar', 'Lulus')
                         ->groupBy('angkatan')
                         ->get();
-
 
         if ($req->has('start') && $req->has('end') && $req->start != null && $req->end != null) {
             $data = $data->filter(function ($item, $key) use ($req) {
@@ -181,7 +180,7 @@ class PemantauanController extends Controller
 
         $angkatan = $angkatan->map(function ($item, $key) {
             return $item->angkatan;
-        })->values()->toArray(); 
+        })->values()->toArray();
 
         //sort $angkatan ascending
         sort($angkatan);
@@ -227,9 +226,9 @@ class PemantauanController extends Controller
         foreach ($mahasiswaFix as $key => $value) {
             ksort($mahasiswaFix[$key]);
         }
-        
+
         $totalPerYear = json_encode($mahasiswaFix, JSON_NUMERIC_CHECK);
-      
+
         $mahasiswaPerStatus = json_encode($mahasiswaFix, JSON_NUMERIC_CHECK);
 
 
@@ -266,5 +265,5 @@ class PemantauanController extends Controller
         return view('backend.univ.pemantauan.dev-ipepa', compact('mahasiswa'));
     }
 
-    
+
 }

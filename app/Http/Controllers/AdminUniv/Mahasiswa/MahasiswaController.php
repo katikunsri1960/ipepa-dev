@@ -129,6 +129,11 @@ class MahasiswaController extends Controller
         return view('backend.univ.mahasiswa.detail-mahasiswa', compact('mahasiswa'));
     }
 
+    public function nilai_transfer($id)
+    {
+        $this->authorize('admin-univ');
+    }
+
     public function histori($id)
     {
         $this->authorize('admin-univ');
