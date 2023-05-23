@@ -113,7 +113,6 @@ class KelasPerkuliahanController extends Controller
         $data = DetailKelasKuliah::leftJoin('pd_feeder_detail_mata_kuliah', 'pd_feeder_detail_mata_kuliah.id_matkul', 'pd_feeder_detail_kelas_kuliah.id_matkul');
 
         $data_dosen = DetailKelasKuliah::leftJoin('pd_feeder_dosen_pengajar_kelas_kuliah','pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah','pd_feeder_detail_kelas_kuliah.id_kelas_kuliah')
-            ->leftJoin('pd_feeder_detail_mata_kuliah', 'pd_feeder_detail_mata_kuliah.id_matkul', 'pd_feeder_detail_kelas_kuliah.id_matkul')
             ->leftJoin('pd_feeder_krs_mahasiswa','pd_feeder_krs_mahasiswa.id_kelas','pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah');
             // ->orderBy('pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah');
 

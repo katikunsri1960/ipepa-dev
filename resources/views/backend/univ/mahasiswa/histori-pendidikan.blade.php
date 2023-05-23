@@ -89,10 +89,81 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $n =1;
+                    @endphp
                     @foreach ($riwayat as $dataR)
                         <tr>
                             <td class="text-center"><button class="btn btn-info btn-circle" type="button"
-                                data-toggle="modal" data-target="#modal-form"><i class="fa fa-file"></i></button></td>
+                                data-toggle="modal" data-target="#modal-form-{{$n}}"><i class="fa fa-file"></i></button>
+                                <div id="modal-form-{{$n}}" class="modal fade" aria-hidden="true" style="display: none;">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>NIM</label>
+                                                            <input type="text" class="form-control" disabled value="{{ ($dataR->nim!='') ? $dataR->nim : "-" }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Jenis Pendaftaran</label>
+                                                            <input type="text" class="form-control" disabled value="{{ ($dataR->nama_jenis_daftar!='') ? $dataR->nama_jenis_daftar :"-" }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Jalur Pendaftaran</label>
+                                                            <input type="text" class="form-control" disabled value="{{ ($dataR->jalur_masuk!='') ? $dataR->jalur_masuk :"-" }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6"><div class="form-group">
+                                                        <label>Periode Pendaftaran</label>
+                                                        <input type="text" class="form-control" disabled value="{{ ($dataR->nama_periode_masuk!='') ? $dataR->nama_periode_masuk :"-" }}">
+                                                    </div></div>
+                                                    <div class="col-lg-6"><div class="form-group">
+                                                        <label>Tanggal Masuk</label>
+                                                        <input type="text" class="form-control" disabled value="{{ ($dataR->tanggal_daftar!='') ? $dataR->tanggal_daftar :"-" }}">
+                                                    </div></div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Pembiayaan Awal</label>
+                                                            <input type="text" class="form-control" disabled value="{{ ($dataR->nama_pembiayaan_awal!='') ? $dataR->nama_pembiayaan_awal :"-" }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Biaya Masuk</label>
+                                                            <input type="text" class="form-control" disabled value="{{ ($dataR->biaya_masuk!='') ? $dataR->biaya_masuk :"-" }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Perguruan Tinggi</label>
+                                                            <input type="text" class="form-control" disabled value="{{ ($dataR->nama_perguruan_tinggi!='') ? $dataR->nama_perguruan_tinggi :"-" }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Fakultas / Program Studi</label>
+                                                            <input type="text" class="form-control" disabled value="{{ ($dataR->nama_program_studi!='') ? $dataR->nama_program_studi :"-" }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="form-group">
+                                                            <label>Peminatan</label>
+                                                            <input type="text" class="form-control" disabled value="{{ ($dataR->nama_bidang_minat!='') ? $dataR->nama_bidang_minat :"-" }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
                             <td class="text-center">{{$dataR->nim}}</td>
                             <td class="text-center">{{$dataR->nama_jenis_daftar}}</td>
                             <td class="text-center">{{$dataR->nama_periode_masuk}}</td>
@@ -100,75 +171,14 @@
                             <td class="text-center">{{$dataR->nama_perguruan_tinggi}}</td>
                             <td class="text-center">{{$dataR->nama_program_studi}}</td>
                         </tr>
+                        @php
+                            $n++;
+                        @endphp
                     @endforeach
                 </tbody>
             </table>
-            <div id="modal-form" class="modal fade" aria-hidden="true" style="display: none;">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>NIM</label>
-                                        <input type="text" class="form-control" disabled value="{{ ($riwayat[0]->nim!='') ? $riwayat[0]->nim : "-" }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Jenis Pendaftaran</label>
-                                        <input type="text" class="form-control" disabled value="{{ ($riwayat[0]->nama_jenis_daftar!='') ? $riwayat[0]->nama_jenis_daftar :"-" }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Jalur Pendaftaran</label>
-                                        <input type="text" class="form-control" disabled value="{{ ($riwayat[0]->jalur_masuk!='') ? $riwayat[0]->jalur_masuk :"-" }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6"><div class="form-group">
-                                    <label>Periode Pendaftaran</label>
-                                    <input type="text" class="form-control" disabled value="{{ ($riwayat[0]->nama_periode_masuk!='') ? $riwayat[0]->nama_periode_masuk :"-" }}">
-                                </div></div>
-                                <div class="col-lg-6"><div class="form-group">
-                                    <label>Tanggal Masuk</label>
-                                    <input type="text" class="form-control" disabled value="{{ ($riwayat[0]->tanggal_daftar!='') ? $riwayat[0]->tanggal_daftar :"-" }}">
-                                </div></div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Pembiayaan Awal</label>
-                                        <input type="text" class="form-control" disabled value="{{ ($riwayat[0]->nama_pembiayaan_awal!='') ? $riwayat[0]->nama_pembiayaan_awal :"-" }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Biaya Masuk</label>
-                                        <input type="text" class="form-control" disabled value="{{ ($riwayat[0]->biaya_masuk!='') ? $riwayat[0]->biaya_masuk :"-" }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Perguruan Tinggi</label>
-                                        <input type="text" class="form-control" disabled value="{{ ($riwayat[0]->nama_perguruan_tinggi!='') ? $riwayat[0]->nama_perguruan_tinggi :"-" }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Fakultas / Program Studi</label>
-                                        <input type="text" class="form-control" disabled value="{{ ($riwayat[0]->nama_program_studi!='') ? $riwayat[0]->nama_program_studi :"-" }}">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group">
-                                        <label>Peminatan</label>
-                                        <input type="text" class="form-control" disabled value="{{ ($riwayat[0]->nama_bidang_minat!='') ? $riwayat[0]->nama_bidang_minat :"-" }}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+
         </div>
     </div>
 @endsection
