@@ -40,9 +40,13 @@ class AktivitasMahasiswaController extends Controller
         $prodiId = RolesUser::where('user_id', auth()->user()->id)->value('fak_prod_id');
 
         $searchValue = $request->input('search.value');
+        $columns = ['id_aktivitas','nama_prodi', 'id_semester', 'nama_jenis_aktivitas', 'judul', 'tanggal_sk_tugas'];
+        $column = $columns[$request->input('order.0.column')];
+        $direction = $request->input('order.0.dir');
 
-        $query = DB::table('pd_feeder_list_aktivitas_mahasiswa')->select('id_aktivitas', 'id_semester','id_prodi', 'nama_prodi', 'nama_semester', 'nama_jenis_aktivitas','judul', 'tanggal_sk_tugas')
-                                                                ->where('id_prodi', $prodiId);
+        $query = DB::table('pd_feeder_list_aktivitas_mahasiswa')
+                    ->select('id_aktivitas', 'id_semester','id_prodi', 'nama_prodi', 'nama_semester', 'nama_jenis_aktivitas','judul', 'tanggal_sk_tugas')
+                    ->where('id_prodi', $prodiId);
 
         if ($searchValue) {
             $query->where(function ($query) use ($searchValue) {
@@ -62,6 +66,7 @@ class AktivitasMahasiswaController extends Controller
         }
 
         $recordsFiltered = $query->count();
+        $query->orderBy($column, $direction);
 
         // limit and offset
         $limit = $request->input('length');

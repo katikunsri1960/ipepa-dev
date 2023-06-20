@@ -79,7 +79,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{public_path('assets/js/plugins/dataTables/datatables.min.js')}}"></script>
 
-    
+
 <script>
 
     $(document).ready(function () {

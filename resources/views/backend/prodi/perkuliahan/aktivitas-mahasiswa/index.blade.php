@@ -126,9 +126,9 @@
                 },
                 pageLength: 20,
                 responsive: true,
-                ordering: false,
+                ordering: true,
                 columns: [
-                    {data: 'number', name: 'number', searchable: false, class: 'text-center'},
+                    {data: 'number', name: 'number', searchable: false, class: 'text-center', sortable: false},
                     {data: 'nama_prodi', name: 'nama_prodi', searchable: false,
                             "render": function ( data, type, row, meta ) {
                                 var link = '<a href="{{route("admin-prodi.detail-aktivitas-mahasiswa", ["id" => ":id"])}}">:data</a>';
@@ -139,8 +139,8 @@
                      },
                     {data: 'nama_semester', name: 'nama_semester', searchable: false},
                     {data: 'nama_jenis_aktivitas', name: 'nama_jenis_aktivitas', class: 'text-center'},
-                    {data: 'judul', name: 'judul', searchable: true},
-                    {data: 'tanggal_sk_tugas', name: 'tanggal_sk_tugas', searchable: true},
+                    {data: 'judul', name: 'judul', searchable: true, sortable: true},
+                    {data: 'tanggal_sk_tugas', name: 'tanggal_sk_tugas', searchable: true, sortable: false},
                 ],
             });
             $('#applyFilter').on('click', function() {

@@ -31,8 +31,12 @@ class AktivitasMahasiswaController extends Controller
         $this->authorize('admin-univ');
 
         $searchValue = $request->input('search.value');
+        $columns = ['id_aktivitas','nama_prodi', 'id_semester', 'nama_jenis_aktivitas', 'judul', 'tanggal_sk_tugas'];
+        $column = $columns[$request->input('order.0.column')];
+        $direction = $request->input('order.0.dir');
 
-        $query = DB::table('pd_feeder_list_aktivitas_mahasiswa')->select('id_aktivitas', 'id_semester','id_prodi', 'nama_prodi', 'nama_semester', 'nama_jenis_aktivitas','judul', 'tanggal_sk_tugas');
+        $query = DB::table('pd_feeder_list_aktivitas_mahasiswa')
+                    ->select('id_aktivitas', 'id_semester','id_prodi', 'nama_prodi', 'nama_semester', 'nama_jenis_aktivitas','judul', 'tanggal_sk_tugas');
 
         if ($searchValue) {
             $query->where(function ($query) use ($searchValue) {
@@ -52,11 +56,12 @@ class AktivitasMahasiswaController extends Controller
         }
 
         $recordsFiltered = $query->count();
-
+        $query->orderBy($column, $direction);
         // limit and offset
         $limit = $request->input('length');
         $offset = $request->input('start');
         $query->skip($offset)->take($limit);
+
 
          // get data
         $data = $query->get();
