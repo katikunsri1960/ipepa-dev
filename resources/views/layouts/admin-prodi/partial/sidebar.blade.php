@@ -13,13 +13,37 @@
                 <a href="{{route('admin-prodi.dashboard-admin-prodi')}}"><i class="fa-solid fa-table-cells"></i> <span class="nav-label">Dashboards</span></a>
             </li>
             <li  class="{{request()->routeIs('admin-prodi.pemantauan-lulusan') || request()->routeIs('admin-prodi.length-studi') ? 'active' : ''}}">
-                <a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">Monev</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">Feeder Monev</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{request()->routeIs('admin-prodi.pemantauan-lulusan') ? 'active' : ''}}">
                         <a href="{{route('admin-prodi.pemantauan-lulusan')}}">Lulusan</a>
                     </li>
                     <li class="{{request()->routeIs('admin-prodi.length-studi')  ? 'active' : ''}}">
                         <a href="{{route('admin-prodi.length-studi')}}">Length Studi</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="{{request()->routeIs('admin-prodi.dosen')
+                        || request()->routeIs('admin-prodi.mahasiswa-asing')
+                        || request()->routeIs('admin-prodi.capaian-pembelajaran')
+                        || request()->routeIs('admin-prodi.regular-transfer')
+                        || request()->routeIs('admin-prodi.kohort-lulusan') ? 'active' : ''}}">
+                <a href="#"><i class="fa fa-poll"></i> <span class="nav-label">IPEPA Monev</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="{{request()->routeIs('admin-prodi.dosen') ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.dosen')}}"><i class="fa fa-user-graduate"></i> Dosen</a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-prodi.regular-transfer') ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.regular-transfer')}}"><i class="fa fa-graduation-cap"></i> Regular & Transfer</a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-prodi.mahasiswa-asing') ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.mahasiswa-asing')}}"><i class="fa fa-flag"></i> Mahasiswa Asing</a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-prodi.capaian-pembelajaran') ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.capaian-pembelajaran')}}"><i class="fa fa-marker"></i> IPK Lulusan</a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-prodi.kohort-lulusan') ? 'active' : ''}}">
+                        <a href="{{route('admin-prodi.kohort-lulusan')}}"><i class="fa fa-line-chart"></i> Kohort Lulusan</a>
                     </li>
                 </ul>
             </li>

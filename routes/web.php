@@ -151,6 +151,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('ajax-length-studi', [App\Http\Controllers\AdminUniv\PemantauanController::class, 'ajax_length_studi'])->name('ajax-length-studi');
         Route::get('dev-pemantauan', [App\Http\Controllers\AdminUniv\PemantauanController::class, 'dev'])->name('dev-pemantauan');
         Route::get('dev-ipepa', [App\Http\Controllers\AdminUniv\PemantauanController::class, 'dev_ipepa'])->name('dev-ipepa');
+
+        //check simak
+        Route::get('check-transkrip-simak', [App\Http\Controllers\AdminUniv\SimakController::class, 'index'])->name('check-transkrip-simak');
+        Route::get('check-transkrip-simak-data', [App\Http\Controllers\AdminUniv\SimakController::class, 'data'])->name('check-transkrip-simak-data');
+        Route::get('check-nilai-simak', [App\Http\Controllers\AdminUniv\SimakController::class, 'nilai'])->name('check-nilai-simak');
+        Route::get('check-nilai-simak-data', [App\Http\Controllers\AdminUniv\SimakController::class, 'nilai_data'])->name('check-nilai-simak-data');
     });
 
 
@@ -245,5 +251,17 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('pemantauan-lulusan', [App\Http\Controllers\AdminProdi\PemantauanController::class, 'index'])->name('pemantauan-lulusan');
             Route::get('pemantauan-length-studi', [App\Http\Controllers\AdminProdi\PemantauanController::class, 'length_studi'])->name('length-studi');
             Route::get('dev-pemantauan', [App\Http\Controllers\AdminProdi\PemantauanController::class, 'dev'])->name('dev-pemantauan');
+
+            // Routing IPEPA Monev
+            Route::get('dosen', [App\Http\Controllers\AdminProdi\IpepaController::class, 'dosen'])->name('dosen');
+            Route::get('dosen-data', [App\Http\Controllers\AdminProdi\IpepaController::class, 'dosen_data'])->name('dosen.data');
+            Route::get('mahasiswa-asing', [App\Http\Controllers\AdminProdi\IpepaController::class, 'mahasiswa_asing'])->name('mahasiswa-asing');
+            Route::get('mahasiswa-asing-data', [App\Http\Controllers\AdminProdi\IpepaController::class, 'mahasiswa_asing_data'])->name('mahasiswa-asing.data');
+            Route::get('capaian-pembelajaran', [App\Http\Controllers\AdminProdi\IpepaController::class, 'capaian_pembelajaran'])->name('capaian-pembelajaran');
+            Route::get('capaian-pembelajaran-data', [App\Http\Controllers\AdminProdi\IpepaController::class, 'capaian_pembelajaran_data'])->name('capaian-pembelajaran.data');
+            Route::get('regular-transfer', [App\Http\Controllers\AdminProdi\IpepaController::class, 'regular_transfer'])->name('regular-transfer');
+            Route::get('regular-transfer-data', [App\Http\Controllers\AdminProdi\IpepaController::class, 'regular_transfer_data'])->name('regular-transfer.data');
+            Route::get('kohort-lulusan', [App\Http\Controllers\AdminProdi\IpepaController::class, 'kohort_lulusan'])->name('kohort-lulusan');
+            Route::get('kohort-lulusan-data', [App\Http\Controllers\AdminProdi\IpepaController::class, 'kohort_lulusan_data'])->name('kohort-lulusan.data');
         });
 });

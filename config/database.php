@@ -43,17 +43,18 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
-        'pdunsri' => [
-            'driver'    => 'mysql',
-            'host'      => '',
-            'database'  => '',
-            'username'  => '',
-            'password'  => '',
-            'charset'   => 'utf8mb4',
+        'pd_con' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST_PD'),
+            'port' => '3306',
+            'database' => env('DB_DATABASE_PD'),
+            'username' => env('DB_USERNAME_PD'),
+            'password' => env('DB_PASSWORD_PD'),
+            'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
-            'prefix'    => '',
-            'strict'    => true,
-            'engine'    => null,
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
         ],
 
         'mysql' => [

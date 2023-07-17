@@ -3,6 +3,6 @@
         Dashboard Universitas Sriwijaya
     </div> -->
     <div>
-        <strong>Copyright</strong> Universitas Sriwijaya &copy; 2022
+        <strong>Copyright</strong> Universitas Sriwijaya &copy; {{date('Y')}}
     </div>
 </div>

@@ -98,6 +98,17 @@
             <li class="{{request()->routeIs('admin-univ.export-data') ? 'active' : ''}}">
                 <a href="{{route('admin-univ.export-data')}}"><i class="fa fa-file-excel"></i> <span class="nav-label">Export Data</span></a>
             </li>
+
+            <li  class="{{request()->routeIs('admin-univ.check-transkrip-simak') || request()->routeIs('admin-univ.check-nilai-simak') ? 'active' : ''}}">
+                <a href="#"><i class="fa fa-briefcase"></i> <span class="nav-label">SIMAK Unsri</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li class="{{request()->routeIs('admin-univ.check-transkrip-simak') ? 'active' : ''}}">
+                        <a href="{{route('admin-univ.check-transkrip-simak')}}"><i class="fa-solid fa-table-cells"></i> <span class="nav-label">SIMAK Transkrip</span></a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-univ.check-nilai-simak') ? 'active' : ''}}">
+                        <a href="{{route('admin-univ.check-nilai-simak')}}"><i class="fa-solid fa-table-cells"></i> <span class="nav-label">SIMAK Nilai</span></a>
+                    </li>
+                </ul>
         </ul>
     </div>
 </nav>
