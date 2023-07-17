@@ -157,6 +157,19 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('check-transkrip-simak-data', [App\Http\Controllers\AdminUniv\SimakController::class, 'data'])->name('check-transkrip-simak-data');
         Route::get('check-nilai-simak', [App\Http\Controllers\AdminUniv\SimakController::class, 'nilai'])->name('check-nilai-simak');
         Route::get('check-nilai-simak-data', [App\Http\Controllers\AdminUniv\SimakController::class, 'nilai_data'])->name('check-nilai-simak-data');
+
+        //Routing ipepa monev
+        Route::get('dosen', [App\Http\Controllers\AdminUniv\IpepaController::class, 'dosen'])->name('dosen');
+        Route::get('dosen-data', [App\Http\Controllers\AdminUniv\IpepaController::class, 'dosen_data'])->name('dosen.data');
+        Route::get('mahasiswa-asing', [App\Http\Controllers\AdminUniv\IpepaController::class, 'mahasiswa_asing'])->name('mahasiswa-asing');
+        Route::get('mahasiswa-asing-data', [App\Http\Controllers\AdminUniv\IpepaController::class, 'mahasiswa_asing_data'])->name('mahasiswa-asing.data');
+        Route::get('capaian-pembelajaran', [App\Http\Controllers\AdminUniv\IpepaController::class, 'capaian_pembelajaran'])->name('capaian-pembelajaran');
+        Route::get('capaian-pembelajaran-data', [App\Http\Controllers\AdminUniv\IpepaController::class, 'capaian_pembelajaran_data'])->name('capaian-pembelajaran.data');
+        Route::get('regular-transfer', [App\Http\Controllers\AdminUniv\IpepaController::class, 'regular_transfer'])->name('regular-transfer');
+        Route::get('regular-transfer-data', [App\Http\Controllers\AdminUniv\IpepaController::class, 'regular_transfer_data'])->name('regular-transfer.data');
+        Route::get('kohort-lulusan', [App\Http\Controllers\AdminUniv\IpepaController::class, 'kohort_lulusan'])->name('kohort-lulusan');
+        Route::get('kohort-lulusan-data', [App\Http\Controllers\AdminUniv\IpepaController::class, 'kohort_lulusan_data'])->name('kohort-lulusan.data');
+
     });
 
 

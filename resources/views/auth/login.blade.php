@@ -1,52 +1,65 @@
-@extends('auth.layout')
-
+@extends('auth.layout-new')
 @section('content')
-
-<div class="middle-box text-center loginscreen animated fadeInDown">
-    <div class="p-h-xl">
-        <div class="m-t-xl">
-            <!-- <h1 class="logo-name" src="/unsri-logo-50.png">UNSRI</h1> -->
-            <img src="/unsri_icon.png" alt=""><br/><br/>
+<div class="page login-page">
+    <div>
+        <!-- CONTAINER OPEN -->
+        <div class="col col-login mx-auto mt-7">
+            <div class="text-center text-white">
+                <div class="">
+                    <img src="{{asset('unsri_logo.png')}}" class="" alt="" width="100">
+                </div>
+                <br>
+                <h1>Welcome to Dashboard Feeder<br/>
+                    Universitas Sriwijaya</h1>
+                <p>Login in. To see it in action.</p>
+            </div>
         </div>
-        <h3>Welcome to Dashboard Feeder<br/>
-            Universitas Sriwijaya</h3>
-        <p>Login in. To see it in action.</p>
-        <p class="text-danger">{{session('error')}}</p>
+        <div class="container-login100">
+            <div class="wrap-login100 p-0">
+                <div class="card-body">
+                    <p class="text-danger text-center"><strong>{{session('error')}}</strong></p>
+                    <form class="login100-form validate-form" action="{{ route('login') }}" method="POST">
+                        @csrf
+                        <span class="login100-form-title">
+                            Login
+                        </span>
+                        @error('username')
+                            <span class="text-red" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                        <div class="wrap-input100 validate-input " data-bs-validate = "Valid user is required: ex@abc.xyz">
+                            <input class="input100 @error('username') is-invalid state-invalid @enderror" type="text" name="username" placeholder="Username">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="zmdi zmdi-account" aria-hidden="true"></i>
+                            </span>
 
-        <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="form-group">
-                <input id="username" type="name" class="form-control @error('username') is-invalid @enderror"
-                    name="username" required autocomplete="username"
-                    placeholder="Username">
+                        </div>
+                        @error('password')
+                        <span class="text-red" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                        <div class="wrap-input100 validate-input" data-bs-validate = "Password is required">
+                            <input class="input100 @error('username') is-invalid state-invalid @enderror" type="password" name="password" placeholder="Password">
+                            <span class="focus-input100"></span>
+                            <span class="symbol-input100">
+                                <i class="zmdi zmdi-lock" aria-hidden="true"></i>
+                            </span>
 
-                @error('username')
-                <span class="invalid-feedback text-danger" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                        </div>
+                        <div class="container-login100-form-btn">
+                            <button type="submit" href="index.html" class="login100-form-btn btn-primary">
+                                <strong>Login</strong>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
-
-            <div class="form-group">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                    name="password" required autocomplete="current-password" placeholder="Password">
-
-                @error('password')
-                <span class="invalid-feedback text-danger" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div>
-            <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
-
-            @if (Route::has('password.request'))
-            <a href="{{ route('password.request') }}">
-                <small>{{ __('Forgot Your Password?') }}</small>
-            </a>
-            @endif
-        </form>
+        </div>
+        <!-- CONTAINER CLOSED -->
     </div>
 </div>
-
-
 @endsection
