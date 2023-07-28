@@ -9,8 +9,8 @@
                     <img src="{{asset('unsri_logo.png')}}" class="" alt="" width="100">
                 </div>
                 <br>
-                <h1>Welcome to Dashboard Feeder<br/>
-                    Universitas Sriwijaya</h1>
+                <h2>Welcome to Dashboard Feeder<br/>
+                    Universitas Sriwijaya</h2>
                 <p>Login in. To see it in action.</p>
             </div>
         </div>
