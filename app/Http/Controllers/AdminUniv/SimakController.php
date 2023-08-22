@@ -19,11 +19,11 @@ class SimakController extends Controller
         $db = DB::connection('pd_con');
 
         $data = $db->table('simak_transkrips')
-                    ->join('simak_kelas', function($join){
+                    ->leftJoin('simak_kelas', function($join){
                         $join->on('simak_transkrips.FKLS', '=', 'simak_kelas.KLS_KODE')
                             ->on('simak_transkrips.nm_prodi_simak', '=', 'simak_kelas.nm_prodi_simak');
                     })
-                    ->join('simak_matakuliahs as m', function($j){
+                    ->leftJoin('simak_matakuliahs as m', function($j){
                         $j->on('simak_transkrips.FCOD', 'm.FCOD')
                         ->on('simak_transkrips.nm_prodi_simak', 'm.nm_prodi_simak');
                     })
@@ -51,7 +51,7 @@ class SimakController extends Controller
     {
         $ta = $req->ta;
         $prodi = $req->prodi;
-        $mk = $req->mk;
+        // $mk = $req->mk;
         $db = DB::connection('pd_con');
 
         $data = $db->table('simak_transkrips')
@@ -65,9 +65,9 @@ class SimakController extends Controller
                         ->on('simak_transkrips.nm_prodi_simak', 'm.nm_prodi_simak');
                     })
                     ->where('simak_transkrips.id_prodi', $prodi)
-                    ->where('simak_transkrips.FCOD', $mk)
+                    // ->where('simak_transkrips.FCOD', $mk)
                     ->where('simak_transkrips.FTAK', $ta)
-                    ->select('simak_transkrips.*', 'ma.FMNAM as FMNAM', 'm.FSKS', 'simak_kelas.KLS_NAMA')
+                    ->select('simak_transkrips.*', 'ma.FMNAM as FMNAM', 'm.FSKS', 'simak_kelas.KLS_NAMA', 'm.FMAT as nm_mata_kuliah')
                     ->orderBy('FNIM', 'asc')
                     ->get();
 

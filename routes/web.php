@@ -170,6 +170,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('kohort-lulusan', [App\Http\Controllers\AdminUniv\IpepaController::class, 'kohort_lulusan'])->name('kohort-lulusan');
         Route::get('kohort-lulusan-data', [App\Http\Controllers\AdminUniv\IpepaController::class, 'kohort_lulusan_data'])->name('kohort-lulusan.data');
 
+        Route::get('dosen-full', [App\Http\Controllers\AdminUniv\IpepaController::class, 'testing'])->name('dosen-full');
+
+        // Route::get('reg-unsri', [App\Http\Controllers\AdminUniv\RegController::class, 'index'])->name('reg-unsri');
+
     });
 
 

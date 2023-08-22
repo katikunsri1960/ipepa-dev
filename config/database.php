@@ -57,6 +57,19 @@ return [
             'strict' => true,
         ],
 
+        'reg_con' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST_REG'),
+            'database' => env('DB_DATABASE_REG'),
+            'username' => env('DB_USERNAME_REG'),
+            'password' => env('DB_PASSWORD_REG'),
+            'charset' => 'latin1',
+            'collation' => 'latin1_swedish_ci',
+            'prefix' => '',
+            'strict'    => true,
+            'engine' => null,
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),

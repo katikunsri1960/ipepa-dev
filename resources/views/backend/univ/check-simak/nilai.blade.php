@@ -27,15 +27,16 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-5">
+                <button type="submit" class="btn btn-primary">Cari!!</button>
+                {{-- <div class="col-md-5">
                     <div class="input-group">
                         <input type="text" name="mk" id="mk" class="form-control input"
                             placeholder="Silahkan masukkan Kode MK!!" required>
                         <div class="input-group-btn">
-                            <button type="submit" class="btn btn-primary">Cari!!</button>
+
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
             </form>
         </div>
@@ -111,7 +112,7 @@
                 $.ajax({
                     url: "{{ route('admin-univ.check-nilai-simak-data') }}",
                     type: 'GET',
-                    data: {prodi: prodi, ta: ta, mk: mk},
+                    data: {prodi: prodi, ta: ta},
                     success: function (response) {
                         var data = response.data;
                         var nilai = $('#nilai-data');
@@ -130,9 +131,12 @@
                             $('<th>').addClass('text-center align-middle').text('Tahun Akademik').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('NIM').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Nama Mahasiswa').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Kode MK').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Nama MK').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Kode Kelas').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Nilai angka').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Nilai Huruf').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Nilai Indeks').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Bobot').appendTo(headerRow);
 
 
@@ -143,9 +147,31 @@
                                 $('<td>').addClass('text-center align-middle').text(v.FTAK).appendTo(row);
                                 $('<td>').addClass('text-center align-middle').text(v.FNIM).appendTo(row);
                                 $('<td>').addClass('align-middle').text(v.FMNAM).appendTo(row);
+                                $('<td>').addClass('text-center align-middle').text(v.FCOD).appendTo(row);
+                                $('<td>').addClass('align-middle').text(v.nm_mata_kuliah).appendTo(row);
                                 $('<td>').addClass('text-center align-middle').text(v.KLS_NAMA).appendTo(row);
                                 $('<td>').addClass('text-center align-middle').text(v.FNIL_AKHIR).appendTo(row);
                                 $('<td>').addClass('text-center align-middle').text(v.FNIL).appendTo(row);
+                                if (v.FNIL === 'A') {
+                                    var indeks = 4;
+                                    $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
+                                }else if(v.FNIL === 'B'){
+                                    var indeks = 3;
+                                    $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
+                                }else if(v.FNIL === 'C'){
+                                    var indeks = 2;
+                                    $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
+                                } else if(v.FNIL === 'D') {
+                                    var indeks = 1;
+                                    $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
+                                }else if(v.FNIL === 'E') {
+                                    var indeks = 0;
+                                    $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
+                                }else if(v.FNIL === 'F') {
+                                    var indeks = '-';
+                                    $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
+                                }
+
                                 if (v.FNIL === 'A') {
                                     var bobot = v.FSKS * 4;
                                     $('<td>').addClass('text-center align-middle').text(bobot).appendTo(row);

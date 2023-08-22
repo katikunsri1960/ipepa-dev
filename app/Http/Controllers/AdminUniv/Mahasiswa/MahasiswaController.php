@@ -56,9 +56,9 @@ class MahasiswaController extends Controller
 
         if ($searchValue) {
             $query->where(function ($query) use ($searchValue) {
-                $query->where('pd_feeder_list_mahasiswa.nama_mahasiswa', 'LIKE', '%'.$searchValue.'%')
-                    ->orWhere('pd_feeder_list_mahasiswa.nim', 'LIKE', '%'.$searchValue.'%')
-                    ->orWhere('pd_feeder_list_mahasiswa.nama_program_studi', 'LIKE', '%'.$searchValue.'%');
+                $query->whereFullText('pd_feeder_list_mahasiswa.nama_mahasiswa', $searchValue)
+                    ->orWhereFullText('pd_feeder_list_mahasiswa.nim', $searchValue)
+                    ->orWhereFullText('pd_feeder_list_mahasiswa.nama_program_studi', $searchValue);
             });
         }
 

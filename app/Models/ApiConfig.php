@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ApiConfig extends Model
 {
     use HasFactory;
+    
 
     protected $fillable = [
         'name', 'username', 'password','api_url', 'api_key',
