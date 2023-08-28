@@ -19,6 +19,11 @@ Route::get('/', function () {
     return redirect()->to('login');
 });
 
+Route::get('/elearning', [App\Http\Controllers\ElearningAccountController::class, 'form_elearning'])->name('elearning');
+Route::post('/elearning', [App\Http\Controllers\ElearningAccountController::class, 'check_nim'])->name('check-nim');
+Route::get('/elearning/create/{nim}', [App\Http\Controllers\ElearningAccountController::class, 'create'])->name('elearning.create');
+Route::post('/elearning/create', [App\Http\Controllers\ElearningAccountController::class, 'store'])->name('elearning.store');
+
 Auth::routes([
     'register' => false,
     'reset' => false,
@@ -55,6 +60,11 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::resource('/frontend-configs', App\Http\Controllers\Admin\Setting\FrontendController::class)->except(['show']);
             }
         );
+
+        Route::get('elearning', [App\Http\Controllers\Admin\ElearningController::class, 'index'])->name('elearning');
+        Route::get('elearning/delete/{id}', [App\Http\Controllers\Admin\ElearningController::class, 'delete'])->name('elearning.delete');
+        Route::get('elearning/show-file/{id}', [App\Http\Controllers\Admin\ElearningController::class, 'showFile'])->name('elearning.show-file');
+        Route::get('elearning/create-all', [App\Http\Controllers\Admin\ElearningController::class, 'createAll'])->name('elearning.create-all');
 
     });
 

@@ -1,41 +1,108 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+		<!-- META DATA -->
+		<meta charset="UTF-8">
+		<meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!-- Bootstrap core CSS -->
-    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{asset('assets/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+		<!-- FAVICON -->
+		<link rel="shortcut icon" type="image/x-icon" href="{{asset('unsri_icon.png')}}" />
 
-    <!-- Animation CSS -->
-    <link href="{{asset('assets/css/animate.css')}}" rel="stylesheet">
+		<!-- TITLE -->
+		<title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Custom styles for this template -->
-    <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-</head>
-<body id="page-top" class="landing-page no-skin-config">
-@yield('content')
+		<!-- BOOTSTRAP CSS -->
+		<link id="style" href="{{asset('assets-new/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" />
 
-<!-- Mainly scripts -->
-<script src="{{asset('assets/js/jquery-3.1.1.min.js')}}"></script>
-<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
-<script src="{{asset('assets/js/plugins/metisMenu/jquery.metisMenu.js')}}"></script>
-<script src="{{asset('assets/js/plugins/slimscroll/jquery.slimscroll.min.js')}}"></script>
+		<!-- STYLE CSS -->
+		<link href="{{asset('assets-new/css/style.css')}}" rel="stylesheet"/>
+		<link href="{{asset('assets-new/css/plugins.css')}}" rel="stylesheet"/>
 
-<!-- Custom and plugin javascript -->
-<script src="{{asset('assets/js/inspinia.js')}}"></script>
-<script src="{{asset('assets/js/plugins/pace/pace.min.js')}}"></script>
-<script src="{{asset('assets/js/plugins/wow/wow.min.js')}}"></script>
+		<!--- FONT-ICONS CSS -->
+		<link href="{{asset('assets-new/css/icons.css')}}" rel="stylesheet"/>
+        <style>
+            #loading-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: none;
+                z-index: 9999;
+            }
 
-@stack('scripts')
+            #loading-spinner {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 50px;
+                height: 50px;
+                border: 3px solid #fff;
+                border-top-color: #ff7f00;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+            }
+
+            @keyframes spin {
+                0% { transform: translate(-50%, -50%) rotate(0deg); }
+                100% { transform: translate(-50%, -50%) rotate(360deg); }
+            }
+        </style>
+        @stack('css')
+	</head>
+
+	<body>
+        <div id="loading-overlay">
+            <div id="loading-spinner"></div>
+        </div>
+		<!-- BACKGROUND-IMAGE -->
+		<div>
+
+			<!-- GLOABAL LOADER -->
+			<div id="global-loader">
+				<img src="{{asset('assets-new/images/loader.svg')}}" class="loader-img" alt="Loader">
+			</div>
+			<!-- /GLOABAL LOADER -->
+            @yield('content')
 
 
-</body>
+		</div>
+		<!-- BACKGROUND-IMAGE CLOSED -->
+
+		<!-- JQUERY JS -->
+		<script src="{{asset('assets-new/js/jquery.min.js')}}"></script>
+
+        <!-- BOOTSTRAP JS -->
+        <script src="{{asset('assets-new/plugins/bootstrap/js/popper.min.js')}}"></script>
+        <script src="{{asset('assets-new/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
+
+		<!-- SPARKLINE JS -->
+		<script src="{{asset('assets-new/js/jquery.sparkline.min.js')}}"></script>
+
+		<!-- CHART-CIRCLE JS -->
+		<script src="{{asset('assets-new/js/circle-progress.min.js')}}"></script>
+
+		<!-- Perfect SCROLLBAR JS-->
+		<script src="{{asset('assets-new/plugins/p-scroll/perfect-scrollbar.js')}}"></script>
+
+		<!-- INPUT MASK JS -->
+		<script src="{{asset('assets-new/plugins/input-mask/jquery.mask.min.js')}}"></script>
+
+        <!-- Color Theme js -->
+        <script src="{{asset('assets-new/js/themeColors.js')}}"></script>
+
+        <!-- swither styles js -->
+        <script src="{{asset('assets-new/js/swither-styles.js')}}"></script>
+
+        <!-- CUSTOM JS -->
+        <script src="{{asset('assets-new/js/custom.js')}}"></script>
+        @stack('js')
+
+	</body>
 </html>
