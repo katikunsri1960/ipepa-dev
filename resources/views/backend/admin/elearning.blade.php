@@ -13,12 +13,15 @@
         </div>
         @endif
         <div class="row">
-            <div class="col-md-4 m-5">
+            <div class="col-md-3 m-5">
                 <a href="{{route('admin.elearning.create-all')}}" class="btn btn-primary btn-block">Create All</a>
             </div>
-            <div class="col-md-4 m-5">
+            <div class="col-md-3 m-5">
                 <a class="btn btn-warning btn-block" onclick="deleteConfirm()">Delete All Created</a>
             </div>
+            {{-- <div class="col-md-3">
+                <a href="{{route('admin.elearning.send-wa')}}" class="btn btn-danger btn-block">Testing</a>
+            </div> --}}
         </div>
         <br><br>
         <div class="container-fluid">

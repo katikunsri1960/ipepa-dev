@@ -58,7 +58,7 @@
 
             </div>
             <div class="col-md-2 m-5">
-                <a href="{{route('admin.elearning.delete-account-all')}}" class="btn btn-primary btn-block">Delete All E-learning Account</a>
+                <button type="button" onclick="deleteAkun()" class="btn btn-primary btn-block">Delete All E-learning Account</button>
             </div>
             <div class="col-md-2 m-5">
                 <a href="{{route('admin.elearning.remove-data')}}" class="btn btn-warning btn-block">Truncate Data</a>
@@ -120,6 +120,47 @@
 
         $('#messageAlert').delay(5000).slideUp(300);
     });
+
+    function deleteAkun()
+    {
+        // sweetalert confirm
+        swal({
+            title: "Apakah anda yakin?",
+            text: "Setelah dihapus, anda tidak akan bisa mengembalikan data ini!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Ya, hapus semua data!",
+        }
+        , function (isConfirm) {
+            if (!isConfirm) return;
+            // ajax request
+            // show loading on ajax request
+
+            $('#loading-overlay').show();
+
+            $.ajax({
+                url: "{{route('admin.elearning.delete-account-all')}}",
+                type: 'GET',
+                success: function (response) {
+                    $('#loading-overlay').hide();
+                    if (response == true) {
+                        swal("Deleted!", "Semua data berhasil dihapus!", "success");
+                        window.location.href = "{{route('admin.elearning.delete-akun')}}";
+                    } else {
+                        swal("Failed!", "Semua data gagal dihapus!", "error");
+                    }
+                },
+                error: function (xhr) {
+                    $('#loading-overlay').hide();
+                    swal("Failed!", "Semua data gagal dihapus!", "error");
+                }
+            });
+        })
+
+    }
 
 
 </script>

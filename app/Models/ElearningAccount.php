@@ -13,6 +13,7 @@ class ElearningAccount extends Model
         'nama_depan',
         'nama_belakang',
         'email',
+        'no_wa',
         'kpm',
         'created'
     ];

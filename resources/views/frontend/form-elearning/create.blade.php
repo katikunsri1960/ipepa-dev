@@ -17,7 +17,6 @@
                         aktif dan dapat diakses terlebih dahulu!</small>
                     <form action="{{route('elearning.store')}}" method="post" enctype="multipart/form-data" id="submitForm">
                         @csrf
-
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -62,6 +61,18 @@
                                     dengan max File 5mb</small>
                             </div>
                         </div>
+
+                            <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="no_wa" class="form-label">Nomor Whatsapp Aktif (Optional)</label>
+                                    <input type="number" class="form-control @if ($errors->has('no_wa')) is-invalid @endif"
+                                        name="no_wa" id="no_wa" aria-describedby="helpId" placeholder="Contoh: 0821123123123" value="{{old('no_wa')}}">
+                                         <small id="helpId" class="form-text text-muted">Jika Diisi, sebuah pesan wa akan terkirim saat akun sudah diverifikasi dan selesai dibuat.</small>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row mt-4">
                             <button type="submit" class="btn btn-success">Submit</button>
                         </div>

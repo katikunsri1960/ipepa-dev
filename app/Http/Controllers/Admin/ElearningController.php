@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ElearningDeleteImport as ElearningImport;
 use App\Services\ElearningService;
+use App\Services\StarSender;
 
 class ElearningController extends Controller
 {
@@ -36,6 +37,12 @@ class ElearningController extends Controller
         $data = Elearning::where('created', 0)->get();
         // dd($data);
         $act = 'core_user_create_users';
+
+        $pesan = "Akun anda sudah diverifikasi dan selesai dibuat di E-learning. \nInformasi tentang *Username* dan *Password* dapat dilihat pada E-mail Institusi anda.".
+                "\n\nJika mengalami kesulitan untuk login email institusi anda melalui handphone, silahkan coba login melalui PC/Laptop.".
+                "\nJika masih terdapat masalah login *E-mail*, silahkan hubungi ICT di Student Center Lt.4 Indralaya atau KPA Lt. 3 Palembang.".
+                "\n\n\nhttps://elearning.unsri.ac.id \nTerima Kasih";
+
         foreach ($data as $d) {
 
             $parameters = [
@@ -49,10 +56,15 @@ class ElearningController extends Controller
             $store = $create->runWs();
             if ($store == true) {
                $d->update(['created' => 1]);
+
+                if ($d->no_wa != null) {
+                    $send = new StarSender($d->no_wa, $pesan);
+                    $send->sendWa();
+                }
+
             } else {
                 return redirect()->back()->with('error', 'Data gagal dibuat!');
             }
-
         }
 
         return redirect()->back()->with('success', 'Data berhasil dibuat!');
@@ -145,7 +157,7 @@ class ElearningController extends Controller
             }
         }
 
-        return redirect()->back()->with('success', 'Semua Data berhasil dihapus!');
+        return true;
     }
 
     public function remove_data()
@@ -153,5 +165,20 @@ class ElearningController extends Controller
         ElearningDelete::where('deleted', 1)->truncate();
 
         return redirect()->back()->with('success', 'Semua Data berhasil dihapus!');
+    }
+
+    public function tes_sendwa()
+    {
+        $tujuan = '085208303087';
+        $pesan = "Akun anda sudah diverifikasi dan selesai dibuat di E-learning. \nInformasi tentang *Username* dan *Password* dapat dilihat pada E-mail Institusi anda.".
+                "\n\nJika mengalami kesulitan untuk login email institusi anda melalui handphone, silahkan coba login melalui PC/Laptop.".
+                "\nJika masih terdapat masalah login *E-mail*, silahkan hubungi ICT di Student Center Lt.4 Indralaya atau KPA Lt. 3 Palembang.".
+                "\n\n\nhttps://elearning.unsri.ac.id \nTerima Kasih";
+
+        $send = new StarSender($tujuan, $pesan);
+
+        $send->sendWa();
+
+        return true;
     }
 }

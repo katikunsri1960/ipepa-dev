@@ -34,7 +34,7 @@ class ElearningAccountController extends Controller
                     'nim' => $req->nim,
                 ]);
             }
-            
+
             return response()->json([
                 'status' => 999,
                 'nim' => $req->nim,
@@ -76,6 +76,7 @@ class ElearningAccountController extends Controller
             'nama_depan' => 'required',
             'nama_belakang' => 'required',
             'email' => 'required',
+            'no_wa' => 'nullable|numeric',
             'kpm' => 'required|mimes:pdf,jpeg,png,jpg|max:5000',
         ]);
 
