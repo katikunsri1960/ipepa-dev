@@ -14,8 +14,10 @@
         @endif
         <div class="row">
             <div class="col-md-4 m-5">
-                <h2>Data Elearning</h2>
                 <a href="{{route('admin.elearning.create-all')}}" class="btn btn-primary btn-block">Create All</a>
+            </div>
+            <div class="col-md-4 m-5">
+                <a class="btn btn-warning btn-block" onclick="deleteConfirm()">Delete All Created</a>
             </div>
         </div>
         <br><br>
@@ -87,6 +89,21 @@
 
         $('#messageAlert').delay(5000).slideUp(300);
     });
+
+    function deleteConfirm() {
+        swal({
+            title: "Apakah anda yakin ingin menghapus semua data yang sudah dibuat?",
+            text: "Data yang sudah dihapus tidak dapat dikembalikan!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Ya, hapus semua data!",
+            closeOnConfirm: false
+        }, function (isConfirm) {
+            if (!isConfirm) return;
+            window.location.href = "{{route('admin.elearning.delete-all-created')}}";
+        });
+    }
 
 
 </script>

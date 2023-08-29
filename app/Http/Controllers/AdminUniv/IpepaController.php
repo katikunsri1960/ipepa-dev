@@ -251,10 +251,10 @@ class IpepaController extends Controller
         //         FROM sister_list_pengajaran as dpkk
         //         WHERE dpkk.id_sdm = list_dosen.id_dosen AND dpkk.semester IN ".$semester.") as nama_mk";
 
-         $mk = "(SELECT GROUP_CONCAT(CONCAT(dkk.mata_kuliah,' - ', ' (', dkk.kelas, ')', ' TA ', dkk.semester, ' $' , dkk.sks) SEPARATOR '^*^ ')
-                FROM sister_list_pengajaran as dpkk
-                JOIN sister_detail_pengajaran as dkk ON dpkk.id = dkk.id_list
-                WHERE dpkk.id_sdm = list_dosen.id_dosen AND dkk.id_semester IN ".$semester.") as nama_mk";
+        //  $mk = "(SELECT GROUP_CONCAT(CONCAT(dkk.mata_kuliah,' - ', ' (', dkk.kelas, ')', ' TA ', dkk.semester, ' $' , dkk.sks) SEPARATOR '^*^ ')
+        //         FROM sister_list_pengajaran as dpkk
+        //         JOIN sister_detail_pengajaran as dkk ON dpkk.id = dkk.id_list
+        //         WHERE dpkk.id_sdm = list_dosen.id_dosen AND dkk.id_semester IN ".$semester.") as nama_mk";
 
         $penelitian = "(SELECT GROUP_CONCAT(CONCAT(lp.judul, ' (', lp.tahun_pelaksanaan, ')', ' (', dlp.jenis_skim ,')', ' *', dlp.dana_dikti, ' ^', dlp.dana_perguruan_tinggi, ' #', dlp.dana_institusi_lain, ' $', dlp.anggota) SEPARATOR '^*^ ')
                 FROM sister_list_penelitian as lp
@@ -267,7 +267,7 @@ class IpepaController extends Controller
         //             FROM sister_detail_penugasan WHERE id_sdm = list_dosen.id_dosen)) as jabatan_fungsional";
 
         $data = $con->table('list_dosen')
-                    ->select('list_dosen.*', $con->raw($gelar), $con->raw($prodi), 'program_studi.*', $con->raw($mk), $con->raw($jf), $con->raw($penelitian))
+                    ->select('list_dosen.*', $con->raw($gelar), $con->raw($prodi), 'program_studi.*', $con->raw($jf), $con->raw($penelitian))
                     ->leftJoin('program_studi', 'program_studi.id_prodi', '=', $con->raw($join))
                     ->leftJoin('sister_detail_penugasan', 'sister_detail_penugasan.id_sdm', '=', 'list_dosen.id_dosen')
                     // ->where('sister_detail_penugasan.id_ikatan_kerja', '=', $ikatan)
@@ -276,13 +276,12 @@ class IpepaController extends Controller
 
         //make $mk to array
         foreach ($data as $key => $value) {
-            $mk = explode('^*^ ', $value->nama_mk);
+            // $mk = explode('^*^ ', $value->nama_mk);
             $jafung = explode(', ', $value->jabfung);
             if (count($jafung) > 1) {
                 $data[$key]->jabfung = $jafung[0];
             }
-            $sks = [];
-            $bksa = [];
+
             $ap = [];
             $ap1 = [];
             $dana_d = [];
@@ -293,8 +292,7 @@ class IpepaController extends Controller
             $dana_pt_fix = [];
 
             $dana_institusi_lain = [];
-            //ordering $mk asc
-            sort($mk);
+
 
             $penelitian = explode('^*^ ', $value->penelitian);
             sort($penelitian);
@@ -320,24 +318,11 @@ class IpepaController extends Controller
             }
 
             $anggota = [];
+
             for ($i=0; $i < count($ap1); $i++) {
                 $anggota[$i] = json_decode($ap1[$i]);
             }
-            
-            for ($i=0; $i < count($mk); $i++) {
-                $sks = explode(' $', $mk[$i]);
-                if ($sks[0] == '') {
-                    $mk[$i] = 'Tidak ada data mata kuliah';
-                }else {
-                    $mk[$i] = $sks[0];
-                }
-                if(count($sks) > 1){
-                    $bksa[$i] = $sks[1];
-                } else {
-                    $bksa[$i] = 'Tidak ada data sks';
-                }
 
-            }
 
             for ($i=0; $i < count($dana_dikti); $i++) {
                 $dana_d = explode(' ^', $dana_dikti[$i]);
@@ -359,21 +344,24 @@ class IpepaController extends Controller
                 }
             }
 
-
-
-
-
-
             // dd($bksa);
             $gelar = explode('; ', $value->gelar_akademik);
             $data[$key]->gelar_akademik = $gelar;
-            $data[$key]->nama_mk = $mk;
-            $data[$key]->sks = $bksa;
-            $data[$key]->penelitian = $penelitian;
-            $data[$key]->anggota_penelitian = $anggota;
-            $data[$key]->dana_dikti = $dana_dikti_fix;
-            $data[$key]->dana_pt = $dana_pt_fix;
-            $data[$key]->dana_institusi_lain = $dana_institusi_lain;
+            // $data[$key]->nama_mk = $mk;
+            // $data[$key]->sks = $bksa;
+            $data[$key]->penelitian = [
+                'judul' => $penelitian,
+                'anggota' => $anggota,
+                'dana_dikti' => $dana_dikti_fix,
+                'dana_pt' => $dana_pt_fix,
+                'dana_institusi_lain' => $dana_institusi_lain
+            ];
+
+
+            // $data[$key]->anggota_penelitian = $anggota;
+            // $data[$key]->dana_dikti = $dana_dikti_fix;
+            // $data[$key]->dana_pt = $dana_pt_fix;
+            // $data[$key]->dana_institusi_lain = $dana_institusi_lain;
         }
 
         //return data

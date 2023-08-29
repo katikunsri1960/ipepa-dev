@@ -25,11 +25,26 @@ class ElearningService
 
         if ($req->getStatusCode() != 200) {
 
-            return "Data tidak ditemukan";
+            return false;
 
         } else {
             $result = json_decode($req->getBody(), true);
             return $result;
+        }
+
+    }
+
+    public function deleteWs()
+    {
+
+        $req = Http::post($this->url."?wstoken=".$this->token."&wsfunction=".$this->act."&moodlewsrestformat=json&userids[0]=".$this->parameters);
+
+        // dd(json_decode($req->getBody()));
+
+        if ($req == null) {
+            return true;
+        } else {
+            return false;;
         }
 
     }

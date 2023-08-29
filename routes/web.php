@@ -65,6 +65,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('elearning/delete/{id}', [App\Http\Controllers\Admin\ElearningController::class, 'delete'])->name('elearning.delete');
         Route::get('elearning/show-file/{id}', [App\Http\Controllers\Admin\ElearningController::class, 'showFile'])->name('elearning.show-file');
         Route::get('elearning/create-all', [App\Http\Controllers\Admin\ElearningController::class, 'createAll'])->name('elearning.create-all');
+        Route::get('elearning/delete-all-created', [App\Http\Controllers\Admin\ElearningController::class, 'delete_all_created'])->name('elearning.delete-all-created');
+        Route::get('elearning/delete-akun', [App\Http\Controllers\Admin\ElearningController::class, 'delete_account'])->name('elearning.delete-akun');
+        Route::post('elearning/import', [App\Http\Controllers\Admin\ElearningController::class, 'import'])->name('elearning.import');
+        Route::get('elearning/delete-account-all', [App\Http\Controllers\Admin\ElearningController::class, 'delete_account_all'])->name('elearning.delete-account-all');
+        Route::get('elearning/remove-data', [App\Http\Controllers\Admin\ElearningController::class, 'remove_data'])->name('elearning.remove-data');
 
     });
 
