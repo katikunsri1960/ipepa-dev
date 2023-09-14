@@ -320,7 +320,7 @@ class IpepaController extends Controller
             $anggota = [];
 
             for ($i=0; $i < count($ap1); $i++) {
-                $anggota[$i] = json_decode($ap1[$i]);
+                $anggota[$i] = $ap1[$i];
             }
 
 
@@ -349,19 +349,14 @@ class IpepaController extends Controller
             $data[$key]->gelar_akademik = $gelar;
             // $data[$key]->nama_mk = $mk;
             // $data[$key]->sks = $bksa;
-            $data[$key]->penelitian = [
-                'judul' => $penelitian,
-                'anggota' => $anggota,
-                'dana_dikti' => $dana_dikti_fix,
-                'dana_pt' => $dana_pt_fix,
-                'dana_institusi_lain' => $dana_institusi_lain
-            ];
+
+            $data[$key]->penelitian = $penelitian;
 
 
-            // $data[$key]->anggota_penelitian = $anggota;
-            // $data[$key]->dana_dikti = $dana_dikti_fix;
-            // $data[$key]->dana_pt = $dana_pt_fix;
-            // $data[$key]->dana_institusi_lain = $dana_institusi_lain;
+            $data[$key]->anggota_penelitian = $anggota;
+            $data[$key]->dana_dikti = $dana_dikti_fix;
+            $data[$key]->dana_pt = $dana_pt_fix;
+            $data[$key]->dana_institusi_lain = $dana_institusi_lain;
         }
 
         //return data

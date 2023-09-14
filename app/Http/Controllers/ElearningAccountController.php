@@ -80,6 +80,18 @@ class ElearningAccountController extends Controller
             'kpm' => 'required|mimes:pdf,jpeg,png,jpg|max:5000',
         ]);
 
+        $act = 'core_user_get_users_by_field';
+
+        $parameters = $data['nim'].'@student.unsri.ac.id';
+
+        $elearning = new ElearningService($act, $parameters);
+
+        $result = $elearning->runWs();
+
+        if (!empty($result)) {
+            return redirect()->route('elearning')->with('status', 'Akun anda sudah terdaftar di E-learning, Silahkan Melakukan Forget Password/Lost Password!!');
+        }
+
         if($req->hasFile('kpm')){
             // Get filename with the extension, and replace with uuid v4
             $fileName = Uuid::uuid4().'.'.$req->file('kpm')->extension();

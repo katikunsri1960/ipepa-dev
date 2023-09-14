@@ -34,6 +34,7 @@
                             <th class="text-center align-middle">Nama Depan</th>
                             <th class="text-center align-middle">Nama Belakang</th>
                             <th class="text-center align-middle">Email</th>
+                            <th class="text-center align-middle">No WA</th>
                             <th class="text-center align-middle">KPM</th>
                             <th class="text-center align-middle">Created</th>
                             <th class="text-center align-middle">Action</th>
@@ -48,9 +49,34 @@
                             <td class="align-middle">{{$d->nama_belakang}}</td>
                             <td class="align-middle">{{$d->email}}</td>
                             <td class="align-middle text-center">
+                                <a data-toggle="modal" href="#modal-form-{{$d->id}}">{{$d->no_wa}}</a>
+                                <div id="modal-form-{{$d->id}}" class="modal fade" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-body">
+                                                <form action="{{route('admin.elearning.send-wa')}}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="tujuan" value="{{$d->no_wa}}">
+                                                <div class="form-group" style="margin-bottom: 12px">
+                                                    <label for="pesan-{{$d->id}}">Isi Pesan</label>
+                                                    <textarea class="form-control" name="pesan"
+                                                        id="pesan-{{$d->id}}" cols="40" rows="10"></textarea>
+                                                </div>
+                                                <div class="m-4">
+                                                    <button class="btn btn-success btn-block" type="submit">Kirim</button>
+                                                </div>
+
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="align-middle text-center">
                                 @if ($d->kpm)
                                 {{-- button to see file --}}
-                                <a class="btn btn-primary" href="{{route('admin.elearning.show-file', $d->id)}}" target="_blank">Lihat</a>
+                                <a class="btn btn-primary" href="{{route('admin.elearning.show-file', $d->id)}}"
+                                    target="_blank">Lihat</a>
                                 @endif
                             </td>
                             <td class="align-middle text-center" align="middle">
@@ -62,7 +88,8 @@
                             </td>
                             <td class="align-middle text-center">
 
-                                <a class="btn btn-danger" href="{{route('admin.elearning.delete', $d->id)}}" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Delete</a>
+                                <a class="btn btn-danger" href="{{route('admin.elearning.delete', $d->id)}}"
+                                    onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Delete</a>
                             </td>
                         </tr>
                         @endforeach

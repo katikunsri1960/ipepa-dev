@@ -21,7 +21,7 @@
 		<!-- STYLE CSS -->
 		<link href="{{asset('assets-new/css/style.css')}}" rel="stylesheet"/>
 		<link href="{{asset('assets-new/css/plugins.css')}}" rel="stylesheet"/>
-
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 		<!--- FONT-ICONS CSS -->
 		<link href="{{asset('assets-new/css/icons.css')}}" rel="stylesheet"/>
         <style>

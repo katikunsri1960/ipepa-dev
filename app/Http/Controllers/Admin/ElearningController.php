@@ -36,6 +36,11 @@ class ElearningController extends Controller
     {
         $data = Elearning::where('created', 0)->get();
         // dd($data);
+
+        if ($data->count() == 0) {
+            return redirect()->back()->with('error', 'Tidak ada data yang dapat dibuat!');
+        }
+
         $act = 'core_user_create_users';
 
         $pesan = "Akun anda sudah diverifikasi dan selesai dibuat di E-learning. \nInformasi tentang *Username* dan *Password* dapat dilihat pada E-mail Institusi anda.".
@@ -167,18 +172,20 @@ class ElearningController extends Controller
         return redirect()->back()->with('success', 'Semua Data berhasil dihapus!');
     }
 
-    public function tes_sendwa()
+    public function tes_sendwa(Request $req)
     {
-        $tujuan = '085208303087';
-        $pesan = "Akun anda sudah diverifikasi dan selesai dibuat di E-learning. \nInformasi tentang *Username* dan *Password* dapat dilihat pada E-mail Institusi anda.".
-                "\n\nJika mengalami kesulitan untuk login email institusi anda melalui handphone, silahkan coba login melalui PC/Laptop.".
-                "\nJika masih terdapat masalah login *E-mail*, silahkan hubungi ICT di Student Center Lt.4 Indralaya atau KPA Lt. 3 Palembang.".
-                "\n\n\nhttps://elearning.unsri.ac.id \nTerima Kasih";
+        $data = $req->validate([
+            'pesan' => 'required',
+            'tujuan' => 'required'
+        ]);
+
+        $tujuan = $data['tujuan'];
+        $pesan = $data['pesan'];
 
         $send = new StarSender($tujuan, $pesan);
 
         $send->sendWa();
 
-        return true;
+         return redirect()->back()->with('success', 'Pesan Berhasil dikirim!');
     }
 }

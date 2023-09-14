@@ -4,9 +4,13 @@
     <div class="col col-login mx-auto mt-7">
         <div class="container">
             @if(session('status'))
-                <div class="alert alert-success">
-                    {{ session('status') }}
-                </div>
+                {{-- sweet alert --}}
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        text: '{{session('status')}}',
+                    })
+                </script>
             @endif
             <div class="card border-primary">
                 <div class="card-header">
@@ -41,47 +45,55 @@
 @endsection
 @push('js')
     {{-- sweetalert --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         function checkNim()
         {
             var nim = $('#nim').val();
-            // show loading
-            $('#loading-overlay').show();
-            $.ajax({
-                type: "POST",
-                url: "{{route('check-nim')}}",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    nim: nim
-                },
-                success: function (response) {
-                    // hide loading
-                    $('#loading-overlay').hide();
-                    if(response.status == 200){
-                        Swal.fire({
-                            icon: 'info',
-                            text: 'Akun anda sudah terdaftar di E-learning, Silahkan Melakukan Forget Password/Lost Password!!',
-                        });
-                    }else if(response.status == 999){
-                        Swal.fire({
-                            icon: 'info',
-                            text: 'Akun anda sudah terdaftar di E-learning, Silahkan Check di E-mail anda terkait Username & Password!!',
-                        });
-                    }else if(response.status == 888){
-                        Swal.fire({
-                            icon: 'info',
-                            text: 'Akun anda dalam proses verifikasi, Silahkan Tunggu 1x24 Jam!!',
-                        });
-                    }
-                    else if(response.status == 404){
-                        let url = "{{route('elearning.create', ':nim')}}";
-                        url = url.replace(':nim', response.nim);
 
-                        window.location.href = url;
+            if(nim == '') {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'NIM tidak boleh kosong!!',
+                })
+            } else {
+                $('#loading-overlay').show();
+                $.ajax({
+                    type: "POST",
+                    url: "{{route('check-nim')}}",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        nim: nim
+                    },
+                    success: function (response) {
+                        // hide loading
+                        $('#loading-overlay').hide();
+                        if(response.status == 200){
+                            Swal.fire({
+                                icon: 'info',
+                                text: 'Akun anda sudah terdaftar di E-learning, Silahkan Melakukan Forget Password/Lost Password!!',
+                            });
+                        }else if(response.status == 999){
+                            Swal.fire({
+                                icon: 'info',
+                                text: 'Akun anda sudah terdaftar di E-learning, Silahkan Check di E-mail anda terkait Username & Password!!',
+                            });
+                        }else if(response.status == 888){
+                            Swal.fire({
+                                icon: 'info',
+                                text: 'Akun anda dalam proses verifikasi, Silahkan Tunggu 1x24 Jam!!',
+                            });
+                        }
+                        else if(response.status == 404){
+                            let url = "{{route('elearning.create', ':nim')}}";
+                            url = url.replace(':nim', response.nim);
+
+                            window.location.href = url;
+                        }
                     }
-                }
-            });
+                });
+            }
+            // show loading
+
         }
     </script>
 @endpush

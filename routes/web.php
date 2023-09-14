@@ -70,7 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('elearning/import', [App\Http\Controllers\Admin\ElearningController::class, 'import'])->name('elearning.import');
         Route::get('elearning/delete-account-all', [App\Http\Controllers\Admin\ElearningController::class, 'delete_account_all'])->name('elearning.delete-account-all');
         Route::get('elearning/remove-data', [App\Http\Controllers\Admin\ElearningController::class, 'remove_data'])->name('elearning.remove-data');
-        Route::get('elearning/send-wa', [App\Http\Controllers\Admin\ElearningController::class, 'tes_sendwa'])->name('elearning.send-wa');
+        Route::post('elearning/send-wa', [App\Http\Controllers\Admin\ElearningController::class, 'tes_sendwa'])->name('elearning.send-wa');
 
     });
 
