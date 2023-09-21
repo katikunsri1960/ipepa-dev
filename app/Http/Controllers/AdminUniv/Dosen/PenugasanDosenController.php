@@ -68,7 +68,7 @@ class PenugasanDosenController extends Controller
 
         $paginate = [20,50,100,200,500];
 
-        // dd($mahasiswa);
+        // dd($dosen);
 
         return view('backend.univ.dosen.penugasan_dosen.daftar-penugasan-dosen', compact('dosen','prodi','angkatan','angkatan_aktif','jk','val','paginate', 'valPaginate'));
     }

@@ -176,7 +176,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('check-nilai-simak', [App\Http\Controllers\AdminUniv\SimakController::class, 'nilai'])->name('check-nilai-simak');
         Route::get('check-nilai-simak-data', [App\Http\Controllers\AdminUniv\SimakController::class, 'nilai_data'])->name('check-nilai-simak-data');
 
-        //Routing ipepa monev
+        //Routing ipepa Tahap 1
         Route::get('dosen', [App\Http\Controllers\AdminUniv\IpepaController::class, 'dosen'])->name('dosen');
         Route::get('dosen-data', [App\Http\Controllers\AdminUniv\IpepaController::class, 'dosen_data'])->name('dosen.data');
         Route::get('mahasiswa-asing', [App\Http\Controllers\AdminUniv\IpepaController::class, 'mahasiswa_asing'])->name('mahasiswa-asing');
@@ -189,6 +189,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('kohort-lulusan-data', [App\Http\Controllers\AdminUniv\IpepaController::class, 'kohort_lulusan_data'])->name('kohort-lulusan.data');
 
         Route::get('dosen-full', [App\Http\Controllers\AdminUniv\IpepaController::class, 'testing'])->name('dosen-full');
+
+        Route::get('prestasi-mahasiswa', [App\Http\Controllers\AdminUniv\IpepaController::class, 'prestasi_mahasiswa'])->name('prestasi-ipepa');
+        Route::get('prestasi-mahasiswa-data', [App\Http\Controllers\AdminUniv\IpepaController::class, 'prestasi_mahasiswa_data'])->name('prestasi-ipepa.data');
 
         // Route::get('reg-unsri', [App\Http\Controllers\AdminUniv\RegController::class, 'index'])->name('reg-unsri');
 
@@ -298,5 +301,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('regular-transfer-data', [App\Http\Controllers\AdminProdi\IpepaController::class, 'regular_transfer_data'])->name('regular-transfer.data');
             Route::get('kohort-lulusan', [App\Http\Controllers\AdminProdi\IpepaController::class, 'kohort_lulusan'])->name('kohort-lulusan');
             Route::get('kohort-lulusan-data', [App\Http\Controllers\AdminProdi\IpepaController::class, 'kohort_lulusan_data'])->name('kohort-lulusan.data');
+
+            Route::get('prestasi-mahasiswa', [App\Http\Controllers\AdminProdi\IpepaController::class, 'prestasi_mahasiswa'])->name('prestasi-ipepa');
+        Route::get('prestasi-mahasiswa-data', [App\Http\Controllers\AdminProdi\IpepaController::class, 'prestasi_mahasiswa_data'])->name('prestasi-ipepa.data');
         });
 });

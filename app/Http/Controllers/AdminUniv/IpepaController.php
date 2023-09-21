@@ -705,5 +705,48 @@ class IpepaController extends Controller
         return response()->json(["data" => $hasilPerhitungan]);
     }
 
+    public function prestasi_mahasiswa()
+    {
+        $this->authorize('admin-univ');
+        $con = DB::connection('pd_con');
+        $prodi = $con->table('program_studi')->orderBy('kode_program_studi')->get();
+        $tahunSekarang = $con->table('semester')->where('id_tahun_ajaran', '<=', date('Y'))
+                                ->select('id_tahun_ajaran')
+                                ->distinct()
+                                ->orderBy('id_tahun_ajaran', 'desc')
+                                ->get();
+        return view('backend.univ.ipepa.prestasi', compact('prodi', 'tahunSekarang'));
+    }
+
+    public function prestasi_mahasiswa_data(Request $request)
+    {
+        $this->authorize('admin-univ');
+        $fakprod = $request->prodi;
+        $tahunSekarang = $request->semester;
+        $tahunAwal = $tahunSekarang - 5;
+        $jenis = $request->jenis;
+
+        $con = DB::connection('pd_con');
+        if ($jenis == 1) {
+            $data = $con->table('list_prestasi_mahasiswa as p')->join('list_aktivitas_mahasiswa as a', 'p.id_aktivitas', '=', 'a.id_aktivitas')
+                    ->select('p.id_tingkat_prestasi as id_tingkat_prestasi', 'p.nama_prestasi', 'p.tahun_prestasi', 'p.peringkat', 'a.id_prodi as id_prodi', 'a.nama_prodi as nama_prodi', 'p.id_aktivitas')
+                    ->where('p.id_jenis_prestasi', 1)
+                    ->where('p.tahun_prestasi', '>=', $tahunAwal)
+                    ->where('a.id_prodi', $fakprod)
+                    ->distinct('p.id_aktivitas')
+                    ->get();
+        } elseif($jenis == 2) {
+            $data = $con->table('list_prestasi_mahasiswa as p')->join('list_aktivitas_mahasiswa as a', 'p.id_aktivitas', '=', 'a.id_aktivitas')
+                    ->select('p.id_tingkat_prestasi as id_tingkat_prestasi', 'p.nama_prestasi', 'p.tahun_prestasi', 'p.peringkat', 'a.id_prodi as id_prodi', 'a.nama_prodi as nama_prodi', 'p.id_aktivitas')
+                    ->whereNot('p.id_jenis_prestasi', 1)
+                    ->where('p.tahun_prestasi', '>=', $tahunAwal)
+                    ->where('a.id_prodi', $fakprod)
+                    ->distinct('p.id_aktivitas')
+                    ->get();
+        }
+
+
+        return response()->json(["data" => $data]);
+    }
 
 }

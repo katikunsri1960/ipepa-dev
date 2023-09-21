@@ -32,7 +32,7 @@
                 || request()->routeIs('admin-univ.capaian-pembelajaran')
                 || request()->routeIs('admin-univ.regular-transfer')
                 || request()->routeIs('admin-univ.kohort-lulusan') ? 'active' : ''}}">
-                <a href="#"><i class="fa fa-poll"></i> <span class="nav-label">IPEPA Monev</span><span
+                <a href="#"><i class="fa fa-poll"></i> <span class="nav-label">IPEPA Tahap 1</span><span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{request()->routeIs('admin-univ.dosen') ? 'active' : ''}}">
@@ -55,6 +55,16 @@
                             Lulusan</a>
                     </li>
                 </ul>
+            </li>
+            <li class="{{request()->routeIs('admin-univ.prestasi-ipepa') ? 'active' : ''}}">
+                <a href="#"><i class="fa fa-poll"></i> <span class="nav-label">IPEPA Tahap 2</span><span
+                        class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li class="{{request()->routeIs('admin-univ.prestasi-ipepa') ? 'active' : ''}}">
+                                <a href="{{route('admin-univ.prestasi-ipepa')}}"><i class="fa fa-user-graduate"></i> Prestasi Mahasiswa</a>
+                            </li>
+                        </ul>
+
             </li>
             <li class="{{request()->routeIs('admin-univ.profil-pt') ? 'active' : ''}}">
                 <a href="{{route('admin-univ.profil-pt')}}"><i class="fa fa-user-circle"></i> <span

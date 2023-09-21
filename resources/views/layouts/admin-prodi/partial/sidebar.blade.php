@@ -28,7 +28,7 @@
                         || request()->routeIs('admin-prodi.capaian-pembelajaran')
                         || request()->routeIs('admin-prodi.regular-transfer')
                         || request()->routeIs('admin-prodi.kohort-lulusan') ? 'active' : ''}}">
-                <a href="#"><i class="fa fa-poll"></i> <span class="nav-label">IPEPA Monev</span><span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-poll"></i> <span class="nav-label">IPEPA Tahap 1</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li class="{{request()->routeIs('admin-prodi.dosen') ? 'active' : ''}}">
                         <a href="{{route('admin-prodi.dosen')}}"><i class="fa fa-user-graduate"></i> Dosen</a>
@@ -47,6 +47,14 @@
                     </li>
                 </ul>
             </li>
+            <li class="{{request()->routeIs('admin-prodi.prestasi-ipepa') ? 'active' : ''}}">
+        <a href="#"><i class="fa fa-poll"></i> <span class="nav-label">IPEPA Tahap 2</span><span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level collapse">
+            <li class="{{request()->routeIs('admin-prodi.prestasi-ipepa') ? 'active' : ''}}">
+                <a href="{{route('admin-prodi.prestasi-ipepa')}}"><i class="fa fa-user-graduate"></i> Prestasi Mahasiswa</a>
+            </li>
+        </ul>
+    </li>
             {{-- <li class="{{request()->routeIs('admin-prodi.pemantauan-lulusan') ? 'active' : ''}}">
                 <a href="{{route('admin-prodi.pemantauan-lulusan')}}"><i class="fa-solid fa-table-cells"></i> <span class="nav-label">Pemantauan Lulusan</span></a> --}}
             <li class="{{request()->routeIs('admin-prodi.profil-pt') ? 'active' : ''}}">
