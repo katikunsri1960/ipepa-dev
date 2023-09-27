@@ -192,6 +192,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('prestasi-mahasiswa', [App\Http\Controllers\AdminUniv\IpepaController::class, 'prestasi_mahasiswa'])->name('prestasi-ipepa');
         Route::get('prestasi-mahasiswa-data', [App\Http\Controllers\AdminUniv\IpepaController::class, 'prestasi_mahasiswa_data'])->name('prestasi-ipepa.data');
+        Route::view('tableau', 'backend.univ.ipepa.tableau')->name('tableau');
 
         // Route::get('reg-unsri', [App\Http\Controllers\AdminUniv\RegController::class, 'index'])->name('reg-unsri');
 

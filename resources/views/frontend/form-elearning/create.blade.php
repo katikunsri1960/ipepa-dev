@@ -65,10 +65,10 @@
                             <div class="row mt-3">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label for="no_wa" class="form-label">Nomor Whatsapp Aktif (Optional)</label>
+                                    <label for="no_wa" class="form-label">Nomor Whatsapp Aktif</label>
                                     <input type="number" class="form-control @if ($errors->has('no_wa')) is-invalid @endif"
-                                        name="no_wa" id="no_wa" aria-describedby="helpId" placeholder="Contoh: 0821123123123" value="{{old('no_wa')}}">
-                                         <small id="helpId" class="form-text text-muted">Jika Diisi, sebuah pesan wa akan terkirim saat akun sudah diverifikasi dan selesai dibuat.</small>
+                                        name="no_wa" id="no_wa" aria-describedby="helpId" placeholder="Contoh: 0821123123123" value="{{old('no_wa')}}" required>
+                                         <small id="helpId" class="form-text text-muted">Setelah proses validasi selesai, akan dikirim informasi kenomor wa tersebut</small>
                                 </div>
                             </div>
                         </div>

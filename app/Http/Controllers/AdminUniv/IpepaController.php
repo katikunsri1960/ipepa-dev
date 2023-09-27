@@ -749,4 +749,9 @@ class IpepaController extends Controller
         return response()->json(["data" => $data]);
     }
 
+    public function tableau()
+    {
+        
+    }
+
 }

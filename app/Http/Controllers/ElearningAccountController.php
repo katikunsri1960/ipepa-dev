@@ -76,7 +76,7 @@ class ElearningAccountController extends Controller
             'nama_depan' => 'required',
             'nama_belakang' => 'required',
             'email' => 'required',
-            'no_wa' => 'nullable|numeric',
+            'no_wa' => 'required|numeric',
             'kpm' => 'required|mimes:pdf,jpeg,png,jpg|max:5000',
         ]);
 
