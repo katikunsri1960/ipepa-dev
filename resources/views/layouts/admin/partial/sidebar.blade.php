@@ -12,6 +12,9 @@
             <li class="{{request()->routeIs('admin.dashboard-admin') ? 'active' : ''}}">
                 <a href="{{route('admin.dashboard-admin')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span></a>
             </li>
+            <li class="{{request()->routeIs('admin.daya-tampung-peminat') ? 'active' : ''}}">
+                <a href="{{route('admin.daya-tampung-peminat')}}"><i class="fa fa-pie-chart"></i> <span class="nav-label">DT & Peminat</span></a>
+            </li>
             <li class="{{request()->routeIs('admin.elearning') || request()->routeIs('admin.elearning.*') ? 'active' : ''}}">
                 <a href="#"><i class="fa fa-gear"></i> <span class="nav-label">E-Learning</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">

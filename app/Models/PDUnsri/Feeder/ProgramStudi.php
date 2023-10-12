@@ -11,7 +11,7 @@ class ProgramStudi extends Model
 {
     use HasFactory;
     protected $table = 'pd_feeder_program_studi';
-    protected $primaryKey = 'id_program_studi';
+    protected $primaryKey = 'id_prodi';
     public $timestamps = false;
     public $incrementing = false;
 

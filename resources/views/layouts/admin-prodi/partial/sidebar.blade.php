@@ -12,6 +12,9 @@
             <li class="{{request()->routeIs('admin-prodi.dashboard-admin-prodi') ? 'active' : ''}}">
                 <a href="{{route('admin-prodi.dashboard-admin-prodi')}}"><i class="fa-solid fa-table-cells"></i> <span class="nav-label">Dashboards</span></a>
             </li>
+            <li class="{{request()->routeIs('admin-prodi.daya-tampung-peminat') ? 'active' : ''}}">
+                <a href="{{route('admin-prodi.daya-tampung-peminat')}}"><i class="fa-solid fa-table-cells"></i> <span class="nav-label">Daya Tampung & Peminat</span></a>
+            </li>
             <li  class="{{request()->routeIs('admin-prodi.pemantauan-lulusan') || request()->routeIs('admin-prodi.length-studi') ? 'active' : ''}}">
                 <a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">Feeder Monev</span><span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">

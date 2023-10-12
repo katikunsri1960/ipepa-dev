@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminProdi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Uuid;
 
 class IpepaController extends Controller
 {

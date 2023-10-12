@@ -5,6 +5,8 @@ namespace App\Http\Controllers\AdminUniv;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Firebase\JWT\JWT;
+use Ramsey\Uuid\Uuid;
 
 class IpepaController extends Controller
 {
@@ -751,7 +753,47 @@ class IpepaController extends Controller
 
     public function tableau()
     {
-        
+        $token = $this->generateJwt();
+        // dd($token);
+        return view('backend.univ.ipepa.tableau', [
+            'token' => $token
+        ]);
+    }
+
+    private function generateJwt()
+    {
+        $secret = env('TABLEAU_SECRET');
+        $secretId = env('TABLEAU_SECRET_ID');
+        $clientId = env('TABLEAU_CLIENT_ID');
+        $scopes = ['tableau:views:embed', 'tableau:views:embed_authoring'];
+        $userId = 'admin';
+        $tokenExpiryInMinutes = 10; // Max of 10 minutes.
+
+        $userAttributes = [
+            //  User attributes are optional.
+            //  Add entries to this dictionary if desired.
+            //  "[User Attribute Name]": "[User Attribute Value]",
+        ];
+
+        $header = [
+            'alg' => 'HS256',
+            'typ' => 'JWT',
+            'kid' => $secretId,
+            'iss' => $clientId,
+        ];
+
+        $data = [
+            'jti' => Uuid::uuid4()->toString(),
+            'aud' => 'tableau',
+            'sub' => $userId,
+            'scp' => $scopes,
+            'exp' => time() + $tokenExpiryInMinutes * 60,
+            ...$userAttributes,
+        ];
+
+        $token = JWT::encode($data, $secret, 'HS256', null, $header);
+
+        return $token;
     }
 
 }

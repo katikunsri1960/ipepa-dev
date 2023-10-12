@@ -26,85 +26,85 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Program Studi <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->nama_program_studi!='') ? $detail[0]->nama_program_studi :"-"}}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->nama_program_studi!='') ? $detail[0]->nama_program_studi :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Semester <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->nama_semester!='') ? $detail[0]->nama_semester :"-"}}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->nama_semester!='') ? $detail[0]->nama_semester :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Mata Kuliah <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->nama_mata_kuliah!='') ? $detail[0]->nama_mata_kuliah :"-"}}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->nama_mata_kuliah!='') ? $detail[0]->nama_mata_kuliah :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Nama Kelas <span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->nama_kelas_kuliah!='') ? $detail[0]->nama_kelas_kuliah :"-"}}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->nama_kelas_kuliah!='') ? $detail[0]->nama_kelas_kuliah :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Bobot Mata Kuliah<span style="color: red">*</span></label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->sks_mata_kuliah!='') ? $detail[0]->sks_mata_kuliah :"-" }}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->sks_mata_kuliah!='') ? $detail[0]->sks_mata_kuliah :"-" }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Bobot Tatap Muka</label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->sks_tatap_muka!='') ? $detail[0]->sks_tatap_muka :"-" }}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->sks_tatap_muka!='') ? $detail[0]->sks_tatap_muka :"-" }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Bobot Praktikum</label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->sks_praktek!='') ? $detail[0]->sks_praktek :"-" }}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->sks_praktek!='') ? $detail[0]->sks_praktek :"-" }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Bobot Praktek Lapangan</label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->sks_praktek_lapangan!='') ? $detail[0]->sks_praktek_lapangan :"-" }}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->sks_praktek_lapangan!='') ? $detail[0]->sks_praktek_lapangan :"-" }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Bahasan</label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->bahasan!='') ? $detail[0]->bahasan :"-" }}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->bahasan!='') ? $detail[0]->bahasan :"-" }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Bobot Simulasi</label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->sks_simulasi!='') ? $detail[0]->sks_simulasi :"-" }}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->sks_simulasi!='') ? $detail[0]->sks_simulasi :"-" }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Lingkup</label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->ipk!='') ? $detail[0]->ipk :"-"}}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->ipk!='') ? $detail[0]->ipk :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Mede Kuliah</label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->metode_kuliah!='') ? $detail[0]->metode_kuliah :"-" }}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->metode_kuliah!='') ? $detail[0]->metode_kuliah :"-" }}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Tanggal Mulai Efektif</label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->tanggal_mulai_efektif!='') ? $detail[0]->metode_kuliah :"-"}}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->tanggal_mulai_efektif!='') ? $detail[0]->metode_kuliah :"-"}}">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Tanggal Akhir Efektif</label>
-                    <input type="name" class="form-control" disabled value="{{ ($detail[0]->tanggal_akhir_efektif!='') ? $detail[0]->tanggal_akhir_efektif :"-"}}">
+                    <input type="name" class="form-control" readonly value="{{ ($detail[0]->tanggal_akhir_efektif!='') ? $detail[0]->tanggal_akhir_efektif :"-"}}">
                 </div>
             </div>
         </div>

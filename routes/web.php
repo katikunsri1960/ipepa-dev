@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('sync-data-process', [App\Http\Controllers\Admin\AjaxSyncController::class, 'syncProcess'])->name('sync-data-process');
         Route::get('hitung-transkrip', [App\Http\Controllers\Admin\HitungTranskripController::class, 'index'])->name('hitung-transkrip');
         Route::post('hitung-transkrip', [App\Http\Controllers\Admin\HitungTranskripController::class, 'hitung'])->name('hitung-transkrip.hitung');
+
         //get model prodi by ajax
         Route::get('fak-prodi', [App\Http\Controllers\Admin\AjaxSyncController::class, 'prodiId'])->name('get-fak-prodi');
 
@@ -71,6 +72,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('elearning/delete-account-all', [App\Http\Controllers\Admin\ElearningController::class, 'delete_account_all'])->name('elearning.delete-account-all');
         Route::get('elearning/remove-data', [App\Http\Controllers\Admin\ElearningController::class, 'remove_data'])->name('elearning.remove-data');
         Route::post('elearning/send-wa', [App\Http\Controllers\Admin\ElearningController::class, 'tes_sendwa'])->name('elearning.send-wa');
+
+        Route::get('daya-tampung-peminat', [App\Http\Controllers\Admin\DayaTampungPeminatController::class, 'index'])->name('daya-tampung-peminat');
+        Route::post('daya-tampung-peminat/dt-import', [App\Http\Controllers\Admin\DayaTampungPeminatController::class, 'import_dt'])->name('dt-import');
+        Route::post('daya-tampung-peminat/peminat-import', [App\Http\Controllers\Admin\DayaTampungPeminatController::class, 'import_peminat'])->name('peminat-import');
 
     });
 
@@ -192,9 +197,10 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('prestasi-mahasiswa', [App\Http\Controllers\AdminUniv\IpepaController::class, 'prestasi_mahasiswa'])->name('prestasi-ipepa');
         Route::get('prestasi-mahasiswa-data', [App\Http\Controllers\AdminUniv\IpepaController::class, 'prestasi_mahasiswa_data'])->name('prestasi-ipepa.data');
-        Route::view('tableau', 'backend.univ.ipepa.tableau')->name('tableau');
+        Route::get('tableau', [App\Http\Controllers\AdminUniv\IpepaController::class,'tableau'])->name('tableau');
 
         // Route::get('reg-unsri', [App\Http\Controllers\AdminUniv\RegController::class, 'index'])->name('reg-unsri');
+        Route::get('daya-tampung-peminat', [App\Http\Controllers\AdminUniv\DayaTampungPeminatController::class, 'index'])->name('daya-tampung-peminat');
 
     });
 
@@ -304,6 +310,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('kohort-lulusan-data', [App\Http\Controllers\AdminProdi\IpepaController::class, 'kohort_lulusan_data'])->name('kohort-lulusan.data');
 
             Route::get('prestasi-mahasiswa', [App\Http\Controllers\AdminProdi\IpepaController::class, 'prestasi_mahasiswa'])->name('prestasi-ipepa');
-        Route::get('prestasi-mahasiswa-data', [App\Http\Controllers\AdminProdi\IpepaController::class, 'prestasi_mahasiswa_data'])->name('prestasi-ipepa.data');
+            Route::get('prestasi-mahasiswa-data', [App\Http\Controllers\AdminProdi\IpepaController::class, 'prestasi_mahasiswa_data'])->name('prestasi-ipepa.data');
+
+            Route::get('daya-tampung-peminat', [App\Http\Controllers\AdminProdi\DayaTampungPeminatController::class, 'index'])->name('daya-tampung-peminat');
         });
 });

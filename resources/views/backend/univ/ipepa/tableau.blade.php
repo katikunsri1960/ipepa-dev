@@ -10,7 +10,9 @@
     <div class="ibox-content p-md">
 
         <script type='module' src='https://tableau.unsri.ac.id/javascripts/api/tableau.embedding.3.latest.min.js'></script>
-        <tableau-viz id='tableau-viz' src='https://tableau.unsri.ac.id/views/PDDosen/Sheet1' width='1440' height='750' hide-tabs toolbar='bottom' ></tableau-viz>
+
+        <tableau-viz id='tableau-viz' src='https://tableau.unsri.ac.id/views/penelitian/Dashboard1?:origin=card_share_link&:embed=yes&:toolbar=no' width='100%' height='800' hide-tabs toolbar='no'
+        token='{{ $token }}'></tableau-viz>
     </div>
 
 </div>

@@ -14,6 +14,10 @@
                 <a href="{{route('admin-univ.dashboard-admin-univ')}}"><i class="fa fa-th-large"></i> <span
                         class="nav-label">Dashboards</span></a>
             </li>
+            <li class="{{request()->routeIs('admin-univ.daya-tampung-peminat') ? 'active' : ''}}">
+                <a href="{{route('admin-univ.daya-tampung-peminat')}}"><i class="fa fa-chart-pie"></i> <span
+                        class="nav-label">Daya Tampung & Peminat</span></a>
+            </li>
             <li
                 class="{{request()->routeIs('admin-univ.pemantauan-lulusan') || request()->routeIs('admin-univ.length-studi') ? 'active' : ''}}">
                 <a href="#"><i class="fa fa-line-chart"></i> <span class="nav-label">Monev</span><span
