@@ -18,6 +18,7 @@ class DayaTampungPeminatController extends Controller
         $tahunPeminat = Peminat::select('tahun')->distinct()->get();
         $dayaTampung = DayaTampung::where('jalur_ujian_id', 1)->get()->groupBy('id_prodi');
         $snbt = DayaTampung::where('jalur_ujian_id', 2)->get()->groupBy('id_prodi');
+        $usmb = DayaTampung::where('jalur_ujian_id', 3)->get()->groupBy('id_prodi');
 
         $peminatSnbp = Peminat::where('jalur_ujian_id', 1)->get()->groupBy('id_prodi');
         $peminatSnbt = Peminat::where('jalur_ujian_id', 2)->get()->groupBy('id_prodi');
@@ -29,6 +30,7 @@ class DayaTampungPeminatController extends Controller
             'snbt' => $snbt,
             'peminatSnbp' => $peminatSnbp,
             'peminatSnbt' => $peminatSnbt,
+            'usmb' => $usmb,
         ]);
     }
 }
