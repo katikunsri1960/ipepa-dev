@@ -50,7 +50,7 @@ class MahasiswaController extends Controller
                 'pd_feeder_list_mahasiswa.nama_program_studi as nama_program_studi',
                 'pd_feeder_list_mahasiswa.nama_status_mahasiswa as nama_status_mahasiswa', 'semester.id_tahun_ajaran as angkatan')
             // ->addSelect(DB::raw('(SELECT id_tahun_ajaran from pd_feeder_semester as semester where semester.id_semester = pd_feeder_list_mahasiswa.id_periode) as angkatan'))
-            ->addSelect(DB::raw('(SELECT SUM(sks_mata_kuliah) from pd_feeder_transkrip_mahasiswa where id_registrasi_mahasiswa = pd_feeder_list_mahasiswa.id_registrasi_mahasiswa) as total'))
+            ->addSelect(DB::raw('(SELECT SUM(sks_mata_kuliah) from transkrip_mahasiswa where id_registrasi_mahasiswa = pd_feeder_list_mahasiswa.id_registrasi_mahasiswa) as total'))
             ->orderBy('pd_feeder_list_mahasiswa.id_prodi', 'asc')
             ->orderBy('pd_feeder_list_mahasiswa.nim', 'asc');
 
@@ -180,7 +180,7 @@ class MahasiswaController extends Controller
 
         $periode = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
                     ->select('id_periode')->distinct()
-                    ->addSelect(DB::raw('(SELECT nama_semester FROM pd_feeder_semester WHERE id_semester=pd_feeder_krs_mahasiswa.id_periode) as nama_periode'))
+                    ->addSelect(DB::raw('(SELECT nama_semester FROM pd_feeder_semester WHERE id_semester=krs_mahasiswa.id_periode) as nama_periode'))
                     ->get();
 
         $periodeNow = $periode->toArray();
@@ -225,7 +225,7 @@ class MahasiswaController extends Controller
 
         $periode = RNM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
                     ->select('id_periode')->distinct()
-                    ->addSelect(DB::raw('(SELECT nama_semester FROM pd_feeder_semester WHERE id_semester=pd_feeder_riwayat_nilai_mahasiswa.id_periode) as nama_periode'))
+                    ->addSelect(DB::raw('(SELECT nama_semester FROM pd_feeder_semester WHERE id_semester=riwayat_nilai_mahasiswa.id_periode) as nama_periode'))
                     ->get();
 
         $periodeNow = $periode->toArray();
@@ -237,7 +237,7 @@ class MahasiswaController extends Controller
             $histori = RNM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
                     ->where('id_periode', $req->periode)
                     ->select('id_matkul', 'nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah', 'nilai_angka', 'nilai_huruf', 'nilai_indeks')
-                    ->addSelect(DB::raw('(SELECT kode_mata_kuliah from pd_feeder_mata_kuliah where pd_feeder_riwayat_nilai_mahasiswa.id_matkul = id_matkul) as kode_mata_kuliah'))
+                    ->addSelect(DB::raw('(SELECT kode_mata_kuliah from pd_feeder_mata_kuliah where riwayat_nilai_mahasiswa.id_matkul = id_matkul) as kode_mata_kuliah'))
                     ->get();
             $periodeAkt = $req->periode;
 
@@ -246,13 +246,13 @@ class MahasiswaController extends Controller
             if (empty($periodeNow)) {
                 $histori = RNM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
                     ->select('id_matkul', 'nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah', 'nilai_angka', 'nilai_huruf', 'nilai_indeks')
-                    ->addSelect(DB::raw('(SELECT kode_mata_kuliah from pd_feeder_mata_kuliah where pd_feeder_riwayat_nilai_mahasiswa.id_matkul = id_matkul) as kode_mata_kuliah'))
+                    ->addSelect(DB::raw('(SELECT kode_mata_kuliah from pd_feeder_mata_kuliah where riwayat_nilai_mahasiswa.id_matkul = id_matkul) as kode_mata_kuliah'))
                     ->get();
             } else {
                 $histori = RNM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
                     ->where('id_periode', $periodeNow[0])
                     ->select('id_matkul', 'nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah', 'nilai_angka', 'nilai_huruf', 'nilai_indeks')
-                    ->addSelect(DB::raw('(SELECT kode_mata_kuliah from pd_feeder_mata_kuliah where pd_feeder_riwayat_nilai_mahasiswa.id_matkul = id_matkul) as kode_mata_kuliah'))
+                    ->addSelect(DB::raw('(SELECT kode_mata_kuliah from pd_feeder_mata_kuliah where riwayat_nilai_mahasiswa.id_matkul = id_matkul) as kode_mata_kuliah'))
                     ->get();
 
                 $periodeAkt = $periodeNow[0]['id_periode'];

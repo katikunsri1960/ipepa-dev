@@ -88,9 +88,9 @@ class NilaiPerkuliahanController extends Controller
 
         $detail = ListNilaiPerkuliahan::where('id_kelas_kuliah',$id)->where('id_smt',$semester)->select('*')->get();
 
-        // $mahasiswa = KrsMahasiswa::leftJoin('pd_feeder_transkrip_mahasiswa', 'pd_feeder_transkrip_mahasiswa.id_kelas_kuliah', 'pd_feeder_krs_mahasiswa.id_kelas')
+        // $mahasiswa = KrsMahasiswa::leftJoin('transkrip_mahasiswa', 'transkrip_mahasiswa.id_kelas_kuliah', 'krs_mahasiswa.id_kelas')
         //                             ->where('id_kelas',$id)
-        //                             ->where('pd_feeder_krs_mahasiswa.id_periode',$semester)
+        //                             ->where('krs_mahasiswa.id_periode',$semester)
         //                             ->select('nim','nama_mahasiswa','nama_program_studi','angkatan', 'nilai_indeks', 'nilai_huruf')
         //                             ->get();
 

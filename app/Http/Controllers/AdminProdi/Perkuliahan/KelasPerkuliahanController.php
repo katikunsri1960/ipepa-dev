@@ -57,7 +57,7 @@ class KelasPerkuliahanController extends Controller
         $searchValue = $request->input('search.value');
 
         $query = DB::table('pd_feeder_list_kelas_kuliah')->select('id_semester','nama_semester', 'id_matkul', 'kode_mata_kuliah', 'nama_mata_kuliah', 'id_kelas_kuliah', 'nama_kelas_kuliah', 'sks', 'nama_dosen')->where('id_prodi', $prodiId)
-        ->addSelect(DB::raw('(SELECT COUNT(id_registrasi_mahasiswa) FROM `pd_feeder_krs_mahasiswa` WHERE pd_feeder_krs_mahasiswa.id_matkul=pd_feeder_list_kelas_kuliah.id_matkul AND pd_feeder_krs_mahasiswa.id_kelas=pd_feeder_list_kelas_kuliah.id_kelas_kuliah) AS jumlah_mahasiswa'));
+        ->addSelect(DB::raw('(SELECT COUNT(id_registrasi_mahasiswa) FROM `krs_mahasiswa` WHERE krs_mahasiswa.id_matkul=pd_feeder_list_kelas_kuliah.id_matkul AND krs_mahasiswa.id_kelas=pd_feeder_list_kelas_kuliah.id_kelas_kuliah) AS jumlah_mahasiswa'));
 
         if ($searchValue) {
             $query->where(function ($query) use ($searchValue) {
@@ -123,23 +123,23 @@ class KelasPerkuliahanController extends Controller
         $data = DetailKelasKuliah::select('*')
         // leftJoin('pd_feeder_dosen_pengajar_kelas_kuliah','pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah','pd_feeder_detail_kelas_kuliah.id_kelas_kuliah');
             ->leftJoin('pd_feeder_detail_mata_kuliah', 'pd_feeder_detail_mata_kuliah.id_matkul', 'pd_feeder_detail_kelas_kuliah.id_matkul');
-            // ->leftJoin('pd_feeder_krs_mahasiswa','pd_feeder_krs_mahasiswa.id_kelas','pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah')
+            // ->leftJoin('krs_mahasiswa','krs_mahasiswa.id_kelas','pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah')
             // ->orderBy('pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah');
 
         $data_dosen = DetailKelasKuliah::leftJoin('pd_feeder_dosen_pengajar_kelas_kuliah','pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah','pd_feeder_detail_kelas_kuliah.id_kelas_kuliah')
             ->leftJoin('pd_feeder_detail_mata_kuliah', 'pd_feeder_detail_mata_kuliah.id_matkul', 'pd_feeder_detail_kelas_kuliah.id_matkul')
-            ->leftJoin('pd_feeder_krs_mahasiswa','pd_feeder_krs_mahasiswa.id_kelas','pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah')
+            ->leftJoin('krs_mahasiswa','krs_mahasiswa.id_kelas','pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah')
             ->orderBy('pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah');
 
-        $data_mhs = KrsMahasiswa::leftJoin('pd_feeder_dosen_pengajar_kelas_kuliah','pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah','pd_feeder_krs_mahasiswa.id_kelas')
-                ->leftJoin('pd_feeder_list_mahasiswa','pd_feeder_list_mahasiswa.id_registrasi_mahasiswa','pd_feeder_krs_mahasiswa.id_registrasi_mahasiswa');
+        $data_mhs = KrsMahasiswa::leftJoin('pd_feeder_dosen_pengajar_kelas_kuliah','pd_feeder_dosen_pengajar_kelas_kuliah.id_kelas_kuliah','krs_mahasiswa.id_kelas')
+                ->leftJoin('pd_feeder_list_mahasiswa','pd_feeder_list_mahasiswa.id_registrasi_mahasiswa','krs_mahasiswa.id_registrasi_mahasiswa');
 
         $detail = $data->where('pd_feeder_detail_kelas_kuliah.id_matkul',$id)->where('pd_feeder_detail_kelas_kuliah.id_kelas_kuliah',$kelas_kuliah)->where('pd_feeder_detail_kelas_kuliah.id_semester',$semester)->select('pd_feeder_detail_kelas_kuliah.nama_program_studi', 'nama_semester', 'pd_feeder_detail_kelas_kuliah.nama_mata_kuliah', 'nama_kelas_kuliah', 'sks_mata_kuliah', 'sks_tatap_muka', 'sks_praktek', 'sks_praktek_lapangan', 'bahasan', 'sks_simulasi', 'metode_kuliah', 'pd_feeder_detail_kelas_kuliah.tanggal_mulai_efektif', 'pd_feeder_detail_kelas_kuliah.tanggal_akhir_efektif')->get();
 
         $dosen = DPKK::where('id_kelas_kuliah', $kelas_kuliah)->where('id_semester', $semester)->select('nidn', 'nama_dosen', 'sks_substansi_total', 'rencana_minggu_pertemuan', 'realisasi_minggu_pertemuan', 'nama_jenis_evaluasi')->get();
         // $data_dosen->where('pd_feeder_detail_kelas_kuliah.id_matkul',$id)->where('pd_feeder_detail_kelas_kuliah.id_semester',$semester)->distinct()->select('nidn','nama_dosen','sks_substansi_total','rencana_minggu_pertemuan', 'realisasi_minggu_pertemuan', 'nama_jenis_evaluasi')->orderBy('nama_dosen')->get();
 
-        $mahasiswa = $data_mhs->where('pd_feeder_krs_mahasiswa.id_matkul',$id)->where('pd_feeder_krs_mahasiswa.id_kelas',$kelas_kuliah)->where('pd_feeder_krs_mahasiswa.id_periode',$semester)->distinct()->select('pd_feeder_krs_mahasiswa.nim','pd_feeder_krs_mahasiswa.nama_mahasiswa', 'jenis_kelamin', 'pd_feeder_list_mahasiswa.nama_program_studi', 'angkatan')->get();
+        $mahasiswa = $data_mhs->where('krs_mahasiswa.id_matkul',$id)->where('krs_mahasiswa.id_kelas',$kelas_kuliah)->where('krs_mahasiswa.id_periode',$semester)->distinct()->select('krs_mahasiswa.nim','krs_mahasiswa.nama_mahasiswa', 'jenis_kelamin', 'pd_feeder_list_mahasiswa.nama_program_studi', 'angkatan')->get();
 
         return view('backend.prodi.perkuliahan.kelas-perkuliahan.detail', compact('detail', 'dosen', 'mahasiswa'));
     }

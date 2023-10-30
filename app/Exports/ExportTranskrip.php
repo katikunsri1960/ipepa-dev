@@ -15,9 +15,9 @@ class ExportTranskrip implements FromCollection, WithHeadings
     }
     public function collection()
     {
-        $data = ListMahasiswa::leftJoin('pd_feeder_transkrip_mahasiswa','pd_feeder_transkrip_mahasiswa.id_registrasi_mahasiswa','pd_feeder_list_mahasiswa.id_registrasi_mahasiswa');
+        $data = ListMahasiswa::leftJoin('transkrip_mahasiswa','transkrip_mahasiswa.id_registrasi_mahasiswa','pd_feeder_list_mahasiswa.id_registrasi_mahasiswa');
 
-        return $data->select('pd_feeder_list_mahasiswa.nim','pd_feeder_list_mahasiswa.nama_mahasiswa','pd_feeder_list_mahasiswa.nama_program_studi','pd_feeder_transkrip_mahasiswa.kode_mata_kuliah','pd_feeder_transkrip_mahasiswa.nama_mata_kuliah','pd_feeder_transkrip_mahasiswa.smt_diambil','pd_feeder_transkrip_mahasiswa.sks_mata_kuliah','pd_feeder_transkrip_mahasiswa.nilai_angka','pd_feeder_transkrip_mahasiswa.nilai_huruf','pd_feeder_transkrip_mahasiswa.nilai_indeks')->where('pd_feeder_list_mahasiswa.id_periode',$this->semester)->where('pd_feeder_list_mahasiswa.id_prodi',$this->program_studi)->get();
+        return $data->select('pd_feeder_list_mahasiswa.nim','pd_feeder_list_mahasiswa.nama_mahasiswa','pd_feeder_list_mahasiswa.nama_program_studi','transkrip_mahasiswa.kode_mata_kuliah','transkrip_mahasiswa.nama_mata_kuliah','transkrip_mahasiswa.smt_diambil','transkrip_mahasiswa.sks_mata_kuliah','transkrip_mahasiswa.nilai_angka','transkrip_mahasiswa.nilai_huruf','transkrip_mahasiswa.nilai_indeks')->where('pd_feeder_list_mahasiswa.id_periode',$this->semester)->where('pd_feeder_list_mahasiswa.id_prodi',$this->program_studi)->get();
     }
     public function headings(): array
     {

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TranskripMahasiswa extends Model
 {
     use HasFactory;
-    protected $table = 'pd_feeder_transkrip_mahasiswa';
+    protected $table = 'transkrip_mahasiswa';
 
     public $timestamps = false;
     public $incrementing = false;

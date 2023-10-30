@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class KrsMahasiswa extends Model
 {
     use HasFactory;
-    protected $table = 'pd_feeder_krs_mahasiswa';
+    protected $table = 'krs_mahasiswa';
 
     public $timestamps = false;
     public $incrementing = false;

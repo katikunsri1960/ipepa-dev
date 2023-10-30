@@ -47,7 +47,7 @@ class AktivitasKuliahMahasiswaController extends Controller
 
         $searchValue = $request->input('search.value');
 
-        $query = DB::table('pd_feeder_aktivitas_kuliah_mahasiswa')->select('id_mahasiswa','nim', 'nama_mahasiswa', 'nama_program_studi', 'id_prodi', 'id_semester', 'angkatan', 'nama_semester', 'nama_status_mahasiswa', 'ipk','ips','sks_semester', 'sks_total')
+        $query = DB::table('aktivitas_kuliah_mahasiswa')->select('id_mahasiswa','nim', 'nama_mahasiswa', 'nama_program_studi', 'id_prodi', 'id_semester', 'angkatan', 'nama_semester', 'nama_status_mahasiswa', 'ipk','ips','sks_semester', 'sks_total')
                                                                 ->where('id_prodi', $prodiId)->orderBy('angkatan','DESC');
 
         if ($searchValue) {
@@ -89,7 +89,7 @@ class AktivitasKuliahMahasiswaController extends Controller
          // get data
         $data = $query->get();
 
-        $recordsTotal = DB::table('pd_feeder_aktivitas_kuliah_mahasiswa')->where('id_prodi', $prodiId)->count();
+        $recordsTotal = DB::table('aktivitas_kuliah_mahasiswa')->where('id_prodi', $prodiId)->count();
 
          // add numbering
         $number = $offset + 1;
@@ -120,8 +120,8 @@ class AktivitasKuliahMahasiswaController extends Controller
         $krs = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
                     ->where('id_periode', $semester)
                     ->select('kode_mata_kuliah', 'nama_mata_kuliah', 'sks_mata_kuliah', 'id_registrasi_mahasiswa')
-                    ->addSelect(DB::raw('(SELECT nama_semester FROM pd_feeder_semester WHERE id_semester=pd_feeder_krs_mahasiswa.id_periode) as semester'))
-                    // ->addSelect(DB::raw('(SELECT SUM(sks_mata_kuliah) FROM pd_feeder_krs_mahasiswa WHERE pd_feeder_krs_mahasiswa.id_periode='.$semester.') AS jumlah_sks'))
+                    ->addSelect(DB::raw('(SELECT nama_semester FROM pd_feeder_semester WHERE id_semester=krs_mahasiswa.id_periode) as semester'))
+                    // ->addSelect(DB::raw('(SELECT SUM(sks_mata_kuliah) FROM krs_mahasiswa WHERE krs_mahasiswa.id_periode='.$semester.') AS jumlah_sks'))
                     ->get();
 
         $sks = KM::where('id_registrasi_mahasiswa', $mahasiswa->id_registrasi_mahasiswa)
