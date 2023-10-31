@@ -104,8 +104,12 @@
                     <td class="text-center">{{ $data->sks_mata_kuliah }}</td>
                 </tr>
                 @endforeach
-
             </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5">TOTAL SKS MAHASISWA ADALAH : {{$krs ? $krs->sum('sks_mata_kuliah') : ''}} SKS</th>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>
