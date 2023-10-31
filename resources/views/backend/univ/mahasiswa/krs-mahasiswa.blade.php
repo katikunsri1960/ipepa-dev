@@ -99,7 +99,7 @@
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $data->kode_mata_kuliah }}</td>
-                            <td class="text-center">{{ $data->nama_mata_kuliah }}</td>
+                            <td class="text-left">{{ $data->nama_mata_kuliah }}</td>
                             <td class="text-center">{{ $data->nama_kelas_kuliah }}</td>
                             <td class="text-center">{{ $data->sks_mata_kuliah }}</td>
                         </tr>

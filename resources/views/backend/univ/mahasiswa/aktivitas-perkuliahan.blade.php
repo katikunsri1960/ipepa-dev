@@ -68,10 +68,9 @@
             </div>
         </div>
         <div class="ibox-content">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="tableMahasiswa">
                 <thead>
                     <tr>
-                        <th rowspan="2" class="text-center" style="vertical-align: middle">No.</th>
                         <th rowspan="2" class="text-center" style="vertical-align: middle">Semester</th>
                         <th rowspan="2" class="text-center" style="vertical-align: middle">Status</th>
                         <th rowspan="2" class="text-center" style="vertical-align: middle">IPS</th>
@@ -86,7 +85,6 @@
                 <tbody>
                     @foreach ($aktivitas as $akt)
                         <tr>
-                            <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $akt->nama_semester }}</td>
                             <td class="text-center">{{ $akt->nama_status_mahasiswa }}</td>
                             <td class="text-center">{{ $akt->ips }}</td>
@@ -100,3 +98,15 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#tableMahasiswa').DataTable({
+            paging: false,
+            info: false,
+            // column 0 order false
+            "order": [[ 0, "asc" ]]
+        });
+    });
+</script>
+@endpush

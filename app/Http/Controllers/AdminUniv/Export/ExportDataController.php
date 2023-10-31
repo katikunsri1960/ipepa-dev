@@ -16,6 +16,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PDUnsri\Feeder\ProgramStudi;
 use App\Models\PDUnsri\Feeder\Semester;
 use App\Models\PDUnsri\Feeder\TahunAjaran;
+use App\Models\PDUnsri\Feeder\ListMahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
@@ -35,12 +36,14 @@ class ExportDataController extends Controller
 
         $semester = Semester::select('id_semester','nama_semester')->orderby('id_semester', 'desc')->get();
 
+        $status_mahasiswa = ListMahasiswa::select('nama_status_mahasiswa')->orderby('nama_status_mahasiswa','asc')->distinct()->get();
+
         if($req->table_name == "Daftar Mahasiswa"){
-            return Excel::download(new ExportDaftarMahasiswa($req->program_studi, $req->periode), 'DAFTAR MAHASISWA-'.$req->program_studi.'-'.$req->periode.'.xlsx');
+            return Excel::download(new ExportDaftarMahasiswa($req->program_studi, $req->periode, $req->status_mahasiswa), 'DAFTAR MAHASISWA-'.$req->periode.'.xlsx');
         }
 
         if($req->table_name == "Penugasan Dosen"){
-            return Excel::download(new ExportPenugasanDosen($req->program_studi, $req->periode), 'DAFTAR PENUGASAN DOSEN-'.$req->program_studi.'-'.$req->periode.'.xlsx');
+            return Excel::download(new ExportPenugasanDosen($req->program_studi, $req->periode), 'DAFTAR PENUGASAN DOSEN-'.$req->periode.'.xlsx');
         }
 
         if($req->table_name == "Mata Kuliah"){
@@ -52,7 +55,7 @@ class ExportDataController extends Controller
         }
 
         if($req->table_name == "Mahasiswa Lulus/DO"){
-            return Excel::download(new ExportMahasiswaLulusDO($req->program_studi, $req->periode), 'DAFTAR MAHASISWA LULUS DO-'.$req->program_studi.'-'.$req->periode.'.xlsx');
+            return Excel::download(new ExportMahasiswaLulusDO($req->program_studi, $req->periode), 'DAFTAR MAHASISWA LULUS DO-'.$req->periode.'.xlsx');
         }
 
         if($req->table_name == "Nilai Transfer"){
@@ -77,6 +80,6 @@ class ExportDataController extends Controller
 
 
 
-        return view('backend.univ.export-data.index', compact('table_name', 'program_studi', 'periode', 'semester'));
+        return view('backend.univ.export-data.index', compact('table_name', 'program_studi', 'periode', 'semester', 'status_mahasiswa'));
     }
 }

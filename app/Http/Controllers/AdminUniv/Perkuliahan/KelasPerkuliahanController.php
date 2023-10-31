@@ -49,7 +49,7 @@ class KelasPerkuliahanController extends Controller
         $searchValue = $request->input('search.value');
 
         $query = DB::table('pd_feeder_list_kelas_kuliah')->select('id_semester','nama_semester', 'id_matkul', 'kode_mata_kuliah', 'nama_mata_kuliah', 'id_kelas_kuliah', 'nama_kelas_kuliah', 'sks', 'nama_dosen')
-        ->addSelect(DB::raw('(SELECT COUNT(id_registrasi_mahasiswa) FROM `krs_mahasiswa` WHERE krs_mahasiswa.id_matkul=pd_feeder_list_kelas_kuliah.id_matkul AND krs_mahasiswa.id_kelas=pd_feeder_list_kelas_kuliah.id_kelas_kuliah) AS jumlah_mahasiswa'));
+        ->addSelect(DB::raw('(SELECT COUNT(*) FROM `krs_mahasiswa` WHERE krs_mahasiswa.id_matkul=pd_feeder_list_kelas_kuliah.id_matkul AND krs_mahasiswa.id_kelas=pd_feeder_list_kelas_kuliah.id_kelas_kuliah) AS jumlah_mahasiswa'));
 
         if ($searchValue) {
             $query->where(function ($query) use ($searchValue) {

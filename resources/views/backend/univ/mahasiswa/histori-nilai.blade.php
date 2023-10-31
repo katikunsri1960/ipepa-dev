@@ -14,6 +14,9 @@
     </div>
     @include('backend.univ.mahasiswa.btn-nav')
 </div>
+@php
+$ips = 0;
+@endphp
 <div class="ibox float-e-margins">
     <div class="ibox-title">
         <h5>Data Mahasiswa</h5>
@@ -103,15 +106,29 @@
                 <tr>
                     <td class="text-center">{{$loop->iteration}}</td>
                     <td class="text-center">{{$h->kode_mata_kuliah}}</td>
-                    <td class="text-center">{{$h->nama_mata_kuliah}}</td>
+                    <td class="text-left">{{$h->nama_mata_kuliah}}</td>
                     <td class="text-center">{{$h->sks_mata_kuliah}}</td>
                     <td class="text-center">{{$h->nilai_angka}}</td>
                     <td class="text-center">{{$h->nilai_huruf}}</td>
                     <td class="text-center">{{$h->nilai_indeks}}</td>
                     <td class="text-center">{{$h->nilai_indeks*$h->sks_mata_kuliah}}</td>
+                    @php
+                        $ips += $h->nilai_indeks*$h->sks_mata_kuliah;
+                    @endphp
                 </tr>
                 @endforeach
             </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td colspan="2"><strong>TOTAL SKS</strong></td>
+                    <td class="text-center"><strong>{{$histori ? $histori->sum('sks_mata_kuliah') : 0}}</strong></td>
+                    <td colspan="3">
+                        <strong>IPS (INDEKS PRESTASI SEMESTER)</strong>
+                    </td>
+                    <td class="text-center"><strong>{{$histori ? number_format($ips/$histori->sum('sks_mata_kuliah'), 2, '.') : 0}}</strong></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
 </div>

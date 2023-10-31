@@ -89,7 +89,7 @@
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td class="text-center">{{ $tm->kode_mata_kuliah }}</td>
-                            <td class="text-center">{{ $tm->nama_mata_kuliah }}</td>
+                            <td class="text-left">{{ $tm->nama_mata_kuliah }}</td>
                             <td class="text-center">{{ $tm->sks_mata_kuliah }}</td>
                             <td class="text-center">{{ $tm->nilai_angka }}</td>
                             <td class="text-center">{{ $tm->nilai_huruf }}</td>
