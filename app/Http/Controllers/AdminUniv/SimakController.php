@@ -49,7 +49,7 @@ class SimakController extends Controller
 
     public function nilai_data(Request $req)
     {
-        $ta = $req->ta;
+        $ta = $req->ta; 
         $prodi = $req->prodi;
         // $mk = $req->mk;
         $db = DB::connection('pd_con');

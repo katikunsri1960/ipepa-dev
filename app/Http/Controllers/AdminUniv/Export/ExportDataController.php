@@ -32,7 +32,7 @@ class ExportDataController extends Controller
 
         $program_studi = ProgramStudi::select('id_prodi', DB::raw("CONCAT(nama_jenjang_pendidikan,' ',nama_program_studi) AS nama_program_studi"))->orderby('id_jenjang_pendidikan', 'asc')->get();
 
-        $periode = TahunAjaran::select('id_tahun_ajaran','nama_tahun_ajaran')->orderby('nama_tahun_ajaran', 'desc')->get();
+        $periode = Semester::select('id_tahun_ajaran',DB::raw("LEFT(nama_semester,9) AS nama_tahun_ajaran"))->orderby('id_tahun_ajaran', 'desc')->distinct()->get();
 
         $semester = Semester::select('id_semester','nama_semester')->orderby('id_semester', 'desc')->get();
 

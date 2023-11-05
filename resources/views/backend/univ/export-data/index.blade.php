@@ -34,7 +34,7 @@
                             <label for="exampleInputEmail1">Status Mahasiswa <span style="color: red;">*</span></label>
                             <select class="form-control" name="status_mahasiswa">
                                 <option value="">Pilih Status Mahasiswa</option>
-                                <option value="Semua Prodi">Semua Status Mahasiswa</option>
+                                <option value="Semua Status Mahasiswa">Semua Status Mahasiswa</option>
                                 @foreach($status_mahasiswa as $sm)
                                     <option value="{{ $sm->nama_status_mahasiswa }}">{{ $sm->nama_status_mahasiswa }}</option>
                                 @endforeach
@@ -149,6 +149,7 @@
                 $('#periode').hide();
                 $('#prodi_1').hide();
                 $('#prodi').show();
+                $('#status_mahasiswa').hide();
             }
             if($('#table_name').val() == 'Aktivitas Mengajar Dosen'){
                 $('#semester').show();

@@ -33,7 +33,7 @@ class ExportAktivitasMengajarDosen implements FromCollection, WithHeadings
     {
         return [
             'NIDN',
-            'NAMA DOSEN',
+            'NAMA DOSEN' ,
             'PROGRAM STUDI',
             'KODE MATA KULIAH',
             'NAMA MATA KULIAH',
