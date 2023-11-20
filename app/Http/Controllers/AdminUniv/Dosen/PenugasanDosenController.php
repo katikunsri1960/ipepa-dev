@@ -37,8 +37,14 @@ class PenugasanDosenController extends Controller
                     $q->whereIn('pd_feeder_tahun_ajaran.nama_tahun_ajaran', $req->angkatan);
                 }
                 if ($req->prodi!='') {
-                    $q->whereIn('id_prodi', $req->prodi);
+                    if (in_array('none', $req->prodi)) {
+                        $q->whereNull('id_prodi');
+                    }
+                    else{
+                        $q->whereIn('id_prodi', $req->prodi);
+                    }
                 }
+
                 if ($req->jk!='') {
                     $q->whereIn('jk', $req->jk);
 
@@ -53,7 +59,12 @@ class PenugasanDosenController extends Controller
                     ->orWhere('pd_feeder_list_penugasan_dosen.nidn', 'like', '%'.$req->keyword.'%');
                 }
                 if ($req->prodi!='') {
-                    $q->whereIn('id_prodi', $req->prodi);
+                    if (in_array('none', $req->prodi)) {
+                        $q->whereNull('id_prodi');
+                    }
+                    else{
+                        $q->whereIn('id_prodi', $req->prodi);
+                    }
                 }
                 if ($req->jk!='') {
                     $q->whereIn('jk', $req->jk);

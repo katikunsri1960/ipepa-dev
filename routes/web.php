@@ -43,7 +43,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('sync-selected-data', [App\Http\Controllers\Admin\AjaxSyncController::class, 'syncSelected'])->name('sync-data-selected');
         Route::get('sync-data-process', [App\Http\Controllers\Admin\AjaxSyncController::class, 'syncProcess'])->name('sync-data-process');
         Route::get('hitung-transkrip', [App\Http\Controllers\Admin\HitungTranskripController::class, 'index'])->name('hitung-transkrip');
-        Route::post('hitung-transkrip', [App\Http\Controllers\Admin\HitungTranskripController::class, 'hitung'])->name('hitung-transkrip.hitung');
+        Route::post('hitung-transkrip-angkatan', [App\Http\Controllers\Admin\HitungTranskripController::class, 'hitung'])->name('hitung-transkrip-angkatan');
 
         //get model prodi by ajax
         Route::get('fak-prodi', [App\Http\Controllers\Admin\AjaxSyncController::class, 'prodiId'])->name('get-fak-prodi');
@@ -180,6 +180,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('check-transkrip-simak-data', [App\Http\Controllers\AdminUniv\SimakController::class, 'data'])->name('check-transkrip-simak-data');
         Route::get('check-nilai-simak', [App\Http\Controllers\AdminUniv\SimakController::class, 'nilai'])->name('check-nilai-simak');
         Route::get('check-nilai-simak-data', [App\Http\Controllers\AdminUniv\SimakController::class, 'nilai_data'])->name('check-nilai-simak-data');
+        Route::get('simak-krs', [App\Http\Controllers\AdminUniv\SimakController::class, 'krs'])->name('simak-krs');
+        Route::get('simak-krs-data', [App\Http\Controllers\AdminUniv\SimakController::class, 'krs_data'])->name('simak-krs-data');
+        Route::get('simak-kelas', [App\Http\Controllers\AdminUniv\SimakController::class, 'kelas'])->name('simak-kelas');
+        Route::get('simak-kelas-data', [App\Http\Controllers\AdminUniv\SimakController::class, 'kelas_data'])->name('simak-kelas-data');
+        Route::get('simak-dosen-ajar', [App\Http\Controllers\AdminUniv\SimakController::class, 'dosen_ajar'])->name('simak-dosen-ajar');
+        Route::get('simak-dosen-ajar-data', [App\Http\Controllers\AdminUniv\SimakController::class, 'dosen_ajar_data'])->name('simak-dosen-ajar-data');
 
         //Routing ipepa Tahap 1
         Route::get('dosen', [App\Http\Controllers\AdminUniv\IpepaController::class, 'dosen'])->name('dosen');

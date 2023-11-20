@@ -17,7 +17,7 @@ class FeederAPI {
 
     function __construct($act, $angkatan, $prodi) {
 
-        $this->url = env('feeder_url');
+        $this->url = "http://neo.unsri.ac.id:3003/ws/live2.php";
         $this->username = env('feeder_username');
         $this->password = env('feeder_password');
         $this->angkatan = $angkatan;
@@ -28,6 +28,7 @@ class FeederAPI {
 
     public function runWS()
     {
+        // dd($this->password);
         $client = new Client();
         $params = [
             "act" => "GetToken",

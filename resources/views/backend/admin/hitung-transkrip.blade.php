@@ -69,7 +69,7 @@
         }else{
             $('#loading-overlay').show();
             $.ajax({
-                url: "{{route('admin.hitung-transkrip.hitung')}}",
+                url: "{{route('admin.hitung-transkrip-angkatan')}}",
                 type: "POST",
                 data: {
                     prodi: prodi,
@@ -87,9 +87,10 @@
                 },
                 error: function(response){
                     $('#loading-overlay').hide();
+                    console.log(response);
                     swal({
                         title: "Gagal!",
-                        text: "Data gagal dihitung!",
+                        text: response,
                         icon: "error",
                         button: "OK",
                     });

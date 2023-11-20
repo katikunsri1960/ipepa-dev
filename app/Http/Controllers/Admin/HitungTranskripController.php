@@ -25,10 +25,10 @@ class HitungTranskripController extends Controller
     {
         $prodi = $req->prodi;
         $angkatan = $req->angkatan;
-
+        // dd($prodi);
         $request = new FeederApi('HitungTranskripAngkatan', $angkatan, $prodi);
         $response = $request->runWS();
-
+        // dd($response);
         return response()->json($response, 200);
     }
 }

@@ -2,7 +2,7 @@
 @section('content')
 <div class="ibox float-e-margins">
     <div class="ibox-title">
-        <h2>Check Nilai SIMAK UNSRI</h2>
+        <h2>DOSEN AJAR SIMAK UNSRI</h2>
     </div>
     <div class="ibox-content p-md">
         <div id="loading-overlay">
@@ -110,7 +110,7 @@
                 var mk = $('#mk').val();
                 // ajax request
                 $.ajax({
-                    url: "{{ route('admin-univ.check-nilai-simak-data') }}",
+                    url: "{{ route('admin-univ.simak-dosen-ajar-data') }}",
                     type: 'GET',
                     data: {prodi: prodi, ta: ta},
                     success: function (response) {
@@ -127,71 +127,29 @@
                             var tbody = $('<tbody>').appendTo(table);
 
                             var headerRow = $('<tr>').addClass('text-center').appendTo(thead);
-                            $('<th>').addClass('text-center align-middle').text('NIM').appendTo(headerRow);
-                            $('<th>').addClass('text-center align-middle').text('Nama Mahasiswa').appendTo(headerRow);
-                            $('<th>').addClass('text-center align-middle').text('Kode MK').appendTo(headerRow);
-                            $('<th>').addClass('text-center align-middle').text('Nama MK').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Tahun Akademik').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('NIP').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Nama Dosen').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Kode MK').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Kode Kelas').appendTo(headerRow);
-                            $('<th>').addClass('text-center align-middle').text('Nilai Huruf').appendTo(headerRow);
-                            $('<th>').addClass('text-center align-middle').text('Nilai Indeks').appendTo(headerRow);
-                            $('<th>').addClass('text-center align-middle').text('Nilai angka').appendTo(headerRow);
-                            $('<th>').addClass('text-center align-middle').text('Bobot').appendTo(headerRow);
-                            $('<th>').addClass('text-center align-middle').text('Kode Prodi Mahasiswa').appendTo(headerRow);
-                            $('<th>').addClass('text-center align-middle').text('Kode Prodi Kelas').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Tatap Muka').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Tatap Muka Realisasi').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Kode Prodi').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('SKS Ajar').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Jenis Evaluasi').appendTo(headerRow);
                             // looping data
                             $.each(data, function (i, v) {
                                 var row = $('<tr>').appendTo(tbody);
-                                $('<td>').addClass('text-center align-middle').text(v.FNIM).appendTo(row);
-                                $('<td>').addClass('align-middle').text(v.FMNAM).appendTo(row);
-                                $('<td>').addClass('text-center align-middle').text(v.FCOD).appendTo(row);
-                                $('<td>').addClass('align-middle').text(v.nm_mata_kuliah).appendTo(row);
-                                $('<td>').addClass('text-center align-middle').text(v.FTAK).appendTo(row);
+                                $('<td>').addClass('text-center align-middle').text(v.KLS_TAK).appendTo(row);
+                                $('<td>').addClass('text-center align-middle').text(v.nip).appendTo(row);
+                                $('<td>').addClass('align-middle').text(v.nama_dosen).appendTo(row);
+                                $('<td>').addClass('align-middle').text(v.KLS_KODEMK).appendTo(row);
                                 $('<td>').addClass('text-center align-middle').text(v.KLS_NAMA).appendTo(row);
-                                $('<td>').addClass('text-center align-middle').text(v.FNIL).appendTo(row);
-                                if (v.FNIL === 'A') {
-                                    var indeks = 4;
-                                    $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
-                                }else if(v.FNIL === 'B'){
-                                    var indeks = 3;
-                                    $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
-                                }else if(v.FNIL === 'C'){
-                                    var indeks = 2;
-                                    $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
-                                } else if(v.FNIL === 'D') {
-                                    var indeks = 1;
-                                    $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
-                                }else if(v.FNIL === 'E') {
-                                    var indeks = 0;
-                                    $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
-                                }else if(v.FNIL === 'F') {
-                                    var indeks = '-';
-                                    $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
-                                }
-
-                                $('<td>').addClass('text-center align-middle').text(v.FNIL_AKHIR).appendTo(row);
-
-                                if (v.FNIL === 'A') {
-                                    var bobot = v.FSKS * 4;
-                                    $('<td>').addClass('text-center align-middle').text(bobot).appendTo(row);
-                                }else if(v.FNIL === 'B'){
-                                    var bobot = v.FSKS * 3;
-                                    $('<td>').addClass('text-center align-middle').text(bobot).appendTo(row);
-                                }else if(v.FNIL === 'C'){
-                                    var bobot = v.FSKS * 2;
-                                    $('<td>').addClass('text-center align-middle').text(bobot).appendTo(row);
-                                } else if(v.FNIL === 'D') {
-                                    var bobot = v.FSKS * 1;
-                                    $('<td>').addClass('text-center align-middle').text(bobot).appendTo(row);
-                                }else if(v.FNIL === 'E') {
-                                    var bobot = v.FSKS * 0;
-                                    $('<td>').addClass('text-center align-middle').text(bobot).appendTo(row);
-                                }else if(v.FNIL === 'F') {
-                                    var bobot = '-';
-                                    $('<td>').addClass('text-center align-middle').text(bobot).appendTo(row);
-                                }
+                                $('<td>').addClass('text-center align-middle').text(v.tatap_muka).appendTo(row);
+                                $('<td>').addClass('text-center align-middle').text('').appendTo(row);
                                 $('<td>').addClass('text-center align-middle').text(v.kode_prodi).appendTo(row);
-                                $('<td>').addClass('text-center align-middle').text(v.kode_prodi).appendTo(row);
+                                $('<td>').addClass('text-center align-middle').text('').appendTo(row);
+                                $('<td>').addClass('text-center align-middle').text('1').appendTo(row);
 
                             });
 
@@ -207,11 +165,24 @@
                                     {extend: 'csv'},
                                     {
                                         extend: 'excel',
-                                        title: 'Data Transkrip',
+                                        title: 'Data Dosen Ajar',
                                         customize: function(xlsx) {
                                             var sheet = xlsx.xl.worksheets['sheet1.xml'];
 
-                                            $('row c[r^="A"]', sheet).each( function () {
+                                            $('row c[r^="B"]', sheet).each( function () {
+                                                // Get cell value
+                                                var cellValue = $(this).text();
+
+                                                // Change cell type to 'inlineStr'
+                                                $(this).attr('t', 'inlineStr');
+
+                                                // Remove existing cell value
+                                                $(this).children().remove();
+
+                                                // Add new 'is' (inline string) element and 't' (text) element with cell value
+                                                $(this).append('<is><t>'+cellValue+'</t></is>');
+                                            });
+                                            $('row c[r^="H"]', sheet).each( function () {
                                                 // Get cell value
                                                 var cellValue = $(this).text();
 
@@ -237,7 +208,15 @@
                                                     .css('font-size', 'inherit');
                                         }
                                     }
-                                ]
+                                ],
+                                // columnDefs: [
+                                //     {
+                                //         targets: 5,
+                                //         render: function (data, type, row) {
+                                //             return parseInt(data.replace('.', ''));
+                                //         }
+                                //     }
+                                // ]
                             });
                         } else {
                             nilai.append('<h2 class="text-center">Data tidak ditemukan</h2>');

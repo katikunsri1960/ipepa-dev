@@ -37,6 +37,7 @@
                                                     class="form-control chosen-select" multiple style="width:350px;"
                                                     tabindex="4">
                                                     <option value=""></option>
+                                                    <option value="none" @if ($val->prodi && in_array('none', $val->prodi)) selected @endif>Tidak ada Prodi</option>
                                                     @foreach ($prodi as $p)
                                                         <option value="{{ $p->id_prodi }}"
                                                             @if ($val->prodi && in_array($p->id_prodi, $val->prodi)) selected @endif>
@@ -114,6 +115,9 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-2">
+                        <a href="{{route('admin-univ.daftar-penugasan-dosen')}}" class="btn btn-warning btn-block" id="reset-filter">Reset Filter</a>
                     </div><br><br><hr>
                     <div class="col-md-2">
                         <select name="p" id="p" class="form-control" onchange="this.form.submit()">
@@ -173,8 +177,14 @@
                             @foreach ($dosen as $d => $data)
                                 <tr>
                                     <td class="text-center">{{ $dosen->firstItem() + $d }}</td>
-                                    <td><a href="{{ route('admin-univ.detail-daftar-penugasan-dosen', ['id' => $data->id_dosen, 'tahun' => $data->id_tahun_ajaran, 'prodi' => $data->id_prodi]) }}"
-                                            name="req">{{ $data->nama_dosen }}</a> </td>
+                                    <td>
+                                        @if ($data->id_prodi == NULL)
+                                        {{ $data->nama_dosen }}
+                                        @else
+                                        <a href="{{ route('admin-univ.detail-daftar-penugasan-dosen', ['id' => $data->id_dosen, 'tahun' => $data->id_tahun_ajaran, 'prodi' => $data->id_prodi]) }}"
+                                            name="req">{{ $data->nama_dosen }}</a>
+                                        @endif
+                                    </td>
                                     <td class="text-center">{{ $data->nidn }}</td>
                                     <td class="text-center">{{ $data->jk }}</td>
                                     <td class="text-center">{{ $data->nama_tahun_ajaran }}</td>

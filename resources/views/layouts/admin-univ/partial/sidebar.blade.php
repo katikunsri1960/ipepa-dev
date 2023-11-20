@@ -169,7 +169,9 @@
             </li>
 
             <li
-                class="{{request()->routeIs('admin-univ.check-transkrip-simak') || request()->routeIs('admin-univ.check-nilai-simak') ? 'active' : ''}}">
+                class="{{request()->routeIs('admin-univ.check-transkrip-simak') || request()->routeIs('admin-univ.check-nilai-simak')
+                        || request()->routeIs('admin-univ.simak-krs') || request()->routeIs('admin-univ.simak-kelas')
+                        || request()->routeIs('admin-univ.simak-dosen-ajar') ? 'active' : ''}}">
                 <a href="#"><i class="fa fa-briefcase"></i> <span class="nav-label">SIMAK Unsri</span><span
                         class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -177,9 +179,21 @@
                         <a href="{{route('admin-univ.check-transkrip-simak')}}"><i class="fa-solid fa-table-cells"></i>
                             <span class="nav-label">SIMAK Transkrip</span></a>
                     </li>
+                    <li class="{{request()->routeIs('admin-univ.simak-kelas') ? 'active' : ''}}">
+                        <a href="{{route('admin-univ.simak-kelas')}}"><i class="fa-solid fa-chart-line"></i>
+                            <span class="nav-label">SIMAK Kelas</span></a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-univ.simak-dosen-ajar') ? 'active' : ''}}">
+                        <a href="{{route('admin-univ.simak-dosen-ajar')}}"><i class="fa-solid fa-table-cells"></i>
+                            <span class="nav-label">SIMAK Dosen Ajar</span></a>
+                    </li>
                     <li class="{{request()->routeIs('admin-univ.check-nilai-simak') ? 'active' : ''}}">
                         <a href="{{route('admin-univ.check-nilai-simak')}}"><i class="fa-solid fa-table-cells"></i>
                             <span class="nav-label">SIMAK Nilai</span></a>
+                    </li>
+                    <li class="{{request()->routeIs('admin-univ.simak-krs') ? 'active' : ''}}">
+                        <a href="{{route('admin-univ.simak-krs')}}"><i class="fa-solid fa-chart-line"></i>
+                            <span class="nav-label">SIMAK KRS</span></a>
                     </li>
                 </ul>
         </ul>
