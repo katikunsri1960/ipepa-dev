@@ -24,6 +24,7 @@ class StarSender
             "to" => $this->tujuan,
             "body" => $this->pesan,
         ];
+        
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
