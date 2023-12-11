@@ -84,6 +84,10 @@
                         <th class="text-center">Indeks</th>
                     </tr>
                 </thead>
+                @php
+                    $sks = 0;
+                    $sksindex = 0;
+                @endphp
                 <tbody>
                     @foreach ($transkrip as $tm)
                         <tr>
@@ -96,8 +100,27 @@
                             <td class="text-center">{{ $tm->nilai_indeks }}</td>
                             <td class="text-center">{{$tm->nilai_indeks*$tm->sks_mata_kuliah}}</td>
                         </tr>
+                        @php
+                            $sks += $tm->sks_mata_kuliah;
+                            $sksindex += ($tm->nilai_indeks*$tm->sks_mata_kuliah);
+                        @endphp
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="3" class="text-center align-middle">Total</th>
+                        <th class="text-center align-middle">{{$sks}}</th>
+                        <th colspan="3"></th>
+                        <th class="text-center align-middle">{{$sksindex}}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="3" class="text-center align-middle">IPK (INDEKS PRESTASI KOMULATIF)</th>
+                        <th></th>
+                        <th colspan="3">
+                            <th class="text-center align-middle">{{number_format($sksindex/$sks, 2)}}</th>
+                        </th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
