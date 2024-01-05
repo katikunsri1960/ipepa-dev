@@ -101,7 +101,7 @@ class PemantauanController extends Controller
         // dd($jp);
 
         $angkatan = LulusDo::select('angkatan')->distinct()->get();
-
+        // dd($angkatan);
         $angkatan = $angkatan->map(function ($item, $key) {
             return $item->angkatan;
         })->values()->toArray();

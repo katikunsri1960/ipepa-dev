@@ -53,14 +53,13 @@ class FetchProcess implements ShouldQueue
 
         }
 
-        if ($response['data']) {
+        if (isset($response['data'])) {
             $data = array_chunk($response['data'], 500);
 
             foreach ($data as $item) {
                 $databases->insert($item);
             }
         }
-
 
         // $databases->insert($data);
         $this->db->where('id', $this->db['id'])->update(['last_sync' => Carbon::now()]);

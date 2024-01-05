@@ -64,12 +64,7 @@
             <table class="table table-bordered table-hover table-responsive" id="table-matkul">
                 <thead>
                     <tr>
-                        <th class="text-center" style="vertical-align: middle">No.</th>
-                        <th class="text-center" style="vertical-align: middle">Kode MK</th>
-                        <th class="text-center" style="vertical-align: middle">Nama Mata Kuliah</th>
-                        <th class="text-center" style="vertical-align: middle">Bobot MK (sks)</th>
-                        <th class="text-center" style="vertical-align: middle">Program Studi</th>
-                        <th class="text-center" style="vertical-align: middle">Jenis Mata Kuliah</th>
+                        
                     </tr>
                 </thead>
 
