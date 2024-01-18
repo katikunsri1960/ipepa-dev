@@ -462,21 +462,22 @@ class IpepaController extends Controller
         $fakprod = auth()->user()->roles_user->fak_prod_id;
 
         $tahunSekarang = $request->semester;
-        $tahunAwal = $tahunSekarang - 5;
+        $tahunAwal = $tahunSekarang - 6;
         $con = DB::connection('pd_con');
         $hasilPerhitungan = [];
 
         for ($tahun = $tahunAwal; $tahun <= $tahunSekarang; $tahun++) {
             // filter $data with left id periode masuk
             $jumlahMahasiswa = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->count();
-            $lulus6TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->whereYear('tanggal_keluar', $tahunSekarang - 6)->count();
-            $lulus5TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->whereYear('tanggal_keluar', $tahunSekarang - 5)->count();
-            $lulus4TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->whereYear('tanggal_keluar', $tahunSekarang - 4)->count();
-            $lulus3TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->whereYear('tanggal_keluar', $tahunSekarang - 3)->count();
-            $lulus2TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->whereYear('tanggal_keluar', $tahunSekarang - 2)->count();
-            $lulus1TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->whereYear('tanggal_keluar', $tahunSekarang - 1)->count();
-            $ts = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->whereYear('tanggal_keluar', $tahunSekarang)->count();
-            $lulusTahunIni = $lulus6TahunLalu+$lulus5TahunLalu+$lulus4TahunLalu+$lulus3TahunLalu+$lulus2TahunLalu+$lulus1TahunLalu+$ts;
+            $lulus7TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->where(DB::raw('LEFT(id_periode_keluar, 4)'), $tahunSekarang - 7)->count();
+            $lulus6TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->where(DB::raw('LEFT(id_periode_keluar, 4)'), $tahunSekarang - 6)->count();
+            $lulus5TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->where(DB::raw('LEFT(id_periode_keluar, 4)'), $tahunSekarang - 5)->count();
+            $lulus4TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->where(DB::raw('LEFT(id_periode_keluar, 4)'), $tahunSekarang - 4)->count();
+            $lulus3TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->where(DB::raw('LEFT(id_periode_keluar, 4)'), $tahunSekarang - 3)->count();
+            $lulus2TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->where(DB::raw('LEFT(id_periode_keluar, 4)'), $tahunSekarang - 2)->count();
+            $lulus1TahunLalu = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->where(DB::raw('LEFT(id_periode_keluar, 4)'), $tahunSekarang - 1)->count();
+            $ts = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->where(DB::raw('LEFT(id_periode_keluar, 4)'), $tahunSekarang)->count();
+            $lulusTahunIni = $lulus7TahunLalu+$lulus6TahunLalu+$lulus5TahunLalu+$lulus4TahunLalu+$lulus3TahunLalu+$lulus2TahunLalu+$lulus1TahunLalu+$ts;
             $rataMasaStudi = $con->table('list_riwayat_pendidikan_mahasiswa')->where('id_prodi', $fakprod)->where(DB::raw('LEFT(id_periode_masuk, 4)'), $tahun)->where('id_jenis_keluar', '1')->whereBetween(DB::raw('YEAR(tanggal_keluar)'), [$tahun, $tahunSekarang])->avg(DB::raw('DATEDIFF(tanggal_keluar, tanggal_daftar)'));
 
             $years = floor($rataMasaStudi / 365);
@@ -488,6 +489,7 @@ class IpepaController extends Controller
             $hasilPerhitungan[] = [
                 'tahun_masuk' => $tahun,
                 'jumlah_mahasiswa' => $jumlahMahasiswa,
+                'lulus_7_tahun_lalu' => $lulus7TahunLalu,
                 'lulus_6_tahun_lalu' => $lulus6TahunLalu,
                 'lulus_5_tahun_lalu' => $lulus5TahunLalu,
                 'lulus_4_tahun_lalu' => $lulus4TahunLalu,

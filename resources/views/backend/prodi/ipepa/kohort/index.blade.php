@@ -89,10 +89,11 @@
                             var headerRow = $('<tr>').addClass('text-center').appendTo(thead);
                             $('<th rowspan="2">').addClass('text-center align-middle').text('Tahun Masuk').css('vertical-align', 'middle').appendTo(headerRow);
                             $('<th rowspan="2">').addClass('text-center align-middle').text('Jumlah Mahasiswa Diterima').css('vertical-align', 'middle').appendTo(headerRow);
-                            $('<th colspan="7">').addClass('text-center align-middle').text('Jumlah Lulusan Program Studi Yang Lulus Pada').appendTo(headerRow);
+                            $('<th colspan="8">').addClass('text-center align-middle').text('Jumlah Lulusan Program Studi Yang Lulus Pada').appendTo(headerRow);
                             $('<th rowspan="2">').addClass('text-center align-middle').text('Jumlah Lulusan s.d Akhir TS').css('vertical-align', 'middle').appendTo(headerRow);
                             $('<th rowspan="2">').addClass('text-center align-middle').text('Rata-rata Masa Studi').css('vertical-align', 'middle').appendTo(headerRow);
                             var headerRow2 = $('<tr>').addClass('text-center').appendTo(thead);
+                            $('<th>').addClass('text-center align-middle').text('Akhir TS-7').appendTo(headerRow2);
                             $('<th>').addClass('text-center align-middle').text('Akhir TS-6').appendTo(headerRow2);
                             $('<th>').addClass('text-center align-middle').text('Akhir TS-5').appendTo(headerRow2);
                             $('<th>').addClass('text-center align-middle').text('Akhir TS-4').appendTo(headerRow2);
@@ -108,11 +109,12 @@
                                 var row = $('<tr>').appendTo(tbody);
                                 $('<td>').addClass('align-middle text-center').text(mahasiswa.tahun_masuk).appendTo(row);
                                 $('<td>').addClass('align-middle text-center').text(mahasiswa.jumlah_mahasiswa).appendTo(row);
-                                    if (mahasiswa.lulus_6_tahun_lalu !== 0) {
+                                if (mahasiswa.lulus_7_tahun_lalu !== 0) {
 
-                                    } else {
-                                        $('<td>').addClass('align-middle text-center').text(mahasiswa.lulus_6_tahun_lalu).appendTo(row);
-                                    }
+                                } else {
+                                    $('<td>').addClass('align-middle text-center').text(mahasiswa.lulus_7_tahun_lalu).appendTo(row);
+                                }
+                                $('<td>').addClass('align-middle text-center').text(mahasiswa.lulus_6_tahun_lalu).appendTo(row);
                                 $('<td>').addClass('align-middle text-center').text(mahasiswa.lulus_5_tahun_lalu).appendTo(row);
                                 $('<td>').addClass('align-middle text-center').text(mahasiswa.lulus_4_tahun_lalu).appendTo(row);
                                 $('<td>').addClass('align-middle text-center').text(mahasiswa.lulus_3_tahun_lalu).appendTo(row);
