@@ -128,7 +128,7 @@
                     <tr>
                         <td class="text-center">{{$nilai_perkuliahan->firstItem() + $no}}</td>
                         <td class="text-center">{{$data->nm_smt}}</td>
-                        <td  class="text-left"> <a href="{{route('admin-univ.detail-nilai-perkuliahan', ['id' => $data->id_kelas_kuliah, 'semester' => $data->id_smt])}}"
+                        <td  class="text-center"> <a href="{{route('admin-univ.detail-nilai-perkuliahan', ['id' => $data->id_kelas_kuliah, 'semester' => $data->id_smt])}}"
                             name="req"> {{$data->kode_mata_kuliah}}</a> </td>
                         <td class="text-left">{{$data->nama_mata_kuliah}}</td>
                         <td class="text-center">{{$data->nama_kelas_kuliah}}</td>
