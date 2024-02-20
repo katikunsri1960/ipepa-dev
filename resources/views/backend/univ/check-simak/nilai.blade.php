@@ -107,7 +107,6 @@
                 e.preventDefault();
                 var prodi = $('#prodi').val();
                 var ta = $('#ta').val();
-                var mk = $('#mk').val();
                 // ajax request
                 $.ajax({
                     url: "{{ route('admin-univ.check-nilai-simak-data') }}",
@@ -133,10 +132,13 @@
                             $('<th>').addClass('text-center align-middle').text('Nama MK').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Tahun Akademik').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Kode Kelas').appendTo(headerRow);
-                            $('<th>').addClass('text-center align-middle').text('Nilai Huruf').appendTo(headerRow);
-                            $('<th>').addClass('text-center align-middle').text('Nilai Indeks').appendTo(headerRow);
-                            $('<th>').addClass('text-center align-middle').text('Nilai angka').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Nilai Huruf Akhir').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Nilai Indeks Akhir').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Nilai angka akhir').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Bobot').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Nilai Tugas').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Nilai UTS').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Nilai UAS').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Kode Prodi Mahasiswa').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Kode Prodi Kelas').appendTo(headerRow);
                             // looping data
@@ -190,6 +192,9 @@
                                     var bobot = '-';
                                     $('<td>').addClass('text-center align-middle').text(bobot).appendTo(row);
                                 }
+                                $('<td>').addClass('text-center align-middle').text(v.nutr).appendTo(row);
+                                $('<td>').addClass('text-center align-middle').text(v.nuts).appendTo(row);
+                                $('<td>').addClass('text-center align-middle').text(v.nuas).appendTo(row);
                                 $('<td>').addClass('text-center align-middle').text(v.kode_prodi).appendTo(row);
                                 $('<td>').addClass('text-center align-middle').text(v.kode_prodi).appendTo(row);
 

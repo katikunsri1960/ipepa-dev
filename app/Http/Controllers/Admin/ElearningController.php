@@ -68,6 +68,7 @@ class ElearningController extends Controller
                 }
 
             } else {
+                // dd($store);
                 return redirect()->back()->with('error', 'Data gagal dibuat!');
             }
         }
