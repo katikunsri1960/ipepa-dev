@@ -13,6 +13,7 @@
                 <div class="col-md-4">
                     <select name="prodi" id="prodi" class="form-control chosen-select" required>
                         <option value="">Pilih Prodi</option>
+                        <option value="all">Semua Prodi</option>
                         @foreach ($prodi as $p)
                         <option value="{{ $p->id_prodi }}">{{ $p->kode_program_studi.' - '.$p->nama_program_studi. '
                             ('.$p->nama_jenjang_pendidikan.')' }}</option>

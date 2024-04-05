@@ -92,24 +92,27 @@ class SimakController extends Controller
         // $mk = $req->mk;
         $db = DB::connection('pd_con');
 
-        $data = $db->table('simak_transkrips')
-                    ->leftJoin('simak_mahasiswas as ma', 'ma.FMNIM', '=', 'simak_transkrips.FNIM')
-                    ->leftJoin('simak_kelas', function($join){
-                        $join->on('simak_transkrips.FKLS', '=', 'simak_kelas.KLS_KODE')
-                            ->on('simak_transkrips.nm_prodi_simak', '=', 'simak_kelas.nm_prodi_simak');
-                    })
-                    ->leftJoin('simak_matakuliahs as m', function($j){
-                        $j->on('simak_transkrips.FCOD', 'm.FCOD')
-                        ->on('simak_transkrips.nm_prodi_simak', 'm.nm_prodi_simak');
-                    })
-                    ->leftJoin('program_studi as ps', 'ps.id_prodi', '=', 'simak_transkrips.id_prodi')
-                    ->where('simak_transkrips.id_prodi', $prodi)
-                    // ->where('simak_transkrips.FCOD', $mk)
-                    ->where('simak_transkrips.FTAK', $ta)
-                    ->select('simak_transkrips.FNIM as FNIM', 'simak_transkrips.FTAK as FTAK', 'simak_transkrips.FCOD as FCOD',
-                            'ma.FMNAM as FMNAM', 'm.FSKS', 'simak_kelas.KLS_NAMA as KLS_NAMA', 'm.FMAT as nm_mata_kuliah', 'ps.kode_program_studi as kode_prodi')
-                    ->orderBy('FNIM', 'asc')
-                    ->get();
+        $query = $db->table('simak_transkrips')
+            ->leftJoin('simak_mahasiswas as ma', 'ma.FMNIM', '=', 'simak_transkrips.FNIM')
+            ->leftJoin('simak_kelas', function($join){
+                $join->on('simak_transkrips.FKLS', '=', 'simak_kelas.KLS_KODE')
+                    ->on('simak_transkrips.nm_prodi_simak', '=', 'simak_kelas.nm_prodi_simak');
+            })
+            ->leftJoin('simak_matakuliahs as m', function($j){
+                $j->on('simak_transkrips.FCOD', 'm.FCOD')
+                ->on('simak_transkrips.nm_prodi_simak', 'm.nm_prodi_simak');
+            })
+            ->leftJoin('program_studi as ps', 'ps.id_prodi', '=', 'simak_transkrips.id_prodi')
+            ->where('simak_transkrips.FTAK', $ta)
+            ->select('simak_transkrips.FNIM as FNIM', 'simak_transkrips.FTAK as FTAK', 'simak_transkrips.FCOD as FCOD',
+                    'ma.FMNAM as FMNAM', 'm.FSKS', 'simak_kelas.KLS_NAMA as KLS_NAMA', 'm.FMAT as nm_mata_kuliah', 'ps.kode_program_studi as kode_prodi')
+            ->orderBy('FNIM', 'asc');
+
+        if($prodi != 'all') {
+            $query->where('simak_transkrips.id_prodi', $prodi);
+        }
+
+        $data = $query->get();
 
         return response()->json(['data'=>$data]);
     }

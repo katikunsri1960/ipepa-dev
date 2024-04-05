@@ -62,15 +62,6 @@
                             <label for="exampleInputEmail1">Program Studi <span style="color: red;">*</span></label>
                             <select class="form-control" name="program_studi" type="hidden">
                                 <option value="">Pilih Program Studi</option>
-                                @foreach($program_studi as $p)
-                                    <option value="{{ $p->id_prodi }}">{{ $p->nama_program_studi }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group" id='prodi_1' hidden>
-                            <label for="exampleInputEmail1">Program Studi <span style="color: red;">*</span></label>
-                            <select class="form-control" name="program_studi" type="hidden">
-                                <option value="">Pilih Program Studi</option>
                                 <option value="Semua Prodi">Semua Program Studi</option>
                                 @foreach($program_studi as $p)
                                     <option value="{{ $p->id_prodi }}">{{ $p->nama_program_studi }}</option>
@@ -104,14 +95,12 @@
         function Export(){
             if($('#table_name').val() == ''){
                 $('#prodi').hide();
-                $('#prodi_1').hide();
                 $('#periode').hide();
                 $('#status_mahasiswa').hide();
                 $('#semester').hide();
             }
             if($('#table_name').val() == 'Mata Kuliah'){
                 $('#prodi').show();
-                $('#prodi_1').hide();
                 $('#periode').hide();
                 $('#status_mahasiswa').hide();
                 $('#semester').hide();
@@ -120,62 +109,53 @@
                 $('#periode').show();
                 $('#semester').hide();
                 $('#status_mahasiswa').show();
-                $('#prodi_1').show();
-                $('#prodi').hide();
+                $('#prodi').show();
             }
             if($('#table_name').val() == 'Nilai Transfer'){
                 $('#periode').show();
                 $('#semester').hide();
                 $('#status_mahasiswa').hide();
-                $('#prodi_1').hide();
                 $('#prodi').show();
             }
             if($('#table_name').val() == 'Penugasan Dosen'){
                 $('#periode').show();
                 $('#semester').hide();
                 $('#status_mahasiswa').hide();
-                $('#prodi_1').show();
-                $('#prodi').hide();
+                $('#prodi').show();
             }
             if($('#table_name').val() == 'Mahasiswa Lulus/DO'){
                 $('#periode').show();
                 $('#semester').hide();
                 $('#status_mahasiswa').hide();
-                $('#prodi_1').show();
-                $('#prodi').hide();
+                $('#prodi').show();
             }
             if($('#table_name').val() == 'Kelas Perkuliahan'){
                 $('#semester').show();
                 $('#periode').hide();
-                $('#prodi_1').hide();
                 $('#prodi').show();
                 $('#status_mahasiswa').hide();
             }
             if($('#table_name').val() == 'Aktivitas Mengajar Dosen'){
                 $('#semester').show();
                 $('#periode').hide();
-                $('#prodi_1').hide();
                 $('#status_mahasiswa').hide();
                 $('#prodi').show();
             }
             if($('#table_name').val() == 'KRS Mahasiswa'){
                 $('#semester').show();
                 $('#periode').hide();
-                $('#prodi_1').hide();
                 $('#status_mahasiswa').hide();
                 $('#prodi').show();
             }
             if($('#table_name').val() == 'Aktivitas Kuliah'){
                 $('#semester').show();
                 $('#periode').hide();
-                $('#prodi_1').hide();
                 $('#status_mahasiswa').hide();
                 $('#prodi').show();
             }
             if($('#table_name').val() == 'Transkrip'){
                 $('#semester').show();
                 $('#periode').hide();
-                $('#prodi_1').hide();
                 $('#status_mahasiswa').hide();
                 $('#prodi').show();
             }
