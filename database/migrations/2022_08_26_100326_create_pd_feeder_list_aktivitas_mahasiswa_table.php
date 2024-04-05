@@ -25,9 +25,10 @@ return new class extends Migration
             $table->string("id_semester")->nullable();
             $table->string("nama_semester")->nullable();
             $table->text("judul")->nullable();
-            $table->string("keterangan")->nullable();
+            $table->text("keterangan")->nullable();
             $table->string("lokasi")->nullable();
             $table->string("sk_tugas")->nullable();
+            $table->string('sumber_data')->nullable();
             $table->date("tanggal_sk_tugas")->nullable();
             $table->string("untuk_kampus_merdeka")->nullable();
         });
