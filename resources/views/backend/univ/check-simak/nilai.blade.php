@@ -41,7 +41,7 @@
             </form>
         </div>
         <hr>
-        <div class="pt-2 ml-3 mr-3" id="nilai-data">
+        <div class="pt-2 ml-3 mr-3 table-responsive" id="nilai-data">
             <table id="nilai-data"></table>
         </div>
     </div>
@@ -139,6 +139,9 @@
                             $('<th>').addClass('text-center align-middle').text('Nilai Tugas').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Nilai UTS').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Nilai UAS').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Persen NUTR').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Persen NUTS').appendTo(headerRow);
+                            $('<th>').addClass('text-center align-middle').text('Persen UAS').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Kode Prodi Mahasiswa').appendTo(headerRow);
                             $('<th>').addClass('text-center align-middle').text('Kode Prodi Kelas').appendTo(headerRow);
                             // looping data
@@ -171,7 +174,11 @@
                                     $('<td>').addClass('text-center align-middle').text(indeks).appendTo(row);
                                 }
 
-                                $('<td>').addClass('text-center align-middle').text(v.FNIL_AKHIR).appendTo(row);
+                                var nilai_akhir = (v.nutr * v.persen_nutr / 100) + (v.nuts * v.persen_nuts / 100) + (v.nuas * v.persen_nuas / 100);
+                                // make nilai akhir to 2 decimal
+                                nilai_akhir = nilai_akhir.toFixed(2);
+
+                                $('<td>').addClass('text-center align-middle').text(nilai_akhir).appendTo(row);
 
                                 if (v.FNIL === 'A') {
                                     var bobot = v.FSKS * 4;
@@ -195,6 +202,9 @@
                                 $('<td>').addClass('text-center align-middle').text(v.nutr).appendTo(row);
                                 $('<td>').addClass('text-center align-middle').text(v.nuts).appendTo(row);
                                 $('<td>').addClass('text-center align-middle').text(v.nuas).appendTo(row);
+                                $('<td>').addClass('text-center align-middle').text(v.persen_nutr).appendTo(row);
+                                $('<td>').addClass('text-center align-middle').text(v.persen_nuts).appendTo(row);
+                                $('<td>').addClass('text-center align-middle').text(v.persen_nuas).appendTo(row);
                                 $('<td>').addClass('text-center align-middle').text(v.kode_prodi).appendTo(row);
                                 $('<td>').addClass('text-center align-middle').text(v.kode_prodi).appendTo(row);
 
@@ -207,6 +217,7 @@
                                 dom: '<"html5buttons"B>lTfgitp',
                                 // show entries up to 500
                                 lengthMenu: [[10, 25, 50, 100, 500, -1], [10, 25, 50, 100, 500, "All"]],
+                                responsive: true,
                                 buttons: [
                                     {extend: 'copy'},
                                     {extend: 'csv'},
